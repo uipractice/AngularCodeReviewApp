@@ -1,0 +1,123 @@
+<mat-tab-group>
+  <mat-tab label="FUNCTIONAL">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6"> <h1>Functional checklist</h1></div>
+        <div class="col-md-6">
+          <button type="button" style="background-color: #2596be; float: right;" class="btn btn-info">Next</button>
+        </div>
+
+      </div>
+     
+        <div class="col-md-12"  style="background-color: #322c2c12;"> <span>Does Code meet functional requirement?</span>
+        <div class="container" style="background-color: white;">
+          <div class="row" style="background-color: white;">
+            <div class="col-md-4"> <span>Does the application is providing all the functionalities that were mentioned in the functional requirement of that application?</span></div>
+            <div class="col-md-4">
+              <mat-select placeholder="select option" class="form-control">
+                <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-4">
+<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" (rateChange)="getRating($event)"></ngb-rating>
+
+            </div>
+
+          </div>
+          <div class="row" style="background-color: white;">
+            <div class="col-md-4"> <span>Does it define the expected system service and behavior?</span></div>
+            <div class="col-md-4">
+              <mat-select placeholder="select option" class="form-control">
+                <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-4">
+<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" (rateChange)="getRating($event)"></ngb-rating>
+
+            </div>
+
+          </div>
+          <div class="row" style="background-color: white;">
+            <div class="col-md-4"> <span>Is  it expressed in Use Case form or user story as they exhibit externally visible functional behavior.</span></div>
+            <div class="col-md-4">
+              <mat-select placeholder="select option" class="form-control">
+                <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-4">
+<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" (rateChange)="getRating($event)"></ngb-rating>
+
+            </div>
+
+          </div>
+          <div class="row" style="background-color: white;">
+            <div class="col-md-4"> <span>Is there any excess functionality in the code but not described in the Story?</span></div>
+            <div class="col-md-4">
+              <mat-select placeholder="select option" class="form-control">
+                <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-4">
+<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" (rateChange)="getRating($event)"></ngb-rating>
+
+            </div>
+
+          </div>
+        </div>
+     
+      </div>
+      <div class="col-md-12"  style="background-color: #322c2c12;" ><span>Readability & Maintenance</span>
+        <div class="container" style="background-color: white;">
+          <div class="row" style="background-color: white;">
+            <div class="col-md-4"> <span>Does the code correctly implement the design?</span></div>
+            <div class="col-md-4">
+              <mat-select placeholder="select option" class="form-control">
+                <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-4">
+<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" (rateChange)="getRating($event)"></ngb-rating>
+
+            </div>
+
+          </div>
+          <div class="row" style="background-color: white;">
+            <div class="col-md-4"> <span>Does the implementation follow SRP (Single Responsibility Principle)?</span></div>
+            <div class="col-md-4">
+              <mat-select placeholder="select option" class="form-control">
+                <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-4">
+<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" (rateChange)="getRating($event)"></ngb-rating>
+
+            </div>
+
+          </div>
+          <div class="row" style="background-color: white;">
+            <div class="col-md-4"> <span>Does the implementation in accord with naming conventions?</span></div>
+            <div class="col-md-4">
+              <mat-select placeholder="select option" class="form-control">
+                <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-4">
+<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" (rateChange)="getRating($event)"></ngb-rating>
+
+            </div>
+
+          </div>
+          
+        </div>
+       </div>
+       <div class="row">
+        <div class="col-md-12">
+          <button type="button" style="background-color: #2596be; float: right;" class="btn btn-info">Next</button>
+
+        </div>
+       </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="QUALITY"></mat-tab>
+  <mat-tab label="PERFORMANCE"></mat-tab>
+</mat-tab-group>

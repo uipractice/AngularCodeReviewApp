@@ -1,0 +1,11 @@
+table {
+    width: 100%;
+  }
+
+
+  ngb-rating {
+    color: #FFC107;
+    font-size: 37px;
+    margin-top: 7px;
+    margin-left: 11px;
+}
