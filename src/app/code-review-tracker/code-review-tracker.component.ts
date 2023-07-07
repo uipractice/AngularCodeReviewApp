@@ -12,18 +12,21 @@ export class CodeReviewTrackerComponent implements OnInit {
   codeReviewData:any
   selectOptions:any
   starRating =0
+  reviewDetailsHeader:string='Performance'
+  selectelTabCheckList:any
 
   
 
   constructor(private codeService:CodeReviewService){}
   ngOnInit(): void {
-    this.codeService.getReviewTrackerDetails().subscribe((res:any)=>{
-      if(res.success==true){
-        console.log('review tracker',res.data[0].data)
-        this.codeReviewData=res.data[0].data
-        
-      }
+    this.codeService.getReviewTrackerDetails(this.reviewDetailsHeader).subscribe((res:any)=>{
+      console.log(res.data[0].data[0]);
+      this.selectelTabCheckList=res.data[0].data[0]
+      console.log(this.selectelTabCheckList.key);
     })
+    
+    
+    
 
     this.codeService.getOptions().subscribe((res:any)=>{
       this.selectOptions=res.data[0].options
@@ -31,6 +34,10 @@ export class CodeReviewTrackerComponent implements OnInit {
     })
 
     
+  }
+
+  onTabData(id:any){
+
   }
 
   getRating(rating:any){
