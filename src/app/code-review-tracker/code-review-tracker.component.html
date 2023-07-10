@@ -1,4 +1,4 @@
-<mat-tab-group>
+<!-- <mat-tab-group>
   <mat-tab label="FUNCTIONAL">
     <div class="container">
       <div class="row" >
@@ -9,9 +9,7 @@
 
       </div>
       <div *ngFor="let child of selectelTabCheckList?.value ">
-        <!-- <div [ngClass]="child.options==''?'col-md-4':'col-md-12'"  style="background-color: #322c2c12;" >
-         <span>{{child.key}}</span>
-     </div> -->
+     
      <div class="container" style="background-color: #322c2c12;">
       <div class="row" style="background-color: #322c2c12;">
         <div [ngClass]="child.options==''?'col-md-4':'col-md-12'" > 
@@ -63,4 +61,175 @@
   </mat-tab>
   <mat-tab label="QUALITY"></mat-tab>
   <mat-tab label="PERFORMANCE"></mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
+
+<div class="container">
+  
+  <mat-tab-group class="tabs-grey">
+    <mat-tab class="tab-heading" label="Code Review">
+  
+     <mat-tab-group class="vertical-tabs" animationDuration="0ms">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="steps">Step 1</div>
+           <mat-icon class="example-tab-icon">check_circle</mat-icon>
+            <span class="steps-title">Quality</span>
+          </ng-template>
+  
+          <!-- content -->
+         <h2 class="heading">Quality Checklist</h2>
+  
+         <ul class="right-next">
+          <li><a  href="">Back</a></li>
+          <li><a  href="">Next</a></li>
+        </ul>
+  
+  
+        <!--question 1-->
+        <h4 class="heading-grey">
+          <span>01</span>
+          Does code meet functional requirement?</h4>
+  
+        <div class="quality">
+       <div class="questions">
+              a. Does the application is providing all the functionalities that were mentioned in the functional requirement of that application?
+            </div>
+            <div class="selection">
+              <mat-form-field>
+                <mat-select [(value)]="selected">
+                  <mat-option>None</mat-option>
+                  <mat-option value="option1">Yes</mat-option>
+                  <mat-option value="option2">No</mat-option>
+                  <mat-option value="option3">Option</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+            </div>
+           <div class="Comment"><img src="../assets/comment_light.svg"></div>
+           <div class="rating-number">
+            <div class="selection">
+              <mat-form-field>
+                <mat-select [(value)]="selected">
+                  <mat-option>None</mat-option>
+                  <mat-option value="option1">Yes</mat-option>
+                  <mat-option value="option2">No</mat-option>
+                  <mat-option value="option3">Option</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+            </div>
+           </div>
+        </div>
+  
+        <div class="quality">
+          <div class="questions">
+            b. Does it define the expected system service and behavior?
+               </div>
+               <div class="selection">
+                 <mat-form-field>
+                   <mat-select [(value)]="selected">
+                     <mat-option>None</mat-option>
+                     <mat-option value="option1">Yes</mat-option>
+                     <mat-option value="option2">No</mat-option>
+                     <mat-option value="option3">Option</mat-option>
+                   </mat-select>
+                 </mat-form-field>
+  
+               </div>
+              <div class="Comment"><img src="../assets/comment_light.svg"></div>
+              <div class="rating-number">
+               <div class="selection">
+                 <mat-form-field>
+                   <mat-select [(value)]="selected">
+                     <mat-option>None</mat-option>
+                     <mat-option value="option1">Yes</mat-option>
+                     <mat-option value="option2">No</mat-option>
+                     <mat-option value="option3">Option</mat-option>
+                   </mat-select>
+                 </mat-form-field>
+  
+               </div>
+              </div>
+           </div>
+  
+  <!--question 2-->
+  <h4 class="heading-grey">
+    <span>01</span>
+    Does code meet functional requirement?</h4>
+  
+  <div class="quality">
+  <div class="questions">
+        a. Does the application is providing all the functionalities that were mentioned in the functional requirement of that application?
+      </div>
+      <div class="selection">
+        <mat-form-field>
+          <mat-select [(value)]="selected">
+            <mat-option>None</mat-option>
+            <mat-option value="option1">Yes</mat-option>
+            <mat-option value="option2">No</mat-option>
+            <mat-option value="option3">Option</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+      </div>
+     <div class="Comment"><img src="../assets/comment_light.svg"></div>
+     <div class="rating-number">
+      <div class="selection">
+        <mat-form-field>
+          <mat-select [(value)]="selected">
+            <mat-option>None</mat-option>
+            <mat-option value="option1">Yes</mat-option>
+            <mat-option value="option2">No</mat-option>
+            <mat-option value="option3">Option</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+      </div>
+     </div>
+  </div>
+  
+  
+        </mat-tab>
+        <mat-tab label="">
+          <ng-template mat-tab-label>
+            <div class="steps">Step 2</div>
+          <!--  <mat-icon class="example-tab-icon">check_circle</mat-icon>-->
+            <span class="steps-title">Performance</span>
+          </ng-template>
+          Content 2</mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="steps">Step 3</div>
+            <!--<mat-icon class="example-tab-icon">check_circle</mat-icon>-->
+            <span class="steps-title">Structural</span>
+          </ng-template>
+  
+          Content 3
+        </mat-tab>
+        <mat-tab >
+          <ng-template mat-tab-label>
+            <div class="steps">Step 4</div>
+           <!-- <mat-icon class="example-tab-icon">check_circle</mat-icon>-->
+            <span class="steps-title">Security</span>
+          </ng-template>
+  
+          Content 4</mat-tab>
+        <mat-tab>
+  
+          <ng-template mat-tab-label>
+            <div class="steps">Step 5</div>
+            <!--<mat-icon class="example-tab-icon">check_circle</mat-icon> -->
+            <span class="steps-title">Unit Testing</span>
+          </ng-template>
+  
+          Content 5</mat-tab>
+      </mat-tab-group>
+  
+  
+  
+    </mat-tab>
+    <mat-tab label="Sonar QUbe"> Content 2 </mat-tab>
+    <mat-tab label="Summary"> Content 3 </mat-tab>
+  </mat-tab-group>
+  </div>
+  

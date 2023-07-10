@@ -14,6 +14,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   starRating =0
   reviewDetailsHeader:string='Performance'
   selectelTabCheckList:any
+  selected = 'option2';
+
 
   
 
