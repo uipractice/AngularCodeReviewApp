@@ -5,8 +5,8 @@ body { margin: 0; font-family:'Lato', sans-serif!important; }
 
 
 .container {
-  max-width:1440px;
-  width:100%;
+  max-width:1440px !important;
+  width:100% !important;
   margin: 0 auto;
   }
   .blue-color {
