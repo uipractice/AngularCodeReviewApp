@@ -11,12 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/material.module';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+// import {MatIconModule} from '@angular/material/icon';
+// import {MatButtonModule} from '@angular/material/button';
+// import {MatToolbarModule} from '@angular/material/toolbar';
+// import {MatTabsModule} from '@angular/material/tabs';
+// import {MatSelectModule} from '@angular/material/select';
+// import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { CommonModule } from '@angular/common';
 import { primeModule } from 'src/prime.module';
@@ -39,12 +39,12 @@ import { primeModule } from 'src/prime.module';
     HttpClientModule,
     primeModule,
     NgbRatingModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatTabsModule,
-    MatSelectModule,
-    MatFormFieldModule
+    // MatIconModule,
+    // MatButtonModule,
+    // MatToolbarModule,
+    // MatTabsModule,
+    // MatSelectModule,
+    // MatFormFieldModule
 
 
   ],

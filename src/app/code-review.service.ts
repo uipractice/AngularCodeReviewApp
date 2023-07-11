@@ -35,7 +35,7 @@ baseUrl='https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'
     return this.http.get(`${this.baseUrl}/details?detailsId=${data}`)
   }
   getReviewTrackerDetails(data?:any){
-    return this.http.get(`${this.baseUrl}/checkListQuestions?type=${data}`)
+    return this.http.get(`${this.baseUrl}/checkListQuestions?step=${data}`)
   }
   getOptions(){
     return this.http.get(`${this.baseUrl}/options`).pipe(

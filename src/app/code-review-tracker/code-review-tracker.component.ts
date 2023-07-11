@@ -9,25 +9,20 @@ import { CodeReviewService } from '../code-review.service';
   styleUrls: ['./code-review-tracker.component.css']
 })
 export class CodeReviewTrackerComponent {
-  /*codeReviewData:any
+ codeReviewData:any
   selectOptions:any
   starRating =0
-  reviewDetailsHeader:string='Performance'
+  reviewDetailsHeader:number=0
   selectelTabCheckList:any
 
 
   selected = 'option2';
 
-/*
+
   constructor(private codeService:CodeReviewService){}
   ngOnInit(): void {
-    this.codeService.getReviewTrackerDetails(this.reviewDetailsHeader).subscribe((res:any)=>{
-      console.log(res.data[0].data[0]);
-      this.selectelTabCheckList=res.data[0].data[0]
-      console.log(this.selectelTabCheckList.key);
-    })
-
-
+    this.getReviewDetails()
+   
 
 
     this.codeService.getOptions().subscribe((res:any)=>{
@@ -37,19 +32,45 @@ export class CodeReviewTrackerComponent {
 
 
   }
-*/
+  getReviewDetails(indexValue?:any){
+    if(indexValue){
+      this.codeService.getReviewTrackerDetails(indexValue+1).subscribe((res:any)=>{
+        console.log(res.data[0].data[0]);
+        this.selectelTabCheckList=res.data[0].data[0]
 
-/*
+        
+      })
+    }
+    else 
+    this.codeService.getReviewTrackerDetails(this.reviewDetailsHeader+1).subscribe((res:any)=>{
+      console.log(res.data[0].data[0]);
+      this.selectelTabCheckList=res.data[0].data[0]
+
+     
+    })
+   
+  }
+ 
+
+
+
+
  onTabData(id:any){
 
+  }
+
+  onGetSideSelectedValue(value:any){
+    console.log('selected',value.index);
+    this.getReviewDetails(value.index)
+    
   }
   getRating(rating:any){
     console.log(rating);
   }
-}*/
-
-
-
 }
+
+
+
+
 
 
