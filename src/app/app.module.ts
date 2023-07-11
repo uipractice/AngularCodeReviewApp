@@ -20,13 +20,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { CommonModule } from '@angular/common';
 import { primeModule } from 'src/prime.module';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CodeReviewerDetailsComponent,
     StartCodeReviewTrackerComponent,
-    CodeReviewTrackerComponent
+    CodeReviewTrackerComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
