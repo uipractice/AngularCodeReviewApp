@@ -6,6 +6,9 @@ margin:0;
 font-family:'Lato', sans-serif !important;
 
 }
+.top-20 {
+  padding-top:20px;
+}
 .mdc-tab{
   font-family: inherit !important;
 }
@@ -22,6 +25,8 @@ font-family:'Lato', sans-serif !important;
     background-color: #023047;
     padding: 9px 16px 3px 20px;
     height: 55px;
+    position: fixed;
+    z-index: 99;
 }
   .blue-color {
     color:#003B5C;
@@ -30,6 +35,10 @@ font-family:'Lato', sans-serif !important;
     background:#f9f8f8;
     padding-left: 20px;
     border-bottom: 1px solid #E7E7E7;
+    position: fixed;
+    width: 100%;
+    z-index: 9;
+    padding-top: 60px;
 
   }
   .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
@@ -63,6 +72,9 @@ font-family:'Lato', sans-serif !important;
     max-width: 315px;
     border-right: 1px solid #F5F1F1;
     padding-top:1.01rem;
+    position: fixed;
+    height: 100vh;
+    top: 120px;
   }
   .vertical-tabs .mat-mdc-tab-labels {
      display:inline-block !important;
@@ -73,6 +85,7 @@ font-family:'Lato', sans-serif !important;
     width: 76%;
     left: 22.5%;
     overflow:visible ;
+    top: 112px;
   }
   .mat-mdc-tab-body-wrapper {
 
@@ -181,17 +194,14 @@ padding: 1.63rem 1rem;
   color: #000;
   font-size:16px;
   font-weight: 900 !important;
-  width:56%;
+  width:62%;
   padding-top:7px;
   margin-bottom:0px !important;
 }
 .heading-grey .quality {
-padding-top: 0px;
+padding: 0px;
+border-bottom:0px;
 }
-.heading-grey .quality {
-  border-bottom:0px;
-}
-
 
 .heading-grey .number-bule {
   background: #023047;
@@ -209,25 +219,28 @@ padding-top: 0px;
   align-items: self-start;
   border-bottom: 1px dashed #CBCBCB;
   margin-left: 50px;
-  padding:20px 0px 5px 0px;
+  padding:12px 16px 12px 0px;
 
 }
 .questions {
-  width: 54%;
+  width: 59%;
   color: #212121;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.625rem;
   margin-right: 6%;
   }
-.selection .mat-mdc-text-field-wrapper {
+ .select-dropdown .mat-mdc-text-field-wrapper {
   border-radius: 0.1875rem;
   border: 1px solid #C1C1C1;
-  width: 8.9375rem;
+  width: 93px;
   background:#fff !important;
   margin-right: 10px;
+  height: 52px;
 }
-
+.selection .mat-mdc-text-field-wrapper{
+width: 114px !important;
+}
 
 .Comment {
     text-align: center;
@@ -235,6 +248,7 @@ padding-top: 0px;
     border: 1px solid #C1C1C1;
     padding:12px;
     background:#fff;
+    height: 53px;
 }
 .Comment img {
 width:30px;
@@ -261,11 +275,20 @@ width:30px;
 }
 .mat-h2, .mat-headline-6, .mat-typography .mat-h2, .mat-typography .mat-headline-6, .mat-typography h2{
   font-family:'Lato', sans-serif !important;
-
-}
+  font-weight:600 !important;
+  padding-bottom: 1.5rem;
+  margin-bottom: 0px !important;
+ }
 .mat-typography h4 {
   font-family:'Lato', sans-serif !important;
 }
 .mat-mdc-form-field-subscript-wrapper {
 height: 0px !important;
 }
+
+/*
+.question-list:last-child .quality{
+
+  border: 10px solid red;
+}
+*/
