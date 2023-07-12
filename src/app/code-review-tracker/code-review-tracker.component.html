@@ -105,7 +105,7 @@
                        <mat-option>None</mat-option>
                        <mat-option value="option1">Yes</mat-option>
                        <mat-option value="option2">No</mat-option>
-                       <mat-option value="option3">Option</mat-option>
+                       <mat-option value="option3">N/A</mat-option>
                      </mat-select>
                    </mat-form-field>
                  </div>
@@ -115,9 +115,11 @@
                    <mat-label>Rating</mat-label>
                     <mat-select [(value)]="selected">
                       <mat-option>None</mat-option>
-                      <mat-option value="option1">Yes</mat-option>
-                      <mat-option value="option2">No</mat-option>
-                      <mat-option value="option3">Option</mat-option>
+                      <mat-option value="option1">1</mat-option>
+                      <mat-option value="option2">2</mat-option>
+                      <mat-option value="option3">3</mat-option>
+                      <mat-option value="option3">4</mat-option>
+                      <mat-option value="option3">5</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -129,9 +131,11 @@
                     <mat-label>Achieved</mat-label>
                      <mat-select [(value)]="selected">
                        <mat-option>None</mat-option>
-                       <mat-option value="option1">Yes</mat-option>
-                       <mat-option value="option2">No</mat-option>
-                       <mat-option value="option3">Option</mat-option>
+                       <mat-option value="option1">1</mat-option>
+                      <mat-option value="option2">2</mat-option>
+                      <mat-option value="option3">3</mat-option>
+                      <mat-option value="option3">4</mat-option>
+                      <mat-option value="option3">5</mat-option>
                      </mat-select>
                    </mat-form-field>
                  </div>
@@ -151,33 +155,37 @@
               <mat-option>None</mat-option>
               <mat-option value="option1">Yes</mat-option>
               <mat-option value="option2">No</mat-option>
-              <mat-option value="option3">Option</mat-option>
+              <mat-option value="option3">N/A</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
 
-        <div class="rating-number select-dropdown">
+        <div class="rating select-dropdown">
          <mat-form-field>
           <mat-label>Rating</mat-label>
            <mat-select [(value)]="selected">
              <mat-option>None</mat-option>
-             <mat-option value="option1">Yes</mat-option>
-             <mat-option value="option2">No</mat-option>
-             <mat-option value="option3">Option</mat-option>
+             <mat-option value="option1">1</mat-option>
+             <mat-option value="option2">2</mat-option>
+             <mat-option value="option3">3</mat-option>
+             <mat-option value="option3">4</mat-option>
+             <mat-option value="option3">5</mat-option>
            </mat-select>
          </mat-form-field>
        </div>
 
 
        <div class="rating-number">
-        <div class="applicable select-dropdown">
+        <div class="achieved select-dropdown">
           <mat-form-field>
-           <mat-label>Applicable</mat-label>
+           <mat-label>Achieved</mat-label>
             <mat-select [(value)]="selected">
               <mat-option>None</mat-option>
-              <mat-option value="option1">Yes</mat-option>
-              <mat-option value="option2">No</mat-option>
-              <mat-option value="option3">Option</mat-option>
+              <mat-option value="option1">1</mat-option>
+             <mat-option value="option2">2</mat-option>
+             <mat-option value="option3">3</mat-option>
+             <mat-option value="option3">4</mat-option>
+             <mat-option value="option3">5</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -190,30 +198,48 @@
        Does it define the expected system service and behavior?
                </div>
                <div class="selection select-dropdown">
-                 <mat-form-field>
-                   <mat-select [(value)]="selected">
-                     <mat-option>None</mat-option>
-                     <mat-option value="option1">Yes</mat-option>
-                     <mat-option value="option2">No</mat-option>
-                     <mat-option value="option3">Option</mat-option>
-                   </mat-select>
-                 </mat-form-field>
-
-               </div>
-              <div class="Comment"><img src="../assets/comment_light.svg"></div>
-              <div class="rating-number">
-               <div class="select-dropdown">
-                 <mat-form-field>
-                   <mat-select [(value)]="selected">
-                     <mat-option>None</mat-option>
-                     <mat-option value="option1">Yes</mat-option>
-                     <mat-option value="option2">No</mat-option>
-                     <mat-option value="option3">Option</mat-option>
-                   </mat-select>
-                 </mat-form-field>
-
-               </div>
+                <mat-form-field>
+                 <mat-label>Applicable</mat-label>
+                  <mat-select [(value)]="selected">
+                    <mat-option>None</mat-option>
+                    <mat-option value="option1">Yes</mat-option>
+                    <mat-option value="option2">No</mat-option>
+                    <mat-option value="option3">N/A</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
+
+              <div class="rating select-dropdown">
+               <mat-form-field>
+                <mat-label>Rating</mat-label>
+                 <mat-select [(value)]="selected">
+                   <mat-option>None</mat-option>
+                   <mat-option value="option1">1</mat-option>
+                   <mat-option value="option2">2</mat-option>
+                   <mat-option value="option3">3</mat-option>
+                   <mat-option value="option3">4</mat-option>
+                   <mat-option value="option3">5</mat-option>
+                 </mat-select>
+               </mat-form-field>
+             </div>
+
+
+             <div class="rating-number">
+              <div class="achieved select-dropdown">
+                <mat-form-field>
+                 <mat-label>Achieved</mat-label>
+                  <mat-select [(value)]="selected">
+                    <mat-option>None</mat-option>
+                    <mat-option value="option1">1</mat-option>
+                   <mat-option value="option2">2</mat-option>
+                   <mat-option value="option3">3</mat-option>
+                   <mat-option value="option3">4</mat-option>
+                   <mat-option value="option3">5</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+             </div>
+             <div class="Comment"><img src="../assets/comment_light.svg"></div>
            </div>
           </div>
   <!--question 2-->
@@ -227,31 +253,49 @@
   <div class="questions">
    Does the application is providing all the functionalities that were mentioned in the functional requirement of that application?
       </div>
-      <div class="selection">
+      <div class="selection select-dropdown">
         <mat-form-field>
+         <mat-label>Applicable</mat-label>
           <mat-select [(value)]="selected">
             <mat-option>None</mat-option>
             <mat-option value="option1">Yes</mat-option>
             <mat-option value="option2">No</mat-option>
-            <mat-option value="option3">Option</mat-option>
+            <mat-option value="option3">N/A</mat-option>
           </mat-select>
         </mat-form-field>
-
       </div>
-     <div class="Comment"><img src="../assets/comment_light.svg"></div>
+
+      <div class="rating select-dropdown">
+       <mat-form-field>
+        <mat-label>Rating</mat-label>
+         <mat-select [(value)]="selected">
+           <mat-option>None</mat-option>
+           <mat-option value="option1">1</mat-option>
+           <mat-option value="option2">2</mat-option>
+           <mat-option value="option3">3</mat-option>
+           <mat-option value="option3">4</mat-option>
+           <mat-option value="option3">5</mat-option>
+         </mat-select>
+       </mat-form-field>
+     </div>
+
+
      <div class="rating-number">
-      <div class="selection">
+      <div class="achieved select-dropdown">
         <mat-form-field>
+         <mat-label>Achieved</mat-label>
           <mat-select [(value)]="selected">
             <mat-option>None</mat-option>
-            <mat-option value="option1">Yes</mat-option>
-            <mat-option value="option2">No</mat-option>
-            <mat-option value="option3">Option</mat-option>
+            <mat-option value="option1">1</mat-option>
+           <mat-option value="option2">2</mat-option>
+           <mat-option value="option3">3</mat-option>
+           <mat-option value="option3">4</mat-option>
+           <mat-option value="option3">5</mat-option>
           </mat-select>
         </mat-form-field>
-
       </div>
      </div>
+     <div class="Comment"><img src="../assets/comment_light.svg"></div>
   </div>
 </div>
 

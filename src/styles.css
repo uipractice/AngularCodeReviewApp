@@ -186,7 +186,7 @@ text-decoration: none;
 display: flex;
 align-items: self-start;
 background: #F8F8F8;
-padding: 1.63rem 1rem;
+padding: 1.063rem 1rem;
 }
 .heading-grey h4 {
   border-radius: 0.125rem;
@@ -286,9 +286,6 @@ width:30px;
 height: 0px !important;
 }
 
-/*
-.question-list:last-child .quality{
-
-  border: 10px solid red;
+.question-list .quality:last-child  {
+border-bottom:0px;
 }
-*/
