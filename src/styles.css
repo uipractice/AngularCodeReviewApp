@@ -1,13 +1,33 @@
 /*@import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";*/
 html, body { height: 100%; }
-body { margin: 0; font-family:'Lato', sans-serif!important; }
+body {
+margin:0;
+font-family:'Lato', sans-serif !important;
 
+}
+.top-20 {
+  padding-top:20px;
+}
+.mdc-tab{
+  font-family: inherit !important;
+}
 .container {
-  max-width:1440px !important;
+  max-width:1920px !important;
   width:100% !important;
   margin: 0 auto;
+  padding: 0px !important;
   }
+  .header {
+    overflow: hidden;
+    width:100% !important;
+    margin: 0 auto;
+    background-color: #023047;
+    padding: 9px 16px 3px 20px;
+    height: 55px;
+    position: fixed;
+    z-index: 99;
+}
   .blue-color {
     color:#003B5C;
   }
@@ -15,6 +35,10 @@ body { margin: 0; font-family:'Lato', sans-serif!important; }
     background:#f9f8f8;
     padding-left: 20px;
     border-bottom: 1px solid #E7E7E7;
+    position: fixed;
+    width: 100%;
+    z-index: 9;
+    padding-top: 60px;
 
   }
   .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
@@ -29,6 +53,7 @@ body { margin: 0; font-family:'Lato', sans-serif!important; }
     color:#4F788F !important;
     text-transform: uppercase;
     font-weight:600;
+    font-size: 1rem;
   }
 
   .tab-heading{
@@ -47,6 +72,9 @@ body { margin: 0; font-family:'Lato', sans-serif!important; }
     max-width: 315px;
     border-right: 1px solid #F5F1F1;
     padding-top:1.01rem;
+    position: fixed;
+    height: 100vh;
+    top: 120px;
   }
   .vertical-tabs .mat-mdc-tab-labels {
      display:inline-block !important;
@@ -55,8 +83,9 @@ body { margin: 0; font-family:'Lato', sans-serif!important; }
   .vertical-tabs .mat-mdc-tab-body-wrapper {
     position: absolute;
     width: 76%;
-    left: 25%;
+    left: 22.5%;
     overflow:visible ;
+    top: 112px;
   }
   .mat-mdc-tab-body-wrapper {
 
@@ -154,15 +183,27 @@ text-decoration: none;
   padding-top: 22px;
 }
 .heading-grey {
+display: flex;
+align-items: self-start;
+background: #F8F8F8;
+padding: 1.063rem 1rem;
+}
+.heading-grey h4 {
   border-radius: 0.125rem;
   background: #F8F8F8;
   color: #000;
-font-size:16px;
-font-weight: 900 !important;
-padding: 26px 16px;
-
+  font-size:16px;
+  font-weight: 900 !important;
+  width:62%;
+  padding-top:7px;
+  margin-bottom:0px !important;
 }
-.heading-grey span {
+.heading-grey .quality {
+padding: 0px;
+border-bottom:0px;
+}
+
+.heading-grey .number-bule {
   background: #023047;
     width: 20px;
     height: 20px;
@@ -178,32 +219,40 @@ padding: 26px 16px;
   align-items: self-start;
   border-bottom: 1px dashed #CBCBCB;
   margin-left: 50px;
-  padding:20px 0px 5px 0px;
+  padding:12px 16px 12px 0px;
 
 }
 .questions {
-  width: 54%;
+  width: 59%;
   color: #212121;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.625rem;
   margin-right: 6%;
   }
-.selection .mat-mdc-text-field-wrapper {
+ .select-dropdown .mat-mdc-text-field-wrapper {
   border-radius: 0.1875rem;
   border: 1px solid #C1C1C1;
-  width: 8.9375rem;
-  height: 38px;
+  width: 93px;
   background:#fff !important;
+  margin-right: 10px;
+  height: 52px;
 }
-
+.selection .mat-mdc-text-field-wrapper{
+width: 114px !important;
+}
 
 .Comment {
     text-align: center;
     border-radius: 0.1875rem;
     border: 1px solid #C1C1C1;
-    margin: 0px 16px;
-    padding: 4px 12px;
+    padding:12px;
+    background:#fff;
+    height: 53px;
+}
+.Comment img {
+width:30px;
+
 }
 .mat-mdc-tab-body.mat-mdc-tab-body-active{
   overflow-y: inherit !important;
@@ -217,4 +266,26 @@ padding: 26px 16px;
 
 .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
   padding-top: 5px !important;
+}
+.mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
+  border-color:#219EBC!important;
+}
+.mdc-tab-indicator .mdc-tab-indicator__content--underline {
+  border-top-width: 3px !important;
+}
+.mat-h2, .mat-headline-6, .mat-typography .mat-h2, .mat-typography .mat-headline-6, .mat-typography h2{
+  font-family:'Lato', sans-serif !important;
+  font-weight:600 !important;
+  padding-bottom: 1.5rem;
+  margin-bottom: 0px !important;
+ }
+.mat-typography h4 {
+  font-family:'Lato', sans-serif !important;
+}
+.mat-mdc-form-field-subscript-wrapper {
+height: 0px !important;
+}
+
+.question-list .quality:last-child  {
+border-bottom:0px;
 }
