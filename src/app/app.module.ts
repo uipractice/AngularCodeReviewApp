@@ -20,13 +20,15 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CommonModule } from '@angular/common';
 import { primeModule } from 'src/prime.module';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CodeReviewerDetailsComponent,
     StartCodeReviewTrackerComponent,
-    CodeReviewTrackerComponent
+    CodeReviewTrackerComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

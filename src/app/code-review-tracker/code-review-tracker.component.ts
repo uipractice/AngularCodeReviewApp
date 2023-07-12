@@ -14,27 +14,25 @@ export class CodeReviewTrackerComponent {
   starRating =0
   reviewDetailsHeader:number=0
   selectelTabCheckList:any
-
-
+  techStackdetails:any
+  sideNavDetails:any
   selected = 'option2';
 
 
   constructor(private codeService:CodeReviewService){}
   ngOnInit(): void {
+    this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
+    console.log(this.techStackdetails.technicalStackId);
+    
     this.getReviewDetails()
+    this.getOptions()
+    this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
    
-
-
-    this.codeService.getOptions().subscribe((res:any)=>{
-      this.selectOptions=res.data[0].options
-
-    })
-
 
   }
   getReviewDetails(indexValue?:any){
     if(indexValue){
-      this.codeService.getReviewTrackerDetails(indexValue+1).subscribe((res:any)=>{
+      this.codeService.getReviewTrackerDetails(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, indexValue+1).subscribe((res:any)=>{
         console.log(res.data[0].data[0]);
         this.selectelTabCheckList=res.data[0].data[0]
 
@@ -42,13 +40,31 @@ export class CodeReviewTrackerComponent {
       })
     }
     else 
-    this.codeService.getReviewTrackerDetails(this.reviewDetailsHeader+1).subscribe((res:any)=>{
+    this.codeService.getReviewTrackerDetails(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, this.reviewDetailsHeader+1).subscribe((res:any)=>{
       console.log(res.data[0].data[0]);
       this.selectelTabCheckList=res.data[0].data[0]
 
      
-    })
+    }
+    )
+    
    
+  }
+  
+  getOptions(){
+    this.codeService.getOptions().subscribe((res:any)=>{
+      this.selectOptions=res.data[0].options
+
+    })
+
+  }
+
+  getSideNavData(stackId:any,techId:any){
+    this.codeService.getSideNav(stackId,techId).subscribe((res:any)=>{
+      this.sideNavDetails=res.data[0].leftNav
+      
+    })
+    
   }
  
 

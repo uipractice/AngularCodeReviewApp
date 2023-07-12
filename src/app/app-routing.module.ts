@@ -3,13 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { CodeReviewerDetailsComponent } from './code-reviewer-details/code-reviewer-details.component';
 import { StartCodeReviewTrackerComponent } from './start-code-review-tracker/start-code-review-tracker.component';
 import { CodeReviewTrackerComponent } from './code-review-tracker/code-review-tracker.component';
+import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'startCodeReviewTracker',pathMatch:'full'},
   {path:'startCodeReviewTracker',component:StartCodeReviewTrackerComponent},
   {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
-  {path:'codeReviewTracker',component:CodeReviewTrackerComponent}
+  {path:'codeReviewTracker',component:CodeReviewTrackerComponent},
+  {path:'codeReviewTracker',component:HeaderComponent}
 ];
 
 @NgModule({

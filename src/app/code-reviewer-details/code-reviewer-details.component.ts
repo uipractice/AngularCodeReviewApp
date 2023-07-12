@@ -125,8 +125,12 @@ console.log(value);
 
 this.technologiesId=value._id
 console.log(this.technologiesId);
-
-
+var techObj={
+  "technologiesId":value._id,
+  "technicalStackId":value.technicalStackId
+}
+console.log(techObj);
+localStorage.setItem('techObj',JSON.stringify(techObj))
 }
 
 

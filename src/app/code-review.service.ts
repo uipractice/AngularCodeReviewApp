@@ -34,8 +34,8 @@ baseUrl='https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'
   getSelectedReviewDetails(data:any){
     return this.http.get(`${this.baseUrl}/details?detailsId=${data}`)
   }
-  getReviewTrackerDetails(data?:any){
-    return this.http.get(`${this.baseUrl}/checkListQuestions?step=${data}`)
+  getReviewTrackerDetails(stackId?:any,techId?:any,step?:any){
+    return this.http.get(`${this.baseUrl}/checkListQuestions?technicalStackId=${stackId}&technologiesId=${techId}&step=${step}`)
   }
   getOptions(){
     return this.http.get(`${this.baseUrl}/options`).pipe(
@@ -45,5 +45,8 @@ baseUrl='https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'
     )
 
 
+  }
+  getSideNav(stackId:any,techId:any){
+    return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`)
   }
 } 

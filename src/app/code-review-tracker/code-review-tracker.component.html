@@ -73,33 +73,21 @@
   <mat-tab-group class="tabs-grey">
     <mat-tab class="tab-heading" label="Code Review">
 
-     <mat-tab-group class="vertical-tabs" animationDuration="0ms"   (selectedTabChange)=" onGetSideSelectedValue($event)">
-        <mat-tab  >
-          <ng-template mat-tab-label>
-            <div class="steps">Step 1</div>
-           <mat-icon class="example-tab-icon">check_circle</mat-icon>
-            <span class="steps-title" >Functional</span>
-          </ng-template>
-
+     <mat-tab-group class="vertical-tabs" animationDuration="0ms"  (selectedTabChange)=" onGetSideSelectedValue($event)">
+        <mat-tab  *ngFor="let sideData of sideNavDetails; let i=index" >
+          <ng-template mat-tab-label >
+            <div class="steps">Step {{i+1}}</div>
+            <span class="steps-title" >{{sideData}}</span>
+         
+        </ng-template>
           <!-- content -->
          <h2 class="heading">{{selectelTabCheckList?.key}} Checklist</h2>
-
-         <ul class="right-next">
-          <li><a  href="">Back</a></li>
-          <li><a  href="">Next</a></li>
-        </ul>
-
-
         <!--question 1-->
         <div *ngFor="let child of selectelTabCheckList?.value">
           <h4 class="heading-grey">
             <span>01</span>
             {{child?.key}}
-           
           </h4>
-         
-          
-  
           <div class="quality" *ngFor="let subChild of child?.value">
          <div class="questions">
           {{subChild?.key}}
@@ -131,56 +119,11 @@
                 
   
               </div>
-             </div>
-          </div>
-  
-        </div>
-        
-
-  
-
-
-        </mat-tab>
-        <mat-tab >
-          <ng-template mat-tab-label>
-            <div class="steps">Step 2</div>
-          <!--  <mat-icon class="example-tab-icon">check_circle</mat-icon>-->
-            <span class="steps-title" >Performance</span>
-          </ng-template>
-          Content 2
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <div class="steps">Step 3</div>
-            <!--<mat-icon class="example-tab-icon">check_circle</mat-icon>-->
-            <span class="steps-title">Structural</span>
-          </ng-template>
-
-          Content 3
-        </mat-tab>
-        <mat-tab >
-          <ng-template mat-tab-label>
-            <div class="steps">Step 4</div>
-           <!-- <mat-icon class="example-tab-icon">check_circle</mat-icon>-->
-            <span class="steps-title">Security</span>
-          </ng-template>
-
-          Content 4
-        </mat-tab>
-        <mat-tab>
-
-          <ng-template mat-tab-label>
-            <div class="steps">Step 5</div>
-            <!--<mat-icon class="example-tab-icon">check_circle</mat-icon> -->
-            <span class="steps-title">Unit Testing</span>
-          </ng-template>
-
-          Content 5
+           </div>
+           </div>
+           </div>
         </mat-tab>
       </mat-tab-group>
-
-
-
     </mat-tab>
     <mat-tab label="Sonar QUbe"> Content 2 </mat-tab>
     <mat-tab label="Summary"> Content 3 </mat-tab>
