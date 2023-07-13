@@ -74,10 +74,9 @@
 
         <div class="question-list"> <!--main tab-->
 
-        <div class="heading-grey" *ngFor="let child of selectelTabCheckList?.value">
-          <h4 class="top-20"><span>01</span> {{child?.key}} </h4>
-
-         <!--    <div class="quality" *ngFor="let subChild of child?.value">
+       <!--  <div class="heading-grey" *ngFor="let child of selectelTabCheckList?.value">
+         <div class="heading-grey" <h4 class="top-20"><span>01</span> {{child?.key}} </h4></div>
+            <div class="quality" *ngFor="let subChild of child?.value">
       <div class="questions">
           {{subChild?.key}}
               </div>
@@ -127,18 +126,22 @@
            <div class="Comment"><img src="../assets/comment_light.svg"></div>
            </div>
 
-          -->
-           </div>
+
+           </div> -->
 
            <div  *ngFor="let child of selectelTabCheckList?.value">
+
+            <!-- Child question-->
+            <div class="heading-grey"><h4 class="top-20"><span>01</span> {{child?.key}} </h4></div>
+
            <div class="quality" *ngFor="let subChild of child?.value">
+            <!-- subChild question-->
             <div class="questions">
               {{subChild?.key}}
-                  </div>
-           <!--<div class="questions">
-         Does it define the expected system service and behavior?
-                 </div>-->
-                 <div class="selection select-dropdown">
+              </div>
+
+
+                  <div class="selection select-dropdown">
                   <mat-form-field>
                     <mat-label>Applicable</mat-label>
                     <mat-select [(value)]="subChild.options">
