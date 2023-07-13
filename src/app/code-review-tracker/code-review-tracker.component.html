@@ -1,88 +1,17 @@
-<!-- <mat-tab-group>
-  <mat-tab label="FUNCTIONAL">
-    <div class="container">
-      <div class="row" >
-        <div class="col-md-6"> <h1>{{selectelTabCheckList?.key}} checklist</h1></div>
-        <div class="col-md-6">
-          <button type="button" style="background-color: #2596be; float: right;" class="btn btn-info">Next</button>
-        </div>
 
-      </div>
-      <div *ngFor="let child of selectelTabCheckList?.value ">
-
-     <div class="container" style="background-color: #322c2c12;">
-      <div class="row" style="background-color: #322c2c12;">
-        <div [ngClass]="child.options==''?'col-md-4':'col-md-12'" >
-          <span>{{child?.key}}</span>
-        </div>
-          <div class="col-md-4" *ngIf="child.options==''">
-            <mat-select placeholder="select option" class="form-control">
-              <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
-            </mat-select>
-          </div>
-          <div class="col-md-4" *ngIf="child.options==''">
-<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false"  (rateChange)="getRating($event)"></ngb-rating>
-
-          </div>
-
-
-      </div>
-    </div>
-
-
-       <div class="container" style="background-color: white;" *ngFor="let subChild of child?.value">
-         <div class="row" style="background-color: white;">
-           <div class="col-md-4"> <span>{{subChild?.key}}</span></div>
-           <div class="col-md-4">
-             <mat-select placeholder="select option" class="form-control">
-               <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
-             </mat-select>
-           </div>
-           <div class="col-md-4">
-<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" (rateChange)="getRating($event)"></ngb-rating>
-
-           </div>
-
-         </div>
-
-       </div>
-      </div>
-
-
-
-
-       <div class="row">
-        <div class="col-md-12">
-          <button type="button" style="background-color: #2596be; float: right;" class="btn btn-info">Next</button>
-
-        </div>
-       </div>
-    </div>
-  </mat-tab>
-  <mat-tab label="QUALITY"></mat-tab>
-  <mat-tab label="PERFORMANCE"></mat-tab>
-</mat-tab-group>
-
--->
-
-
-
-
-<div class="container"   >
-
+<!-- <div class="container">
   <mat-tab-group class="tabs-grey">
     <mat-tab class="tab-heading" label="Code Review">
-
      <mat-tab-group class="vertical-tabs" animationDuration="0ms"  (selectedTabChange)=" onGetSideSelectedValue($event)">
         <mat-tab  *ngFor="let sideData of sideNavDetails; let i=index" >
           <ng-template mat-tab-label >
             <div class="steps">Step {{i+1}}</div>
             <span class="steps-title" >{{sideData}}</span>
-         
+
         </ng-template>
-          <!-- content -->
+
          <h2 class="heading">{{selectelTabCheckList?.key}} Checklist</h2>
-        <!--question 1-->
+
         <div *ngFor="let child of selectelTabCheckList?.value">
           <h4 class="heading-grey">
             <span>01</span>
@@ -96,10 +25,10 @@
                 <mat-form-field>
                   <mat-select [(value)]="subChild.options">
                     <mat-option value="option2" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
-                    
+
                   </mat-select>
                 </mat-form-field>
-  
+
               </div>
              <div class="Comment"><img src="../assets/comment_light.svg"></div>
              <div class="rating-number">
@@ -116,12 +45,148 @@
 
                   </mat-select>
                 </mat-form-field>
-                
-  
+
+
               </div>
            </div>
            </div>
            </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="Sonar QUbe"> Content 2 </mat-tab>
+    <mat-tab label="Summary"> Content 3 </mat-tab>
+  </mat-tab-group>
+  </div>
+-->
+<div class="container">
+  <mat-tab-group class="tabs-grey">
+    <mat-tab class="tab-heading" label="Code Review">
+
+     <mat-tab-group class="vertical-tabs" animationDuration="0ms"  (selectedTabChange)=" onGetSideSelectedValue($event)">
+        <mat-tab  *ngFor="let sideData of sideNavDetails; let i=index" >
+          <ng-template mat-tab-label >
+            <div class="steps">Step {{i+1}}</div>
+            <span class="steps-title" >{{sideData}}</span>
+        </ng-template>
+
+        <h2 class="heading">{{selectelTabCheckList?.key}} Checklist</h2>
+
+        <div class="question-list"> <!--main tab-->
+
+        <div class="heading-grey" *ngFor="let child of selectelTabCheckList?.value">
+          <h4 class="top-20"><span>01</span> {{child?.key}} </h4>
+
+         <!--    <div class="quality" *ngFor="let subChild of child?.value">
+      <div class="questions">
+          {{subChild?.key}}
+              </div>
+
+              <div class="selection select-dropdown">
+                <mat-form-field>
+                  <mat-label>Applicable</mat-label>
+                  <mat-select [(value)]="subChild.options">
+                    <mat-option value="option2" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+             <div class="rating select-dropdown">
+
+                <mat-form-field>
+                  <mat-label>Rating</mat-label>
+                  <mat-select [(value)]="subChild.achievedRating">
+                    <mat-option>None</mat-option>
+                    <mat-option value="option0">0</mat-option>
+                    <mat-option value="option1">1</mat-option>
+                    <mat-option value="option2">2</mat-option>
+                    <mat-option value="option3">3</mat-option>
+                    <mat-option value="option3">4</mat-option>
+                    <mat-option value="option3">5</mat-option>
+                  </mat-select>
+                </mat-form-field>
+           </div>
+
+
+           <div class="rating-number">
+            <div class="achieved select-dropdown">
+              <mat-form-field>
+               <mat-label>Achieved</mat-label>
+                <mat-select [(value)]="selected">
+                  <mat-option>None</mat-option>
+                  <mat-option value="option1">1</mat-option>
+                 <mat-option value="option2">2</mat-option>
+                 <mat-option value="option3">3</mat-option>
+                 <mat-option value="option3">4</mat-option>
+                 <mat-option value="option3">5</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+           </div>
+
+           <div class="Comment"><img src="../assets/comment_light.svg"></div>
+           </div>
+
+          -->
+           </div>
+
+           <div  *ngFor="let child of selectelTabCheckList?.value">
+           <div class="quality" *ngFor="let subChild of child?.value">
+            <div class="questions">
+              {{subChild?.key}}
+                  </div>
+           <!--<div class="questions">
+         Does it define the expected system service and behavior?
+                 </div>-->
+                 <div class="selection select-dropdown">
+                  <mat-form-field>
+                    <mat-label>Applicable</mat-label>
+                    <mat-select [(value)]="subChild.options">
+                      <mat-option value="option2" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="rating select-dropdown">
+                 <mat-form-field>
+                  <mat-label>Rating</mat-label>
+                   <mat-select [(value)]="selected">
+                     <mat-option>None</mat-option>
+                     <mat-option value="option1">1</mat-option>
+                     <mat-option value="option2">2</mat-option>
+                     <mat-option value="option3">3</mat-option>
+                     <mat-option value="option3">4</mat-option>
+                     <mat-option value="option3">5</mat-option>
+                   </mat-select>
+                 </mat-form-field>
+               </div>
+
+
+               <div class="rating-number">
+                <div class="achieved select-dropdown">
+                  <mat-form-field>
+                   <mat-label>Achieved</mat-label>
+                    <mat-select [(value)]="selected">
+                      <mat-option>None</mat-option>
+                      <mat-option value="option1">1</mat-option>
+                     <mat-option value="option2">2</mat-option>
+                     <mat-option value="option3">3</mat-option>
+                     <mat-option value="option3">4</mat-option>
+                     <mat-option value="option3">5</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+               </div>
+               <div class="Comment"><img src="../assets/comment_light.svg"></div>
+             </div>
+            </div>
+
+    </div> <!-- main-->
+
+
+
+
+
         </mat-tab>
       </mat-tab-group>
     </mat-tab>
