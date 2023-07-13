@@ -12,7 +12,7 @@ export class CodeReviewTrackerComponent {
  codeReviewData:any
   selectOptions:any
   starRating =0
-  reviewDetailsHeader:number=0
+  reviewDetailsHeader='Functional'
   selectelTabCheckList:any
   techStackdetails:any
   sideNavDetails:any
@@ -32,7 +32,7 @@ export class CodeReviewTrackerComponent {
   }
   getReviewDetails(indexValue?:any){
     if(indexValue){
-      this.codeService.getReviewTrackerDetails(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, indexValue+1).subscribe((res:any)=>{
+      this.codeService.getReviewTrackerDetails(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, indexValue).subscribe((res:any)=>{
         console.log(res.data[0].data[0]);
         this.selectelTabCheckList=res.data[0].data[0]
 
@@ -40,7 +40,7 @@ export class CodeReviewTrackerComponent {
       })
     }
     else 
-    this.codeService.getReviewTrackerDetails(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, this.reviewDetailsHeader+1).subscribe((res:any)=>{
+    this.codeService.getReviewTrackerDetails(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, ).subscribe((res:any)=>{
       console.log(res.data[0].data[0]);
       this.selectelTabCheckList=res.data[0].data[0]
 
@@ -76,8 +76,8 @@ export class CodeReviewTrackerComponent {
   }
 
   onGetSideSelectedValue(value:any){
-    console.log('selected',value.index);
-    this.getReviewDetails(value.index)
+    console.log('selected',value.tab.textLabel);
+    this.getReviewDetails(value.tab.textLabel)
     
   }
   getRating(rating:any){
