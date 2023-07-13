@@ -104,24 +104,23 @@
                           formControlName="codeReviewComments"
                         />
                       </div>
-                      <div class="save-submit-button table-button">
-
+                      <div class="table-button">
+                      <div class="save-submit-button">
                           <span *ngIf="(status==''||status=='pending')" >
-                            <button type="submit" class="btn btn-primary"  [disabled]="!(codeReviewerForm.get('account')?.value && codeReviewerForm.get('project')?.value && codeReviewerForm.get('technicalStack')?.value && codeReviewerForm.get('technology')?.value && codeReviewerForm.get('developers')?.value && codeReviewerForm.get('projectLead')?.value && codeReviewerForm.get('reviewersName')?.value)" (click)="save()"  >Save</button>
+                            <button type="submit" class="button-all btn-blue"  [disabled]="!(codeReviewerForm.get('account')?.value && codeReviewerForm.get('project')?.value && codeReviewerForm.get('technicalStack')?.value && codeReviewerForm.get('technology')?.value && codeReviewerForm.get('developers')?.value && codeReviewerForm.get('projectLead')?.value && codeReviewerForm.get('reviewersName')?.value)" (click)="save()"  >Save</button>
                               </span>
                           <!-- <span *ngIf="status=='pending'"> -->
                         <!-- <button type="submit" class="btn btn-primary"  [disabled]="!(codeReviewerForm.get('account')?.value && codeReviewerForm.get('project')?.value && codeReviewerForm.get('technicalStack')?.value && codeReviewerForm.get('technology')?.value && codeReviewerForm.get('developers')?.value && codeReviewerForm.get('projectLead')?.value && codeReviewerForm.get('reviewersName')?.value)" (click)="save()" >Save</button> -->
                           <!-- </span> -->
                           <span *ngIf="status=='completed'">
-                            <button class="btn btn-primary" (click)="getBackDetails()">Back</button>
+                            <button class="button-all btn-blue" (click)="getBackDetails()">Back</button>
                           </span>
                         </div>
-                        <div>
-                        <button type="submit" class="btn btn-success" style="margin-left: 20px;" [disabled]="codeReviewerForm.invalid"  (click)="submitReviewDetails()">Next</button>
 
-
+                      <div>
+                        <button type="submit" class="button-all btn-greay " style="margin-left: 20px;" [disabled]="codeReviewerForm.invalid"  (click)="submitReviewDetails()">Next</button>
                       </div>
-
+                    </div>
                 </form>
 
 

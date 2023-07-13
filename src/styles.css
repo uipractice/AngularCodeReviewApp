@@ -295,19 +295,27 @@ border-bottom:0px;
 .main-body {
   padding: 90px 20px 0px 20px;
 }
-.button-create {
-background:#219EBC;
-padding: 10px;
-border-radius: 4px;
-color: #fff;
-border: none;
-margin-bottom: 20px;
-font-size: 0.875rem;
-font-style: normal;
-font-weight: 600;
-}
+
 .table-button {
   display: flex;
   align-items: end;
   justify-content: end;
+}
+.button-all {
+  padding: 10px;
+  border-radius: 4px;
+  color: #fff;
+  border: none;
+ margin: 20px 0px;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  padding: 14px 29px;
+  }
+  .btn-blue {
+  background:#219EBC;
+}
+.btn-greay {
+  background:#DEDEDE;
+  color:#7B7B7B;
 }
