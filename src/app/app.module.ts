@@ -21,6 +21,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { primeModule } from 'src/prime.module';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HeaderComponent } from './header/header.component';
     CodeReviewerDetailsComponent,
     StartCodeReviewTrackerComponent,
     CodeReviewTrackerComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
