@@ -39,7 +39,6 @@ export class CodeReviewerDetailsComponent implements OnInit {
         console.log(res.data);
         this.stack=res.data[0].technical_stack.name
         this.technology=res.data[0].technologies.name
-        const {account,project,storyId,developers,projectLead,reviewPackagesandFiles,reviewersName,codeReviewComments}=res.data[0]
       
         let data={
           account:res.data[0].account,
