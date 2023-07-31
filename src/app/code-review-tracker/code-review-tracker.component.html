@@ -9,22 +9,23 @@
             <div class="steps"></div>
             <span class="steps-title" >{{sideData}}</span>
         </ng-template>
-        <div   >
-          <h2 class="heading"  >{{selectelTabCheckList?.key}} Checklist</h2>
-          <!-- <h2 class="heading"  >{{list.key}} Checklist</h2> -->
+        <div *ngFor="let list of getCheckListArray().controls;let i=index" [formGroupName]="i" >
+          <h2 class="heading"    >{{list.value.key}} Checklist</h2>
+          <button (click)="saveCheckListData()">Save</button>
   
   
   
-          <div class="question-list"  > 
-             <div  *ngFor="let child of selectelTabCheckList?.value; let i=index">
+          <div class="question-list" formArrayName="value" > 
+             <div  *ngFor="let child of list?.value.value; let i=index">
+
+
   
-              <!-- Child question-->
               <div class="heading-grey"><h4  class="top-20"  > {{child?.key}} </h4>
                 <div class="selection select-dropdown" *ngIf="child.options==''">
                   <mat-form-field>
                       <mat-label>Applicable</mat-label>
-                      <mat-select [(value)]="child.options"  >
-                        <mat-option value="option2" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+                      <mat-select >
+                        <mat-option [value]="opt.value" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -32,7 +33,7 @@
                   <div class="rating select-dropdown" *ngIf="child.rating==''" >
                    <mat-form-field>
                     <mat-label>Rating</mat-label>
-                     <mat-select [(value)]="selected"  >
+                     <mat-select [(value)]="selected" [disabled]="true" >
                        <mat-option>None</mat-option>
                        <mat-option value="option1">1</mat-option>
                        <mat-option value="option2">2</mat-option>
@@ -48,7 +49,7 @@
                   <div class="achieved select-dropdown">
                     <mat-form-field>
                      <mat-label>Achieved</mat-label>
-                      <mat-select [(value)]="selected" >
+                      <mat-select [(value)]="selected"  >
                         <mat-option>None</mat-option>
                         <mat-option value="option1">1</mat-option>
                        <mat-option value="option2">2</mat-option>
@@ -63,7 +64,6 @@
               </div>
   
              <div class="quality" *ngFor="let subChild of child?.value">
-              <!-- subChild question-->
               <div class="questions" #subChild>
                 {{subChild?.key}}
                 </div>
@@ -72,8 +72,8 @@
                     <div class="selection select-dropdown">
                   <mat-form-field>
                       <mat-label>Applicable</mat-label>
-                      <mat-select [(value)]="subChild.options"  >
-                        <mat-option value="option2" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+                      <mat-select  (selectionChange)="getSubChildSelection($event,'subChildOption')"  >
+                        <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -81,13 +81,9 @@
                   <div class="rating select-dropdown">
                    <mat-form-field>
                     <mat-label>Rating</mat-label>
-                     <mat-select [(value)]="selected" >
-                       <mat-option>None</mat-option>
-                       <mat-option value="option1">1</mat-option>
-                       <mat-option value="option2">2</mat-option>
-                       <mat-option value="option3">3</mat-option>
-                       <mat-option value="option3">4</mat-option>
-                       <mat-option value="option3">5</mat-option>
+                     <mat-select [(value)]="selected" [disabled]="true"  >
+                       <mat-option value=0>0</mat-option>
+                       <mat-option value=5>5</mat-option>
                      </mat-select>
                    </mat-form-field>
                  </div>
@@ -97,13 +93,13 @@
                   <div class="achieved select-dropdown">
                     <mat-form-field>
                      <mat-label>Achieved</mat-label>
-                      <mat-select [(value)]="selected"  >
-                        <mat-option>None</mat-option>
-                        <mat-option value="option1">1</mat-option>
-                       <mat-option value="option2">2</mat-option>
-                       <mat-option value="option3">3</mat-option>
-                       <mat-option value="option3">4</mat-option>
-                       <mat-option value="option3">5</mat-option>
+                      <mat-select [(value)]="selected" (selectionChange)="getSubChildSelection($event,'subChildAchievedRatings')"   >
+                        <mat-option value=0>0</mat-option>
+                        <mat-option value=1>1</mat-option>
+                       <mat-option value=2>2</mat-option>
+                       <mat-option value=3>3</mat-option>
+                       <mat-option value=4>4</mat-option>
+                       <mat-option value=5>5</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -112,16 +108,23 @@
                </div>
               </div>
   
-      </div> <!-- main-->
+      </div> 
   
   
         </div>
+
+
+        
 
       
 
 
 
         </mat-tab>
+
+        
+        
+        
       </mat-tab-group>
     </mat-tab>
     <mat-tab label="Sonar QUbe"> Content 2 </mat-tab>

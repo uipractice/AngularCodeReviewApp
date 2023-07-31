@@ -18,19 +18,22 @@ export class CodeReviewTrackerComponent implements OnInit {
   selectelTabCheckList:any
   techStackdetails:any
   sideNavDetails:any
-  selected = 'option2';
+  selected = '';
   reviewTrackerForm:any=FormGroup
   checkListChildData:any
+  subChildOptions=''
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder){}
   ngOnInit(): void {
+
     this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
     console.log(this.techStackdetails.technicalStackId);
     
-    // this.getReviewDetails()
+    
     this.getOptions()
     this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
     this.buildReactiveForm()
+    
   
 
   }
@@ -74,11 +77,12 @@ export class CodeReviewTrackerComponent implements OnInit {
             for(let subChild of child.value){
             const checkListsubChildGroup=new FormGroup({
               key:new FormControl(subChild.key),
-              options:new FormControl(subChild.options),
-              rating:new FormControl(subChild.rating),
-              achievedRating:new FormControl(subChild.achievedRating),
+              options:new FormControl(this.subChildOptions),
+              rating:new FormControl(''),
+              achievedRating:new FormControl(''),
               comments:new FormControl(subChild.comments)  
             })
+            
 
             checkListsubChildGroupData.push(checkListsubChildGroup)
            }
@@ -88,11 +92,38 @@ export class CodeReviewTrackerComponent implements OnInit {
         }
         checkListGroupData.push(checkListGroup)
         console.log(this.reviewTrackerForm.value.checkListArray[0].key);
+        console.log(this.reviewTrackerForm.value.checkListArray[0]);
+        
         
       })
       
   
     }
+
+  getCheckListArray():FormArray{
+    return this.reviewTrackerForm.get('checkListArray') as FormArray
+    
+    
+  }
+ 
+ 
+
+
+
+  saveCheckListData(){
+    console.log(this.reviewTrackerForm.value);
+    
+  }
+
+  getSubChildSelection(rating:any,name:any){
+    console.log('value',rating);
+    console.log('name',name);
+    this.subChildOptions=rating.value
+    const childArray=this.reviewTrackerForm.get('checkListArray').value
+    console.log('childArray',childArray);
+    
+    
+  }
   
   
   getOptions(){
