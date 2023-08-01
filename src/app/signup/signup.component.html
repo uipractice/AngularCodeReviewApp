@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+      <div class="col-lg-10 col-xl-7 mx-auto">
+          <strong class="sign-title">Sign in to your Account</strong>
+
+          <form [formGroup]="signupForm" (ngSubmit)="signUp()">
+              <div class="form-group mb-bottom">
+                  <input formControlName="firstName" type="text" placeholder="First Name " required="" autofocus="" class="form-control px-4">
+              </div>
+              <div class="form-group mb-bottom">
+                  <input formControlName="lastName" type="text" placeholder="Last Name" required="" class="form-control px-4 text-primary">
+              </div>
+              <div class="form-group mb-bottom">
+                <input formControlName="email" type="email" placeholder="email" required="" class="form-control px-4 text-primary">
+            </div>
+            <div class="form-group mb-bottom">
+              <input formControlName="password" type="password" placeholder="password" required="" class="form-control px-4 text-primary">
+          </div>
+          <div class="form-group mb-bottom">
+            <input formControlName="role" type="text" placeholder="role" required="" class="form-control px-4 text-primary">
+        </div>
+              <button type="submit" class="full-btn blue">SignUp</button>
+
+          </form>
+      </div>
+  </div>
+</div><!-- End -->

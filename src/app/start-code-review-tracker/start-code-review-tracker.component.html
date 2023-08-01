@@ -1,13 +1,13 @@
 
 <div class="main-body">
-  <div class="table-button">
-<button class="button-all btn-blue" (click)="gettingStarted()">Create new record</button>
-</div>
-
 <div class="container">
-    <div class="row">
-        <div class="col-md-12"> <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <div class="table-button">
+  <h1 style="font-size: 1.25rem;">Dashboard</h1>
+  <button class="button-all btn-blue mg-0" (click)="gettingStarted()">Create New Project</button>
+  </div>
 
+ <div class="row">
+        <div class="col-md-12"> <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container matColumnDef="index">
             <th mat-header-cell *matHeaderCellDef> Sr.No </th>
             <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
@@ -63,6 +63,55 @@
           <h1>No data</h1>
         </div>
     </div>
+<br/>
+<br/>
+
+<div class="project-name">
+<div class="project">
+ <h6><span>Project Name</span>VSG Rotary Application</h6>
+ <span class="green-color review-status"><img title="view page" alt="View" src="../assets/pending.svg"> Code Review Pending</span>
+  <ul class="icons-view">
+    <li><img title="view page" alt="View" src="../assets/view.svg"></li>
+    <li><img title="view page" alt="View" src="../assets/comments.svg"></li>
+    <li><img title="view page" alt="View" src="../assets/export.svg"></li>
+    <li><img title="view page" alt="View" src="../assets/delete.svg"></li>
+  </ul>
+</div>
+  <div class="line"></div>
+  <ul class="project accounts">
+    <li>Account <strong>CSC</strong></li>
+    <li>Developers <strong>Raju Kadduri</strong></li>
+    <li>Reviewer <strong>Sowjanya / Himanshu</strong></li>
+    <li>Date <strong>14/07/2023</strong></li>
+    <li>Comments <strong>Partial code execution pending.</strong></li>
+  </ul>
+</div>
+
+
+
+<div class="project-name">
+  <div class="project">
+   <h6><span>Project Name</span>Domain Transfer</h6>
+   <strong class="green-color review-status"><img title="view page" alt="View" src="../assets/completed.svg"> Code Review Completed</strong>
+    <ul class="icons-view">
+      <li><img title="view page" alt="View" src="../assets/view.svg"></li>
+      <li><img title="view page" alt="View" src="../assets/comments.svg"></li>
+      <li><img title="view page" alt="View" src="../assets/export.svg"></li>
+      <li><img title="view page" alt="View" src="../assets/delete.svg"></li>
+    </ul>
+  </div>
+    <div class="line"></div>
+    <ul class="project accounts">
+      <li>Account <strong>CSC</strong></li>
+      <li>Developers <strong>Raju Kadduri</strong></li>
+      <li>Reviewer <strong>Sowjanya / Himanshu</strong></li>
+      <li>Date <strong>14/07/2023</strong></li>
+      <li>Comments <strong>Partial code execution pending.</strong></li>
+    </ul>
+  </div>
+
+
+
 </div>
 
 </div>
