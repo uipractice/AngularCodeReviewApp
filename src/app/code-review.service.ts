@@ -49,4 +49,7 @@ baseUrl='https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'
   getSideNav(stackId:any,techId:any){
     return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`)
   }
-} 
+
+ 
+  }
+
