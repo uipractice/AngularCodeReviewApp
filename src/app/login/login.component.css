@@ -1,10 +1,31 @@
+
+
 .login,
 .image {
   min-height: 100vh;
 }
 
 .bg-image {
-  background-image: url('https://res.cloudinary.com/mhmd/image/upload/v1555917661/art-colorful-contemporary-2047905_dxtao7.jpg');
+  background-image:url('../../assets/login-image.png');
   background-size: cover;
   background-position: center center;
+  padding: 0px;
+}
+
+.hide-header {
+  display:none !important;
+}
+
+.bg-light {
+background: #fff;
+}
+
+.form-control {
+border-radius: 0.25rem;
+border: 1px solid #C1C1C1;
+padding: 0px 8px!important;
+height: 3.25rem;
+}
+.blue {
+  background: #219EBC;
 }

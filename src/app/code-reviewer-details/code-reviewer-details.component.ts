@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-code-reviewer-details',
@@ -22,25 +24,25 @@ export class CodeReviewerDetailsComponent implements OnInit {
   technologiesId:any
   constructor(private router:Router,private http:HttpClient,private codeService:CodeReviewService, private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
-    
-    
+
+
     if(this.activatedRoute.snapshot.params['id']){
       console.log('id',this.activatedRoute.snapshot.params['id']);
-      
-      
+
+
      this.id=this.activatedRoute.snapshot.params['id']
       // console.log('details ID',detailsId);
-      
+
       console.log('status:',this.activatedRoute.snapshot.params['status']);
       this.status=this.activatedRoute.snapshot.params['status']
-      
+
     this.codeService.getSelectedReviewDetails(this.id).subscribe((res:any)=>{
       if(res.success==true){
         console.log(res.data);
         this.stack=res.data[0].technical_stack.name
         this.technology=res.data[0].technologies.name
         const {account,project,storyId,developers,projectLead,reviewPackagesandFiles,reviewersName,codeReviewComments}=res.data[0]
-      
+
         let data={
           account:res.data[0].account,
           project:res.data[0].project,
@@ -54,25 +56,25 @@ export class CodeReviewerDetailsComponent implements OnInit {
           codeReviewComments:res.data[0].codeReviewComments
         }
         console.log('data',data);
-        
-        
+
+
         this.codeReviewerForm.setValue(data)
         this.codeReviewerForm.controls['technicalStack'].setValue(res.data[0].technical_stack.name)
         this.codeReviewerForm.controls['technology'].setValue(res.data[0].technologies.name)
-        
-        
+
+
       }
-      
+
     })
     }
-    this.getTechnicalStackDetails() 
+    this.getTechnicalStackDetails()
 
-    
-    
-     
-      
-      
-    
+
+
+
+
+
+
   }
 codeReviewerForm=new FormGroup({
   account:new FormControl('',Validators.required),
@@ -95,27 +97,27 @@ getBackDetails(){
 getTechnicalStackDetails(){
   return this.codeService.getTechnicalStackDetails().subscribe((res:any)=>{
     console.log(res);
-    
+
     if(res.success==true){
       this.technicalStackList=res.data
     }
     console.log('technical stack list',this.technicalStackList);
-    
+
   })
 }
 onSelectStack(value:any){
   console.log('selected stack',value);
-  this.technicalStackId=value._id 
- 
+  this.technicalStackId=value._id
+
   this.codeService.getTechnologyDetails(value._id).subscribe((res:any)=>{
     if(res.success==true){
       console.log(res);
-      
+
       this.technologyList=res.data
     }
 
   })
-  
+
 
 }
 
@@ -158,7 +160,7 @@ save(){
       }
     })
 
-  } 
+  }
   else{
     let data={
       "account": this.codeReviewerForm.get('account')?.value,
@@ -177,17 +179,17 @@ save(){
         console.log(res);
         console.log(JSON.stringify(this.codeReviewerForm.value));
       this.router.navigate(['/startCodeReviewTracker'])
-        
-    })
-    
-  }
-  
 
-  
-  
-  
-  
-  
+    })
+
+  }
+
+
+
+
+
+
+
 }
 
 submitReviewDetails(){
@@ -209,9 +211,9 @@ submitReviewDetails(){
         console.log(res);
         console.log(JSON.stringify(this.codeReviewerForm.value));
       this.router.navigate(['/codeReviewTracker'])
-        
+
     })
-  } 
+  }
   else if(this.status=='completed'){
     this.router.navigate(['/codeReviewTracker'])
 
@@ -219,5 +221,35 @@ submitReviewDetails(){
   }
 
 }
+
+
+@ViewChild('select')
+select!: MatSelect;
+
+allSelected=false;
+ foods: any[] = [
+  {value: 'steak-0', viewValue: 'Steak'},
+  {value: 'pizza-1', viewValue: 'Pizza'},
+  {value: 'tacos-2', viewValue: 'Tacos'}
+];
+toggleAllSelection() {
+  if (this.allSelected) {
+    this.select.options.forEach((item: MatOption) => item.select());
+  } else {
+    this.select.options.forEach((item: MatOption) => item.deselect());
+  }
+}
+ optionClick() {
+  let newStatus = true;
+  this.select.options.forEach((item: MatOption) => {
+    if (!item.selected) {
+      newStatus = false;
+    }
+  });
+  this.allSelected = newStatus;
+}
+
+
+
 
 }

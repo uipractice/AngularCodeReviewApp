@@ -5,6 +5,7 @@ import { StartCodeReviewTrackerComponent } from './start-code-review-tracker/sta
 import { CodeReviewTrackerComponent } from './code-review-tracker/code-review-tracker.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'startCodeReviewTracker',pathMatch:'full'},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewTracker',component:CodeReviewTrackerComponent},
   {path:'codeReviewTracker',component:HeaderComponent},
-  {path:'login',component:LoginComponent}
+  {path:'login',component:LoginComponent},
+  {path:'signup', component:SignupComponent}
 ];
 
 @NgModule({
