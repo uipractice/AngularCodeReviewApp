@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'startCodeReviewTracker',pathMatch:'full'},
+  {path:'',redirectTo:'login',pathMatch:'full'},
   {path:'startCodeReviewTracker',component:StartCodeReviewTrackerComponent},
   {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { map,  } from 'rxjs/operators';
 
 
@@ -10,35 +10,40 @@ export class CodeReviewService {
 baseUrl='https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'
   constructor(private http:HttpClient) { }
 
-  getReviewDetails(){
-    return this.http.get(`${this.baseUrl}/details`).pipe(map((res:any)=>{
+ 
+
+
+  getReviewDetails(headers:any){
+    const token = 'your_bearer_token_here'; // Replace with your actual bearer token
+   
+    return this.http.get(`${this.baseUrl}/details`,{headers}).pipe(map((res:any)=>{
       return res
     }))
   }
-  postReviewDetails(data:any){
-    return this.http.post(`${this.baseUrl}/details`,data)
+  postReviewDetails(data:any,headers:any){
+    return this.http.post(`${this.baseUrl}/details`,data,{headers})
   }
-  onDeleteDetails(data:any){
-    return this.http.delete(`${this.baseUrl}/details?detailsId=${data}`)
+  onDeleteDetails(data:any,headers:any){
+    return this.http.delete(`${this.baseUrl}/details?detailsId=${data}`,{headers})
   }
-  onEditDetails(data:any){
-    return this.http.put(`${this.baseUrl}/details`,data)
+  onEditDetails(data:any,headers:any){
+    return this.http.put(`${this.baseUrl}/details`,data,{headers})
     
   }
-  getTechnicalStackDetails(){
-    return this.http.get(`${this.baseUrl}/technicalStack`)
+  getTechnicalStackDetails(headers:any){
+    return this.http.get(`${this.baseUrl}/technicalStack`,{headers})
   }
-  getTechnologyDetails(data:any){
-    return this.http.get(`${this.baseUrl}/technologies?technicalStackId=${data}`)
+  getTechnologyDetails(data:any,headers:any){
+    return this.http.get(`${this.baseUrl}/technologies?technicalStackId=${data}`,{headers})
   }
-  getSelectedReviewDetails(data:any){
-    return this.http.get(`${this.baseUrl}/details?detailsId=${data}`)
+  getSelectedReviewDetails(data:any,headers:any){
+    return this.http.get(`${this.baseUrl}/details?detailsId=${data}`,{headers})
   }
-  getReviewTrackerDetails(stackId?:any,techId?:any,step?:any){
-    return this.http.get(`${this.baseUrl}/checkListQuestions?technicalStackId=${stackId}&technologiesId=${techId}&type=${step}`)
+  getReviewTrackerDetails(headers:any,stackId?:any,techId?:any,step?:any){
+    return this.http.get(`${this.baseUrl}/checkListQuestions?technicalStackId=${stackId}&technologiesId=${techId}&type=${step}`,{headers})
   }
-  getOptions(){
-    return this.http.get(`${this.baseUrl}/options`).pipe(
+  getOptions(headers:any){
+    return this.http.get(`${this.baseUrl}/options`,{headers}).pipe(
       map((res:any)=>{
         return res
       })
@@ -46,8 +51,8 @@ baseUrl='https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'
 
 
   }
-  getSideNav(stackId:any,techId:any){
-    return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`)
+  getSideNav(stackId:any,techId:any,headers:any){
+    return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`,{headers})
   }
 
  

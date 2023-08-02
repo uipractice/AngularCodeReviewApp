@@ -1,6 +1,7 @@
 import { Component,ElementRef,OnInit,ViewChild } from '@angular/core';
 import { CodeReviewService } from '../code-review.service';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { HttpHeaders } from '@angular/common/http';
 
 
 
@@ -22,17 +23,20 @@ export class CodeReviewTrackerComponent implements OnInit {
   reviewTrackerForm:any=FormGroup
   checkListChildData:any
   subChildOptions=''
+  auth_token=''
+
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder){}
   ngOnInit(): void {
+    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
 
     this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
-    console.log(this.techStackdetails.technicalStackId);
     
     
     this.getOptions()
     this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
     this.reviewTrackerForm=this.buildReactiveForm()
+    this.getReviewDetails()
    
   
 
@@ -48,8 +52,11 @@ export class CodeReviewTrackerComponent implements OnInit {
   
   getReviewDetails(){
     this.buildReactiveForm()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
    
-      this.codeService.getReviewTrackerDetails(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
+      this.codeService.getReviewTrackerDetails(headers,this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
         console.log(res.data[0].data[0]);
         this.selectelTabCheckList=res.data[0].data[0]
         const checkListGroupData=this.reviewTrackerForm.get('checkListArray') as FormArray
@@ -131,7 +138,10 @@ export class CodeReviewTrackerComponent implements OnInit {
   
   
   getOptions(){
-    this.codeService.getOptions().subscribe((res:any)=>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.getOptions(headers).subscribe((res:any)=>{
       this.selectOptions=res.data[0].options
 
     })
@@ -139,7 +149,12 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   getSideNavData(stackId:any,techId:any){
-    this.codeService.getSideNav(stackId,techId).subscribe((res:any)=>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    console.log(stackId,techId,headers);
+    
+    this.codeService.getSideNav(stackId,techId,headers).subscribe((res:any)=>{
       this.sideNavDetails=res.data[0].leftNav
       
     })
@@ -150,9 +165,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
 
- onTabData(id:any){
-
-  }
+ 
 
   onGetSideSelectedValue(value:any){
     console.log('selected',value.tab.textLabel);

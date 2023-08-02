@@ -2,6 +2,7 @@
 
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,8 @@ export class LoginComponent {
   password: any;
   //handleUpdateResponse: any;
   handleError: any;
-  router: any;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private router:Router) {}
 
   onSubmit() {
     const credentials = {
@@ -22,17 +22,18 @@ export class LoginComponent {
       password: this.password,
     };
 
-    this.authService.login(credentials).subscribe((res:any)=>{
-
-      this.authService.redirectUrl = URL;
-
-      if (this.authService.isLoggedIn) { return true; }
-      this.router.navigate(['/testpage']);
-
-      return false;
-    console.log(res);
-    })
-  }
+    this.authService.login(credentials).subscribe((res:any)=>
+  {
+    if(res.success==true){
+      console.log('login',res);
+    localStorage.setItem('auth_token',JSON.stringify(res.token))
+    this.router.navigate(['/startCodeReviewTracker'])
+    
+    }
+    
+  })
+    
+  
 }
-
+}
 
