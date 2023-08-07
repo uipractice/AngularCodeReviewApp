@@ -3,6 +3,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { CodeReviewService } from '../code-review.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +15,11 @@ export class LoginComponent {
   password: any;
   //handleUpdateResponse: any;
   handleError: any;
+ auth_token=''
+ userRole:any
 
-  constructor(private authService: AuthService,private router:Router) {}
+
+  constructor(private authService: AuthService,private router:Router,private codeService:CodeReviewService) {}
 
   onSubmit() {
     const credentials = {
@@ -25,15 +30,40 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe((res:any)=>
   {
     if(res.success==true){
+    
       console.log('login',res);
     localStorage.setItem('auth_token',JSON.stringify(res.token))
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+    console.log('auth token',this.auth_token);
+    this.getUserDetails()
+    
+
     this.router.navigate(['/startCodeReviewTracker'])
+   
     
     }
+
+  
     
   })
     
   
+}
+
+getUserDetails(){
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.auth_token}`
+  });
+
+  this.codeService.getUserDetails(headers).subscribe((res:any)=>{
+    this.userRole=res.data.role
+  
+    this.codeService.userDetails.next(res.data.role)
+    
+  })
 }
 }
 

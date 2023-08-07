@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { map,  } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -8,13 +9,21 @@ import { map,  } from 'rxjs/operators';
 })
 export class CodeReviewService {
 baseUrl='https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'
+userDetails=new Subject()
   constructor(private http:HttpClient) { }
+  getUserDetails(headers:any){
+   
+    return this.http.get(`${this.baseUrl}/user`,{headers}).pipe(map((res:any)=>{
+      return res
+    }))
+  }
+
+  
 
  
 
 
   getReviewDetails(headers:any){
-    const token = 'your_bearer_token_here'; // Replace with your actual bearer token
    
     return this.http.get(`${this.baseUrl}/details`,{headers}).pipe(map((res:any)=>{
       return res

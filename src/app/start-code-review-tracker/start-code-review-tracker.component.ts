@@ -21,6 +21,7 @@ auth_token=''
 
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+   
   
 
     this.onGetReviewDetails()
@@ -30,6 +31,7 @@ auth_token=''
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
+  
 
     this.codeService.getReviewDetails(headers).subscribe((res:any)=>{
 
