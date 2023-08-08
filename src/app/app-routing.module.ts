@@ -13,8 +13,9 @@ import { CreateChecklistComponent } from './create-checklist/create-checklist.co
 
 const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
-  {path:'startCodeReviewTracker',component:StartCodeReviewTrackerComponent,canActivate:[RoleGuard]},
-  {path:'adminUserList',component:AdminUserListComponent,canActivate:[RoleGuard],data:{role:'admin'}},
+  {path:'userManagement',component:UserManagementComponent},
+  {path:'startCodeReviewTracker',component:StartCodeReviewTrackerComponent},
+  {path:'adminUserList',component:AdminUserListComponent},
   {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewTracker',component:CodeReviewTrackerComponent},

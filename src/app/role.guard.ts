@@ -11,21 +11,7 @@ export class RoleGuard implements CanActivate {
   constructor(private codeService:CodeReviewService,private router:Router){}
   userDetails:any
   canActivate( route: ActivatedRouteSnapshot) {
-    // this.codeService.userDetails.subscribe((res:any)=>{
-    //     this.userDetails=res       
-    //     console.log(this.userDetails);
-        
-    //   })
-    //   const routeRole=route.data['role'].includes(this.userDetails)
-
-    //   if(route.data['role'].includes(this.userDetails)){
-    //     return true
-    //   }
-    //   else{
-    //     return false
-    //   }
-    
-    // }
+  
 
     const adminRole='admin'
     if(route.data['role'].includes(adminRole)){
@@ -37,5 +23,5 @@ export class RoleGuard implements CanActivate {
       return false
     }
   }
-  
+    
 }
