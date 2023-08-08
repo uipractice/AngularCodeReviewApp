@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { RoleGuard } from './role.guard';
 import { AdminUserListComponent } from './admin-user-list/admin-user-list.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { CreateChecklistComponent } from './create-checklist/create-checklist.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
@@ -18,7 +20,10 @@ const routes: Routes = [
   {path:'codeReviewTracker',component:CodeReviewTrackerComponent},
   {path:'codeReviewTracker',component:HeaderComponent},
   {path:'login',component:LoginComponent},
-  {path:'signup', component:SignupComponent}
+  {path:'signup', component:SignupComponent},
+  {path:'user-management', component:UserManagementComponent},
+  {path:'create-checklist', component:CreateChecklistComponent}
+
 ];
 
 @NgModule({
