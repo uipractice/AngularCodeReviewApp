@@ -1,7 +1,10 @@
-/*import { HttpClient } from '@angular/common/http';
-import { Component, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// login.component.ts
+/*
+import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { CodeReviewService } from '../code-review.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -49,9 +52,8 @@ export class LoginComponent {
   }
 
 }
-*/
 
-// login.component.ts
+
 import { HttpClient } from '@angular/common/http';
 import { Component, Renderer2 } from '@angular/core';
 import { AuthService } from '../auth.service';
@@ -68,9 +70,11 @@ export class LoginComponent {
   password: any;
   //handleUpdateResponse: any;
   handleError: any;
-  router: any;
+ auth_token=''
+ userRole:any
 
-  constructor(private authService: AuthService, private renderer: Renderer2, private http: HttpClient) {}
+
+  constructor(private authService: AuthService,private router:Router,private codeService:CodeReviewService) {}
 
   ngOnDestroy() {
     this.renderer.removeClass(document.body, 'hide-header');
@@ -82,24 +86,114 @@ export class LoginComponent {
 
     };
 
-    this.authService.login(credentials).subscribe((res:any)=>{
+    this.authService.login(credentials).subscribe((res:any)=>
+  {
+    if(res.success==true){
 
-      this.authService.redirectUrl = URL;
+      console.log('login',res);
+    localStorage.setItem('auth_token',JSON.stringify(res.token))
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+    console.log('auth token',this.auth_token);
+    this.getUserDetails()
 
-      if (this.authService.isLoggedIn) { return true; }
-      this.router.navigate(["/startCodeReviewTracker"]);
+
+    this.router.navigate(['/startCodeReviewTracker'])
 
 
-    return false;
-    console.log(res);
-    })
-  }
+    }
 
-  ngOnInit(): void {
 
-    this.renderer.addClass(document.body, 'hide-header');
 
-  }
+  })
+
+
 }
+
+getUserDetails(){
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.auth_token}`
+  });
+
+  this.codeService.getUserDetails(headers).subscribe((res:any)=>{
+    this.userRole=res.data.role
+
+    this.codeService.userDetails.next(res.data.role)
+
+  })
+}
+}*/
+
+// login.component.ts
+
+import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { CodeReviewService } from '../code-review.service';
+import { HttpHeaders } from '@angular/common/http';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+})
+export class LoginComponent {
+  email: any;
+  password: any;
+  //handleUpdateResponse: any;
+  handleError: any;
+ auth_token=''
+ userRole:any
+
+
+  constructor(private authService: AuthService,private router:Router,private codeService:CodeReviewService) {}
+
+  onSubmit() {
+    const credentials = {
+      email: this.email,
+      password: this.password,
+    };
+
+    this.authService.login(credentials).subscribe((res:any)=>
+  {
+    if(res.success==true){
+
+      console.log('login',res);
+    localStorage.setItem('auth_token',JSON.stringify(res.token))
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+    console.log('auth token',this.auth_token);
+    this.getUserDetails()
+
+
+    this.router.navigate(['/startCodeReviewTracker'])
+
+
+    }
+
+
+
+  })
+
+
+}
+
+getUserDetails(){
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.auth_token}`
+  });
+
+  this.codeService.getUserDetails(headers).subscribe((res:any)=>{
+    this.userRole=res.data.role
+
+    this.codeService.userDetails.next(res.data.role)
+
+  })
+}
+}
+
 
 

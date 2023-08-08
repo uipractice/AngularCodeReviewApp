@@ -3,16 +3,16 @@
   <mat-tab-group class="tabs-grey">
     <mat-tab class="tab-heading" label="Code Review">
 
-     <mat-tab-group class="vertical-tabs" animationDuration="0ms"  (selectedTabChange)=" onGetSideSelectedValue($event)" [formGroup]="reviewTrackerForm"  >
+     <mat-tab-group class="vertical-tabs" animationDuration="0ms"  (selectedTabChange)=" onGetSideSelectedValue($event)"  [formGroup]="reviewTrackerForm"   >
         <mat-tab  *ngFor="let sideData of sideNavDetails; let i=index"  [label]="sideData" formArrayName="checkListArray"  >
           <ng-template mat-tab-label >
             <div class="steps"></div>
             <span class="steps-title" >{{sideData}}</span>
         </ng-template>
-        <!-- <div *ngFor="let list of getCheckListArray().controls;let i=index" [formGroupName]="i" >
-          <h2 class="heading"    >{{list.value.key}} Checklist</h2>
-          <button (click)="saveCheckListData()">Save</button>
-
+        <h2 class="heading"    >{{selectelTabCheckList?.key}} Checklist</h2>
+        <button (click)="saveCheckListData()">Save</button>
+        
+        <div *ngFor="let list of getCheckListArray().controls;let i=index" [formGroupName]="i" >
 
 
           <div class="question-list" formArrayName="value" >
@@ -111,7 +111,14 @@
       </div> 
   
   
-        </div> -->
+        </div>
+
+        
+      
+
+       
+
+      
 
         
 

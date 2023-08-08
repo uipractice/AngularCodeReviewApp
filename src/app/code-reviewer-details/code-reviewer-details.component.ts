@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Component,OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,9 +22,11 @@ export class CodeReviewerDetailsComponent implements OnInit {
   technologyList:any
   technicalStackId:any
   technologiesId:any
+  auth_token=''
+
   constructor(private router:Router,private http:HttpClient,private codeService:CodeReviewService, private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
-
+    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
 
     if(this.activatedRoute.snapshot.params['id']){
       console.log('id',this.activatedRoute.snapshot.params['id']);
@@ -35,8 +37,12 @@ export class CodeReviewerDetailsComponent implements OnInit {
 
       console.log('status:',this.activatedRoute.snapshot.params['status']);
       this.status=this.activatedRoute.snapshot.params['status']
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.auth_token}`
+      });
+  
 
-    this.codeService.getSelectedReviewDetails(this.id).subscribe((res:any)=>{
+    this.codeService.getSelectedReviewDetails(this.id,headers).subscribe((res:any)=>{
       if(res.success==true){
         console.log(res.data);
         this.stack=res.data[0].technical_stack.name
@@ -94,7 +100,10 @@ getBackDetails(){
 
 
 getTechnicalStackDetails(){
-  return this.codeService.getTechnicalStackDetails().subscribe((res:any)=>{
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.auth_token}`
+  });
+  return this.codeService.getTechnicalStackDetails(headers).subscribe((res:any)=>{
     console.log(res);
 
     if(res.success==true){
@@ -105,10 +114,14 @@ getTechnicalStackDetails(){
   })
 }
 onSelectStack(value:any){
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.auth_token}`
+  });
   console.log('selected stack',value);
   this.technicalStackId=value._id
 
-  this.codeService.getTechnologyDetails(value._id).subscribe((res:any)=>{
+
+  this.codeService.getTechnologyDetails(value._id,headers).subscribe((res:any)=>{
     if(res.success==true){
       console.log(res);
 
@@ -152,7 +165,10 @@ save(){
       "codeReviewComments":  this.codeReviewerForm.get('codeReviewComments')?.value,
       "status":"pending"
     }
-    this.codeService.onEditDetails(data).subscribe((res:any)=>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.onEditDetails(data,headers).subscribe((res:any)=>{
       if(res.success==true){
         console.log(res)
         this.router.navigate(['/startCodeReviewTracker'])
@@ -174,7 +190,10 @@ save(){
       "codeReviewComments":  this.codeReviewerForm.get('codeReviewComments')?.value,
       "status":"pending"
     }
-    this.codeService.postReviewDetails(data).subscribe((res:any)=>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.postReviewDetails(data,headers).subscribe((res:any)=>{
         console.log(res);
         console.log(JSON.stringify(this.codeReviewerForm.value));
       this.router.navigate(['/startCodeReviewTracker'])
@@ -206,7 +225,10 @@ submitReviewDetails(){
       "codeReviewComments":  this.codeReviewerForm.get('codeReviewComments')?.value,
       "status":"completed"
     }
-    this.codeService.postReviewDetails(data).subscribe((res:any)=>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.postReviewDetails(data,headers).subscribe((res:any)=>{
         console.log(res);
         console.log(JSON.stringify(this.codeReviewerForm.value));
       this.router.navigate(['/codeReviewTracker'])

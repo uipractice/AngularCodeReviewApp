@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-start-code-review-tracker',
@@ -14,18 +14,26 @@ export class StartCodeReviewTrackerComponent implements OnInit {
  dataSource=[]
   displayedColumns:string[]=['index','account','project','developers','reviewersName','codeReviewComments','reviewDate','actions']
 element: any;
+auth_token=''
 
 
   constructor(private router:Router, private codeService:CodeReviewService,private http:HttpClient,private activatedRoute:ActivatedRoute){}
 
   ngOnInit(): void {
+    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+   
+  
 
     this.onGetReviewDetails()
 
   }
   onGetReviewDetails(){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+  
 
-    this.codeService.getReviewDetails().subscribe((res:any)=>{
+    this.codeService.getReviewDetails(headers).subscribe((res:any)=>{
 
       if(res.success==true){
         console.log(res);
@@ -44,8 +52,10 @@ element: any;
   }
   onDeleteCompleteDetails(row:any){
     console.log(row._id);
-
-    this.codeService.onDeleteDetails(row._id).subscribe((res:any)=>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.onDeleteDetails(row._id,headers).subscribe((res:any)=>{
       console.log(res);
 
       if(res.success==true){
