@@ -6,6 +6,8 @@ import { CodeReviewTrackerComponent } from './code-review-tracker/code-review-tr
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { CreateChecklistComponent } from './create-checklist/create-checklist.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'startCodeReviewTracker',pathMatch:'full'},
@@ -15,7 +17,10 @@ const routes: Routes = [
   {path:'codeReviewTracker',component:CodeReviewTrackerComponent},
   {path:'codeReviewTracker',component:HeaderComponent},
   {path:'login',component:LoginComponent},
-  {path:'signup', component:SignupComponent}
+  {path:'signup', component:SignupComponent},
+  {path:'user-management', component:UserManagementComponent},
+  {path:'create-checklist', component:CreateChecklistComponent}
+
 ];
 
 @NgModule({

@@ -2,7 +2,7 @@
   <div class="container">
 
 
-        <div class="table-button">
+        <div class="table-button details-main top-heading">
           <h1 style="font-size: 1.25rem;">Code Review Project Details</h1>
           <div>
             <button class="button-all btn-outline mg-0">Cancel</button>
@@ -10,9 +10,19 @@
         </div>
           </div>
           <div class="details-main">
-                        <form class="row" [formGroup]="codeReviewerForm" >
-                    <div class="mb-3 col-md-6 col-sm-12">
-                        <label for="account" class="form-label">Account</label><span style="color: red;">*</span>
+                        <form class="row details-box" [formGroup]="codeReviewerForm" >
+                          <div class="mb-3 col-md-4 col-sm-12">
+                            <label for="project" class="form-label">Project Name <span style="color: red;">.</span></label>
+                            <input [readOnly]="status=='completed'"
+                            [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                              type="text"
+                              class="form-control"
+                              id="project"
+                              formControlName="project"
+                            />
+                          </div>
+                    <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="account" class="form-label">Account Name <span style="color: red;">*</span></label>
                         <input [readOnly]="status=='completed'"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
 
@@ -22,18 +32,9 @@
                           formControlName="account"
                         />
                       </div>
-                        <div class="mb-3 col-md-6 col-sm-12">
-                        <label for="project" class="form-label">Project</label><span style="color: red;">*</span>
-                        <input [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control"
-                          id="project"
-                          formControlName="project"
-                        />
-                      </div>
-                      <div class="mb-3 col-md-6 col-sm-12">
-                        <label for="storyId" class="form-label">Technical Stack</label><span style="color: red;">*</span>
+
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="storyId" class="form-label">Technical Stack <span style="color: red;">*</span></label>
 
                       <mat-select  (selectionChange)="onSelectStack($event.value)" [(ngModel)]="stack" class="form-control"
                       id="technicalStack"
@@ -43,8 +44,9 @@
                         </mat-option>
                       </mat-select>
                       </div>
-                      <div class="mb-3 col-md-6 col-sm-12">
-                        <label for="storyId" class="form-label">Technology</label><span style="color: red;">*</span>
+
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="storyId" class="form-label">Technology <span style="color: red;">*</span></label>
 
                       <mat-select (selectionChange)="onSelectTechnology($event.value)" [(ngModel)]="technology" class="form-control"
                       formControlName="technology"  >
@@ -53,7 +55,39 @@
                         </mat-option>
                       </mat-select>
                       </div>
-                      <div class="mb-3 col-md-6 col-sm-12">
+
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="developers" class="form-label">Developers <span style="color: red;">*</span></label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                          type="text"
+                          class="form-control"
+                          id="developers"
+                          formControlName="developers"
+                        />
+                      </div>
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="projectLead" class="form-label">Project Lead <span style="color: red;">*</span></label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                          type="text"
+                          class="form-control"
+                          id="projectLead"
+                          formControlName="projectLead"
+                        />
+                      </div>
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="reviewersName" class="form-label">Reviewers Name <span style="color: red;">*</span></label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                          type="text"
+                          class="form-control"
+                          id="reviewersName"
+                          formControlName="reviewersName"
+                        />
+                      </div>
+
+                      <div class="mb-3 col-md-4 col-sm-12">
                         <label for="storyId" class="form-label">Story ID (Enter if applicable)</label>
                         <input [readOnly]="status=='completed'"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
@@ -63,27 +97,8 @@
                           formControlName="storyId"
                         />
                       </div>
-                      <div class="mb-3 col-md-6 col-sm-12">
-                        <label for="developers" class="form-label">Developers</label><span style="color: red;">*</span>
-                        <input [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control"
-                          id="developers"
-                          formControlName="developers"
-                        />
-                      </div>
-                      <div class="mb-3 col-md-6 col-sm-12">
-                        <label for="projectLead" class="form-label">Project Lead</label><span style="color: red;">*</span>
-                        <input [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control"
-                          id="projectLead"
-                          formControlName="projectLead"
-                        />
-                      </div>
-                      <div class="mb-3 col-md-6 col-sm-12">
+
+                      <div class="mb-3 col-md-4 col-sm-12">
                         <label for="projectLead" class="form-label">Review Packages and Files</label>
                         <input [readOnly]="status=='completed'"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
@@ -93,17 +108,8 @@
                           formControlName="reviewPackagesandFiles"
                         />
                       </div>
-                      <div class="mb-3 col-md-6 col-sm-12">
-                        <label for="reviewersName" class="form-label">Reviewers Name</label><span style="color: red;">*</span>
-                        <input [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control"
-                          id="reviewersName"
-                          formControlName="reviewersName"
-                        />
-                      </div>
-                      <div class="mb-3 col-md-6 col-sm-12">
+
+                      <div class="mb-3 col-md-8 col-sm-12">
                         <label for="reviewersName" class="form-label">Code Review Comments</label>
                         <!-- #71606026 -->
                         <input [readOnly]="status=='completed'"

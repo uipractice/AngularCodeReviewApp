@@ -18,6 +18,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import { SignupComponent } from './signup/signup.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableModule} from '@angular/material/table';
+import { CreateChecklistComponent } from './create-checklist/create-checklist.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -27,7 +34,9 @@ import { SignupComponent } from './signup/signup.component';
     CodeReviewTrackerComponent,
     HeaderComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    UserManagementComponent,
+    CreateChecklistComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +51,15 @@ import { SignupComponent } from './signup/signup.component';
     NgbRatingModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatCardModule,
+
+
+
     // MatIconModule,
     // MatButtonModule,
     // MatToolbarModule,
