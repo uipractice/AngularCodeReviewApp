@@ -7,10 +7,12 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { RoleGuard } from './role.guard';
+import { AdminUserListComponent } from './admin-user-list/admin-user-list.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
-  {path:'startCodeReviewTracker',component:StartCodeReviewTrackerComponent,canActivate:[RoleGuard],data:{role:'user'}},
+  {path:'startCodeReviewTracker',component:StartCodeReviewTrackerComponent,canActivate:[RoleGuard]},
+  {path:'adminUserList',component:AdminUserListComponent,canActivate:[RoleGuard],data:{role:'admin'}},
   {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewTracker',component:CodeReviewTrackerComponent},

@@ -18,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import { SignupComponent } from './signup/signup.component';
+import { AdminUserListComponent } from './admin-user-list/admin-user-list.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SignupComponent } from './signup/signup.component';
     CodeReviewTrackerComponent,
     HeaderComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    AdminUserListComponent
   ],
   imports: [
     BrowserModule,
