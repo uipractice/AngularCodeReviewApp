@@ -128,7 +128,7 @@ getUserDetails(){
 
 // login.component.ts
 
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
@@ -137,6 +137,8 @@ import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+
 })
 export class LoginComponent {
   email: any;
@@ -147,7 +149,7 @@ export class LoginComponent {
  userRole:any
 
 
-  constructor(private authService: AuthService,private router:Router,private codeService:CodeReviewService) {}
+  constructor(private authService: AuthService,private router:Router,private codeService:CodeReviewService, private renderer: Renderer2,) {}
 
   onSubmit() {
     const credentials = {
@@ -181,6 +183,13 @@ export class LoginComponent {
 
 }
 
+ngOnInit(): void {
+
+  this.renderer.addClass(document.body, 'hide-header');
+
+}
+
+
 getUserDetails(){
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${this.auth_token}`
@@ -192,6 +201,10 @@ getUserDetails(){
     this.codeService.userDetails.next(res.data.role)
 
   })
+}
+
+ngOnDestroy() {
+  this.renderer.removeClass(document.body, 'hide-header');
 }
 }
 
