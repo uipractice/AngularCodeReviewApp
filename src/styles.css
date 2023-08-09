@@ -447,10 +447,11 @@ border-radius: 4px;
 }
 .mb-bottom {
   margin-bottom: 1.88rem;
+  position: relative;
 }
 
 .sign-title {
-font-weight: 700;
+font-weight: 800;
 margin-bottom:3.38rem;
 line-height: 1.25rem;
 font-size:1.25rem;
@@ -710,4 +711,10 @@ font-weight: 400;
   color: #fff;
   margin-bottom: 16px;
   width:100%;
+}
+
+img.icon-login {
+  position: absolute;
+  top: 13px;
+  left: 8px;
 }

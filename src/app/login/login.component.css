@@ -23,9 +23,48 @@ background: #fff;
 .form-control {
 border-radius: 0.25rem;
 border: 1px solid #C1C1C1;
-padding: 0px 8px!important;
+padding: 0px 8px 0px 35px!important;
 height: 3.25rem;
 }
 .blue {
   background: #219EBC;
+}
+
+.icon-view {
+  position: absolute;
+  right: 10px;
+  top: 14px;
+}
+.overlay-text {
+    position: absolute;
+    top: -11px;
+    left: 15px;
+    background: #fff;
+    color: rgba(0, 0, 0, 0.60);
+    padding: 0px 3px;
+}
+
+.remeber {
+  display: flex;
+  justify-content: space-between;
+}
+
+.remeber {
+  padding-top:20px;
+}
+.checkbox{
+display: flex;}
+
+.checkbox label {
+  padding-left: 10px;
+}
+
+.checkbox input {
+  width: 24px;
+  height: 24px;
+
+}
+.remeber a {
+color:#219EBC;
+text-decoration: none;
 }
