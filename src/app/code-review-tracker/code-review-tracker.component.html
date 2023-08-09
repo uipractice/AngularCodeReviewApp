@@ -22,9 +22,9 @@
 
               <div class="heading-grey"><h4  class="top-20"  > {{child?.key}} </h4>
                 <div class="selection select-dropdown" *ngIf="child.options==''">
-                  <mat-form-field>
+                  <mat-form-field >
                       <mat-label>Applicable</mat-label>
-                      <mat-select >
+                      <mat-select formControlName="options" >
                         <mat-option [value]="opt.value" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                       </mat-select>
                     </mat-form-field>

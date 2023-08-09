@@ -19,7 +19,7 @@ const routes: Routes = [
   {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewTracker',component:CodeReviewTrackerComponent},
-  {path:'codeReviewTracker',component:HeaderComponent},
+  // {path:'codeReviewTracker',component:HeaderComponent},
   {path:'login',component:LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'user-management', component:UserManagementComponent},
