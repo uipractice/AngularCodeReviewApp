@@ -1,26 +1,21 @@
 version: 0.2
 env:
   variables:
-    S3_BUCKET: "cv.schreck.berlin"
+    APP_NAME: "angular-cicd-pipeline-demo"
 phases:
   install:
     runtime-versions:
       nodejs: 16.x
-  pre_build:
     commands:
-      - echo Installing source NPM dependencies...
-      - npm install --legacy-peer-deps
-      - npm install -g @angular/cli
+      - echo install process started
+      - npm install && npm install -g @angular/cli
   build:
     commands:
-      - echo Build started on `date`
-      - ng build --configuration production --aot
+      - echo build process started now
+      - ng build --configuration=production
   post_build:
-     commands:
-      - aws s3 cp dist s3://${S3_BUCKET} --recursive
-      - echo Build completed on `date`
-artifacts:
-  files:
-      - '**/*'
-  base-directory: 'dist*'
-  discard-paths: yes
+    commands:
+      - echo build process finished, we should uplload to S3 now
+      - cd dist/$APP_NAME
+      - ls -la
+      - aws s3 sync . s3://my-awsome-bucket-of-files --delete
