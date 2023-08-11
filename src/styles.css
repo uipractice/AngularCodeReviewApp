@@ -18,6 +18,10 @@ ul {
 .pd-0 {
   padding: 0px !important;
 }
+.center {
+  display: block;
+  text-align: center;
+}
 .green-color {
   color: #139347;
   padding-top:12px;
@@ -315,16 +319,15 @@ border-bottom:0px;
 /*****main body styles*****/
 
 .main-body {
-  padding:75px 20px 0px 20px;
+  padding:56px 20px 0px 20px;
 }
 
 .table-button {
   display: flex;
   justify-content:space-between;
-  margin-bottom: 20px;
 }
 .table-button h1{
-  padding-top: 8px;
+  padding-top: 3px;
   padding-bottom: 0px;
 }
 .button-all {
@@ -342,6 +345,21 @@ border-bottom:0px;
   }
   .btn-blue {
   background:#219EBC;
+}
+.top-heading .btn-blue {
+  height: 38px;
+}
+.btn-outline {
+background:#fff;
+border:1px solid #023047;
+color: #023047;
+text-align: center;
+font-size: 14px;
+font-weight: 600;
+letter-spacing: 0.14px;
+width: 101px;
+height: 38px;
+margin-right: 20px !important;
 }
 .btn-greay {
   background:#DEDEDE;
@@ -396,7 +414,7 @@ display: flex;
     text-align: center;
 }
 
-.login-footer p{
+.login-footer p {
   color: rgba(255, 255, 255, 0.83);
   margin-bottom: 3px !important;
 }
@@ -411,7 +429,7 @@ display: flex;
  flex-wrap: wrap;
  justify-content: center;
 }
-.login-footer ul li{
+.login-footer ul li {
   padding: 0px 5px;
   text-align: center;
   color:rgba(255, 255, 255, 0.83);
@@ -429,10 +447,11 @@ border-radius: 4px;
 }
 .mb-bottom {
   margin-bottom: 1.88rem;
+  position: relative;
 }
 
 .sign-title {
-font-weight: 700;
+font-weight: 800;
 margin-bottom:3.38rem;
 line-height: 1.25rem;
 font-size:1.25rem;
@@ -444,7 +463,7 @@ padding-top: 2.62rem;
 justify-content: space-between;
 
 }
-.project-name{
+.project-name {
 border-radius: 0.375rem;
 border: 1px solid #E0E6EC;
 background: #FFF;
@@ -486,18 +505,18 @@ font-size: 0.75rem;
 font-weight:500;
 }
 
-.accounts li strong{
+.accounts li strong {
 color: #0E0E0E;
 font-size: 0.875rem;
 font-weight:600;
 display: block;
 }
-.icons-view{
+.icons-view {
   display:flex;
   margin: 0px;
   padding: 0px;
 }
-.icons-view li{
+.icons-view li {
   display: flex;
   padding:0 0 0 33px;
 
@@ -507,7 +526,6 @@ display: block;
   justify-content: space-around;
   font-weight:500;
   font-size:1rem;
-
 }
 
 .review-status img {
@@ -516,11 +534,215 @@ display: block;
   margin-right: 7px;
 
 }
-.details-main{
+
+.details-main {
+  margin:0 6.87rem;
+}
+
+.details-box {
 border-radius: 0.25rem;
 border: 1px solid #E0E6EC;
 background: #FFF;
 box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.07);
-margin:0 6.87rem;
 padding:3.25rem 2.5rem;
+margin-left: 0px !important;
+margin-right: 0px !important;
 }
+
+.top-heading {
+ padding: 29px 5px 29px 5px;
+}
+
+.details-box .form-control{
+  border-radius: 4px;
+  border: 1px solid #C1C1C1;
+  height: 53px;
+  padding: 12px 10px;
+  font-weight: 700;
+  color:#000;
+  margin-bottom: 16px;
+  background: #fff !important;
+}
+
+.details-box .form-label {
+  color: rgba(0, 0, 0, 0.60);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0.15px;
+  position: absolute;
+  top: -11px;
+  margin-left:16px;
+  background: #fff;
+  display: inline-block;
+  padding: 7px;
+}
+#codeReviewComments {
+  height: 110px;
+
+}
+
+.details-box .mb-3 {
+  position: relative;
+}
+
+.user-managment .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+  border-radius: 6px;
+  border: 1px solid #E0E6EC;
+  background: #FFF;
+  box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+.grey-bg.user-managment {
+  height:100vh;
+
+}
+.user-managment .mdc-data-table__header-cell {
+background: #353737 !important;
+color: #fff;
+border-right: 1px solid #8D9EA7;
+height: 40px;
+}
+
+.user-managment .mdc-data-table__cell {
+
+color: #171717;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: -0.05px;
+}
+
+.user-managment .mat-mdc-paginator-container {
+  justify-content:center;
+  border-top:1px solid #ECECEC;
+  padding: 10px 0;
+
+}
+.user-managment .mat-mdc-paginator-page-size-label, .mat-mdc-paginator-range-label {
+  font-size: 14px;
+  color: #353535;
+
+}
+.btn-de button{
+margin-right: 20px;
+background: none;
+border: none;
+
+}
+.user-managment .mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after {
+  background: green;
+}
+.user-managment .mat-mdc-slide-toggle .mdc-switch:enabled .mdc-switch__track::after {
+  background:#14AE5C;
+
+}
+
+/**sign up***/
+#id_work_days{
+  height: 44px;
+  border: none;
+  overflow: hidden;
+}
+#id_work_days::-moz-focus-inner {
+  border: 0;
+}
+#id_work_days:focus {
+  outline: none;
+}
+#id_work_days option{
+  font-size: 1.2em;
+  padding: 10px 14px;
+  text-align: center;
+  margin-right:0px;
+  display: inline-block;
+  cursor: pointer;
+  border:#C1C1C1 solid 1px;
+  border-radius: 4px;
+  color:rgba(0, 0, 0, 0.87);
+}
+#b-user {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-right: 0px !important;
+}
+
+#admin {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+
+}
+.add-newuser {
+  height: 100vh;
+}
+.add-newuser .table-button{
+  justify-content: left;
+  display:flow;
+}
+.add-newuser ul {
+  padding-left: 0px;
+  margin-bottom:0px;
+}
+.add-newuser ul li{
+  display: inline-block;
+  padding-right:10px;
+
+}
+.add-newuser ul li a{
+color:#008CAD !important;
+font-size: 14px;
+font-weight: 400;
+}
+.add-newuser ul li a:last-child {
+  color: #666;
+
+}
+.add-newuser h1 {
+  padding-top: 0px;
+}
+
+.details-box textarea {
+  border-radius: 4px;
+  border: 1px solid #C1C1C1;
+  padding: 12px 10px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  width:100%;
+}
+
+img.icon-login {
+  position: absolute;
+  top: 13px;
+  left: 8px;
+}
+
+
+.search {
+  display:flex;
+  justify-content: space-between;
+
+  }
+  .form-group.has-search {
+    margin-right: 20px;
+    position: relative;
+  }
+
+  .search input{
+    width: 255px;
+    height: 38px;
+    margin-top: 2px;
+    border-radius: 4px;
+    border: 1px solid #C1C1C1;
+    color:rgba(99, 99, 99, 0.87) !important;
+    padding-left: 30px;
+  }
+
+  .search .icon-serch {
+    position: absolute;
+    left: 0px;
+    top: 20px;
+
+  }
+

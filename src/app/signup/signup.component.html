@@ -1,27 +1,208 @@
-<div class="container">
-  <div class="row">
-      <div class="col-lg-10 col-xl-7 mx-auto">
-          <strong class="sign-title">Sign in to your Account</strong>
+<div class="main-body grey-bg add-newuser">
+  <div class="container ">
 
-          <form [formGroup]="signupForm" (ngSubmit)="signUp()">
-              <div class="form-group mb-bottom">
-                  <input formControlName="firstName" type="text" placeholder="First Name " required="" autofocus="" class="form-control px-4">
-              </div>
-              <div class="form-group mb-bottom">
-                  <input formControlName="lastName" type="text" placeholder="Last Name" required="" class="form-control px-4 text-primary">
-              </div>
-              <div class="form-group mb-bottom">
-                <input formControlName="email" type="email" placeholder="email" required="" class="form-control px-4 text-primary">
-            </div>
-            <div class="form-group mb-bottom">
-              <input formControlName="password" type="password" placeholder="password" required="" class="form-control px-4 text-primary">
+
+        <div class="table-button details-main top-heading ">
+          <h1 style="font-size: 1.25rem;">Create New User</h1>
+          <ul>
+            <li><a href="">Home</a></li>
+            <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+            <li><a href="">User Management</a></li>
+            <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+            <li>Add New User</li>
+          </ul>
+
           </div>
-          <div class="form-group mb-bottom">
-            <input formControlName="role" type="text" placeholder="role" required="" class="form-control px-4 text-primary">
+          <div class="details-main">
+
+
+          <form class="row details-box" [formGroup]="signupForm" (ngSubmit)="signUp()">
+              <div class="mb-3 col-md-4 col-sm-12">
+                <label for="developers" class="form-label">First Name <span>*</span></label>
+                  <input formControlName="firstName" type="text"  required="" autofocus="" class="form-control px-4">
+              </div>
+              <div class="mb-3 col-md-4 col-sm-12">
+                <label for="developers" class="form-label">Last Name <span>*</span></label>
+                  <input formControlName="lastName" type="text"  required="" class="form-control px-4 text-primary">
+              </div>
+              <div class="mb-3 col-md-4 col-sm-12">
+                <label for="developers" class="form-label">Employee ID <span>*</span></label>
+                <input formControlName="email" type="email"  required="" class="form-control px-4 text-primary">
+            </div>
+            <div class="mb-3 col-md-4 col-sm-12">
+              <label for="developers" class="form-label">Email Address <span>*</span></label>
+              <input formControlName="email" type="email"  required="" class="form-control px-4 text-primary">
+          </div>
+          <div class="mb-3 col-md-4 col-sm-12">
+            <label for="developers" class="form-label">Password <span>*</span></label>
+            <input formControlName="password" type="password"  required="" class="form-control px-4 text-primary">
         </div>
-              <button type="submit" class="full-btn blue">SignUp</button>
+
+          <div class="mb-3 col-md-4 col-sm-12">
+            <label for="developers" class="form-label">Confirm Password <span>*</span></label>
+            <input formControlName="password" type="password" required="" class="form-control px-4 text-primary">
+        </div>
+
+        <div class="buttons">
+        <select name="work_days" id="id_work_days" multiple>
+          <option id="b-user" value="1">Basic User</option>
+          <option id="admin" value="2">Admin</option>
+          </select>
+      </div>
+      <div class="center">
+      <button class="button-all btn-outline mg-0">Cancel</button>
+      <button class="button-all btn-blue mg-0">Create User</button>
+    </div>
 
           </form>
       </div>
   </div>
 </div><!-- End -->
+
+
+
+
+
+<!--
+<div class="main-body grey-bg">
+  <div class="container">
+
+        <div class="table-button details-main top-heading">
+          <h1 style="font-size: 1.25rem;">Code Review Project Details</h1>
+          <div>
+            <button class="button-all btn-outline mg-0">Cancel</button>
+          <button class="button-all btn-blue mg-0">Continue</button>
+        </div>
+          </div>
+          <div class="details-main">
+                        <form class="row details-box" [formGroup]="codeReviewerForm" >
+                          <div class="mb-3 col-md-4 col-sm-12">
+                            <label for="project" class="form-label">Project Name <span style="color: red;">.</span></label>
+                            <input [readOnly]="status=='completed'"
+                            [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                              type="text"
+                              class="form-control"
+                              id="project"
+                              formControlName="project"
+                            />
+                          </div>
+                    <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="account" class="form-label">Account Name <span style="color: red;">*</span></label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+
+                          type="text"
+                          class="form-control"
+                          id="account"
+                          formControlName="account"
+                        />
+                      </div>
+
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="storyId" class="form-label">Technical Stack <span style="color: red;">*</span></label>
+
+                      <mat-select  (selectionChange)="onSelectStack($event.value)" [(ngModel)]="stack" class="form-control"
+                      id="technicalStack"
+                      formControlName="technicalStack">
+                        <mat-option *ngFor="let stack of technicalStackList" [value]="stack">
+                          {{stack.name}}
+                        </mat-option>
+                      </mat-select>
+                      </div>
+
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="storyId" class="form-label">Technology <span style="color: red;">*</span></label>
+
+                      <mat-select (selectionChange)="onSelectTechnology($event.value)" [(ngModel)]="technology" class="form-control"
+                      formControlName="technology"  >
+                        <mat-option *ngFor="let technology of technologyList" [value]="technology" >
+                          {{technology.name}}
+                        </mat-option>
+                      </mat-select>
+                      </div>
+
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="developers" class="form-label">Developers <span style="color: red;">*</span></label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                          type="text"
+                          class="form-control"
+                          id="developers"
+                          formControlName="developers"
+                        />
+                      </div>
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="projectLead" class="form-label">Project Lead <span style="color: red;">*</span></label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                          type="text"
+                          class="form-control"
+                          id="projectLead"
+                          formControlName="projectLead"
+                        />
+                      </div>
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="reviewersName" class="form-label">Reviewers Name <span style="color: red;">*</span></label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                          type="text"
+                          class="form-control"
+                          id="reviewersName"
+                          formControlName="reviewersName"
+                        />
+                      </div>
+
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="storyId" class="form-label">Story ID (Enter if applicable)</label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                          type="text"
+                          class="form-control"
+                          id="storyId"
+                          formControlName="storyId"
+                        />
+                      </div>
+
+                      <div class="mb-3 col-md-4 col-sm-12">
+                        <label for="projectLead" class="form-label">Review Packages and Files</label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                          type="text"
+                          class="form-control"
+                          id="reviewPackagesandFiles"
+                          formControlName="reviewPackagesandFiles"
+                        />
+                      </div>
+
+                      <div class="mb-3 col-md-8 col-sm-12">
+                        <label for="reviewersName" class="form-label">Code Review Comments</label>
+                        <input [readOnly]="status=='completed'"
+                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+                          type="text"
+                          class="form-control"
+                          id="codeReviewComments"
+                          formControlName="codeReviewComments"
+                        />
+                      </div>
+                      <div class="table-button">
+                      <div class="save-submit-button">
+                          <span *ngIf="(status==''||status=='pending')" >
+                            <button type="submit" class="button-all btn-blue"  [disabled]="!(codeReviewerForm.get('account')?.value && codeReviewerForm.get('project')?.value && codeReviewerForm.get('technicalStack')?.value && codeReviewerForm.get('technology')?.value && codeReviewerForm.get('developers')?.value && codeReviewerForm.get('projectLead')?.value && codeReviewerForm.get('reviewersName')?.value)" (click)="save()"  >Save</button>
+                              </span>
+
+                          <span *ngIf="status=='completed'">
+                            <button class="button-all btn-blue" (click)="getBackDetails()">Back</button>
+                          </span>
+                        </div>
+
+                      <div>
+                        <button type="submit" class="button-all btn-greay " style="margin-left: 20px;" [disabled]="codeReviewerForm.invalid"  (click)="submitReviewDetails()">Next</button>
+                      </div>
+                    </div>
+                </form>
+
+
+   </div>
+</div>
+</div>
+-->

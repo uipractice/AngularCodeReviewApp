@@ -18,6 +18,12 @@ userDetails=new Subject()
     }))
   }
 
+  getUSersList(headers:any){
+    return this.http.get(`${this.baseUrl}/users`,{headers}).pipe(map((res:any)=>{
+      return res
+    }))
+
+  }
   
 
  

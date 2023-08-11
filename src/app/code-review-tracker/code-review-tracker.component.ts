@@ -30,6 +30,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder){}
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+    console.log('auth toke in review tracker',this.auth_token);
+    
 
     this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
     
@@ -72,7 +74,7 @@ export class CodeReviewTrackerComponent implements OnInit {
           if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
             const checkListChildGroup=this.formBuilder.group({
               key:child.key,
-              options:'',
+              options:this.subChildOptions,
               rating:'',
               achievedRating:'',
               comments:''
@@ -107,6 +109,10 @@ export class CodeReviewTrackerComponent implements OnInit {
         
       })
 
+
+
+      //latest code
+     
 
    
     }

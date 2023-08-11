@@ -32,15 +32,23 @@
 
                           <form (submit)="onSubmit()">
                               <div class="form-group mb-bottom">
-                                  <input  type="email" placeholder="Email address" [(ngModel)]="email" name="username" required class="form-control px-4">
-                              </div>
+                                <label class="overlay-text">Email Address</label>
+                                  <input id="inputEmail" type="email"  [(ngModel)]="email" name="username" class="form-control px-4">
+                                  <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
+                                </div>
                               <div class="form-group mb-bottom">
-                                  <input  type="password" placeholder="Password" [(ngModel)]="password" name="password" class="form-control px-4 text-primary">
-                              </div>
+
+                                <label class="overlay-text">Password</label>
+                                  <input id="inputPassword"  type="password" placeholder="Password" [(ngModel)]="password" name="password" class="form-control px-4 text-primary">
+                                  <img class="icon-login" src="../assets/Lock_light.svg" alt="Lock icon" title="Lock">
+                                  <img class="icon-view" src="../assets/View_light.svg" alt="view" title="view">
+                                </div>
                               <button type="submit" class="full-btn blue">Login</button>
-                              <a routerLink="/signup">SignUp</a>
+<div class="remeber">
+                             <div class="checkbox"> <input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label></div>
+                              <a routerLink="/signup">Forgot password?</a>
 
-
+                            </div>
                           </form>
                       </div>
                   </div>

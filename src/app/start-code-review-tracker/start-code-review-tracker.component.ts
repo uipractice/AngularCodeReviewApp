@@ -11,7 +11,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 export class StartCodeReviewTrackerComponent implements OnInit {
  codeReviewDetailsList=[ ]
- dataSource=[]
+ dataSource:any
   displayedColumns:string[]=['index','account','project','developers','reviewersName','codeReviewComments','reviewDate','actions']
 element: any;
 auth_token=''

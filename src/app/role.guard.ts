@@ -8,22 +8,20 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RoleGuard implements CanActivate {
-  constructor(private codeService:CodeReviewService,private route:Router){}
+  constructor(private codeService:CodeReviewService,private router:Router){}
   userDetails:any
-  canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    this.codeService.userDetails.subscribe((res:any)=>{
-        this.userDetails=res       
-        console.log(this.userDetails);
-        
-      })
-
-      if(route.data['role'].includes(this.userDetails)){
-        return true
-      }
-      else{
-        return false
-      }
-    
-    }
+  canActivate( route: ActivatedRouteSnapshot) {
   
+
+    const adminRole='admin'
+    if(route.data['role'].includes(adminRole)){
+      this.router.navigate(['/adminUserList'])
+      return true
+    }
+    else{
+      this.router.navigate(['/startCodeReviewTracker'])
+      return false
+    }
+  }
+    
 }
