@@ -9,7 +9,7 @@
             <div class="steps"></div>
             <span class="steps-title" >{{sideData}}</span>
         </ng-template>
-        <h2 class="heading"    >{{selectelTabCheckList?.key}} Checklist</h2>
+        <!-- <h2 class="heading"    >{{selectelTabCheckList?.key}} Checklist</h2> -->
         <button (click)="saveCheckListData()">Save</button>
         
         <div *ngFor="let list of getCheckListArray().controls;let i=index" [formGroupName]="i" >
@@ -24,7 +24,7 @@
                 <div class="selection select-dropdown" *ngIf="child.options==''">
                   <mat-form-field >
                       <mat-label>Applicable</mat-label>
-                      <mat-select formControlName="options" >
+                      <mat-select ontrolName="optionsformC" >
                         <mat-option [value]="opt.value" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -72,7 +72,7 @@
                     <div class="selection select-dropdown">
                   <mat-form-field>
                       <mat-label>Applicable</mat-label>
-                      <mat-select  (selectionChange)="getSubChildSelection($event,'subChildOption')"  >
+                      <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption')"  >
                         <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -112,6 +112,8 @@
   
   
         </div>
+
+       
 
         
       
