@@ -10,6 +10,7 @@ import { RoleGuard } from './role.guard';
 import { AdminUserListComponent } from './admin-user-list/admin-user-list.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { CreateChecklistComponent } from './create-checklist/create-checklist.component';
+import { CodereviewManagementComponent } from './codereview-management/codereview-management.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'user-management', component:UserManagementComponent},
-  {path:'create-checklist', component:CreateChecklistComponent}
+  {path:'create-checklist', component:CreateChecklistComponent},
+  {path:'codereview-managment', component:CodereviewManagementComponent}
 
 ];
 

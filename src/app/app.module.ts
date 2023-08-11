@@ -25,6 +25,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
 import { CreateChecklistComponent } from './create-checklist/create-checklist.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { CodereviewManagementComponent } from './codereview-management/codereview-management.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { UserManagementComponent } from './user-management/user-management.compo
     LoginComponent,
     SignupComponent,
     CreateChecklistComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    CodereviewManagementComponent
    
   ],
   imports: [
