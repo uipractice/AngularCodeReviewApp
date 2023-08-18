@@ -25,6 +25,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   checkListChildData:any
   subChildOptions=''
   auth_token=''
+  isDisabledRating:boolean=true
 
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder){}
@@ -49,51 +50,50 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   buildReactiveForm(){
     this.reviewTrackerForm=this.formBuilder.group({
-      checkListArray:this.formBuilder.array([])
+      key:this.reviewDetailsHeader,
+      value:new FormArray([])
       })
   }
  
  
   
   getReviewDetails(){
+    
     this.buildReactiveForm()
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
    
       this.codeService.getReviewTrackerDetails(headers,this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
-        console.log(res.data[0].data[0]);
+        console.log(res.data[0].data[0].value);
         this.selectelTabCheckList=res.data[0].data[0]
-        const checkListGroupData=this.reviewTrackerForm.get('checkListArray') as FormArray
-        const checkListGroup=this.formBuilder.group({
-          key:this.selectelTabCheckList.key,
-          value:this.formBuilder.array([])
-        })
-        const checkListChildGroupData=checkListGroup.get('value') as FormArray
+
+      
+        const checkListChildGroupData=this.reviewTrackerForm.get('value') as FormArray
         for(let child of this.selectelTabCheckList.value){
           if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
-            const checkListChildGroup=this.formBuilder.group({
-              key:child.key,
-              options:this.subChildOptions,
-              rating:'',
-              achievedRating:'',
-              comments:''
+            const checkListChildGroup=new FormGroup({
+              key:new FormControl(child.key),
+              options:new FormControl(child.options),
+              rating:new FormControl(child.rating),
+              achievedRating:new FormControl(child.achievedRating),
+              comments:new FormControl(child.comments)
             })
             checkListChildGroupData.push(checkListChildGroup)
           }
           else if(child.value){
-            const checkListChildGroup=this.formBuilder.group({
-              key:child.key,
-              value:this.formBuilder.array([])
+            const checkListChildGroup=new FormGroup({
+              key:new FormControl(child.key),
+              value:new FormArray([])
             })
             const checkListsubChildGroupData=checkListChildGroup.get('value') as FormArray
             for(let subChild of child.value){
-            const checkListsubChildGroup=this.formBuilder.group({
-              key:subChild.key,
-              options:'',
-              rating:'',
-              achievedRating:'',
-              comments:''  
+            const checkListsubChildGroup=new FormGroup({
+              key:new FormControl(subChild.key),
+              options:new FormControl(subChild.options),
+              rating:new FormControl(subChild.rating),
+              achievedRating:new FormControl(subChild.achievedRating),
+              comments:new FormControl(subChild.comments)
             })
             
 
@@ -103,7 +103,6 @@ export class CodeReviewTrackerComponent implements OnInit {
             
           }
         }
-        checkListGroupData.push(checkListGroup)
       
         
         
@@ -111,7 +110,6 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
 
-      //latest code
      
 
    
@@ -122,7 +120,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     
 
    getCheckListArray(){
-    return this.reviewTrackerForm.get('checkListArray') as FormArray
+    return this.reviewTrackerForm.get('value') as FormArray
   }
   getChildData(childIndex:number){
     return this.getCheckListArray().at(childIndex).get('value') as FormArray
@@ -139,13 +137,18 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   getSubChildSelection(rating:any,name:any){
-    console.log('value',rating);
-    console.log('name',name);
-    this.subChildOptions=rating.value
-    const childArray=this.reviewTrackerForm.get('checkListArray').value
-    console.log('childArray',childArray);
+    // console.log('value',rating);
+    // console.log('name',name);
+    // this.subChildOptions=rating.value
+    // const childArray=this.reviewTrackerForm.get('value').value
+    // console.log('childArray',childArray);
     
     
+  }
+  getChildSelectedOption(rating:any,name:any){
+    console.log(rating,name);
+    
+
   }
   
   
