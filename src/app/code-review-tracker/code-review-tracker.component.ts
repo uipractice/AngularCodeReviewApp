@@ -3,6 +3,8 @@ import { CodeReviewService } from '../code-review.service';
 import { Form, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { FormatWidth } from '@angular/common';
+import { AddCommentsComponent } from '../add-comments/add-comments.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -13,6 +15,11 @@ import { FormatWidth } from '@angular/common';
 })
 export class CodeReviewTrackerComponent implements OnInit {
   @ViewChild('subChild') subChild!:ElementRef<HTMLDivElement>
+
+  selectedOption = 'selected';
+
+
+
  codeReviewData:any
   selectOptions:any
   starRating =0
@@ -25,25 +32,26 @@ export class CodeReviewTrackerComponent implements OnInit {
   checkListChildData:any
   subChildOptions=''
   auth_token=''
+  dialogRef: any;
 
 
-  constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder){}
+  constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog){}
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     console.log('auth toke in review tracker',this.auth_token);
-    
+
 
     this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
-    
-    
+
+
     this.getOptions()
     this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
   this.reviewTrackerForm=this.buildReactiveForm()
     this.getReviewDetails()
 //  this. onGetSideSelectedValue()
-  
-   
-  
+
+
+
 
   }
 
@@ -52,15 +60,15 @@ export class CodeReviewTrackerComponent implements OnInit {
       checkListArray:this.formBuilder.array([])
       })
   }
- 
- 
-  
+
+
+
   getReviewDetails(){
     this.buildReactiveForm()
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-   
+
       this.codeService.getReviewTrackerDetails(headers,this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
         console.log(res.data[0].data[0]);
         this.selectelTabCheckList=res.data[0].data[0]
@@ -93,29 +101,29 @@ export class CodeReviewTrackerComponent implements OnInit {
               options:'',
               rating:'',
               achievedRating:'',
-              comments:''  
+              comments:''
             })
-            
+
 
             checkListsubChildGroupData.push(checkListsubChildGroup)
            }
             checkListChildGroupData.push(checkListChildGroup)
-            
+
           }
         }
         checkListGroupData.push(checkListGroup)
-      
-        
-        
+
+
+
       })
 
 
-   
+
     }
 
 
 
-    
+
 
    getCheckListArray(){
     return this.reviewTrackerForm.get('checkListArray') as FormArray
@@ -124,14 +132,14 @@ export class CodeReviewTrackerComponent implements OnInit {
     return this.getCheckListArray().at(childIndex).get('value') as FormArray
 
   }
- 
- 
+
+
 
 
 
   saveCheckListData(){
     console.log(this.reviewTrackerForm.value);
-    
+
   }
 
   getSubChildSelection(rating:any,name:any){
@@ -140,11 +148,11 @@ export class CodeReviewTrackerComponent implements OnInit {
     this.subChildOptions=rating.value
     const childArray=this.reviewTrackerForm.get('checkListArray').value
     console.log('childArray',childArray);
-    
-    
+
+
   }
-  
-  
+
+
   getOptions(){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
@@ -161,27 +169,34 @@ export class CodeReviewTrackerComponent implements OnInit {
       'Authorization': `Bearer ${this.auth_token}`
     });
     console.log(stackId,techId,headers);
-    
+
     this.codeService.getSideNav(stackId,techId,headers).subscribe((res:any)=>{
       this.sideNavDetails=res.data[0].leftNav
-      
+
     })
-    
+
   }
- 
 
-
-
-
- 
 
   onGetSideSelectedValue(value?:any){
     this.reviewDetailsHeader=value.tab.textLabel
     this.getReviewDetails()
-    
+
   }
   getRating(rating:any){
     console.log(rating);
+  }
+
+  name: string | undefined;
+  color: string | undefined;
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddCommentsComponent, {
+      width: '695px',
+      data: { name: this.name, color: this.color },
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      this.color = res;
+    });
   }
 }
 

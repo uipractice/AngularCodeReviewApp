@@ -26,6 +26,10 @@ import {MatCardModule} from '@angular/material/card';
 import { CreateChecklistComponent } from './create-checklist/create-checklist.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { CodereviewManagementComponent } from './codereview-management/codereview-management.component';
+import { AddCommentsComponent } from './add-comments/add-comments.component';
+//import {MatDialog} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -38,8 +42,11 @@ import { CodereviewManagementComponent } from './codereview-management/coderevie
     SignupComponent,
     CreateChecklistComponent,
     UserManagementComponent,
-    CodereviewManagementComponent
-   
+    CodereviewManagementComponent,
+    AddCommentsComponent
+
+
+
   ],
   imports: [
     BrowserModule,
@@ -60,7 +67,7 @@ import { CodereviewManagementComponent } from './codereview-management/coderevie
     MatPaginatorModule,
     MatCheckboxModule,
     MatCardModule,
-
+    MatDialogModule
 
 
     // MatIconModule,

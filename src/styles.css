@@ -12,11 +12,17 @@ ul {
 .top-20 {
   padding-top:20px;
 }
+.top-30 {
+  padding-top:20px;
+}
 .mg-0 {
   margin:0px !important;
 }
 .pd-0 {
   padding: 0px !important;
+}
+.border-b-none {
+  border-bottom: none !important;
 }
 .center {
   display: block;
@@ -210,6 +216,8 @@ display: flex;
 align-items: self-start;
 background: #F8F8F8;
 padding: 1.063rem 1rem;
+justify-content: space-between;
+align-items: center;
 }
 .heading-grey h4 {
   border-radius: 0.125rem;
@@ -331,10 +339,10 @@ border-bottom:0px;
   justify-content:space-between;
 }
 .table-button h1{
-  padding-top: 3px;
+  padding-top:0px;
   padding-bottom: 0px;
   font-size: 20px;
-  font-weight:700;
+  font-weight:700 !important;
 }
 .button-all {
   padding: 10px;
@@ -550,7 +558,7 @@ border-radius: 0.25rem;
 border: 1px solid #E0E6EC;
 background: #FFF;
 box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.07);
-padding:3.25rem 2.5rem;
+padding:3.25rem 1rem;
 margin-left: 0px !important;
 margin-right: 0px !important;
 }
@@ -706,9 +714,10 @@ font-weight: 400;
 }
 
 
-.pagination ul {
+.pagination{
   padding-left: 0px;
   margin-bottom:0px;
+ margin-top:4px ;
 }
 .pagination li{
   display: inline-block;
@@ -720,8 +729,9 @@ color:#008CAD !important;
 font-size: 14px;
 font-weight: 400;
 }
-.pagination li a:last-child {
+.pagination li:last-child {
   color:#666;
+  font-size:14px;
 }
 .pagination h1 {
   padding-top: 0px;
@@ -778,10 +788,68 @@ img.icon-login {
     position: absolute;
     top: -9px;
     left: 8px;
-    z-index: 99;
+    z-index:99;
 }
 
 .box--right {
   display: flex;
   justify-content: space-between;
+}
+
+
+.flex-center {
+  display: flex;
+  justify-content:center;
+}
+.line-grey {
+background: #E7E7E7;
+margin-left: -24px;
+margin-right: -24px;
+margin-top:25px;
+margin-bottom:25px;
+
+}
+.comment-question {
+color: #000;
+font-family:'Lato';
+font-size: 16px;
+font-style: normal;
+font-weight: 900;
+line-height: 26px;
+margin-right: 53px;
+display: block;
+}
+.close {
+  position: absolute;
+  right: 26px;
+  top:36px;
+
+}
+
+.label-popup {
+  color:#181818;
+  margin-bottom: 10px;
+
+}
+
+.mat-mdc-option {
+  background: none !important;
+}
+
+
+.mat-select-panel .ng-animating {
+    visibility: hidden;
+  }
+
+.main-sonar {
+  margin: 10px 20px;
+  border-bottom: 2px dotted #CBCBCB;
+}
+.top-page {
+margin-top:48px;
+}
+
+
+.save-btn {
+
 }
