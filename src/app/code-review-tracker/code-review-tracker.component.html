@@ -110,7 +110,7 @@
       
                      <div class="rating-number">
                       <div class="achieved select-dropdown">
-                        <mat-form-field>
+                        <!-- <mat-form-field>
                          <mat-label>Achieved</mat-label>
                           <mat-select  formControlName="achievedRating"  >
                             <mat-option value=0>0</mat-option>
@@ -120,7 +120,12 @@
                            <mat-option value=4>4</mat-option>
                            <mat-option value=5>5</mat-option>
                           </mat-select>
+                        </mat-form-field> -->
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Achieved Rating</mat-label>
+                          <input matInput  [readonly]='true'  formControlName="achievedRating" >
                         </mat-form-field>
+  
                       </div>
                      </div>
                      <div class="Comment"  ><img src="../assets/comment_light.svg"></div>

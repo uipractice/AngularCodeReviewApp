@@ -137,29 +137,21 @@ export class CodeReviewTrackerComponent implements OnInit {
     return this.reviewTrackerForm.get('value') as FormArray
   }
 
- get subChildFormData(){
-    return this.formData.get('value') as FormArray
-  }
+ 
 
   getSubChildSelection(rating:any,name:any,index:number){
-  const subChidCOntrol=this.subChildFormData
-  console.log('sub child data',subChidCOntrol);
+  //  console.log(this.formData.value);
+   this.formData.value.forEach((data:any) => {
+    if(data.value){
+      console.log(this.formData.at(index).get('value')?.value);
+      
+      
+    }
   
-
-  // const selectedData=this.reviewTrackerForm.get('value').value
-  // for(let child of selectedData){
-  //   if(child.rating){
-  //     child.rating.at(index).patchValue(0)
-  //   }
-  //   else if(child.value){
-  //     for(let subChild of child.value){
-  //       subChild.rating.at(index).patchValue(0)
-  //     }
-  //   }
-  // }
- 
-  
-  
+   });
+   
+    
+    
   }
   getChildSelectedOption(rating:any,name:any,index:number){
     console.log('parent data',this.formData);
