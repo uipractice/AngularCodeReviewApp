@@ -1,10 +1,7 @@
 import { Component,ElementRef,OnInit,ViewChild } from '@angular/core';
 import { CodeReviewService } from '../code-review.service';
-import { Form, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormControl, FormGroup,  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
-import { FormatWidth } from '@angular/common';
-import { AddCommentsComponent } from '../add-comments/add-comments.component';
-import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -31,8 +28,12 @@ export class CodeReviewTrackerComponent implements OnInit {
   reviewTrackerForm:any=FormGroup
   checkListChildData:any
   subChildOptions=''
+  childOption=''
   auth_token=''
   dialogRef: any;
+  isDisabledRating:boolean[]=[]
+  ratingValue=5
+  isDisabledAchievedRating:boolean=true
 
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog){}
@@ -95,13 +96,13 @@ export class CodeReviewTrackerComponent implements OnInit {
               value:this.formBuilder.array([])
             })
             const checkListsubChildGroupData=checkListChildGroup.get('value') as FormArray
-            for(let subChild of child.value){
-            const checkListsubChildGroup=this.formBuilder.group({
-              key:subChild.key,
-              options:'',
-              rating:'',
-              achievedRating:'',
-              comments:''
+            for(let subChild of child.value ){
+            const checkListsubChildGroup=new FormGroup({
+              key:new FormControl(subChild.key),
+              options:new FormControl(subChild.options),
+              rating:new FormControl(subChild.rating),
+              achievedRating:new FormControl(subChild.achievedRating),
+              comments:new FormControl(subChild.comments)
             })
 
 
@@ -116,22 +117,20 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
       })
-
-
-
     }
 
 
 
 
 
-   getCheckListArray(){
-    return this.reviewTrackerForm.get('checkListArray') as FormArray
-  }
-  getChildData(childIndex:number){
-    return this.getCheckListArray().at(childIndex).get('value') as FormArray
 
-  }
+
+
+
+
+
+
+
 
 
 
@@ -142,14 +141,75 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   }
 
-  getSubChildSelection(rating:any,name:any){
-    console.log('value',rating);
-    console.log('name',name);
-    this.subChildOptions=rating.value
-    const childArray=this.reviewTrackerForm.get('checkListArray').value
-    console.log('childArray',childArray);
+  get formData():FormArray{
+    return this.reviewTrackerForm.get('value') as FormArray
+  }
 
 
+
+  getSubChildSelection(rating:any,name:any,index:number){
+  //  console.log(this.formData.value);
+   this.formData.value.forEach((data:any) => {
+    if(data.value){
+      console.log(this.formData.at(index).get('value')?.value);
+
+
+    }
+
+   });
+
+
+
+  }
+  getChildSelectedOption(rating:any,name:any,index:number){
+    console.log('parent data',this.formData);
+
+    console.log(rating.value);
+    if(rating.value==('Yes')){
+      this.isDisabledAchievedRating=false
+      this.formData.at(index).get('rating')?.patchValue(5)
+   this.formData.at(index).get('achievedRating')?.patchValue(null)
+    }
+    else if(rating.value==('No')){
+      this.isDisabledAchievedRating=false
+
+   this.formData.at(index).get('rating')?.patchValue(5)
+   this.formData.at(index).get('achievedRating')?.patchValue(null)
+    }
+    else if(rating.value==('NA')){
+      this.isDisabledAchievedRating=true
+      this.formData.at(index).get('rating')?.patchValue(0)
+       this.formData.at(index).get('achievedRating')?.patchValue(0)
+
+    }
+
+
+
+
+
+
+
+
+  }
+
+  isChildReadOnly(index:number){
+  const control=this.formData.at(index).get('achievedRating')
+  if(control){
+  if(this.formData.at(index).get('options')?.value=='NA'){
+    return true
+  }
+  else if (this.formData.at(index).get('options')?.value=='Yes'){
+    return false
+
+  }
+  else if (this.formData.at(index).get('options')?.value=='No'){
+    return false
+
+  }
+
+  }
+
+    return false
   }
 
 

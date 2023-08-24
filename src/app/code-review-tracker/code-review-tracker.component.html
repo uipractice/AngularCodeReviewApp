@@ -10,110 +10,126 @@
             <span class="steps-title" >{{sideData}}</span>
         </ng-template>
         <h2 class="heading"    >{{selectelTabCheckList?.key}} Checklist</h2>
+        <button (click)="saveCheckListData()">Save</button>
 
 
-        <div *ngFor="let list of getCheckListArray().controls;let i=index" [formGroupName]="i" >
-
-
-          <div class="question-list" formArrayName="value" >
-             <div  *ngFor="let child of list?.value.value; let i=index">
-
-
-
-              <div class="heading-grey"><h4  class="top-20"  > {{child?.key}} </h4>
-               <div class="box--right">
-                <div class="selection select-dropdown" *ngIf="child.options==''">
-                  <mat-label>Applicable</mat-label>
-                  <mat-form-field >
-
-                      <mat-select [(value)]="selectedOption" matNativeControl formControlName="options" >
-                        <mat-option value="selected" [value]="opt.value" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="rating select-dropdown" *ngIf="child.rating==''" >
-                    <mat-label>Rating</mat-label>
-                   <mat-form-field>
-                     <mat-select  [(value)]="selectedOption" [disabled]="true" >
-                       <mat-option value="selected">None</mat-option>
-                       <mat-option value="option1">1</mat-option>
-                       <mat-option value="option2">2</mat-option>
-                       <mat-option value="option3">3</mat-option>
-                       <mat-option value="option3">4</mat-option>
-                       <mat-option value="option3">5</mat-option>
-                     </mat-select>
-                   </mat-form-field>
-                 </div>
-
-
-                 <div class="rating-number" *ngIf="child.achievedRating==''" >
-                  <div class="achieved select-dropdown">
-                    <mat-label>Achieved</mat-label>
-                    <mat-form-field>
-                      <mat-select  [(value)]="selectedOption" >
-                        <mat-option>None</mat-option>
-                        <mat-option value="selected">1</mat-option>
-                       <mat-option value="option2">2</mat-option>
-                       <mat-option value="option3">3</mat-option>
-                       <mat-option value="option3">4</mat-option>
-                       <mat-option value="option3">5</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                 </div>
-                 <div (click)="openDialog()" class="Comment" *ngIf="child.comments==''"  ><img src="../assets/comment_light.svg"></div>
-
-             </div>
+    <div formArrayName="value">
+      <div *ngFor="let list of reviewTrackerForm.get('value')['controls'];let i=index" [formGroupName]="i" >
+            <div class="heading-grey"><h4  class="top-20"  > {{selectelTabCheckList.value[i]?.key}} </h4>
+              <div class="selection select-dropdown" *ngIf="selectelTabCheckList.value[i]?.options==''">
+                <mat-form-field >
+                    <mat-label>Applicable</mat-label>
+                    <mat-select formControlName="options" (selectionChange)="getChildSelectedOption($event,'child',i)">
+                      <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
 
-             <div class="quality" *ngFor="let subChild of child?.value">
-              <div class="questions" #subChild>
-                {{subChild?.key}}
-                </div>
+                <div class="rating select-dropdown" *ngIf="selectelTabCheckList.value[i]?.rating==''" >
+                 <!-- <mat-form-field>
+                  <mat-label>Rating</mat-label>
+                   <mat-select   [disabled]="isDisabledRating" formControlName="rating" >
+                     <mat-option>None</mat-option>
+                     <mat-option value=0>0</mat-option>
+                     <mat-option value=5>5</mat-option>
+                   </mat-select>
+                 </mat-form-field> -->
+                 <mat-form-field class="example-full-width">
+                  <mat-label>Rating</mat-label>
+                  <input matInput type="number" [readonly]="true"  formControlName="rating" >
+                </mat-form-field>
 
-                <div class="box--right">
-                    <div class="selection select-dropdown" >
-                      <mat-label>Applicable</mat-label>
-                  <mat-form-field>
-                   <!--  <mat-option value="option01">Select</mat-option>-->
-                      <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption')"  >
-                        <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="rating select-dropdown">
-                    <mat-label>Rating</mat-label>
-                   <mat-form-field>
-                   <!-- <mat-option value="option01">Select</mat-option>-->
-                     <mat-select  [(value)]="selected" [disabled]="true"  >
-                       <mat-option value="selected">0</mat-option>
-                       <mat-option value="option02">5</mat-option>
-                     </mat-select>
-                   </mat-form-field>
-                 </div>
-
-
-                 <div class="rating-number">
-                  <div class="achieved select-dropdown">
-                    <mat-label>Achieved</mat-label>
-                    <mat-form-field>
-                      <mat-select  [(value)]="selected" (selectionChange)="getSubChildSelection($event,'subChildAchievedRatings')"   >
-                        <mat-option value="selected">0</mat-option>
-                        <mat-option value="1">1</mat-option>
-                       <mat-option value="2">2</mat-option>
-                       <mat-option value="3">3</mat-option>
-                       <mat-option value="4">4</mat-option>
-                       <mat-option value="5">5</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                 </div>
-                 <div class="Comment" (click)="openDialog()" ><img src="../assets/comment_light.svg"></div>
-                 </div>
 
                </div>
+
+
+                <div class="rating-number" *ngIf="selectelTabCheckList.value[i]?.achievedRating==''" >
+                  <!-- <div class="achieved select-dropdown">
+                    <mat-form-field>
+                     <mat-label>Achieved</mat-label>
+                      <mat-select  formControlName="achievedRating"  >
+                        <mat-option>None</mat-option>
+                        <mat-option value=1>1</mat-option>
+                       <mat-option value=2>2</mat-option>
+                       <mat-option value=3>3</mat-option>
+                       <mat-option value=4>4</mat-option>
+                       <mat-option value=5>5</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                 -->
+                 <div class="rating select-dropdown"  >
+
+                  <mat-form-field class="example-full-width">
+                   <mat-label> Achieved Rating</mat-label>
+                  <input type="number"  matInput [readonly]="isChildReadOnly(i)"  formControlName="achievedRating" >
+                 </mat-form-field>
+
+
+                </div>
+
+
+               </div>
+
+               <div class="Comment" *ngIf="selectelTabCheckList.value[i]?.comments==''"  ><img src="../assets/comment_light.svg"></div>
+            </div>
+
+            <div *ngIf="selectelTabCheckList.value[i]?.value">
+              <div formArrayName="value">
+                <div class="quality" *ngFor="let subChild of list.get('value')['controls'];let j=index" [formGroupName]="j">
+                  <div class="questions" >
+                    {{selectelTabCheckList.value[i]?.value[j]?.key}}
+                    </div>
+
+
+                        <div class="selection select-dropdown" >
+                      <mat-form-field>
+                          <mat-label>Applicable</mat-label>
+                          <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption',j)" formControlName="options"  >
+                            <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="rating select-dropdown">
+                       <!-- <mat-form-field>
+                        <mat-label>Rating</mat-label>
+                         <mat-select   formControlName="rating"  [disabled]="isDisabledRating" >
+                           <mat-option value=0>0</mat-option>
+                           <mat-option value=5>5</mat-option>
+                         </mat-select>
+                       </mat-form-field> -->
+                       <mat-form-field class="example-full-width">
+                        <mat-label>Rating</mat-label>
+                        <input matInput  [readonly]='true'  formControlName="rating" >
+                      </mat-form-field>
+
+
+                     </div>
+
+
+                     <div class="rating-number">
+                      <div class="achieved select-dropdown">
+                        <!-- <mat-form-field>
+                         <mat-label>Achieved</mat-label>
+                          <mat-select  formControlName="achievedRating"  >
+                            <mat-option value=0>0</mat-option>
+                            <mat-option value=1>1</mat-option>
+                           <mat-option value=2>2</mat-option>
+                           <mat-option value=3>3</mat-option>
+                           <mat-option value=4>4</mat-option>
+                           <mat-option value=5>5</mat-option>
+                          </mat-select>
+                        </mat-form-field> -->
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Achieved Rating</mat-label>
+                          <input matInput  [readonly]='true'  formControlName="achievedRating" >
+                        </mat-form-field>
+
+                      </div>
+                     </div>
+                     <div class="Comment"  ><img src="../assets/comment_light.svg"></div>
+                   </div>
               </div>
 
       </div>
