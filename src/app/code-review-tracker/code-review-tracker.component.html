@@ -4,7 +4,7 @@
     <mat-tab class="tab-heading" label="Code Review">
 
      <mat-tab-group class="vertical-tabs" animationDuration="0ms"  (selectedTabChange)=" onGetSideSelectedValue($event)"  [formGroup]="reviewTrackerForm"   >
-        <mat-tab  *ngFor="let sideData of sideNavDetails; let i=index"  [label]="sideData" formArrayName="checkListArray"  >
+        <mat-tab  *ngFor="let sideData of sideNavDetails; let i=index"  [label]="sideData"   >
           <ng-template mat-tab-label >
             <div class="steps"></div>
             <span class="steps-title" >{{sideData}}</span>
@@ -138,7 +138,7 @@
       </div>
         </div>
 
-
+      </div>
 
 
 
@@ -150,7 +150,9 @@
 
       </mat-tab-group>
     </mat-tab>
-    <mat-tab label="Sonar QUbe">
+
+    
+<mat-tab label="Sonar QUbe">
 
 <!-- Sonar Qube--------------------------------------->
 <div class="main-body grey-bg">

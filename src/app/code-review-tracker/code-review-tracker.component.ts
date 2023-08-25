@@ -2,7 +2,8 @@ import { Component,ElementRef,OnInit,ViewChild } from '@angular/core';
 import { CodeReviewService } from '../code-review.service';
 import { Form, FormArray, FormBuilder, FormControl, FormGroup,  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
-
+import { MatDialog } from '@angular/material/dialog';
+import { AddCommentsComponent } from '../add-comments/add-comments.component';
 
 
 @Component({
