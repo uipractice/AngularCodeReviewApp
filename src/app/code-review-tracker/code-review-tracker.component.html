@@ -11,8 +11,8 @@
         </ng-template>
         <h2 class="heading"    >{{selectelTabCheckList?.key}} Checklist</h2>
         <button (click)="saveCheckListData()">Save</button>
-        
-     
+
+
     <div formArrayName="value">
       <div *ngFor="let list of reviewTrackerForm.get('value')['controls'];let i=index" [formGroupName]="i" >
             <div class="heading-grey"><h4  class="top-20"  > {{selectelTabCheckList.value[i]?.key}} </h4>
@@ -39,7 +39,7 @@
                   <input matInput type="number" [readonly]="true"  formControlName="rating" >
                 </mat-form-field>
 
-                 
+
                </div>
 
 
@@ -59,18 +59,18 @@
                   </div>
                  -->
                  <div class="rating select-dropdown"  >
-           
+
                   <mat-form-field class="example-full-width">
                    <mat-label> Achieved Rating</mat-label>
                   <input type="number"  matInput [readonly]="isChildReadOnly(i)"  formControlName="achievedRating" >
                  </mat-form-field>
 
-                 
+
                 </div>
-             
-              
+
+
                </div>
-              
+
                <div class="Comment" *ngIf="selectelTabCheckList.value[i]?.comments==''"  ><img src="../assets/comment_light.svg"></div>
             </div>
 
@@ -80,8 +80,8 @@
                   <div class="questions" >
                     {{selectelTabCheckList.value[i]?.value[j]?.key}}
                     </div>
-      
-      
+
+
                         <div class="selection select-dropdown" >
                       <mat-form-field>
                           <mat-label>Applicable</mat-label>
@@ -90,7 +90,7 @@
                           </mat-select>
                         </mat-form-field>
                       </div>
-      
+
                       <div class="rating select-dropdown">
                        <!-- <mat-form-field>
                         <mat-label>Rating</mat-label>
@@ -104,10 +104,10 @@
                         <input matInput  [readonly]='true'  formControlName="rating" >
                       </mat-form-field>
 
-                      
+
                      </div>
-      
-      
+
+
                      <div class="rating-number">
                       <div class="achieved select-dropdown">
                         <!-- <mat-form-field>
@@ -125,42 +125,20 @@
                           <mat-label>Achieved Rating</mat-label>
                           <input matInput  [readonly]='true'  formControlName="achievedRating" >
                         </mat-form-field>
-  
+
                       </div>
                      </div>
                      <div class="Comment"  ><img src="../assets/comment_light.svg"></div>
                    </div>
               </div>
-            </div>
 
-          
+      </div>
+      <div class="table-button flex-center top-20">
+      <button class="button-all btn-blue mg-0" (click)="saveCheckListData()">Save</button>
+      </div>
+        </div>
 
-         
-            <!-- </div> -->
-
-    </div>
-    </div> 
-
-
-      <!-- </div> -->
-
-     
-       
-
-        
-      
-
-       
-
-      
-
-        
-
-       
-
-
-
-
+      </div>
 
 
 
@@ -172,7 +150,151 @@
 
       </mat-tab-group>
     </mat-tab>
-    <mat-tab label="Sonar QUbe"> Content 2 </mat-tab>
-    <mat-tab label="Summary"> Content 3 </mat-tab>
+
+    
+<mat-tab label="Sonar QUbe">
+
+<!-- Sonar Qube--------------------------------------->
+<div class="main-body grey-bg">
+  <div class="container">
+        <div class="table-button details-main top-heading top-page">
+          <div><h1>SonarQube</h1>
+            <ul class="pagination">
+            <li><a href="">Dashboard</a></li>
+            <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+            <li><a href=""> Create New Project</a></li>
+            <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+            <li>SonarQube</li>
+          </ul>
+        </div>
+
+          </div>
+          <div class="details-main">
+                        <form class=" details-box" >
+                        <div class="main-sonar">
+                          <h2>Bugs</h2>
+                          <div class="row ">
+                          <div class="mb-3 col-md-3 col-sm-12">
+                            <label for="project" class="form-label">Result <span style="color: red;">.</span></label>
+                            <input
+
+                              type="text"
+                              class="form-control"
+                              id="project"
+                              formControlName="project"
+                            />
+                          </div>
+                    <div class="mb-3 col-md-3 col-sm-12">
+                        <label for="account" class="form-label">Points <span style="color: red;">*</span></label>
+                        <input
+
+
+                          type="text"
+                          class="form-control"
+                          id="account"
+                          formControlName="account"
+                        />
+                      </div>
+                      <div class="mb-3 col-md-3 col-sm-12">
+                        <label for="account" class="form-label">Achieved <span style="color: red;">*</span></label>
+                        <input
+
+
+                          type="text"
+                          class="form-control"
+                          id="account"
+                          formControlName="account"
+                        />
+                      </div>
+                      <div class="mb-3 col-md-3 col-sm-12">
+                        <label for="account" class="form-label">Comments <span style="color: red;">*</span></label>
+                        <input
+
+
+                          type="text"
+                          class="form-control"
+                          id="account"
+                          formControlName="account"
+                        />
+                      </div>
+                      <div class="mb-3 col-md-9 col-sm-12">
+                        <label for="account" class="form-label">Files: <span style="color: red;">*</span></label>
+                      <textarea style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
+
+                      </div>
+
+
+
+                    </div>
+
+                  </div>
+
+
+
+
+
+                      <div class="table-button flex-center">
+                      <button class="button-all btn-blue mg-0 save-btn">Save </button>
+
+                    </div>
+                </form>
+
+
+   </div>
+</div>
+</div>
+
+
+    </mat-tab>
+    <mat-tab label="Summary"> <!-- Summary--------------------------------------->
+      <div class="main-body grey-bg">
+        <div class="container">
+              <div class="table-button details-main top-heading top-page">
+                <div><h1>Summary</h1>
+                  <ul class="pagination">
+                  <li><a href="">Dashboard</a></li>
+                  <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+                  <li><a href=""> Create New Project</a></li>
+                  <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+                  <li>Summary</li>
+                </ul>
+              </div>
+
+                </div>
+                <div class="details-main">
+                              <form class=" details-box" >
+                              <div class="main-sonar border-b-none">
+
+                                <div class="row ">
+
+
+
+
+                            <div class="mb-3 col-md-12 col-sm-12">
+                              <label for="account" class="form-label">Overall Comments: <span style="color: red;">*</span></label>
+                            <textarea style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
+
+                            </div>
+
+
+
+                          </div>
+
+                        </div>
+
+
+
+
+
+                            <div class="table-button flex-center">
+                            <button class="button-all btn-blue mg-0 ">Save </button>
+
+                          </div>
+                      </form>
+
+
+         </div>
+      </div>
+      </div> </mat-tab>
   </mat-tab-group>
   </div>
