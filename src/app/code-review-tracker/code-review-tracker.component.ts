@@ -139,19 +139,14 @@ export class CodeReviewTrackerComponent implements OnInit {
 
  
 
-  getSubChildSelection(rating:any,name:any,index:number){
-  //  console.log(this.formData.value);
-   this.formData.value.forEach((data:any) => {
-    if(data.value){
-      console.log(this.formData.at(index).get('value')?.value);
-      
-      
-    }
-  
-   });
-   
+  getSubChildSelection(rating:any,name:any,index:number,parentIndex:number){
+    console.log('parent',parentIndex);
     
-    
+    console.log('child',index);
+    let control=this.formData.at(parentIndex).value.value as FormArray
+   let subControl=control.at(index) 
+   console.log('sub child',subControl);
+
   }
   getChildSelectedOption(rating:any,name:any,index:number){
     console.log('parent data',this.formData);
