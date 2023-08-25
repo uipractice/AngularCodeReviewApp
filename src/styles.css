@@ -788,7 +788,7 @@ img.icon-login {
     position: absolute;
     top: -9px;
     left: 8px;
-    z-index:99;
+    z-index: 99;
 }
 
 .box--right {
@@ -851,5 +851,6 @@ margin-top:48px;
 
 
 .save-btn {
-
-}
+  width: 136px;
+  height: 38px;
+ }

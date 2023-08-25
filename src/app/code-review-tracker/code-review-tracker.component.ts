@@ -2,7 +2,8 @@ import { Component,ElementRef,OnInit,ViewChild } from '@angular/core';
 import { CodeReviewService } from '../code-review.service';
 import { Form, FormArray, FormBuilder, FormControl, FormGroup,  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
-
+import { MatDialog } from '@angular/material/dialog';
+import { AddCommentsComponent } from '../add-comments/add-comments.component';
 
 
 @Component({
@@ -30,23 +31,23 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDisabledAchievedRating:boolean=true
 
 
-  constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder){}
+  constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog){}
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     console.log('auth toke in review tracker',this.auth_token);
-    
+
 
     this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
-    
-    
+
+
     this.getOptions()
     this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
   this.reviewTrackerForm=this.buildReactiveForm()
     this.getReviewDetails()
 //  this. onGetSideSelectedValue()
-  
-   
-  
+
+
+
 
   }
 
@@ -56,21 +57,21 @@ export class CodeReviewTrackerComponent implements OnInit {
       value:new FormArray([])
       })
   }
- 
- 
-  
+
+
+
   getReviewDetails(){
-    
+
     this.buildReactiveForm()
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-   
+
       this.codeService.getReviewTrackerDetails(headers,this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
         console.log(res.data[0].data[0].value);
         this.selectelTabCheckList=res.data[0].data[0]
 
-      
+
         const checkListChildGroupData=this.reviewTrackerForm.get('value') as FormArray
         for(let child of this.selectelTabCheckList.value){
           if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
@@ -97,60 +98,57 @@ export class CodeReviewTrackerComponent implements OnInit {
               achievedRating:new FormControl(subChild.achievedRating),
               comments:new FormControl(subChild.comments)
             })
-            
+
 
             checkListsubChildGroupData.push(checkListsubChildGroup)
            }
             checkListChildGroupData.push(checkListChildGroup)
-            
+
           }
         }
-      
-        
-        
       })
     }
 
-   
 
 
 
 
 
 
-    
 
- 
-  
-  
- 
- 
+
+
+
+
+
+
+
 
 
 
   saveCheckListData(){
     console.log(this.reviewTrackerForm.value);
-    
+
   }
 
   get formData():FormArray{
     return this.reviewTrackerForm.get('value') as FormArray
   }
 
- 
+
 
   getSubChildSelection(rating:any,name:any,index:number,parentIndex:number){
     console.log('parent',parentIndex);
-    
+
     console.log('child',index);
     let control=this.formData.at(parentIndex).value.value as FormArray
-   let subControl=control.at(index) 
+   let subControl=control.at(index)
    console.log('sub child',subControl);
 
   }
   getChildSelectedOption(rating:any,name:any,index:number){
     console.log('parent data',this.formData);
-    
+
     console.log(rating.value);
     if(rating.value==('Yes')){
       this.isDisabledAchievedRating=false
@@ -172,10 +170,10 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
 
-    
-    
-    
-    
+
+
+
+
 
   }
 
@@ -195,11 +193,11 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   }
-  
+
     return false
   }
-  
-  
+
+
   getOptions(){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
@@ -216,27 +214,38 @@ export class CodeReviewTrackerComponent implements OnInit {
       'Authorization': `Bearer ${this.auth_token}`
     });
     console.log(stackId,techId,headers);
-    
+
     this.codeService.getSideNav(stackId,techId,headers).subscribe((res:any)=>{
       this.sideNavDetails=res.data[0].leftNav
-      
+
     })
-    
+
   }
- 
 
 
 
 
- 
+
+
 
   onGetSideSelectedValue(value?:any){
     this.reviewDetailsHeader=value.tab.textLabel
     this.getReviewDetails()
-    
+
   }
   getRating(rating:any){
     console.log(rating);
+  }
+  name: string | undefined;
+  color: string | undefined;
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddCommentsComponent, {
+      width: '695px',
+      data: { name: this.name, color: this.color },
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      this.color = res;
+    });
   }
 }
 
