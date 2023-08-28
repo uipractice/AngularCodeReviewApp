@@ -1,6 +1,6 @@
 import { Component,ElementRef,OnInit,ViewChild } from '@angular/core';
 import { CodeReviewService } from '../code-review.service';
-import { Form, FormArray, FormBuilder, FormControl, FormGroup,  } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormControl, FormControlName, FormGroup,  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentsComponent } from '../add-comments/add-comments.component';
@@ -39,10 +39,10 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
 
+    this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
 
     this.getOptions()
-    this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
-  this.reviewTrackerForm=this.buildReactiveForm()
+  this.buildReactiveForm()
     this.getReviewDetails()
 //  this. onGetSideSelectedValue()
 
@@ -53,7 +53,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   buildReactiveForm(){
     this.reviewTrackerForm=this.formBuilder.group({
-      key:this.reviewDetailsHeader,
+      key:new FormControl(this.reviewDetailsHeader),
       value:new FormArray([])
       })
   }
@@ -138,14 +138,51 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
   getSubChildSelection(rating:any,name:any,index:number,parentIndex:number){
-    console.log('parent',parentIndex);
+    console.log(index)
+    const parentControl=this.formData.at(parentIndex).get('value') as FormArray
+    const childRatingControl=parentControl.at(index).get('rating') as FormControl
+    const childAchievedControl=parentControl.at(index).get('achievedRating') as FormControl
+    console.log('option',parentControl.at(index).get('options')?.value)
+    
+    console.log(childRatingControl.patchValue(0));
+    if(rating.value==('Yes')){
+      childRatingControl.patchValue(5)
+      childAchievedControl.patchValue(null)
+   
+    }
+    else if(rating.value==('No')){
+      childRatingControl.patchValue(5)
+      childAchievedControl.patchValue(null)
+    }
+    else if(rating.value==('NA')){
+      childRatingControl.patchValue(0)
+      childAchievedControl.patchValue(0)
+    }
+  }
 
-    console.log('child',index);
-    let control=this.formData.at(parentIndex).value.value as FormArray
-   let subControl=control.at(index)
-   console.log('sub child',subControl);
+  isSubChildReadOnly(index:number,parentIndex:number){
+    const parentControl=this.formData.at(parentIndex).get('value') as FormArray
+    if(parentControl){
+      if(parentControl.at(index).get('options')?.value=='Yes'){
+        return false
+      }
+      else if(parentControl.at(index).get('options')?.value=='No'){
+        return false
+      }
+      else if(parentControl.at(index).get('options')?.value=='NA'){
+        return true
+      }
+
+    }
+
+
+
+    return false
 
   }
+
+
+
   getChildSelectedOption(rating:any,name:any,index:number){
     console.log('parent data',this.formData);
 
