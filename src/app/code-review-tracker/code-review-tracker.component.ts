@@ -211,7 +211,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   }
 
-  getSideNavData(stackId:any,techId:any){
+  getSideNavData(stackId?:any,techId?:any){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
