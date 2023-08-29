@@ -10,7 +10,6 @@
             <span class="steps-title" >{{sideData}}</span>
         </ng-template>
         <h2 class="heading"    >{{selectelTabCheckList?.key}} Checklist</h2>
-        <button (click)="saveCheckListData()">Save</button>
 
 
     <div formArrayName="value">
@@ -97,7 +96,7 @@
 
       </div>
       <div class="table-button flex-center top-20">
-      <button class="button-all btn-blue mg-0 save-btn" (click)="saveCheckListData()">Save</button>
+      <!-- <button class="button-all btn-blue mg-0 save-btn" (click)="saveCheckListData()">Save</button> -->
       </div>
         </div>
 
@@ -106,7 +105,9 @@
 
 
 
+      <button class="button-all btn-blue mg-0 save-btn" [disabled]="false" (click)="saveCheckListData()">Save</button>
         </mat-tab>
+
 
 
 
