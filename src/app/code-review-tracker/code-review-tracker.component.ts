@@ -1,6 +1,6 @@
 import { Component,ElementRef,OnInit,ViewChild } from '@angular/core';
 import { CodeReviewService } from '../code-review.service';
-import { Form, FormArray, FormBuilder, FormControl, FormControlName, FormGroup,  } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators,  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentsComponent } from '../add-comments/add-comments.component';
@@ -53,8 +53,8 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   buildReactiveForm(){
     this.reviewTrackerForm=this.formBuilder.group({
-      key:new FormControl(this.reviewDetailsHeader),
-      value:new FormArray([])
+      key:new FormControl(this.reviewDetailsHeader,Validators.required),
+      value:new FormArray([],[Validators.required])
       })
   }
 
@@ -76,27 +76,27 @@ export class CodeReviewTrackerComponent implements OnInit {
         for(let child of this.selectelTabCheckList.value){
           if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
             const checkListChildGroup=new FormGroup({
-              key:new FormControl(child.key),
-              options:new FormControl(child.options),
-              rating:new FormControl(child.rating),
-              achievedRating:new FormControl(child.achievedRating),
-              comments:new FormControl(child.comments)
+              key:new FormControl(child.key,Validators.required),
+              options:new FormControl(child.options,Validators.required),
+              rating:new FormControl(child.rating,Validators.required),
+              achievedRating:new FormControl(child.achievedRating,Validators.required),
+              comments:new FormControl(child.comments,Validators.required)
             })
             checkListChildGroupData.push(checkListChildGroup)
           }
           else if(child.value){
             const checkListChildGroup=new FormGroup({
-              key:new FormControl(child.key),
-              value:new FormArray([])
+              key:new FormControl(child.key,Validators.required),
+              value:new FormArray([],[Validators.required])
             })
             const checkListsubChildGroupData=checkListChildGroup.get('value') as FormArray
             for(let subChild of child.value ){
             const checkListsubChildGroup=new FormGroup({
-              key:new FormControl(subChild.key),
-              options:new FormControl(subChild.options),
-              rating:new FormControl(subChild.rating),
-              achievedRating:new FormControl(subChild.achievedRating),
-              comments:new FormControl(subChild.comments)
+              key:new FormControl(subChild.key,Validators.required),
+              options:new FormControl(subChild.options,Validators.required),
+              rating:new FormControl(subChild.rating,Validators.required),
+              achievedRating:new FormControl(subChild.achievedRating,Validators.required),
+              comments:new FormControl(subChild.comments,Validators.required)
             })
 
 
@@ -109,25 +109,16 @@ export class CodeReviewTrackerComponent implements OnInit {
       })
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   saveCheckListData(){
     console.log(this.reviewTrackerForm.value);
+    if(this.reviewTrackerForm.valid){
+      console.log('success');
+    }
+    else{
+      console.log('error');
+      
+    }
+    
 
   }
 
@@ -135,7 +126,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     return this.reviewTrackerForm.get('value') as FormArray
   }
 
-
+  
 
   getSubChildSelection(rating:any,name:any,index:number,parentIndex:number){
     console.log(index)
