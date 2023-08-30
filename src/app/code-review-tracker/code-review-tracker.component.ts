@@ -29,6 +29,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDisabledRating:boolean[]=[]
   ratingValue=5
   isDisabledAchievedRating:boolean=true
+  isActiveComments:boolean=false
+  
 
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog){}
@@ -78,9 +80,9 @@ export class CodeReviewTrackerComponent implements OnInit {
             const checkListChildGroup=new FormGroup({
               key:new FormControl(child.key,Validators.required),
               options:new FormControl(child.options,Validators.required),
-              rating:new FormControl(child.rating,Validators.required),
+              rating:new FormControl(child.rating,[Validators.required, Validators.pattern(/^[0-5]+$/)]),
               achievedRating:new FormControl(child.achievedRating,Validators.required),
-              comments:new FormControl(child.comments,Validators.required)
+              comments:new FormControl(child.comments)
             })
             checkListChildGroupData.push(checkListChildGroup)
           }
@@ -94,9 +96,9 @@ export class CodeReviewTrackerComponent implements OnInit {
             const checkListsubChildGroup=new FormGroup({
               key:new FormControl(subChild.key,Validators.required),
               options:new FormControl(subChild.options,Validators.required),
-              rating:new FormControl(subChild.rating,Validators.required),
+              rating:new FormControl(subChild.rating,[Validators.required, Validators.pattern(/^[0-5]+$/)]),
               achievedRating:new FormControl(subChild.achievedRating,Validators.required),
-              comments:new FormControl(subChild.comments,Validators.required)
+              comments:new FormControl(subChild.comments)
             })
 
 
@@ -109,10 +111,14 @@ export class CodeReviewTrackerComponent implements OnInit {
       })
     }
 
-  saveCheckListData(){
-    console.log(this.reviewTrackerForm.value);
-    if(this.reviewTrackerForm.valid){
+  saveCheckListData(valid:any){
+    console.log('valid',valid);
+    
+
+    if(valid){
       console.log('success');
+    console.log(this.reviewTrackerForm.value);
+
     }
     else{
       console.log('error');
@@ -133,7 +139,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     const parentControl=this.formData.at(parentIndex).get('value') as FormArray
     const childRatingControl=parentControl.at(index).get('rating') as FormControl
     const childAchievedControl=parentControl.at(index).get('achievedRating') as FormControl
-    console.log('option',parentControl.at(index).get('options')?.value)
+    console.log('option',parentControl.at(index).get('options'))
     
     console.log(childRatingControl.patchValue(0));
     if(rating.value==('Yes')){
@@ -267,13 +273,13 @@ export class CodeReviewTrackerComponent implements OnInit {
   name: string | undefined;
   color: string | undefined;
   openDialog(): void {
-    const dialogRef = this.dialog.open(AddCommentsComponent, {
-      width: '695px',
-      data: { name: this.name, color: this.color },
-    });
-    dialogRef.afterClosed().subscribe((res) => {
-      this.color = res;
-    });
+    // const dialogRef = this.dialog.open(AddCommentsComponent, {
+    //   width: '695px',
+    //   data: { name: this.name, color: this.color },
+    // });
+    // dialogRef.afterClosed().subscribe((res) => {
+    //   this.color = res;
+    // });
   }
 }
 
