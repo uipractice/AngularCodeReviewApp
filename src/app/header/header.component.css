@@ -16,7 +16,17 @@ a:hover, a:active{
 mat-toolbar{
   border-radius: 3px;
 }
+.menu {
+  display: flex;
+  justify-content:space-around;
+  align-items:center;
+  margin-bottom:0px;
+}
 
+.menu li {
+  padding:5px 10px;
+  margin-bottom:0px;
+}
 @media(max-width: 959px){
   mat-toolbar{
       border-radius: 0px;
