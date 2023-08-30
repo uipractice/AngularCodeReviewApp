@@ -55,6 +55,8 @@ ul {
     height: 55px;
     position: fixed;
     z-index: 99;
+    display: flex;
+    justify-content:space-between;
 }
 
   .blue-color {
@@ -379,16 +381,11 @@ margin-right: 20px !important;
   background:#DEDEDE;
   color:#7B7B7B;
 }
-
-
 .hide-header .hide-login {
   display:none;
-
 }
 
-.header{
-  display:block;
-}
+
 
 /***Login***/
 .left-login {
