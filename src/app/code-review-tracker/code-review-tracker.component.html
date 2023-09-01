@@ -104,6 +104,8 @@
                      </div>
                      <div class="Comment" (click)="openDialog()"><img src="../assets/comment_light.svg"></div>
                    </div>
+
+
               </div>
             </div>
 
@@ -112,13 +114,13 @@
       <!-- <button class="button-all btn-blue mg-0 save-btn" (click)="saveCheckListData()">Save</button> -->
       </div>
         </div>
+        <button class="button-all btn-blue mg-0 save-btn" [disabled]="disableSave"  (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
 
       </div>
 
 
 
 
-      <button class="button-all btn-blue mg-0 save-btn" [disabled]="reviewTrackerForm.invalid" (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
         </mat-tab>
 
 

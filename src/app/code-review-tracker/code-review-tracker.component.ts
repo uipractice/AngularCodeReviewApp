@@ -30,6 +30,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   ratingValue=5
   isDisabledAchievedRating:boolean=true
   isActiveComments:boolean=false
+  disableSave:boolean=false
+  // is: any;
   
 
 
@@ -80,7 +82,7 @@ export class CodeReviewTrackerComponent implements OnInit {
             const checkListChildGroup=new FormGroup({
               key:new FormControl(child.key,Validators.required),
               options:new FormControl(child.options,Validators.required),
-              rating:new FormControl(child.rating,[Validators.required, Validators.pattern("^[0-5]*$")]),
+              rating:new FormControl(child.rating,[Validators.required,Validators.pattern('^[1-9][0-9]*$')]),
               achievedRating:new FormControl(child.achievedRating,Validators.required),
               comments:new FormControl(child.comments)
             })
@@ -96,7 +98,7 @@ export class CodeReviewTrackerComponent implements OnInit {
             const checkListsubChildGroup=new FormGroup({
               key:new FormControl(subChild.key,Validators.required),
               options:new FormControl(subChild.options,Validators.required),
-              rating:new FormControl(subChild.rating,[Validators.required, Validators.pattern("^[0-5]*$")]),
+              rating:new FormControl(subChild.rating,[Validators.required,Validators.pattern('^[1-9][0-9]*$')]),
               achievedRating:new FormControl(subChild.achievedRating,Validators.required),
               comments:new FormControl(subChild.comments)
             })
@@ -124,19 +126,45 @@ export class CodeReviewTrackerComponent implements OnInit {
     }
 
   saveCheckListData(valid:any){
-    console.log('valid',valid);
-    
+  
+  
+   
+  
+  }
 
-    if(valid){
-      console.log('success');
-    console.log(this.reviewTrackerForm.value);
-
-    }
-    else{
-      console.log('error');
+  //disable save conditionally
+  isDisableSave(index?:any,parentIndex?:any){
+    // for(let i=0;i<this.formData.value.length;i++){
+      if(index && parentIndex){
+        const parentData=this.formData.at(parentIndex).get('value')as FormArray
+        if(parentData){
+          // for(let j=0;j<parentData.length;j++){
+           console.log(parentData.at(index).get('key') as FormControl);
+           if(parentData.at(index).get('options')?.valid && parentData.at(index).get('achievedRating')?.invalid ){
+            return true
+           }
+           else if(parentData.at(index).get('options')?.valid && parentData.at(index).get('achievedRating')?.valid ){
+            return false
+          //  }
       
-    }
-    
+          }
+        }
+        else{
+          console.log(this.formData.at(index).get('key') as FormControl);
+          if(this.formData.at(index).get('options')?.valid && this.formData.at(index).get('achievedRating')?.invalid ){
+            return true
+          }
+          else{
+            return false
+          }
+          
+        }
+        
+        }
+      
+     
+        return false
+
 
   }
 
@@ -147,12 +175,12 @@ export class CodeReviewTrackerComponent implements OnInit {
   
 
   getSubChildSelection(rating:any,name:any,index:number,parentIndex:number){
+    // this.isDisableSave(parentIndex,index)
     console.log(index)
     const parentControl=this.formData.at(parentIndex).get('value') as FormArray
     const childRatingControl=parentControl.at(index).get('rating') as FormControl
     const childAchievedControl=parentControl.at(index).get('achievedRating') as FormControl
-    console.log('option',parentControl.at(index).get('options'))
-    
+  
     console.log(childRatingControl.patchValue(0));
     if(rating.value==('Yes')){
       childRatingControl.patchValue(5)
@@ -166,6 +194,13 @@ export class CodeReviewTrackerComponent implements OnInit {
     else if(rating.value==('NA')){
       childRatingControl.patchValue(0)
       childAchievedControl.patchValue(0)
+    }
+
+    if(parentControl.at(index).get('options')?.valid && parentControl.at(index).get('achievedRating')?.invalid){
+      this.disableSave=true
+    }
+    else if(parentControl.at(index).get('options')?.valid && parentControl.at(index).get('achievedRating')?.valid){
+      this.disableSave=false
     }
   }
 
