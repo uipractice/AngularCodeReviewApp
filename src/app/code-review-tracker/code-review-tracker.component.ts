@@ -1,6 +1,6 @@
 import { Component,ElementRef,OnInit,ViewChild } from '@angular/core';
 import { CodeReviewService } from '../code-review.service';
-import { Form, FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators,  } from '@angular/forms';
+import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormControlName, FormGroup, ValidationErrors, Validators,  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentsComponent } from '../add-comments/add-comments.component';
@@ -80,7 +80,7 @@ export class CodeReviewTrackerComponent implements OnInit {
             const checkListChildGroup=new FormGroup({
               key:new FormControl(child.key,Validators.required),
               options:new FormControl(child.options,Validators.required),
-              rating:new FormControl(child.rating,[Validators.required, Validators.pattern(/^[0-5]+$/)]),
+              rating:new FormControl(child.rating,[Validators.required, Validators.pattern("^[0-5]*$")]),
               achievedRating:new FormControl(child.achievedRating,Validators.required),
               comments:new FormControl(child.comments)
             })
@@ -96,7 +96,7 @@ export class CodeReviewTrackerComponent implements OnInit {
             const checkListsubChildGroup=new FormGroup({
               key:new FormControl(subChild.key,Validators.required),
               options:new FormControl(subChild.options,Validators.required),
-              rating:new FormControl(subChild.rating,[Validators.required, Validators.pattern(/^[0-5]+$/)]),
+              rating:new FormControl(subChild.rating,[Validators.required, Validators.pattern("^[0-5]*$")]),
               achievedRating:new FormControl(subChild.achievedRating,Validators.required),
               comments:new FormControl(subChild.comments)
             })
@@ -109,6 +109,18 @@ export class CodeReviewTrackerComponent implements OnInit {
           }
         }
       })
+    }
+
+
+    //validator for range
+    rangeValidator(min: number, max: number) {
+      return (control: AbstractControl): ValidationErrors | null => {
+        const value = +control.value; // Convert input to a number
+        if (isNaN(value) || value < min || value > max) {
+          return { 'range': true };
+        }
+        return null;
+      };
     }
 
   saveCheckListData(valid:any){
@@ -174,7 +186,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
 
-    return false
+    return true
 
   }
 
@@ -228,7 +240,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   }
 
-    return false
+    return true
   }
 
 

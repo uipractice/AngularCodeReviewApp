@@ -45,7 +45,7 @@
                  <div class="rating select-dropdown"  >
                   <mat-label>Achieved</mat-label>
                   <mat-form-field class="example-full-width">
-                  <input type="number"  matInput [readonly]="isChildReadOnly(i)"  formControlName="achievedRating" >
+                  <input type="text"  matInput [readonly]="isChildReadOnly(i)"  formControlName="achievedRating" >
                  </mat-form-field>
 
 
@@ -87,7 +87,7 @@
                       <div class="rating select-dropdown">
                        <mat-label>Rating</mat-label>
                        <mat-form-field class="example-full-width">
-                        <input matInput  [readonly]='true'  formControlName="rating" >
+                        <input matInput  [readonly]='true'  formControlName="rating" onlyNumber  >
                       </mat-form-field>
                      </div>
 
