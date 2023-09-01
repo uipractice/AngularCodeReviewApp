@@ -851,3 +851,53 @@ margin-top:48px;
   width: 136px;
   height: 38px;
  }
+
+
+ .mat-mdc-tab-labels {
+  justify-content:end;
+  margin-right: 40px;
+
+ }
+ .mdc-tab {
+  padding-right:0px!important;
+  padding-left:0px!important;
+ }
+
+
+
+.tabs-grey .mat-mdc-tab-labels .mat-mdc-tab.mdc-tab{
+  border:1px solid #ccc;
+  overflow: hidden;
+}
+.tabs-grey .mat-mdc-tab-labels .mat-mdc-tab.mdc-tab:first-child {
+  border-right: 0px;
+  border-top-left-radius:8px;
+  border-bottom-left-radius:8px;}
+.tabs-grey .mat-mdc-tab-labels .mat-mdc-tab.mdc-tab:last-child {
+  border-left: 0px;
+  border-top-right-radius:8px;
+  border-bottom-right-radius:8px;
+}
+.vertical-tabs .mat-mdc-tab-labels .mat-mdc-tab.mdc-tab {
+
+  border: 0px;
+}
+.tabs-grey .mat-mdc-tab .mdc-tab__text-label {
+  color: #202020!important;
+  text-transform:initial;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0px 12px;
+}
+
+.tabs-grey .mdc-tab-indicator--active .mdc-tab-indicator {
+  background: #219EBC;
+  color: #fff;
+}
+.mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
+  display:none;
+}
+
+.mat-mdc-tab.mdc-tab {
+  height: 40px;
+}
