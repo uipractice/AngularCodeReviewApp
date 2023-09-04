@@ -31,7 +31,6 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDisabledAchievedRating:boolean=true
   isActiveComments:boolean=false
   disableSave:boolean=false
-  // is: any;
   
 
 
@@ -43,10 +42,10 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
 
+    this.buildReactiveForm()
     this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
 
     this.getOptions()
-  this.buildReactiveForm()
     this.getReviewDetails()
 //  this. onGetSideSelectedValue()
 
@@ -58,7 +57,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   buildReactiveForm(){
     this.reviewTrackerForm=this.formBuilder.group({
       key:new FormControl(this.reviewDetailsHeader,Validators.required),
-      value:new FormArray([],[Validators.required])
+      value:new FormArray([])
       })
   }
 
@@ -82,8 +81,12 @@ export class CodeReviewTrackerComponent implements OnInit {
             const checkListChildGroup=new FormGroup({
               key:new FormControl(child.key,Validators.required),
               options:new FormControl(child.options,Validators.required),
-              rating:new FormControl(child.rating,[Validators.required,Validators.pattern('^[1-9][0-9]*$')]),
-              achievedRating:new FormControl(child.achievedRating,Validators.required),
+              rating:new FormControl(child.rating,Validators.required),
+              achievedRating:new FormControl(child.achievedRating,[Validators.required, 
+              Validators.min(0),
+            Validators.max(5),
+            Validators.pattern(/^\d*\.?\d*$/)
+          ]),
               comments:new FormControl(child.comments)
             })
             checkListChildGroupData.push(checkListChildGroup)
@@ -91,15 +94,20 @@ export class CodeReviewTrackerComponent implements OnInit {
           else if(child.value){
             const checkListChildGroup=new FormGroup({
               key:new FormControl(child.key,Validators.required),
-              value:new FormArray([],[Validators.required])
+              value:new FormArray([])
             })
             const checkListsubChildGroupData=checkListChildGroup.get('value') as FormArray
             for(let subChild of child.value ){
             const checkListsubChildGroup=new FormGroup({
               key:new FormControl(subChild.key,Validators.required),
               options:new FormControl(subChild.options,Validators.required),
-              rating:new FormControl(subChild.rating,[Validators.required,Validators.pattern('^[1-9][0-9]*$')]),
-              achievedRating:new FormControl(subChild.achievedRating,Validators.required),
+              rating:new FormControl(child.rating,Validators.required),
+
+              achievedRating:new FormControl(child.achievedRating,[Validators.required, 
+                Validators.min(0),
+              Validators.max(5),
+              Validators.pattern(/^\d*\.?\d*$/)
+            ]),
               comments:new FormControl(subChild.comments)
             })
 
@@ -115,58 +123,49 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
     //validator for range
-    rangeValidator(min: number, max: number) {
-      return (control: AbstractControl): ValidationErrors | null => {
-        const value = +control.value; // Convert input to a number
-        if (isNaN(value) || value < min || value > max) {
-          return { 'range': true };
-        }
-        return null;
-      };
-    }
-
+  
   saveCheckListData(valid:any){
-  
-  
-   
-  
+    console.log(valid);
+    
+    console.log(this.reviewTrackerForm);
+    
   }
 
   //disable save conditionally
-  isDisableSave(index?:any,parentIndex?:any){
-    // for(let i=0;i<this.formData.value.length;i++){
-      if(index && parentIndex){
-        const parentData=this.formData.at(parentIndex).get('value')as FormArray
-        if(parentData){
-          // for(let j=0;j<parentData.length;j++){
-           console.log(parentData.at(index).get('key') as FormControl);
-           if(parentData.at(index).get('options')?.valid && parentData.at(index).get('achievedRating')?.invalid ){
-            return true
-           }
-           else if(parentData.at(index).get('options')?.valid && parentData.at(index).get('achievedRating')?.valid ){
-            return false
-          //  }
+  // isDisableSave(index?:any,parentIndex?:any){
+  //   // for(let i=0;i<this.formData.value.length;i++){
+  //     if(index && parentIndex){
+  //       const parentData=this.formData.at(parentIndex).get('value')as FormArray
+  //       if(parentData){
+  //         // for(let j=0;j<parentData.length;j++){
+  //          console.log(parentData.at(index).get('key') as FormControl);
+  //          if(parentData.at(index).get('options')?.valid && parentData.at(index).get('achievedRating')?.invalid ){
+  //           return true
+  //          }
+  //          else if(parentData.at(index).get('options')?.valid && parentData.at(index).get('achievedRating')?.valid ){
+  //           return false
+  //         //  }
       
-          }
-        }
-        else{
-          console.log(this.formData.at(index).get('key') as FormControl);
-          if(this.formData.at(index).get('options')?.valid && this.formData.at(index).get('achievedRating')?.invalid ){
-            return true
-          }
-          else{
-            return false
-          }
+  //         }
+  //       }
+  //       else{
+  //         console.log(this.formData.at(index).get('key') as FormControl);
+  //         if(this.formData.at(index).get('options')?.valid && this.formData.at(index).get('achievedRating')?.invalid ){
+  //           return true
+  //         }
+  //         else{
+  //           return false
+  //         }
           
-        }
+  //       }
         
-        }
+  //       }
       
      
-        return false
+  //       return false
 
 
-  }
+  // }
 
   get formData():FormArray{
     return this.reviewTrackerForm.get('value') as FormArray
@@ -175,7 +174,6 @@ export class CodeReviewTrackerComponent implements OnInit {
   
 
   getSubChildSelection(rating:any,name:any,index:number,parentIndex:number){
-    // this.isDisableSave(parentIndex,index)
     console.log(index)
     const parentControl=this.formData.at(parentIndex).get('value') as FormArray
     const childRatingControl=parentControl.at(index).get('rating') as FormControl
@@ -196,12 +194,7 @@ export class CodeReviewTrackerComponent implements OnInit {
       childAchievedControl.patchValue(0)
     }
 
-    if(parentControl.at(index).get('options')?.valid && parentControl.at(index).get('achievedRating')?.invalid){
-      this.disableSave=true
-    }
-    else if(parentControl.at(index).get('options')?.valid && parentControl.at(index).get('achievedRating')?.valid){
-      this.disableSave=false
-    }
+ 
   }
 
   isSubChildReadOnly(index:number,parentIndex:number){
@@ -320,6 +313,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   name: string | undefined;
   color: string | undefined;
   openDialog(): void {
+    this,this.isActiveComments=!this.isActiveComments
     // const dialogRef = this.dialog.open(AddCommentsComponent, {
     //   width: '695px',
     //   data: { name: this.name, color: this.color },
