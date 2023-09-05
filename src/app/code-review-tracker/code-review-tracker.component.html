@@ -43,6 +43,7 @@
                     <mat-select formControlName="options" (selectionChange)="getChildSelectedOption($event,'child',i)">
                       <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                     </mat-select>
+                  
                   </mat-form-field>
                 </div>
 
@@ -51,9 +52,7 @@
                  <mat-label>Rating</mat-label>
                  <mat-form-field class="example-full-width">
                   <input matInput type="number" [readonly]="true"  formControlName="rating" >
-                  <div *ngIf="reviewTrackerForm.get(['value', i, 'rating']).hasError('pattern') && reviewTrackerForm.get(['value', i, 'rating']).touched">
-                    Number must be between 0 and 5
-                  </div>
+                
                 </mat-form-field>
 
 
@@ -99,6 +98,8 @@
                           <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption',j,i)" formControlName="options"  >
                             <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                           </mat-select>
+                          
+                         
 
                         </mat-form-field>
                       </div>
@@ -124,14 +125,16 @@
                      </div>
 
                      <form>
-                      <label class="label-popup" for="Add Comments">Add Comments:</label>
-                        <textarea class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
+                      <!-- <label class="label-popup" for="Add Comments">Add Comments:</label> -->
+                        <textarea *ngIf="isActiveComments"  class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
                         <div class="table-button flex-center">
                         </div>
 
                         </form>
                      <div class="Comment" (click)="openDialog()"><img src="../assets/comment_light.svg"></div>
                    </div>
+
+
               </div>
             </div>
 
@@ -140,13 +143,13 @@
       <!-- <button class="button-all btn-blue mg-0 save-btn" (click)="saveCheckListData()">Save</button> -->
       </div>
         </div>
+        <button class="button-all btn-blue mg-0 save-btn" [disabled]="reviewTrackerForm.invalid"   (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
 
       </div>
 
 
 
 
-      <button class="button-all btn-blue mg-0 save-btn" [disabled]="reviewTrackerForm.invalid" (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
         </mat-tab>
 
 

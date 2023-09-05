@@ -86,3 +86,8 @@ font-size: 12px;
 .progress-red span {
   background-color: red;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
