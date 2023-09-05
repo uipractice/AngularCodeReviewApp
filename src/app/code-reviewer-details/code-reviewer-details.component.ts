@@ -95,7 +95,7 @@ codeReviewerForm=new FormGroup({
 })
 
 getBackDetails(){
-  this.router.navigate(['/startCodeReviewTracker'])
+  this.router.navigate(['/codeReviewTracker'])
 }
 
 
@@ -211,7 +211,8 @@ save(){
 }
 
 submitReviewDetails(){
-  if(this.status=='pending'){
+  console.log('submit');
+  
     let data={
       "account": this.codeReviewerForm.get('account')?.value,
       "project": this.codeReviewerForm.get('project')?.value,
@@ -234,12 +235,8 @@ submitReviewDetails(){
       this.router.navigate(['/codeReviewTracker'])
 
     })
-  }
-  else if(this.status=='completed'){
-    this.router.navigate(['/codeReviewTracker'])
-
-
-  }
+  // }
+ 
 
 }
 
