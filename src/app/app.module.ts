@@ -27,6 +27,8 @@ import { CreateChecklistComponent } from './create-checklist/create-checklist.co
 import { UserManagementComponent } from './user-management/user-management.component';
 import { CodereviewManagementComponent } from './codereview-management/codereview-management.component';
 import { AddCommentsComponent } from './add-comments/add-comments.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 //import {MatDialog} from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 
@@ -67,8 +69,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatPaginatorModule,
     MatCheckboxModule,
     MatCardModule,
-    MatDialogModule
-
+    MatDialogModule,
+    MatProgressBarModule
 
     // MatIconModule,
     // MatButtonModule,

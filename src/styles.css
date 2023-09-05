@@ -68,10 +68,14 @@ ul {
     border-bottom: 1px solid #E7E7E7;
     position: fixed;
     width: 100%;
-    z-index: 9;
-    padding-top: 60px;
-
+    z-index:91;
+    padding-top:73px;
+    padding-bottom: 20px;
   }
+
+
+
+
   .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
     flex-grow:0 !important;
   }
@@ -89,7 +93,10 @@ ul {
 
   .tab-heading{
     color:#4F788F;
+
+    border: 200px solid #ccc !important;
   }
+
 
   .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
     color:#003B5C !important;
@@ -102,10 +109,10 @@ ul {
     width: 100%;
     max-width: 315px;
     border-right: 1px solid #F5F1F1;
-    padding-top:1.01rem;
+    padding-top:18px;
     position: fixed;
     height: 100vh;
-    top: 120px;
+    top: 142px;
   }
   .vertical-tabs .mat-mdc-tab-labels {
      display:inline-block !important;
@@ -294,11 +301,14 @@ width:30px;
 .mat-mdc-tab-body.mat-mdc-tab-body-active{
   overflow-y: inherit !important;
   overflow-x: inherit !important;
+  position:inherit !important;
+  z-index:inherit !important ;
 
 }
 .mat-mdc-tab-body-content {
   height: 100%;
   overflow: inherit !important;
+  padding-top: 26px;
 }
 
 .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
@@ -558,6 +568,7 @@ box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.07);
 padding:3.25rem 1rem;
 margin-left: 0px !important;
 margin-right: 0px !important;
+margin-top: 90px;
 }
 
 .top-heading {
@@ -785,7 +796,7 @@ img.icon-login {
     position: absolute;
     top: -9px;
     left: 8px;
-    z-index: 99;
+    z-index:9;
 }
 
 .box--right {
@@ -840,11 +851,15 @@ display: block;
 
 .main-sonar {
   margin: 10px 20px;
-  border-bottom: 2px dotted #CBCBCB;
 }
-.top-page {
-margin-top:48px;
+
+  .top-page {
+    position:fixed;
+    z-index: 92;
+    left: 20px;
+    top: 45px;
 }
+
 
 
 .save-btn {
