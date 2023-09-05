@@ -1,10 +1,30 @@
 
 <div class="container">
+
+
   <mat-tab-group class="tabs-grey">
+
+
     <mat-tab class="tab-heading" label="Code Review">
 
+      <div class="table-button details-main top-heading top-page" style="border: 0px solid red;">
+        <div><h1>SonarQube</h1>
+          <ul class="pagination">
+          <li><a href="">Dashboard</a></li>
+          <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+          <li><a href=""> Create New Project</a></li>
+          <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+          <li>SonarQube</li>
+        </ul>
+      </div>
+        </div>
+
      <mat-tab-group class="vertical-tabs" animationDuration="0ms"  (selectedTabChange)=" onGetSideSelectedValue($event)"  [formGroup]="reviewTrackerForm"   >
-        <mat-tab  *ngFor="let sideData of sideNavDetails; let i=index"  [label]="sideData"   >
+
+
+      <mat-tab  *ngFor="let sideData of sideNavDetails; let i=index"  [label]="sideData"   >
+
+
           <ng-template mat-tab-label  >
             <div class="steps"></div>
             <span class="steps-title" >{{sideData}}</span>
@@ -141,9 +161,13 @@
     </mat-tab>
 
 
-<mat-tab label="Sonar QUbe">
+
+
+
 
 <!-- Sonar Qube--------------------------------------->
+
+<mat-tab label="Sonar QUbe">
 <div class="main-body grey-bg">
   <div class="container">
         <div class="table-button details-main top-heading top-page">
@@ -156,109 +180,74 @@
             <li>SonarQube</li>
           </ul>
         </div>
-
           </div>
+
           <div class="details-main">
-                        <form class=" details-box" >
+                    <form class=" details-box" >
                         <div class="main-sonar">
-                          <h2>Bugs</h2>
-                          <div class="row ">
-                          <div class="mb-3 col-md-3 col-sm-12">
-                            <label for="project" class="form-label">Result <span style="color: red;">.</span></label>
-                            <input
-
-                              type="text"
-                              class="form-control"
-                              id="project"
-                              formControlName="project"
-                            />
-                          </div>
-                    <div class="mb-3 col-md-3 col-sm-12">
-                        <label for="account" class="form-label">Points <span style="color: red;">*</span></label>
-                        <input
+                          <div class="uploadOuter">
 
 
-                          type="text"
-                          class="form-control"
-                          id="account"
-                          formControlName="account"
-                        />
-                      </div>
-                      <div class="mb-3 col-md-3 col-sm-12">
-                        <label for="account" class="form-label">Achieved <span style="color: red;">*</span></label>
-                        <input
-
-
-                          type="text"
-                          class="form-control"
-                          id="account"
-                          formControlName="account"
-                        />
-                      </div>
-                      <div class="mb-3 col-md-3 col-sm-12">
-                        <label for="account" class="form-label">Comments <span style="color: red;">*</span></label>
-                        <input
-
-
-                          type="text"
-                          class="form-control"
-                          id="account"
-                          formControlName="account"
-                        />
-                      </div>
-                      <div class="mb-3 col-md-9 col-sm-12">
-                        <label for="account" class="form-label">Files: <span style="color: red;">*</span></label>
-                      <textarea style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
-
-                      </div>
-
-
+                            <div class="dragBox" >
+                              <img src="../assets/upload-icon.svg" alt="arrow icon" title="arrow">
+                            <div class="drag-h">  <h3>Drag & drop files or <span>Browse</span></h3>
+                              <span>Supported formates: JPEG, PNG, PDF, Word.</span></div>
+                            <input type="file" onChange="dragNdrop(event)"  ondragover="drag()" ondrop="drop()" id="uploadFile"  />
+                            </div>
+                                <label for="uploadFile" class="button-all btn-blue">Upload Image</label>
+                            </div>
 
                     </div>
 
-                  </div>
 
 
 
 
 
-                      <div class="table-button flex-center">
-                      <button class="button-all btn-blue mg-0 save-btn">Save </button>
-
-                    </div>
                 </form>
 
 
+
+
    </div>
-</div>
-</div>
 
 
+
+
+</div>
+</div>
     </mat-tab>
-    <mat-tab label="Summary"> <!-- Summary--------------------------------------->
-      <div class="main-body grey-bg">
-        <div class="container">
-              <div class="table-button details-main top-heading top-page">
-                <div><h1>Summary</h1>
-                  <ul class="pagination">
-                  <li><a href="">Dashboard</a></li>
-                  <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-                  <li><a href=""> Create New Project</a></li>
-                  <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-                  <li>Summary</li>
-                </ul>
-              </div>
 
-                </div>
+
+
+
+
+
+    <mat-tab label="Summary">
+       <!-- Summary--------------------------------------->
+      <div class="table-button details-main top-heading top-page">
+        <div><h1>Summary</h1>
+          <ul class="pagination">
+          <li><a href="">Dashboard</a></li>
+          <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+          <li><a href=""> Create New Project</a></li>
+          <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+          <li>Summary</li>
+        </ul>
+      </div>
+
+        </div>
+      <div class="container">
+
+      <div class="main-body grey-bg">
+
                 <div class="details-main">
+
+
                               <form class=" details-box" >
                               <div class="main-sonar border-b-none">
 
                                 <div class="row ">
-
-
-
-
                             <div class="mb-3 col-md-12 col-sm-12">
                               <label for="account" class="form-label">Overall Comments: <span style="color: red;">*</span></label>
                             <textarea style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
@@ -271,18 +260,50 @@
 
                         </div>
 
-
-
-
-
                             <div class="table-button flex-center">
                             <button class="button-all btn-blue mg-0 ">Save </button>
 
                           </div>
                       </form>
 
-
          </div>
+
+
+         <div class="details-main">
+
+
+          <form class=" details-box" >
+          <div class="main-sonar border-b-none">
+
+            <div class="row ">
+
+              <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+
+              <br/>
+
+        <div class="mb-3 col-md-12 col-sm-12">
+
+
+          <label for="account" class="form-label">Overall Comments: <span style="color: red;">*</span></label>
+        <textarea style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+        <div class="table-button flex-center">
+        <button class="button-all btn-blue mg-0 ">Save </button>
+
+      </div>
+  </form>
+
+</div>
+
+
       </div>
       </div> </mat-tab>
   </mat-tab-group>
