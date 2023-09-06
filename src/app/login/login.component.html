@@ -39,9 +39,13 @@
                               <div class="form-group mb-bottom">
 
                                 <label class="overlay-text">Password</label>
-                                  <input id="inputPassword"  type="password" placeholder="Password" [(ngModel)]="password" name="password" class="form-control px-4 text-primary">
+                                  <input id="inputPassword"  [type]="showPassword ? 'text' : 'password'" placeholder="Password" [(ngModel)]="password" name="password" class="form-control px-4 text-primary">
                                   <img class="icon-login" src="../assets/Lock_light.svg" alt="Lock icon" title="Lock">
-                                  <img class="icon-view" src="../assets/View_light.svg" alt="view" title="view">
+                                  <!-- <img class="icon-view" src="../assets/View_light.svg" alt="view" title="view">-->
+
+                                  <mat-icon class="icon-view" matSuffix (click)="togglePasswordVisibility()">
+                                    {{showPassword?'visibility_off':'visibility'}}
+                                </mat-icon>
                                 </div>
                               <button type="submit" class="full-btn blue">Login</button>
 <div class="remeber">

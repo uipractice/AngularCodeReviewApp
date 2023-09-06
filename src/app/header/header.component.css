@@ -28,7 +28,7 @@ mat-toolbar{
   margin-bottom:0px;
 }
 @media(max-width: 959px){
-  mat-toolbar{
+  mat-toolbar {
       border-radius: 0px;
   }
 }
