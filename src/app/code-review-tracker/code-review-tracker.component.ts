@@ -31,7 +31,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDisabledAchievedRating:boolean=true
   isActiveComments:boolean=false
   disableSave:boolean=false
-  summaryArray:any[][]=[]
+  summaryArray:any[]=[]
   
 
 
@@ -126,6 +126,8 @@ export class CodeReviewTrackerComponent implements OnInit {
     //validator for range
   
   saveCheckListData(valid:any){
+    console.log(this.reviewDetailsHeader);
+    
     let rating=0
     let achievedRating=0
     console.log(valid);
@@ -157,11 +159,40 @@ export class CodeReviewTrackerComponent implements OnInit {
     
   }
   console.log('total rating',rating);
-  console.log('total rating',achievedRating);
-  let summaryData=[rating,achievedRating]
-  this.summaryArray.push(summaryData)
+  console.log('total rating',achievedRating)
+  let summaryObj={
+    'id':this.reviewDetailsHeader,
+    'rating':rating,
+    'achievedRating':achievedRating
+  }
+
+  const existingObj = this.summaryArray.find(obj => obj.id === summaryObj.id)
+
+  if(existingObj){
+    for(let i=0;i<=this.summaryArray.length;i++){
+      // if(this.summaryArray[i]['id']==existingObj.id){
+      // this.summaryArray[i]['rating']=summaryObj.rating
+      // this.summaryArray[i]['achievedRating']=summaryObj.achievedRating
+      // }
+      console.log('existing summary array',this.summaryArray[i]);
+      
+  }
+
+  }
+  else{
+    this.summaryArray.push(summaryObj)
+
+  }
+
+
+
+  
+  
+ 
+
   console.log('summary array',this.summaryArray);
-  localStorage.setItem('summary data',JSON.stringify(this.summaryArray))
+  
+  
   
 
 
