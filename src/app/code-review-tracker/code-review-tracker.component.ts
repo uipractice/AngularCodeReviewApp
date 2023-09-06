@@ -31,6 +31,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDisabledAchievedRating:boolean=true
   isActiveComments:boolean=false
   disableSave:boolean=false
+  summaryArray:any[][]=[]
   
 
 
@@ -125,47 +126,50 @@ export class CodeReviewTrackerComponent implements OnInit {
     //validator for range
   
   saveCheckListData(valid:any){
+    let rating=0
+    let achievedRating=0
     console.log(valid);
     
-    console.log(this.reviewTrackerForm);
+    console.log(this.reviewTrackerForm.value);
+    let data=this.reviewTrackerForm.value.value
+    for(let i=0;i<data.length;i++){
+      if(data[i].value){
+        console.log(data[i].value);
+
+        for(let j=0;j<data[i].value.length;j++){
+               
+      rating=rating+ +data[i].value[j].rating
+      achievedRating=achievedRating+ +data[i].value[j].achievedRating
+
+        }
+        
+ 
+
+      
+    }
+    else{
+      console.log(data[i].key);
+      console.log(data[i].rating);
+      rating=rating+ +data[i].rating
+      achievedRating=achievedRating+ +data[i].achievedRating
+    }
+    
+    
+  }
+  console.log('total rating',rating);
+  console.log('total rating',achievedRating);
+  let summaryData=[rating,achievedRating]
+  this.summaryArray.push(summaryData)
+  console.log('summary array',this.summaryArray);
+  localStorage.setItem('summary data',JSON.stringify(this.summaryArray))
+  
+
+
+
+  
     
   }
 
-  //disable save conditionally
-  // isDisableSave(index?:any,parentIndex?:any){
-  //   // for(let i=0;i<this.formData.value.length;i++){
-  //     if(index && parentIndex){
-  //       const parentData=this.formData.at(parentIndex).get('value')as FormArray
-  //       if(parentData){
-  //         // for(let j=0;j<parentData.length;j++){
-  //          console.log(parentData.at(index).get('key') as FormControl);
-  //          if(parentData.at(index).get('options')?.valid && parentData.at(index).get('achievedRating')?.invalid ){
-  //           return true
-  //          }
-  //          else if(parentData.at(index).get('options')?.valid && parentData.at(index).get('achievedRating')?.valid ){
-  //           return false
-  //         //  }
-      
-  //         }
-  //       }
-  //       else{
-  //         console.log(this.formData.at(index).get('key') as FormControl);
-  //         if(this.formData.at(index).get('options')?.valid && this.formData.at(index).get('achievedRating')?.invalid ){
-  //           return true
-  //         }
-  //         else{
-  //           return false
-  //         }
-          
-  //       }
-        
-  //       }
-      
-     
-  //       return false
-
-
-  // }
 
   get formData():FormArray{
     return this.reviewTrackerForm.get('value') as FormArray
@@ -175,6 +179,8 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   getSubChildSelection(rating:any,name:any,index:number,parentIndex:number){
     console.log(index)
+    console.log(parentIndex);
+    
     const parentControl=this.formData.at(parentIndex).get('value') as FormArray
     const childRatingControl=parentControl.at(index).get('rating') as FormControl
     const childAchievedControl=parentControl.at(index).get('achievedRating') as FormControl
