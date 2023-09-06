@@ -25,6 +25,8 @@ border-radius: 0.25rem;
 border: 1px solid #C1C1C1;
 padding: 0px 8px 0px 35px!important;
 height: 3.25rem;
+color:#000 !important;
+font-weight:bold;
 }
 .blue {
   background: #219EBC;
@@ -34,6 +36,7 @@ height: 3.25rem;
   position: absolute;
   right: 10px;
   top: 14px;
+  color:#c1c1c1;
 }
 .overlay-text {
     position: absolute;

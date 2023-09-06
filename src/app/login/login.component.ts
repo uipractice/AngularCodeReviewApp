@@ -17,11 +17,14 @@ export class LoginComponent {
   email: any;
   password: any;
   //handleUpdateResponse: any;
-  handleError: any;
+ handleError: any;
  auth_token=''
  userRole:any
+ public showPassword: boolean = false;
 
-
+ public togglePasswordVisibility(): void {
+  this.showPassword = !this.showPassword;
+}
   constructor(private authService: AuthService,private router:Router,private codeService:CodeReviewService, private renderer: Renderer2,) {}
 
   onSubmit() {

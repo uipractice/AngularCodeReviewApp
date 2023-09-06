@@ -43,7 +43,7 @@
                     <mat-select formControlName="options" (selectionChange)="getChildSelectedOption($event,'child',i)">
                       <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                     </mat-select>
-                  
+
                   </mat-form-field>
                 </div>
 
@@ -52,7 +52,7 @@
                  <mat-label>Rating</mat-label>
                  <mat-form-field class="example-full-width">
                   <input matInput type="number" [readonly]="true"  formControlName="rating" >
-                
+
                 </mat-form-field>
 
 
@@ -98,8 +98,8 @@
                           <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption',j,i)" formControlName="options"  >
                             <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                           </mat-select>
-                          
-                         
+
+
 
                         </mat-form-field>
                       </div>
@@ -152,16 +152,8 @@
 
         </mat-tab>
 
-
-
-
-
-
       </mat-tab-group>
     </mat-tab>
-
-
-
 
 
 
@@ -199,29 +191,11 @@
 
                     </div>
 
-
-
-
-
-
                 </form>
-
-
-
-
    </div>
-
-
-
-
 </div>
 </div>
     </mat-tab>
-
-
-
-
-
 
     <mat-tab label="Summary">
        <!-- Summary--------------------------------------->
@@ -238,12 +212,8 @@
 
         </div>
       <div class="container">
-
       <div class="main-body grey-bg">
-
                 <div class="details-main">
-
-
                               <form class=" details-box" >
                               <div class="main-sonar border-b-none">
 

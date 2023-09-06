@@ -70,7 +70,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCheckboxModule,
     MatCardModule,
     MatDialogModule,
-    MatProgressBarModule
+    MatProgressBarModule,
 
     // MatIconModule,
     // MatButtonModule,
