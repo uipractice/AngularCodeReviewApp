@@ -64,7 +64,7 @@
                  <div class="rating select-dropdown"  >
                   <mat-label>Achieved</mat-label>
                   <mat-form-field class="example-full-width">
-                  <input type="text"  matInput [readonly]="isChildReadOnly(i)"  formControlName="achievedRating" >
+                  <input type="number"  matInput [readonly]="isChildReadOnly(i)"  formControlName="achievedRating" >
                  </mat-form-field>
 
 
@@ -159,7 +159,7 @@
 
 <!-- Sonar Qube--------------------------------------->
 
-<mat-tab label="Sonar QUbe">
+<mat-tab label="Sonar Qube"  >
 <div class="main-body grey-bg">
   <div class="container">
         <div class="table-button details-main top-heading top-page">
@@ -213,7 +213,7 @@
         </div>
       <div class="container">
       <div class="main-body grey-bg">
-                <div class="details-main">
+                <div class="details-main" *ngIf="showSummary==false">
                               <form class=" details-box" >
                               <div class="main-sonar border-b-none">
 
@@ -231,7 +231,7 @@
                         </div>
 
                             <div class="table-button flex-center">
-                            <button class="button-all btn-blue mg-0 ">Save </button>
+                            <button class="button-all btn-blue mg-0 " (click)="saveComments()">Save </button>
 
                           </div>
                       </form>
@@ -239,15 +239,14 @@
          </div>
 
 
-         <div class="details-main">
+         <div class="details-main" *ngIf="showSummary==true">
 
 
           <form class=" details-box" >
           <div class="main-sonar border-b-none">
-
             <div class="row ">
-
-              <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+              <h1>{{summaryPercentage}}%</h1>
+              <mat-progress-bar mode="determinate" value="{{summaryPercentage}}"></mat-progress-bar>
 
               <br/>
 

@@ -19,7 +19,7 @@ const routes: Routes = [
   {path:'adminUserList',component:AdminUserListComponent},
   {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
-  {path:'codeReviewTracker',component:CodeReviewTrackerComponent},
+  {path:'codeReviewTracker/:id/:status',component:CodeReviewTrackerComponent},
   // {path:'codeReviewTracker',component:HeaderComponent},
   {path:'login',component:LoginComponent},
   {path:'signup', component:SignupComponent},
