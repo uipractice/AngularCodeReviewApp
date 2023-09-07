@@ -6,6 +6,10 @@ margin:0;
 font-family:'Lato', sans-serif !important;
 
 }
+
+.white {
+  color:#fff;
+}
 ul {
   list-style:none;
 }

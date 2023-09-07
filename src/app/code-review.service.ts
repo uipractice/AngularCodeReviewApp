@@ -8,11 +8,14 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class CodeReviewService {
+  logout() {
+    throw new Error('Method not implemented.');
+  }
 baseUrl='https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'
 userDetails=new Subject()
   constructor(private http:HttpClient) { }
   getUserDetails(headers:any){
-   
+
     return this.http.get(`${this.baseUrl}/user`,{headers}).pipe(map((res:any)=>{
       return res
     }))
@@ -24,13 +27,13 @@ userDetails=new Subject()
     }))
 
   }
-  
 
- 
+
+
 
 
   getReviewDetails(headers:any){
-   
+
     return this.http.get(`${this.baseUrl}/details`,{headers}).pipe(map((res:any)=>{
       return res
     }))
@@ -43,7 +46,7 @@ userDetails=new Subject()
   }
   onEditDetails(data:any,headers:any){
     return this.http.put(`${this.baseUrl}/details`,data,{headers})
-    
+
   }
   getTechnicalStackDetails(headers:any){
     return this.http.get(`${this.baseUrl}/technicalStack`,{headers})
@@ -70,6 +73,6 @@ userDetails=new Subject()
     return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`,{headers})
   }
 
- 
+
   }
 

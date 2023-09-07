@@ -8,9 +8,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+  getUserEmail() {
+    throw new Error('Method not implemented.');
+  }
   private readonly baseUrl = 'https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'; // Replace with your actual backend API URL
   isLoggedIn: any;
   redirectUrl: { new(url: string | URL, base?: string | URL): URL; prototype: URL; createObjectURL(obj: Blob | MediaSource): string; revokeObjectURL(url: string): void; } | undefined;
+  userDetails: any;
 
   constructor(private http: HttpClient) {}
 
