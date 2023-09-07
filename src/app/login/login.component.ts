@@ -73,8 +73,10 @@ getUserDetails(){
 
   this.codeService.getUserDetails(headers).subscribe((res:any)=>{
     this.userRole=res.data.role
+    console.log('userdetails',res)
 
     this.codeService.userDetails.next(res.data.role)
+
 
   })
 }
