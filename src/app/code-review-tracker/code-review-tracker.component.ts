@@ -12,26 +12,22 @@ import { AddCommentsComponent } from '../add-comments/add-comments.component';
   styleUrls: ['./code-review-tracker.component.css']
 })
 export class CodeReviewTrackerComponent implements OnInit {
-  @ViewChild('subChild') subChild!:ElementRef<HTMLDivElement>
- codeReviewData:any
+  // @ViewChild('subChild') subChild!:ElementRef<HTMLDivElement>
   selectOptions:any
-  starRating =0
   reviewDetailsHeader='Functional'
   selectelTabCheckList:any
   techStackdetails:any
   sideNavDetails:any
-  selected = '';
   reviewTrackerForm:any=FormGroup
-  checkListChildData:any
-  subChildOptions=''
-  childOption=''
   auth_token=''
   isDisabledRating:boolean[]=[]
-  ratingValue=5
   isDisabledAchievedRating:boolean=true
   isActiveComments:boolean=false
   disableSave:boolean=false
+  showSummary:boolean=false
   summaryArray:any[]=[]
+  summaryPercentage:any
+
   
 
 
@@ -48,7 +44,6 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     this.getOptions()
     this.getReviewDetails()
-//  this. onGetSideSelectedValue()
 
 
 
@@ -102,9 +97,9 @@ export class CodeReviewTrackerComponent implements OnInit {
             const checkListsubChildGroup=new FormGroup({
               key:new FormControl(subChild.key,Validators.required),
               options:new FormControl(subChild.options,Validators.required),
-              rating:new FormControl(child.rating,Validators.required),
+              rating:new FormControl(subChild.rating,Validators.required),
 
-              achievedRating:new FormControl(child.achievedRating,[Validators.required, 
+              achievedRating:new FormControl(subChild.achievedRating,[Validators.required, 
                 Validators.min(0),
               Validators.max(5),
               Validators.pattern(/^\d*\.?\d*$/)
@@ -123,7 +118,6 @@ export class CodeReviewTrackerComponent implements OnInit {
     }
 
 
-    //validator for range
   
   saveCheckListData(valid:any){
     console.log(this.reviewDetailsHeader);
@@ -169,12 +163,12 @@ export class CodeReviewTrackerComponent implements OnInit {
   const existingObj = this.summaryArray.find(obj => obj.id === summaryObj.id)
 
   if(existingObj){
-    for(let i=0;i<=this.summaryArray.length;i++){
-      // if(this.summaryArray[i]['id']==existingObj.id){
-      // this.summaryArray[i]['rating']=summaryObj.rating
-      // this.summaryArray[i]['achievedRating']=summaryObj.achievedRating
-      // }
-      console.log('existing summary array',this.summaryArray[i]);
+    for(let i=0;i<this.summaryArray.length;i++){
+      if(this.summaryArray[i]['id']==existingObj.id){
+      this.summaryArray[i]['rating']=summaryObj.rating
+      this.summaryArray[i]['achievedRating']=summaryObj.achievedRating
+      }
+      console.log('existing summary array rating',this.summaryArray[i].rating);
       
   }
 
@@ -184,21 +178,8 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   }
 
-
-
-  
-  
- 
-
   console.log('summary array',this.summaryArray);
-  
-  
-  
-
-
-
-  
-    
+   
   }
 
 
@@ -308,6 +289,23 @@ export class CodeReviewTrackerComponent implements OnInit {
     return true
   }
 
+  saveComments(){
+    this.showSummary=true
+    let rating=0
+    let achievedRating=0
+    for(let i=0;i<this.summaryArray.length;i++){
+      rating=rating+this.summaryArray[i].rating
+      achievedRating=achievedRating+this.summaryArray[i].achievedRating
+    }
+    let totalAchievedRating=(achievedRating*100)
+    let totalRating=totalAchievedRating/rating
+    let totalPercentage=totalRating
+    console.log('summary percentage',totalPercentage);
+    this.summaryPercentage=totalPercentage.toFixed(2)
+    
+
+  }
+
 
   getOptions(){
     const headers = new HttpHeaders({
@@ -350,14 +348,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   name: string | undefined;
   color: string | undefined;
   openDialog(): void {
-    this,this.isActiveComments=!this.isActiveComments
-    // const dialogRef = this.dialog.open(AddCommentsComponent, {
-    //   width: '695px',
-    //   data: { name: this.name, color: this.color },
-    // });
-    // dialogRef.afterClosed().subscribe((res) => {
-    //   this.color = res;
-    // });
+    // this.isActiveComments=!this.isActiveComments
+   
   }
 }
 

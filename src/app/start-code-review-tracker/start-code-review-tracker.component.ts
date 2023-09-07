@@ -68,7 +68,7 @@ auth_token=''
   onViewSubmittedDetails(row:any){
     console.log(row);
 
-    this.router.navigate(['/codeReviewerDetails',row._id,row.status])
+    this.router.navigate(['/codeReviewTracker',row._id,row.status])
 
   }
 
