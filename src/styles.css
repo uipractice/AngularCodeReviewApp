@@ -6,7 +6,9 @@ margin:0;
 font-family:'Lato', sans-serif !important;
 
 }
-
+.white-btn{
+  width:141.775px !important;
+}
 .white {
   color:#fff;
 }
@@ -371,7 +373,7 @@ border-bottom:0px;
   font-weight: 500;
   padding: 9px 21px;
   height: 2.375rem;
-
+width: 136px;
   }
   .btn-blue {
   background:#219EBC;
@@ -920,3 +922,18 @@ display: block;
 .mat-mdc-tab.mdc-tab {
   height: 40px;
 }
+
+
+
+.mat-progress-bar.mat-progress-bar {
+  height: 20px;
+}
+
+.mat-progress-bar .mat-progress-bar-fill::after {
+    background-color: green;
+}
+
+.mat-progress-bar .mat-progress-bar-buffer {
+    background: #E4E8EB;
+}
+

@@ -231,6 +231,7 @@
                         </div>
 
                             <div class="table-button flex-center">
+                            <button class="button-all btn-blue mg-0 ">Submit</button>
                             <button class="button-all btn-blue mg-0 " (click)="saveComments()">Save </button>
 
                           </div>
@@ -248,11 +249,7 @@
               <h1>{{summaryPercentage}}%</h1>
               <mat-progress-bar mode="determinate" value="{{summaryPercentage}}"></mat-progress-bar>
 
-              <br/>
-
         <div class="mb-3 col-md-12 col-sm-12">
-
-
           <label for="account" class="form-label">Overall Comments: <span style="color: red;">*</span></label>
         <textarea style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
 
@@ -264,9 +261,16 @@
 
     </div>
 
+  <div>
+    <input type="checkbox" id="scales" name="scales" checked />
+    <label for="scales">Review Completed</label>
+  </div>
         <div class="table-button flex-center">
-        <button class="button-all btn-blue mg-0 ">Save </button>
-
+      <!-- <button class="button-all btn-blue mg-0">Submit</button>
+        <button class="button-all btn-outline mg-0">Send Report</button>
+-->
+        <button class="button-all btn-outline mg-0 white-btn">Send Report</button>
+        <button class="button-all btn-blue mg-0" >Submit</button>
       </div>
   </form>
 
