@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { AddCommentsComponent } from '../add-comments/add-comments.component';
+
 
 @Component({
   selector: 'app-start-code-review-tracker',
@@ -15,9 +18,11 @@ export class StartCodeReviewTrackerComponent implements OnInit {
   displayedColumns:string[]=['index','account','project','developers','reviewersName','codeReviewComments','reviewDate','actions']
 element: any;
 auth_token=''
+deleteValue:any
 
 
-  constructor(private router:Router, private codeService:CodeReviewService,private http:HttpClient,private activatedRoute:ActivatedRoute){}
+  constructor(private router:Router, private codeService:CodeReviewService,private http:HttpClient,private activatedRoute:ActivatedRoute,
+    private dialog:MatDialog){}
 
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
@@ -51,7 +56,14 @@ auth_token=''
     this.router.navigate(['/codeReviewerDetails',row._id,row.status])
   }
   onDeleteCompleteDetails(row:any){
-    console.log(row._id);
+   
+    const dialogRef= this.dialog.open(AddCommentsComponent,{
+    })
+    dialogRef.afterClosed().subscribe((val:any)=>{
+      this.deleteValue=val.value
+      console.log(this.deleteValue);
+        if(this.deleteValue=='Yes'){
+       console.log(row._id);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
@@ -62,7 +74,14 @@ auth_token=''
         this.onGetReviewDetails()
       }
     })
-
+    }
+    else if(this.deleteValue=='No'){
+      console.log('Cancelled deletion');
+      
+    }
+      
+    })
+   
 
   }
   onViewSubmittedDetails(row:any){
@@ -76,4 +95,5 @@ auth_token=''
     this.router.navigate(['/codeReviewerDetails'])
   }
 
+ 
 }

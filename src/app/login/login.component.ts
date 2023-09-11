@@ -32,6 +32,8 @@ export class LoginComponent {
       email: this.email,
       password: this.password,
     };
+    console.log('credentials',credentials);
+    
 
     this.authService.login(credentials).subscribe((res:any)=>
   {

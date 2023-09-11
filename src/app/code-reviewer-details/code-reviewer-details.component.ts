@@ -232,7 +232,7 @@ submitReviewDetails(){
     this.codeService.postReviewDetails(data,headers).subscribe((res:any)=>{
         console.log(res);
         console.log(JSON.stringify(this.codeReviewerForm.value));
-      this.router.navigate(['/codeReviewTracker'])
+      this.router.navigate(['/startCodeReviewTracker'])
 
     })
   // }

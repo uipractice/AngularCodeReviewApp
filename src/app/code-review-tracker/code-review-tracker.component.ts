@@ -297,6 +297,7 @@ export class CodeReviewTrackerComponent implements OnInit {
       rating=rating+this.summaryArray[i].rating
       achievedRating=achievedRating+this.summaryArray[i].achievedRating
     }
+    // =((F67*100)/E67)/100
     let totalAchievedRating=(achievedRating*100)
     let totalRating=totalAchievedRating/rating
     let totalPercentage=totalRating
@@ -336,7 +337,8 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
 
-
+// (Total marks obtained / Total marks possible) x 100
+  //  (350/500)*100
   onGetSideSelectedValue(value?:any){
     this.reviewDetailsHeader=value.tab.textLabel
     this.getReviewDetails()
@@ -347,8 +349,11 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
   name: string | undefined;
   color: string | undefined;
-  openDialog(): void {
-    // this.isActiveComments=!this.isActiveComments
+  openDialog(index:any): void {
+    if(index){
+    this.isActiveComments=!this.isActiveComments
+
+    }
    
   }
 }
