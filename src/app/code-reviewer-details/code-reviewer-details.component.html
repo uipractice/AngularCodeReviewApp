@@ -15,7 +15,7 @@
           <div class="details-main">
                         <form class="row details-box" [formGroup]="codeReviewerForm" >
                           <div class="mb-3 col-md-4 col-sm-12">
-                            <label for="project" class="form-label">Project Name <span style="color: red;">.</span></label>
+                            <label for="project" class="form-label">Project Name <span class="red-dot"></span></label>
                             <input [readOnly]="status=='completed'"
                             [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
                               type="text"
@@ -25,7 +25,7 @@
                             />
                           </div>
                     <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="account" class="form-label">Account Name <span style="color: red;">*</span></label>
+                        <label for="account" class="form-label">Account Name <span class="red-dot"></span></label>
                         <input [readOnly]="status=='completed'"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
 
@@ -37,7 +37,7 @@
                       </div>
 
                       <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="storyId" class="form-label">Technical Stack <span style="color: red;">*</span></label>
+                        <label for="storyId" class="form-label">Technical Stack <span class="red-dot"></span></label>
 
                       <mat-select  (selectionChange)="onSelectStack($event.value)" [(ngModel)]="stack" class="form-control"
                       id="technicalStack"
@@ -49,7 +49,7 @@
                       </div>
 
                       <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="storyId" class="form-label">Technology <span style="color: red;">*</span></label>
+                        <label for="storyId" class="form-label">Technology <span class="red-dot"></span></label>
 
                       <mat-select (selectionChange)="onSelectTechnology($event.value)" [(ngModel)]="technology" class="form-control"
                       formControlName="technology"  >
@@ -60,7 +60,7 @@
                       </div>
 
                       <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="developers" class="form-label">Developers <span style="color: red;">*</span></label>
+                        <label for="developers" class="form-label">Developers <span class="red-dot"></span></label>
                         <input [readOnly]="status=='completed'"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
                           type="text"
@@ -70,7 +70,7 @@
                         />
                       </div>
                       <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="projectLead" class="form-label">Project Lead <span style="color: red;">*</span></label>
+                        <label for="projectLead" class="form-label">Project Lead <span class="red-dot"></span></label>
                         <input [readOnly]="status=='completed'"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
                           type="text"
@@ -80,7 +80,7 @@
                         />
                       </div>
                       <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="reviewersName" class="form-label">Reviewers Name <span style="color: red;">*</span></label>
+                        <label for="reviewersName" class="form-label">Reviewers Name <span class="red-dot"></span></label>
                         <input [readOnly]="status=='completed'"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
                           type="text"
