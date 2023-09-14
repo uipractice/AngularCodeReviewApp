@@ -357,7 +357,7 @@ border-bottom:0px;
   justify-content:space-between;
 }
 .table-button h1{
-  padding-top:0px;
+  padding-top:4px;
   padding-bottom: 0px;
   font-size: 20px;
   font-weight:700 !important;
@@ -373,7 +373,6 @@ border-bottom:0px;
   font-weight: 500;
   padding: 9px 21px;
   height: 2.375rem;
-width: 136px;
   }
   .btn-blue {
   background:#219EBC;
@@ -530,6 +529,12 @@ margin: 0px;
 color: #585858;
 font-size: 0.75rem;
 font-weight:500;
+width: 18%;
+}
+
+.accounts li:last-child {
+width:28%;
+
 }
 
 .accounts li strong {
@@ -578,7 +583,7 @@ margin-top: 90px;
 }
 
 .top-heading {
- padding: 18px 5px;
+ padding:20px 5px;
 }
 
 .details-box .form-control{
@@ -603,7 +608,7 @@ margin-top: 90px;
   margin-left:16px;
   background: #fff;
   display: inline-block;
-  padding: 7px;
+  padding:4.5px 14px 5px 6px;
 }
 #codeReviewComments {
   height: 110px;
@@ -937,3 +942,13 @@ display: block;
     background: #E4E8EB;
 }
 
+span.red-dot {
+  background: #FA1717;
+  width: 5px;
+  height: 5px;
+  display: block;
+  border-radius: 8px;
+  position: absolute;
+  right: 3px;
+  top: 9px;
+}
