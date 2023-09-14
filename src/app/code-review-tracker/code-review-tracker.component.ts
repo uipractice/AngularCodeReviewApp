@@ -4,6 +4,7 @@ import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormControl
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentsComponent } from '../add-comments/add-comments.component';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { AddCommentsComponent } from '../add-comments/add-comments.component';
 })
 export class CodeReviewTrackerComponent implements OnInit {
   // @ViewChild('subChild') subChild!:ElementRef<HTMLDivElement>
+  detailsId:any
   selectOptions:any
   reviewDetailsHeader='Functional'
   selectelTabCheckList:any
@@ -22,28 +24,42 @@ export class CodeReviewTrackerComponent implements OnInit {
   auth_token=''
   isDisabledRating:boolean[]=[]
   isDisabledAchievedRating:boolean=true
-  isActiveComments:boolean=false
+  isActiveChildCOmments:boolean[]=[true]
+  isActiveComments:boolean[][]=[
+    [true],
+    [true]
+  ]
   disableSave:boolean=false
   showSummary:boolean=false
   summaryArray:any[]=[]
   summaryPercentage:any
+  projectDetails:any
 
   
 
 
-  constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog){}
+  constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     console.log('auth toke in review tracker',this.auth_token);
 
 
     this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
+  let detailsId=this.activatedRoute.snapshot.paramMap.get('id')
+  this.detailsId=detailsId
+  
 
     this.buildReactiveForm()
     this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
 
     this.getOptions()
     this.getReviewDetails()
+    this.codeService.projectDetails.subscribe((res:any)=>{
+      this.projectDetails=res
+      console.log(res);
+      
+      console.log('project details',res);
+    })
 
 
 
@@ -120,6 +136,9 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   
   saveCheckListData(valid:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
     console.log(this.reviewDetailsHeader);
     
     let rating=0
@@ -179,6 +198,15 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   console.log('summary array',this.summaryArray);
+  let saveJson={
+    "data":[this.reviewTrackerForm.value],
+    "detailsId":this.detailsId
+  }
+
+  this.codeService.postCheckListQuestions(saveJson,headers).subscribe((res:any)=>{
+    console.log('submitted',res);
+    
+  })
    
   }
 
@@ -290,6 +318,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   saveComments(){
+   
+    
     this.showSummary=true
     let rating=0
     let achievedRating=0
@@ -303,6 +333,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     let totalPercentage=totalRating
     console.log('summary percentage',totalPercentage);
     this.summaryPercentage=totalPercentage.toFixed(2)
+    
     
 
   }
@@ -332,6 +363,32 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   }
 
+  hideComments(j:number,i:number){
+    
+    if(this.isActiveComments[i][j]==true){
+
+      return true
+    }
+    else if(this.isActiveComments[i][j]==false){
+      return false
+    }
+    return true
+  }
+
+  hideChildComments(i:number){
+    if(this.isActiveChildCOmments[i]==true){
+     return true
+    }
+    else if(this.isActiveChildCOmments[i]==false){
+    return false
+    }
+    return true
+  }
+
+  openChildComments(i:number){
+    this.isActiveChildCOmments[i]=! this.isActiveChildCOmments[i]
+  }
+
 
 
 
@@ -349,12 +406,14 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
   name: string | undefined;
   color: string | undefined;
-  openDialog(index:any): void {
-    if(index){
-    this.isActiveComments=!this.isActiveComments
+    openDialog(index:number,parentIndex:number) {
+      console.log('Before click',this.isActiveComments);
+      
+      // console.log(index)
+      // console.log(parentIndex);
+      this.isActiveComments[parentIndex][index]=!this.isActiveComments[parentIndex][index]
+      console.log('After click',this.isActiveComments);
 
-    }
-   
   }
 }
 
