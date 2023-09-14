@@ -2,9 +2,9 @@
 <a href="index.html#default" class="logo"><img title="Logo" alt="log" height="35" src="../assets/Evoke_logo.png"></a>
 
 <ul class="menu">
-<li><a href="">Dashboard</a></li>
-<li><a href="">User management</a></li>
-<li><a href="">Code Review Management</a></li>
+<li><a href="" *ngIf="userRole=='admin'">Dashboard</a></li>
+<li><a href="" *ngIf="userRole=='admin'">User management</a></li>
+<li><a href="" *ngIf="userRole=='admin'">Code Review Management</a></li>
 </ul>
 
 <div class="right">

@@ -17,11 +17,16 @@ export class HeaderComponent {
   userRole: any;
   auth_token: any;
   technologies: any;
+  
 
   constructor(private codeService:CodeReviewService, private router:Router) {}
 
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+
+    this.codeService.userDetails.subscribe((res:any)=>{
+      this.userRole=res.data.role
+    })
     
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
@@ -31,6 +36,7 @@ export class HeaderComponent {
         //this.technologies = res.data.name;
 
        console.log('userdetails',res)
+  
 
      /* (error) => {
         console.error('Error fetching user email: ', error);

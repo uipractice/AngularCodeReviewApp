@@ -13,6 +13,7 @@ export class CodeReviewService {
   }
 baseUrl='https://cg3zhj7w4a.execute-api.ap-south-1.amazonaws.com/default/api'
 userDetails=new Subject()
+projectDetails=new Subject()
   constructor(private http:HttpClient) { }
   getUserDetails(headers:any){
 
@@ -33,8 +34,12 @@ userDetails=new Subject()
 
 
   getReviewDetails(headers:any){
-
     return this.http.get(`${this.baseUrl}/details`,{headers}).pipe(map((res:any)=>{
+      return res
+    }))
+  }
+  updateReviewDetails(data:any,headers:any){
+    return this.http.put(`${this.baseUrl}/details`,data,{headers}).pipe(map((res:any)=>{
       return res
     }))
   }
@@ -71,6 +76,9 @@ userDetails=new Subject()
   }
   getSideNav(stackId:any,techId:any,headers:any){
     return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`,{headers})
+  }
+  postCheckListQuestions(data:any,headers:any){
+    return this.http.post(`${this.baseUrl}/checklist`,data,{headers})
   }
 
 

@@ -27,6 +27,7 @@ deleteValue:any
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
    
+   
   
 
     this.onGetReviewDetails()
@@ -84,10 +85,12 @@ deleteValue:any
    
 
   }
-  onViewSubmittedDetails(row:any){
-    console.log(row);
+  onViewSubmittedDetails(rowData:any){
+    console.log(rowData);
+    this.codeService.projectDetails.next(rowData)
 
-    this.router.navigate(['/codeReviewTracker',row._id,row.status])
+
+    this.router.navigate(['/codeReviewTracker',rowData._id,rowData.status])
 
   }
 

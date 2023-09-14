@@ -224,7 +224,7 @@ submitReviewDetails(){
       "reviewPackagesandFiles":this.codeReviewerForm.get('reviewPackagesandFiles')?.value,
       "reviewersName": this.codeReviewerForm.get('reviewersName')?.value,
       "codeReviewComments":  this.codeReviewerForm.get('codeReviewComments')?.value,
-      "status":"completed"
+      "status":"pending"  
     }
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
