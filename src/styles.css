@@ -178,7 +178,7 @@ right: 0px;
   padding-left: 21px;
 }
 .vertical-tabs .mdc-tab-indicator--active {
-  background-color:#EBF6FD;
+  background-color:#EBF6FD !important;
 
 }
 .vertical-tabs .mdc-tab-indicator--active .steps-title{
@@ -230,9 +230,10 @@ text-decoration: none;
 display: flex;
 align-items: self-start;
 background: #F8F8F8;
-padding: 1.063rem 1rem;
+padding: 1.8rem 1rem;
 justify-content: space-between;
 align-items: center;
+
 }
 .heading-grey h4 {
   border-radius: 0.125rem;
@@ -241,8 +242,9 @@ align-items: center;
   font-size:16px;
   font-weight: 900 !important;
   width:52%;
-  padding-top:7px;
-  margin-bottom:0px !important;
+  padding-top:0px;
+  margin-bottom:0px!important;
+  padding-bottom: 0px !important;
 }
 .heading-grey .quality {
 padding: 0px;
@@ -802,14 +804,24 @@ img.icon-login {
 
 
   .select-dropdown mat-label {
-    background: #fff;
-    padding: 0px 2px;
+    /*background: #fff;*/
+    padding: 0px 4px;
     position: absolute;
     top: -9px;
     left: 8px;
     z-index:9;
+    color:rgba(0, 0, 0, 0.60);
 }
+.line-top {
+  border-top: 1px solid #fff;
+  content: "";
+  bottom: 10px;
+  left: 2px;
+  position: absolute;
+  width: 80px;
+  z-index: -1;
 
+}
 .box--right {
   display: flex;
   justify-content: space-between;
@@ -893,16 +905,16 @@ display: block;
 
 .tabs-grey .mat-mdc-tab-labels .mat-mdc-tab.mdc-tab{
   border:1px solid #ccc;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 .tabs-grey .mat-mdc-tab-labels .mat-mdc-tab.mdc-tab:first-child {
   border-right: 0px;
-  border-top-left-radius:8px;
-  border-bottom-left-radius:8px;}
+  border-top-left-radius:4px;
+  border-bottom-left-radius:4px;}
 .tabs-grey .mat-mdc-tab-labels .mat-mdc-tab.mdc-tab:last-child {
   border-left: 0px;
-  border-top-right-radius:8px;
-  border-bottom-right-radius:8px;
+  border-top-right-radius:4px;
+  border-bottom-right-radius:4px;
 }
 .vertical-tabs .mat-mdc-tab-labels .mat-mdc-tab.mdc-tab {
 
@@ -916,9 +928,14 @@ display: block;
   padding: 0px 12px;
 }
 
-.tabs-grey .mdc-tab-indicator--active .mdc-tab-indicator {
+.mat-mdc-tab-group-stretch-tabs .mdc-tab-indicator--active {
   background: #219EBC;
   color: #fff;
+}
+
+.mat-mdc-tab-group-stretch-tabs .mdc-tab-indicator--active .tabs-grey .mat-mdc-tab .mdc-tab__text-label {
+  color:#fff!important;
+
 }
 .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
   display:none;
@@ -952,3 +969,8 @@ span.red-dot {
   right: 3px;
   top: 9px;
 }
+
+.mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label, .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+  color: #fff !important;
+}
+
