@@ -73,7 +73,7 @@
 
                </div>
           
-               <textarea  [hidden]="hideChildComments(i)"     class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"  ></textarea>
+               <textarea *ngIf="selectelTabCheckList.value[i]?.comments==''"  [hidden]="hideChildComments(i)"     class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
 
                <div class="Comment" (click)="openChildComments(i)"   *ngIf="selectelTabCheckList.value[i]?.comments==''"  >
                 <img src="../assets/comment_light.svg">
@@ -95,6 +95,7 @@
                       <mat-label>Applicable</mat-label>
                       <mat-form-field>
                           <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption',j,i)" formControlName="options"  >
+                            <mat-option value="" selected>Select an Option</mat-option>
                             <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                           </mat-select>
 
@@ -122,15 +123,15 @@
                       </div>
                      </div>
 
-                     <form >
+                     <!-- <form > -->
                       <!-- <label class="label-popup" for="Add Comments">Add Comments:</label> -->
-                        <textarea [hidden]="true"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50" ></textarea>
+                        <textarea    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50" ></textarea>
 
                         <div class="table-button flex-center">
                         </div>
 
-                        </form>
-                     <div class="Comment"  ><img src="../assets/comment_light.svg">
+                        <!-- </form> -->
+                     <div class="Comment" ><img src="../assets/comment_light.svg">
                       
                      </div>
                    </div>
