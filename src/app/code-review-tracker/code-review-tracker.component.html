@@ -33,7 +33,7 @@
 
 
     <div formArrayName="value">
-      <div *ngFor="let list of reviewTrackerForm.get('value')['controls'];let i=index" [formGroupName]="i" >
+      <div  *ngFor="let list of reviewTrackerForm.get('value')['controls'];let i=index" [formGroupName]="i" >
             <div class="heading-grey"><h4  class="top-20"  > {{selectelTabCheckList.value[i]?.key}} </h4>
 
               <div class="box--right">
@@ -49,7 +49,7 @@
 
                 <div class="rating select-dropdown" *ngIf="selectelTabCheckList.value[i]?.rating==''" >
 
-                 <mat-label>Rating <span class="line-top"></span></mat-label>
+                 <mat-label>Rating <span class="line-top rating-line"></span></mat-label>
                  <mat-form-field class="example-full-width">
                   <input matInput type="number" [readonly]="true"  formControlName="rating" >
 
@@ -62,7 +62,7 @@
                 <div class="rating-number" *ngIf="selectelTabCheckList.value[i]?.achievedRating==''" >
 
                  <div class="rating select-dropdown"  >
-                  <mat-label>Achieved <span class="line-top"></span></mat-label>
+                  <mat-label>Achieved <span class="line-top achieved-line"></span></mat-label>
                   <mat-form-field class="example-full-width">
                   <input type="number"  matInput [readonly]="isChildReadOnly(i)"  formControlName="achievedRating" >
                  </mat-form-field>
@@ -85,7 +85,7 @@
           </div>
 
             <div *ngIf="selectelTabCheckList.value[i]?.value">
-              <div formArrayName="value">
+              <div formArrayName="value" class="list-sub">
                 <div class="quality" *ngFor="let subChild of list.get('value')['controls'];let j=index" [formGroupName]="j">
                   <div class="questions" >
                     {{selectelTabCheckList.value[i]?.value[j]?.key}}
@@ -105,7 +105,7 @@
 
 
                       <div class="rating select-dropdown">
-                       <mat-label>Rating <span class="line-top"></span></mat-label>
+                       <mat-label>Rating <span class="line-top rating-line"></span></mat-label>
                        <mat-form-field class="example-full-width">
                         <input matInput  [readonly]='true'  formControlName="rating" onlyNumber  >
                       </mat-form-field>
@@ -114,7 +114,7 @@
 
                      <div class="rating-number">
                       <div class="achieved select-dropdown">
-                        <mat-label>Achieved <span class="line-top"></span></mat-label>
+                        <mat-label>Achieved <span class="line-top achieved-line"></span></mat-label>
                         <mat-form-field class="example-full-width">
                           <input matInput type="number" [readonly]="isSubChildReadOnly(j,i)"    formControlName="achievedRating" >
                         </mat-form-field>
@@ -130,7 +130,7 @@
                         </div>
 
                         </form>
-                     <div class="Comment"  ><img src="../assets/comment_light.svg">
+                       <div class="Comment"  ><img src="../assets/comment_light.svg">
 
                      </div>
                    </div>
@@ -140,12 +140,16 @@
             </div>
 
       </div>
-      <div class="table-button flex-center top-20">
-      <!-- <button class="button-all btn-blue mg-0 save-btn" (click)="saveCheckListData()">Save</button> -->
-      </div>
-        </div>
-        <button class="button-all btn-blue mg-0 save-btn" [disabled]="reviewTrackerForm.invalid"   (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
+      <div class="table-button flex-center top-5">
+        <!-- <button class="button-all btn-blue mg-0 save-btn" (click)="saveCheckListData()">Save</button> -->
 
+        </div>
+        </div>
+       <!--  <button class="button-all btn-blue mg-0 save-btn" [disabled]="reviewTrackerForm.invalid"   (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>-->
+       <div class="table-button flex-center top-20 bottom-100">
+        <!-- <button class="button-all btn-blue mg-0 save-btn" (click)="saveCheckListData()">Save</button> -->
+        <button class="button-all btn-blue mg-0 save-btn" [disabled]="reviewTrackerForm.invalid"   (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
+        </div>
       </div>
 
 
