@@ -22,19 +22,15 @@ export class CodeReviewTrackerComponent implements OnInit {
   sideNavDetails:any
   reviewTrackerForm:any=FormGroup
   auth_token=''
-  isDisabledRating:boolean[]=[]
   isDisabledAchievedRating:boolean=true
   isActiveChildCOmments:boolean[]=[true]
-  isActiveComments:boolean[][]=[
-    [true],
-    [true]
-  ]
+  isActiveComments:boolean[]=[true]
   disableSave:boolean=false
   showSummary:boolean=false
   summaryArray:any[]=[]
   summaryPercentage:any
+  status:any
   projectDetails:any
-
   
 
 
@@ -42,11 +38,22 @@ export class CodeReviewTrackerComponent implements OnInit {
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     console.log('auth toke in review tracker',this.auth_token);
+    this.projectDetails=JSON.parse(localStorage.getItem('projectDetails')||'{}')
+
+    // this.codeService.projectDetails.subscribe((res:any)=>{
+    //   console.log('project details',res);
+    //   this.projectDetails=res
+      
+    // })
+  
 
 
     this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
   let detailsId=this.activatedRoute.snapshot.paramMap.get('id')
+  this.status=this.activatedRoute.snapshot.paramMap.get('status')
   this.detailsId=detailsId
+  console.log('Id',this.detailsId,'status',this.status);
+  
   
 
     this.buildReactiveForm()
@@ -54,12 +61,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     this.getOptions()
     this.getReviewDetails()
-    this.codeService.projectDetails.subscribe((res:any)=>{
-      this.projectDetails=res
-      console.log(res);
-      
-      console.log('project details',res);
-    })
+   
 
 
 
@@ -244,6 +246,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   isSubChildReadOnly(index:number,parentIndex:number){
+    
     const parentControl=this.formData.at(parentIndex).get('value') as FormArray
     if(parentControl){
       if(parentControl.at(index).get('options')?.value=='Yes'){
@@ -318,7 +321,31 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   saveComments(){
+    console.log('project details',this.projectDetails);
+    
+    let data={
+      "_id": this.projectDetails._id,
+      "account": this.projectDetails.account,
+      "project": this.projectDetails.project,
+      "storyId": this.projectDetails.storyId,
+      "developers": this.projectDetails.developers,
+      "projectLead":this.projectDetails.projectLead,
+      "reviewPackagesandFiles":this.projectDetails.reviewPackagesandFiles,
+      "reviewersName": this.projectDetails.reviewersName,
+      "codeReviewComments": this.projectDetails.codeReviewComments,
+      "status": "submitted"
+  }
+  console.log('data',data);
+  
    
+   const headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.auth_token}`
+  });
+  this.codeService.updateReviewDetails(data,headers).subscribe((res:any)=>{
+    console.log('updated review details',res);
+    
+  })
+
     
     this.showSummary=true
     let rating=0
@@ -364,14 +391,23 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   hideComments(j:number,i:number){
-    
-    if(this.isActiveComments[i][j]==true){
+    const parentControl=this.formData.at(i).get('value') as FormArray
+    const CommentsControl=parentControl.at(j).get('comments') as FormControl
+    // if(CommentsControl){
+      if(CommentsControl && this.isActiveComments[j]==true){
+        return true
+      }
+      else  if(CommentsControl && this.isActiveComments[j]==false){
+        return false
 
-      return true
-    }
-    else if(this.isActiveComments[i][j]==false){
-      return false
-    }
+      }
+
+
+
+    // }
+
+  
+ 
     return true
   }
 
@@ -380,13 +416,35 @@ export class CodeReviewTrackerComponent implements OnInit {
      return true
     }
     else if(this.isActiveChildCOmments[i]==false){
-    return false
+    return  false
     }
     return true
   }
 
   openChildComments(i:number){
-    this.isActiveChildCOmments[i]=! this.isActiveChildCOmments[i]
+      this.isActiveChildCOmments[i]=!this.isActiveChildCOmments[i]
+    console.log('child boolean value',this.isActiveChildCOmments);
+    
+
+  }
+  openSubChildComments(j:number,i:number){
+
+    const parentControl=this.formData.at(i).get('value') as FormArray
+    const commentsControl=parentControl.at(j).get('comments') as FormControl
+    if(commentsControl){
+      
+        this.isActiveComments[j]=!this.isActiveComments[j]
+      
+    
+
+
+
+    }
+   
+     
+
+   
+    
   }
 
 
@@ -399,6 +457,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   onGetSideSelectedValue(value?:any){
     this.reviewDetailsHeader=value.tab.textLabel
     this.getReviewDetails()
+    
 
   }
   getRating(rating:any){

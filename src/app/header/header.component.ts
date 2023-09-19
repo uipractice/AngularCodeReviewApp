@@ -27,6 +27,8 @@ export class HeaderComponent {
     this.codeService.userDetails.subscribe((res:any)=>{
       this.userRole=res.data.role
     })
+    console.log('role',this.userRole);
+    
     
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`

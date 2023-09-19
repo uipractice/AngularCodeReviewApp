@@ -87,7 +87,7 @@ deleteValue:any
   }
   onViewSubmittedDetails(rowData:any){
     console.log(rowData);
-    this.codeService.projectDetails.next(rowData)
+    localStorage.setItem('projectDetails',JSON.stringify(rowData))
 
 
     this.router.navigate(['/codeReviewTracker',rowData._id,rowData.status])
