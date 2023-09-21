@@ -577,6 +577,7 @@ display: block;
 
 .details-main {
   margin:0 0rem;
+  padding-bottom: 20px;
 }
 
 .details-box {
@@ -588,6 +589,7 @@ padding:3.25rem 1rem;
 margin-left: 0px !important;
 margin-right: 0px !important;
 margin-top: 90px;
+margin-bottom: 50px;
 }
 
 .top-heading {
@@ -1014,4 +1016,8 @@ span.red-dot {
 
 .list-sub .quality:last-child  {
 border-bottom: 0px;
+}
+.botton-grey {
+  padding-bottom: 80px;
+
 }
