@@ -13,7 +13,8 @@ import { HttpHeaders } from '@angular/common/http';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
- userEmail: string | undefined;
+  userDetails:any
+  userName:any
   userRole: any;
   auth_token: any;
   technologies: any;
@@ -22,52 +23,20 @@ export class HeaderComponent {
   constructor(private codeService:CodeReviewService, private router:Router) {}
 
   ngOnInit(): void {
+    console.log('userdetails',this.userDetails);
+    
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
-
-    this.codeService.userDetails.subscribe((res:any)=>{
-      this.userRole=res.data.role
-    })
-    console.log('role',this.userRole);
+    this.userDetails=JSON.parse(localStorage.getItem('user Details')||'{}')
+  
+    this.userName=this.userDetails.firstName
+    this.userRole=this.userDetails.role
+    console.log('username',this.userName,'userRole',this.userRole);
     
-    
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth_token}`
-    });
-    this.codeService.getUserDetails(headers).subscribe((res:any)=>{
-        this.userEmail = res.data.email;
-        //this.technologies = res.data.name;
-
-       console.log('userdetails',res)
+  }
   
 
-     /* (error) => {
-        console.error('Error fetching user email: ', error);
-      }*/
-    })
-    this.onGetReviewDetails()
-
-
-
-  }
-  onGetReviewDetails(){
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth_token}`
-    });
-
-
-    this.codeService.getReviewDetails(headers).subscribe((res:any)=>{
-
-      if(res.success==true){
-        console.log('header list',res);
-
-
-      }
-    })
-
-  }
-
 logout() {
- // this.codeService.logout();
+  localStorage.clear()
   this.router.navigate(['/login']);
 }
 

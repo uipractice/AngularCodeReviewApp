@@ -56,8 +56,8 @@ projectDetails=new Subject()
   getTechnicalStackDetails(headers:any){
     return this.http.get(`${this.baseUrl}/technicalStack`,{headers})
   }
-  getTechnologyDetails(data:any,headers:any){
-    return this.http.get(`${this.baseUrl}/technologies?technicalStackId=${data}`,{headers})
+  getTechnologyDetails(headers:any){
+    return this.http.get(`${this.baseUrl}/technologies`,{headers})
   }
   getSelectedReviewDetails(data:any,headers:any){
     return this.http.get(`${this.baseUrl}/details?detailsId=${data}`,{headers})
@@ -77,9 +77,13 @@ projectDetails=new Subject()
   getSideNav(stackId:any,techId:any,headers:any){
     return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`,{headers})
   }
-  postCheckListQuestions(data:any,headers:any){
-    return this.http.post(`${this.baseUrl}/checklist`,data,{headers})
+  saveCheckListData(data:any,headers:any,detailsId:any){
+    return this.http.post(`${this.baseUrl}/checklist?detailsId=${detailsId}`,data,{headers})
   }
+  getSavedCheckListData(headers:any,detailsId:any){
+    return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}`,{headers})
+  }
+
 
 
   }

@@ -18,7 +18,6 @@ export class CodeReviewTrackerComponent implements OnInit {
   selectOptions:any
   reviewDetailsHeader='Functional'
   selectelTabCheckList:any
-  techStackdetails:any
   sideNavDetails:any
   reviewTrackerForm:any=FormGroup
   auth_token=''
@@ -30,7 +29,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   summaryArray:any[]=[]
   summaryPercentage:any
   status:any
-  projectDetails:any
+  projectDetails:any  
+  
   
 
 
@@ -40,32 +40,12 @@ export class CodeReviewTrackerComponent implements OnInit {
     console.log('auth toke in review tracker',this.auth_token);
     this.projectDetails=JSON.parse(localStorage.getItem('projectDetails')||'{}')
 
-    // this.codeService.projectDetails.subscribe((res:any)=>{
-    //   console.log('project details',res);
-    //   this.projectDetails=res
-      
-    // })
-  
-
-
-    this.techStackdetails=JSON.parse(localStorage.getItem('techObj')||'{}')
-  let detailsId=this.activatedRoute.snapshot.paramMap.get('id')
-  this.status=this.activatedRoute.snapshot.paramMap.get('status')
-  this.detailsId=detailsId
-  console.log('Id',this.detailsId,'status',this.status);
-  
-  
-
     this.buildReactiveForm()
-    this.getSideNavData(this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId)
+    this.getSideNavData(this.projectDetails.technicalStackId,this.projectDetails.technologiesId)
 
     this.getOptions()
     this.getReviewDetails()
    
-
-
-
-
   }
 
   buildReactiveForm(){
@@ -84,7 +64,7 @@ export class CodeReviewTrackerComponent implements OnInit {
       'Authorization': `Bearer ${this.auth_token}`
     });
 
-      this.codeService.getReviewTrackerDetails(headers,this.techStackdetails.technicalStackId,this.techStackdetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
+      this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
         console.log(res.data[0].data[0].value);
         this.selectelTabCheckList=res.data[0].data[0]
 
@@ -202,13 +182,18 @@ export class CodeReviewTrackerComponent implements OnInit {
   console.log('summary array',this.summaryArray);
   let saveJson={
     "data":[this.reviewTrackerForm.value],
-    "detailsId":this.detailsId
+    "technologiesId":this.projectDetails.technologiesId
   }
 
-  this.codeService.postCheckListQuestions(saveJson,headers).subscribe((res:any)=>{
+  this.codeService.saveCheckListData(saveJson,headers,this.detailsId).subscribe((res:any)=>{
     console.log('submitted',res);
     
   })
+  this.codeService.getSavedCheckListData(headers,this.detailsId).subscribe((res:any)=>{
+    console.log('saved data',res);
+    
+  })
+  
    
   }
 
@@ -291,13 +276,6 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     }
 
-
-
-
-
-
-
-
   }
 
   isChildReadOnly(index:number){
@@ -333,7 +311,8 @@ export class CodeReviewTrackerComponent implements OnInit {
       "reviewPackagesandFiles":this.projectDetails.reviewPackagesandFiles,
       "reviewersName": this.projectDetails.reviewersName,
       "codeReviewComments": this.projectDetails.codeReviewComments,
-      "status": "submitted"
+      "status": "submitted",
+      "technologiesId":this.projectDetails.technologiesId
   }
   console.log('data',data);
   

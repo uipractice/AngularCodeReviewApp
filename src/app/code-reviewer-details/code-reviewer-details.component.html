@@ -36,17 +36,7 @@
                         />
                       </div>
 
-                      <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="storyId" class="form-label">Technical Stack <span class="red-dot"></span></label>
-
-                      <mat-select  (selectionChange)="onSelectStack($event.value)" [(ngModel)]="stack" class="form-control"
-                      id="technicalStack"
-                      formControlName="technicalStack">
-                        <mat-option *ngFor="let stack of technicalStackList" [value]="stack">
-                          {{stack.name}}
-                        </mat-option>
-                      </mat-select>
-                      </div>
+                    
 
                       <div class="mb-3 col-md-4 col-sm-12">
                         <label for="storyId" class="form-label">Technology <span class="red-dot"></span></label>
@@ -96,7 +86,7 @@
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
                           type="text"
                           class="form-control"
-                          id="storyId"
+                        id="storyId"
                           formControlName="storyId"
                         />
                       </div>
@@ -126,17 +116,7 @@
                       <div class="table-button flex-center">
 
 
-                       <!--  <div class="save-submit-button">
-                          <span *ngIf="(status==''||status=='pending')" >
-                            <button type="submit" class="button-all btn-blue"  [disabled]="!(codeReviewerForm.get('account')?.value && codeReviewerForm.get('project')?.value && codeReviewerForm.get('technicalStack')?.value && codeReviewerForm.get('technology')?.value && codeReviewerForm.get('developers')?.value && codeReviewerForm.get('projectLead')?.value && codeReviewerForm.get('reviewersName')?.value)" (click)="save()">Save Continue</button>
-                              </span>
-                                                    <button class="button-all btn-blue" >Back</button>
-
-
-                                                     <div>
-                        <button type="submit" class="button-all btn-greay " style="margin-left: 20px;">Next</button>
-                      </div>
-                        </div>-->
+                       
 
 
 
