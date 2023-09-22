@@ -7,9 +7,9 @@
 <li><a href="" *ngIf="userRole=='admin'">Code Review Management</a></li>
 </ul>
 
-<div class="right">
-  <button mat-button [matMenuTriggerFor]="menu">
-    <span class="white">  {{userEmail}}</span>
+<div class="right" *ngIf="userDetails.firstName">
+  <button mat-button [matMenuTriggerFor]="menu" >
+    <span class="white">  {{userName}}</span>
     <span>  {{technologies}}</span>
     <img  src="../assets/User_cicrle.svg" alt="User" title="User login">
     <img  src="../assets/Expand_down.svg" alt="Expand" title="Expand down">

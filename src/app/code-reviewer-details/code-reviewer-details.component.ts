@@ -27,6 +27,17 @@ export class CodeReviewerDetailsComponent implements OnInit {
   constructor(private router:Router,private http:HttpClient,private codeService:CodeReviewService, private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.getTechnologyDetails(headers).subscribe((res:any)=>{
+      if(res.success==true){
+        console.log(res);
+  
+        this.technologyList=res.data
+      }
+  
+    })
 
     if(this.activatedRoute.snapshot.params['id']){
       console.log('id',this.activatedRoute.snapshot.params['id']);
@@ -84,7 +95,7 @@ export class CodeReviewerDetailsComponent implements OnInit {
 codeReviewerForm=new FormGroup({
   account:new FormControl('',Validators.required),
   project:new FormControl('',Validators.required),
-  technicalStack:new FormControl(null),
+  // technicalStack:new FormControl(null),
   technology:new FormControl('',Validators.required),
   storyId:new FormControl('',Validators.required),
   developers:new FormControl('',Validators.required),
@@ -121,7 +132,7 @@ onSelectStack(value:any){
   this.technicalStackId=value._id
 
 
-  this.codeService.getTechnologyDetails(value._id,headers).subscribe((res:any)=>{
+  this.codeService.getTechnologyDetails({headers}).subscribe((res:any)=>{
     if(res.success==true){
       console.log(res);
 
@@ -144,7 +155,6 @@ var techObj={
   "technicalStackId":value.technicalStackId
 }
 console.log(techObj);
-localStorage.setItem('techObj',JSON.stringify(techObj))
 }
 
 
@@ -218,7 +228,6 @@ submitReviewDetails(){
       "project": this.codeReviewerForm.get('project')?.value,
       "storyId": this.codeReviewerForm.get('storyId')?.value,
       "developers":this.codeReviewerForm.get('developers')?.value,
-      "technicalStackId":this.technicalStackId,
       "technologiesId":this.technologiesId,
       "projectLead":this.codeReviewerForm.get('projectLead')?.value,
       "reviewPackagesandFiles":this.codeReviewerForm.get('reviewPackagesandFiles')?.value,
@@ -231,7 +240,6 @@ submitReviewDetails(){
     });
     this.codeService.postReviewDetails(data,headers).subscribe((res:any)=>{
         console.log(res);
-        console.log(JSON.stringify(this.codeReviewerForm.value));
       this.router.navigate(['/startCodeReviewTracker'])
 
     })
