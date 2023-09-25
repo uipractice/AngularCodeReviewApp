@@ -262,7 +262,7 @@
 
 
 <label for="scales" class="review">
-    <input type="checkbox" id="scales" name="scales"  />
+    <input type="checkbox" id="scales" name="scales" (change)="getStatusValue($event)" />
     <span class="">Review Completed</span></label>
   </div>
         <div class="table-button flex-center mg-bt">
@@ -270,7 +270,7 @@
         <button class="button-all btn-outline mg-0">Send Report</button>
 -->
 <button class="button-all btn-outline mg-0 white-btn">Send Report</button>
-        <button class="button-all btn-blue mg-0" >Submit</button>
+        <button class="button-all btn-blue mg-0" (click)="submitReport()" >Submit</button>
 
       </div>
   </form>

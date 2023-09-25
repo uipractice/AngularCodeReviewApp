@@ -30,7 +30,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   summaryPercentage:any
   status:any
   projectDetails:any  
-  
+  completedStatusValue:boolean=false
   
 
 
@@ -196,6 +196,56 @@ export class CodeReviewTrackerComponent implements OnInit {
  
   
    
+  }
+
+  getStatusValue(value:any){
+    console.log('checkbox value',value.target.checked);
+    this.completedStatusValue=value.target.checked  
+  }
+  submitReport(){
+    if(this.completedStatusValue){
+      let data={
+        "_id": this.projectDetails._id,
+        "account": this.projectDetails.account,
+        "project": this.projectDetails.project,
+        "storyId": this.projectDetails.storyId,
+        "developers": this.projectDetails.developers,
+        "projectLead":this.projectDetails.projectLead,
+        "reviewPackagesandFiles":this.projectDetails.reviewPackagesandFiles,
+        "reviewersName": this.projectDetails.reviewersName,
+        "codeReviewComments": this.projectDetails.codeReviewComments,
+        "status": "completed",
+        "technologiesId":this.projectDetails.technologiesId
+    }
+   
+     const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.updateReviewDetails(data,headers).subscribe((res:any)=>{
+      console.log('updated review details',res);
+    })
+    } else{
+      let data={
+        "_id": this.projectDetails._id,
+        "account": this.projectDetails.account,
+        "project": this.projectDetails.project,
+        "storyId": this.projectDetails.storyId,
+        "developers": this.projectDetails.developers,
+        "projectLead":this.projectDetails.projectLead,
+        "reviewPackagesandFiles":this.projectDetails.reviewPackagesandFiles,
+        "reviewersName": this.projectDetails.reviewersName,
+        "codeReviewComments": this.projectDetails.codeReviewComments,
+        "status": "submitted",
+        "technologiesId":this.projectDetails.technologiesId
+    }
+   
+     const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.updateReviewDetails(data,headers).subscribe((res:any)=>{
+      console.log('updated review details',res);
+    })
+    }
   }
 
 
