@@ -512,6 +512,7 @@ margin-bottom: 0.88rem;
 
 .project {
 display: flex;
+flex-wrap: wrap;
 justify-content: space-between;
 padding:1.06rem 1.38rem;
 margin: 0px;
@@ -1053,4 +1054,66 @@ button[disabled]{
 
   background:#F2F2F2!important;
 
+}
+
+
+/***/
+
+
+
+
+button:focus {
+  outline: none;
+}
+
+[disabled] {
+  opacity: .6;
+  cursor: default;
+}
+
+.not-allowed {
+  cursor: not-allowed;
+}
+
+.no-cursor {
+  cursor: none;
+}
+/***/
+
+
+
+.m-logo {
+display: none;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .m-logo {
+    display: block;
+    width: 100% !important;
+    margin: 0 auto;
+    background-color: #023047;
+    padding: 14px 16px 14px 20px;
+    position: absolute;
+    left: 0px;
+    }
+
+    .login {
+      min-height:auto!important;
+      margin-top:6em;
+
+    }
+
+    .accounts li:last-child {
+      width: 100%;
+    }
+
+    .accounts li {
+      width:100%;
+      margin-bottom:18px;
+    }
+    .accounts li strong {
+      display: initial;
+
+    }
 }
