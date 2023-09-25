@@ -77,8 +77,8 @@ projectDetails=new Subject()
   getSideNav(stackId:any,techId:any,headers:any){
     return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`,{headers})
   }
-  saveCheckListData(data:any,headers:any,detailsId:any){
-    return this.http.post(`${this.baseUrl}/checklist?detailsId=${detailsId}`,data,{headers})
+  saveCheckListData(data:any,headers:any){
+    return this.http.post(`${this.baseUrl}/checklist`,data,{headers})
   }
   getSavedCheckListData(headers:any,detailsId:any){
     return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}`,{headers})
