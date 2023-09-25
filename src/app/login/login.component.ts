@@ -1,7 +1,7 @@
 
 // login.component.ts
 
-import { Component, OnInit,  } from '@angular/core';
+import { Component, OnInit, Renderer2  } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
@@ -17,7 +17,7 @@ import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   email: any;
   password: any;
-  //handleUpdateResponse: any;
+  handleUpdateResponse: any;
  handleError: any;
  auth_token=''
  userRole:any
@@ -27,20 +27,23 @@ export class LoginComponent implements OnInit {
  public togglePasswordVisibility(): void {
   this.showPassword = !this.showPassword;
 }
-  constructor(private authService: AuthService,private router:Router,private codeService:CodeReviewService) {}
+  constructor(private authService: AuthService,private router:Router,private codeService:CodeReviewService, private renderer: Renderer2) {}
   ngOnInit(): void {
     this.loginForm=new FormGroup({
       email:new FormControl('',Validators.required),
       password:new FormControl('',Validators.required)
 
-    })  
+    })
+
+    this.renderer.addClass(document.body, 'hide-header');
+
   }
 
   onSubmit() {
     console.log('login value',this.loginForm.value);
-    
-    
-    
+
+
+
 
     this.authService.login(this.loginForm.value).subscribe((res:any)=>
   {
@@ -81,17 +84,13 @@ getUserDetails(){
     this.userRole=res.data.role
     console.log('userdetails',res)
     console.log('role',res.data.role)
-    
-
-    
-    
   })
-  // this.codeService.userDetails.next(this.userRole)
+   this.codeService.userDetails.next(this.userRole)
 }
 
-// ngOnDestroy() {
-//   this.renderer.removeClass(document.body, 'hide-header');
-// }
+ ngOnDestroy() {
+  this.renderer.removeClass(document.body, 'hide-header');
+}
 }
 
 

@@ -73,12 +73,12 @@
 
                </div>
 
-               
+
                <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"  [hidden]="hideChildComments(i)" formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
               <div *ngIf="selectelTabCheckList.value[i]?.comments==''">
                 <div class="Comment" (click)="openChildComments(i)"     >
                   <img src="../assets/comment_light.svg">
- 
+
                </div>
               </div>
 
@@ -127,9 +127,9 @@
 
                      <textarea    [hidden]="hideComments(j,i)"  placeholder="Enter your comments here" formControlName="comments"  rows="4" cols="50" ></textarea>
                     <div class="Comment" (click)=" openSubChildComments(j,i)"  ><img src="../assets/comment_light.svg">
-                     
 
-                    
+
+
                    </div>
                    </div>
 
@@ -167,30 +167,25 @@
             <ul class="pagination">
             <li><a href="">Dashboard</a></li>
             <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-            <li><a href=""> Create New Project</a></li>
+            <li><a href="">Create New Project</a></li>
             <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
             <li>SonarQube</li>
           </ul>
         </div>
           </div>
-
           <div class="details-main">
                     <form class=" details-box" >
                         <div class="main-sonar">
                           <div class="uploadOuter">
-
-
                             <div class="dragBox" >
                               <img src="../assets/upload-icon.svg" alt="arrow icon" title="arrow">
                             <div class="drag-h">  <h3>Drag & drop files or <span>Browse</span></h3>
                               <span>Supported formates: JPEG, PNG, PDF, Word.</span></div>
                             <input type="file" onChange="dragNdrop(event)"  ondragover="drag()" ondrop="drop()" id="uploadFile"  />
                             </div>
-                                <label for="uploadFile" class="button-all btn-blue">Upload Image</label>
+                                <label for="uploadFile" class="button-all btn-blue btn-upload">Upload Image</label>
                             </div>
-
                     </div>
-
                 </form>
    </div>
 </div>
@@ -231,8 +226,8 @@
                         </div>
 
                             <div class="table-button flex-center">
-                            <button class="button-all btn-blue mg-0 ">Submit</button>
-                            <button class="button-all btn-blue mg-0 " (click)="saveComments()">Save </button>
+                            <button class="button-all btn-blue mg-bt save-btn" (click)="saveComments()">Submit</button>
+                          <!-- <button class="button-all btn-blue mg-0 " >Save </button>-->
 
                           </div>
                       </form>
@@ -246,12 +241,14 @@
           <form class=" details-box" >
           <div class="main-sonar border-b-none">
             <div class="row ">
+
+              <h2 class="code-percentage">Code Review <span>25</span></h2>
               <h1>{{summaryPercentage}}%</h1>
               <mat-progress-bar mode="determinate" value="{{summaryPercentage}}"></mat-progress-bar>
 
-        <div class="mb-3 col-md-12 col-sm-12">
-          <label for="account" class="form-label">Overall Comments: <span style="color: red;">*</span></label>
-        <textarea style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
+        <div class="mb-3 col-md-12 col-sm-12 overall-comments">
+          <label for="account" class="form-label">Overall Comments:</label>
+        <textarea placeholder="Enter your comments here" rows="10" cols="50" class="form-control"></textarea>
 
         </div>
 
@@ -262,15 +259,19 @@
     </div>
 
   <div>
-    <input type="checkbox" id="scales" name="scales" checked />
-    <label for="scales">Review Completed</label>
+
+
+<label for="scales" class="review">
+    <input type="checkbox" id="scales" name="scales"  />
+    <span class="">Review Completed</span></label>
   </div>
-        <div class="table-button flex-center">
+        <div class="table-button flex-center mg-bt">
       <!-- <button class="button-all btn-blue mg-0">Submit</button>
         <button class="button-all btn-outline mg-0">Send Report</button>
 -->
-        <button class="button-all btn-outline mg-0 white-btn">Send Report</button>
+<button class="button-all btn-outline mg-0 white-btn">Send Report</button>
         <button class="button-all btn-blue mg-0" >Submit</button>
+
       </div>
   </form>
 

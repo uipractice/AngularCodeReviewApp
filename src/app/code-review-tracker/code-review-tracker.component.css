@@ -4,13 +4,13 @@ body {
 
 
 .details-box {
-  z-index: 99;
+  z-index:9;
   position: relative;
+  padding-top:54px;
 }
 
 .uploadOuter {
   text-align: center;
-  padding: 20px;
 }
 .uploadOuter strong {
     padding: 0 10px
@@ -97,3 +97,33 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.form-control {
+
+  line-height: 1.1;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+}
+.review {
+margin-left:20px ;
+}
+.review input {
+width: 24px;
+height: 24px;
+float: left;
+margin-right: 7px;
+}
+.review span {
+  color: #3D3D3D;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+}
+
+.overall-comments textarea{
+  height:auto;
+}
+
+.code-percentage {
+
+}
