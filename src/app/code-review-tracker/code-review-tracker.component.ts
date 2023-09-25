@@ -3,8 +3,8 @@ import { CodeReviewService } from '../code-review.service';
 import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormControlName, FormGroup, ValidationErrors, Validators,  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { AddCommentsComponent } from '../add-comments/add-comments.component';
 import { ActivatedRoute } from '@angular/router';
+import { touchedValidator } from 'src/shared/optionValidator';
 
 
 @Component({
@@ -63,6 +63,10 @@ export class CodeReviewTrackerComponent implements OnInit {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
+    this.codeService.getSavedCheckListData(headers,this.projectDetails.technologiesId).subscribe((res:any)=>{
+      console.log('saved data',res);
+      
+    })
 
       this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
         console.log(res.data[0].data[0].value);
@@ -74,7 +78,7 @@ export class CodeReviewTrackerComponent implements OnInit {
           if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
             const checkListChildGroup=new FormGroup({
               key:new FormControl(child.key,Validators.required),
-              options:new FormControl(child.options,Validators.required),
+              options:new FormControl(child.options),
               rating:new FormControl(child.rating,Validators.required),
               achievedRating:new FormControl(child.achievedRating,[Validators.required, 
               Validators.min(0),
@@ -94,7 +98,7 @@ export class CodeReviewTrackerComponent implements OnInit {
             for(let subChild of child.value ){
             const checkListsubChildGroup=new FormGroup({
               key:new FormControl(subChild.key,Validators.required),
-              options:new FormControl(subChild.options,Validators.required),
+              options:new FormControl(subChild.options),
               rating:new FormControl(subChild.rating,Validators.required),
 
               achievedRating:new FormControl(subChild.achievedRating,[Validators.required, 
@@ -182,17 +186,14 @@ export class CodeReviewTrackerComponent implements OnInit {
   console.log('summary array',this.summaryArray);
   let saveJson={
     "data":[this.reviewTrackerForm.value],
-    "technologiesId":this.projectDetails.technologiesId
+    "detailsId":this.projectDetails.technologiesId
   }
 
-  this.codeService.saveCheckListData(saveJson,headers,this.detailsId).subscribe((res:any)=>{
+  this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
     console.log('submitted',res);
     
   })
-  this.codeService.getSavedCheckListData(headers,this.detailsId).subscribe((res:any)=>{
-    console.log('saved data',res);
-    
-  })
+ 
   
    
   }
@@ -315,6 +316,8 @@ export class CodeReviewTrackerComponent implements OnInit {
       "technologiesId":this.projectDetails.technologiesId
   }
   console.log('data',data);
+  console.log('tech Id', this.projectDetails.technologiesId);
+  
   
    
    const headers = new HttpHeaders({

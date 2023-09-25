@@ -97,7 +97,7 @@
                       <mat-label>Applicable <span class="line-top"></span></mat-label>
                       <mat-form-field>
                           <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption',j,i)" formControlName="options"  >
-                            <mat-option value="" selected>Select an Option</mat-option>
+                            <mat-option value="" >Select an Option</mat-option>
                             <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                           </mat-select>
 
