@@ -74,7 +74,7 @@
                </div>
 
 
-               <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"  [hidden]="hideChildComments(i)" formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
+
               <div *ngIf="selectelTabCheckList.value[i]?.comments==''">
                 <div class="Comment" (click)="openChildComments(i)"     >
                   <img src="../assets/comment_light.svg">
@@ -84,6 +84,8 @@
 
 
             </div>
+            <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"  [hidden]="hideChildComments(i)" formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
+
           </div>
 
             <div *ngIf="selectelTabCheckList.value[i]?.value">
@@ -125,14 +127,14 @@
                       </div>
                      </div>
 
-                     <textarea    [hidden]="hideComments(j,i)"  placeholder="Enter your comments here" formControlName="comments"  rows="4" cols="50" ></textarea>
+
                     <div class="Comment" (click)=" openSubChildComments(j,i)"  ><img src="../assets/comment_light.svg">
 
 
 
                    </div>
                    </div>
-
+                   <textarea class="full-textarea" [hidden]="hideComments(j,i)"  placeholder="Enter your comments here" formControlName="comments"  rows="4" cols="50" ></textarea>
 
               </div>
             </div>
@@ -215,7 +217,7 @@
                                 <div class="row ">
                             <div class="mb-3 col-md-12 col-sm-12">
                               <label for="account" class="form-label"> Comments: </label>
-                            <textarea style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
+                            <textarea class="full-textarea" style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
 
                             </div>
 
@@ -242,7 +244,7 @@
           <div class="main-sonar border-b-none">
             <div class="row ">
 
-              <h2 class="code-percentage">Code Review <span>25</span></h2>
+              <h2 class="code-percentage">Code Review <span>25%</span></h2>
               <h1>{{summaryPercentage}}%</h1>
               <mat-progress-bar mode="determinate" value="{{summaryPercentage}}"></mat-progress-bar>
 
