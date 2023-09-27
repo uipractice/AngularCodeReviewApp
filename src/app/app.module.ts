@@ -74,6 +74,7 @@ import { FooterComponent } from './footer/footer.component';
     MatDialogModule,
     MatProgressBarModule,
 
+
     // MatIconModule,
     // MatButtonModule,
     // MatToolbarModule,
