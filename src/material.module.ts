@@ -10,6 +10,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import {MatInputModule} from '@angular/material/input';
         MatSlideToggleModule,
         MatToolbarModule,
         MatButtonModule,
-        MatInputModule
+        MatInputModule,
+    MatProgressSpinnerModule
+
 
     ]
 })

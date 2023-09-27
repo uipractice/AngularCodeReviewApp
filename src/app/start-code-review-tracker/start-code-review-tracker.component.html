@@ -69,8 +69,8 @@
  <h6><span>Project Name</span>{{data.project}}</h6>
  <span class="green-color review-status"><img title="view page" alt="View" src="../assets/pending.svg"> Code Review {{data.status}}</span>
   <ul class="icons-view">
+    <li *ngIf="data.status=='completed'"><img title="export page" alt="export" src="../assets/export.svg"></li>
     <li (click)="onViewSubmittedDetails(data)"><img title="view page" alt="View" src="../assets/File_dock_light.svg"></li>
-    <li><img title="export page" alt="export" src="../assets/export.svg"></li>
     <li (click)="onDeleteCompleteDetails(data)"><img title="trash" alt="Delete" src="../assets/trash-can-l.svg"></li>
 
   </ul>

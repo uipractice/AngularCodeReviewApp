@@ -106,7 +106,7 @@ codeReviewerForm=new FormGroup({
 })
 
 getBackDetails(){
-  this.router.navigate(['/codeReviewTracker'])
+  this.router.navigate(['/startCodeReviewTracker'])
 }
 
 
