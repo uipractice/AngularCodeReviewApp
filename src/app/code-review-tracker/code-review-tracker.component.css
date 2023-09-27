@@ -125,5 +125,14 @@ font-weight: 400;
 }
 
 .code-percentage {
-
+  border-left: 6px solid #D4EBF6;
+  color:#000;
+  font-size: 18px;
+  padding-bottom:0px;
+  margin-left: 13px;
+}
+.code-percentage span {
+  display: block;
+  font-size: 35px;
+  font-weight: 800;
 }
