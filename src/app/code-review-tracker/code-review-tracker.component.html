@@ -8,7 +8,7 @@
     <mat-tab class="tab-heading" label="Code Review">
 
       <div class="table-button details-main top-heading top-page" style="border: 0px solid red;">
-        <div><h1>React Js Checklist</h1>
+        <div><h1>{{projectDetails.project|titlecase }} <span style="font-size: 15px;">({{projectDetails.technologies.name|lowercase}})</span> </h1>
           <ul class="pagination">
           <li><a routerLink="/startCodeReviewTracker" href="">Dashboard</a></li>
           <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
@@ -40,6 +40,7 @@
                 <mat-label>Applicable <span class="line-top"></span></mat-label>
                 <mat-form-field >
                     <mat-select formControlName="options" (selectionChange)="getChildSelectedOption($event,'child',i)">
+                      <mat-option value="" >Select</mat-option>
                       <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                     </mat-select>
 
@@ -63,7 +64,7 @@
                  <div class="rating select-dropdown"  >
                   <mat-label>Achieved <span class="line-top achieved-line"></span></mat-label>
                   <mat-form-field class="example-full-width">
-                  <input type="number"  matInput [readonly]="isChildReadOnly(i)"  formControlName="achievedRating" >
+                  <input type="number"  matInput [readonly]=" isChildReadOnly(i)" (ngModelChange)="onvalue(i)" formControlName="achievedRating" >
                  </mat-form-field>
 
 
@@ -98,7 +99,7 @@
                       <mat-label>Applicable <span class="line-top"></span></mat-label>
                       <mat-form-field>
                           <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption',j,i)" formControlName="options"  >
-                            <mat-option value="" >Select an Option</mat-option>
+                            <mat-option value="" >Select</mat-option>
                             <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                           </mat-select>
 
@@ -144,7 +145,7 @@
         </div>
         </div>
        <div class="table-button flex-center top-20 bottom-100">
-        <button class="button-all btn-blue mg-0 save-btn" [disabled]="reviewTrackerForm.invalid"   (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
+      <button class="button-all btn-blue mg-0 save-btn"    (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
         </div>
       </div>
 

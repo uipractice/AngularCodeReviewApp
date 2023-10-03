@@ -21,7 +21,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   sideNavDetails:any
   reviewTrackerForm:any=FormGroup
   auth_token=''
-  isDisabledAchievedRating:boolean=true
+  isDisableSubmit:boolean=false
   isActiveChildCOmments:boolean[]=[true]
   isActiveComments:boolean[]=[true]
   disableSave:boolean=false
@@ -39,7 +39,6 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
-   
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     console.log('auth toke in review tracker',this.auth_token);
     this.projectDetails=JSON.parse(localStorage.getItem('projectDetails')||'{}')
@@ -49,8 +48,14 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     this.getOptions()
     this.getReviewDetails()
+    // this.validateSubmit()
+    // this.reviewTrackerForm.valueChanges.subscribe((value:any)=>{
+    //   this.validateSubmit()
+    // })
    
   }
+
+ 
 
   buildReactiveForm(){
     this.reviewTrackerForm=this.formBuilder.group({
@@ -59,9 +64,11 @@ export class CodeReviewTrackerComponent implements OnInit {
       })
   }
 
+ 
 
 
-  getReviewDetails(){
+
+    getReviewDetails(){
 
     this.buildReactiveForm()
     const headers = new HttpHeaders({
@@ -85,14 +92,10 @@ export class CodeReviewTrackerComponent implements OnInit {
         for(let child of this.selectelTabCheckList.value){
           if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
             const checkListChildGroup=new FormGroup({
-              key:new FormControl(child.key,Validators.required),
+              key:new FormControl(child.key),
               options:new FormControl(child.options),
-              rating:new FormControl(child.rating,Validators.required),
-              achievedRating:new FormControl(child.achievedRating,[Validators.required, 
-              Validators.min(0),
-            Validators.max(5),
-            Validators.pattern(/^\d*\.?\d*$/)
-          ]),
+              rating:new FormControl(child.rating),
+              achievedRating:new FormControl(child.achievedRating),
               comments:new FormControl(child.comments)
             })
             checkListChildGroupData.push(checkListChildGroup)
@@ -105,15 +108,11 @@ export class CodeReviewTrackerComponent implements OnInit {
             const checkListsubChildGroupData=checkListChildGroup.get('value') as FormArray
             for(let subChild of child.value ){
             const checkListsubChildGroup=new FormGroup({
-              key:new FormControl(subChild.key,Validators.required),
+              key:new FormControl(subChild.key),
               options:new FormControl(subChild.options),
-              rating:new FormControl(subChild.rating,Validators.required),
+              rating:new FormControl(subChild.rating),
 
-              achievedRating:new FormControl(subChild.achievedRating,[Validators.required, 
-                Validators.min(0),
-              Validators.max(5),
-              Validators.pattern(/^\d*\.?\d*$/)
-            ]),
+              achievedRating:new FormControl(subChild.achievedRating),
               comments:new FormControl(subChild.comments)
             })
 
@@ -128,92 +127,101 @@ export class CodeReviewTrackerComponent implements OnInit {
       })
     }
 
+    onvalue(number:any){
+      const control=this.formData.at(number).get('achievedRating')?.value
+      if(control<=5 && control!=null){
+        this.isDisableSubmit=false
+      }
+      else{
+        this.isDisableSubmit=true
+      }
+      
+
+    }
+   
 
   
+  
   saveCheckListData(valid:any){
-    console.log(this.formData.value);
-   
+    console.log('status',valid);
     
-  }
+    console.log(this.reviewTrackerForm);
+    
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    console.log(this.reviewDetailsHeader);
+    
+    let rating=0
+    let achievedRating=0
+    console.log(valid);
+    
+    console.log(this.reviewTrackerForm.value);
+    let data=this.reviewTrackerForm.value.value
+    for(let i=0;i<data.length;i++){
+      if(data[i].value){
+        console.log(data[i].value);
 
-  // saveCheckListData(valid:any){
-  //   console.log(this.reviewTrackerForm);
-    
-  //   const headers = new HttpHeaders({
-  //     'Authorization': `Bearer ${this.auth_token}`
-  //   });
-  //   console.log(this.reviewDetailsHeader);
-    
-  //   let rating=0
-  //   let achievedRating=0
-  //   console.log(valid);
-    
-  //   console.log(this.reviewTrackerForm.value);
-  //   let data=this.reviewTrackerForm.value.value
-  //   for(let i=0;i<data.length;i++){
-  //     if(data[i].value){
-  //       console.log(data[i].value);
-
-  //       for(let j=0;j<data[i].value.length;j++){
+        for(let j=0;j<data[i].value.length;j++){
                
-  //     rating=rating+ +data[i].value[j].rating
-  //     achievedRating=achievedRating+ +data[i].value[j].achievedRating
+      rating=rating+ +data[i].value[j].rating
+      achievedRating=achievedRating+ +data[i].value[j].achievedRating
 
-  //       }
+        }
         
  
 
       
-  //   }
-  //   else{
-  //     console.log(data[i].key);
-  //     console.log(data[i].rating);
-  //     rating=rating+ +data[i].rating
-  //     achievedRating=achievedRating+ +data[i].achievedRating
-  //   }
+    }
+    else{
+      console.log(data[i].key);
+      console.log(data[i].rating);
+      rating=rating+ +data[i].rating
+      achievedRating=achievedRating+ +data[i].achievedRating
+    }
     
     
-  // }
-  // console.log('total rating',rating);
-  // console.log('total rating',achievedRating)
-  // let summaryObj={
-  //   'id':this.reviewDetailsHeader,
-  //   'rating':rating,
-  //   'achievedRating':achievedRating
-  // }
+  }
+  console.log('total rating',rating);
+  console.log('total rating',achievedRating)
+  let summaryObj={
+    'id':this.reviewDetailsHeader,
+    'rating':rating,
+    'achievedRating':achievedRating
+  }
 
-  // const existingObj = this.summaryArray.find(obj => obj.id === summaryObj.id)
+  const existingObj = this.summaryArray.find(obj => obj.id === summaryObj.id)
 
-  // if(existingObj){
-  //   for(let i=0;i<this.summaryArray.length;i++){
-  //     if(this.summaryArray[i]['id']==existingObj.id){
-  //     this.summaryArray[i]['rating']=summaryObj.rating
-  //     this.summaryArray[i]['achievedRating']=summaryObj.achievedRating
-  //     }
-  //     console.log('existing summary array rating',this.summaryArray[i].rating);
+  if(existingObj){
+    for(let i=0;i<this.summaryArray.length;i++){
+      if(this.summaryArray[i]['id']==existingObj.id){
+      this.summaryArray[i]['rating']=summaryObj.rating
+      this.summaryArray[i]['achievedRating']=summaryObj.achievedRating
+      }
+      console.log('existing summary array rating',this.summaryArray[i].rating);
       
-  // }
+  }
 
-  // }
-  // else{
-  //   this.summaryArray.push(summaryObj)
+  }
+  else{
+    this.summaryArray.push(summaryObj)
 
-  // }
+  }
 
-  // console.log('summary array',this.summaryArray);
-  // let saveJson={
-  //   "data":[this.reviewTrackerForm.value],
-  //   "detailsId":this.projectDetails.technologiesId
-  // }
+  console.log('summary array',this.summaryArray);
+  let saveJson={
+    "data":[this.reviewTrackerForm.value],
+    "detailsId":this.projectDetails.technologiesId
+  }
 
-  // this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
-  //   console.log('submitted',res);
+  this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
+    console.log('submitted',res);
     
-  // })
+  })
  
   
    
-  // }
+  }
 
   getStatusValue(value:any){
     console.log('checkbox value',value.target.checked);
@@ -282,17 +290,39 @@ export class CodeReviewTrackerComponent implements OnInit {
   
     console.log(childRatingControl.patchValue(0));
     if(rating.value==('Yes')){
+      childRatingControl.setValidators([Validators.required])
+      childAchievedControl.setValidators([Validators.required, 
+        Validators.min(0),
+      Validators.max(5),
+      Validators.pattern(/^\d*\.?\d*$/)
+    ])
       childRatingControl.patchValue(5)
       childAchievedControl.patchValue(null)
    
     }
     else if(rating.value==('No')){
+      childRatingControl.setValidators([Validators.required])
+      childAchievedControl.setValidators([Validators.required, 
+        Validators.min(0),
+      Validators.max(5),
+      Validators.pattern(/^\d*\.?\d*$/)
+    ])
       childRatingControl.patchValue(5)
       childAchievedControl.patchValue(null)
     }
     else if(rating.value==('NA')){
+      childRatingControl.setValidators([Validators.required])
+      childAchievedControl.setValidators([Validators.required, 
+        Validators.min(0),
+      Validators.max(5),
+      Validators.pattern(/^\d*\.?\d*$/)
+    ])
       childRatingControl.patchValue(0)
       childAchievedControl.patchValue(0)
+    }
+    else{
+      childRatingControl.clearValidators()
+      childAchievedControl.clearValidators()
     }
 
  
@@ -323,6 +353,13 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
   getChildSelectedOption(rating:any,name:any,index:number){
+    if(this.formData.at(index).get('options')?.value==('Yes'||'No'||'NA') && this.formData.at(index).get('achievedRating')?.value=='' ){
+      this.isDisableSubmit=true
+    }
+    else{
+      this.isDisableSubmit=false
+    }
+   
     // if(rating.value==('Yes'||'No'||'NA')  ){
       if(this.formData.at(index).get('rating')?.valid && this.formData.at(index).get('achievedRating')?.valid){
         this.ratingValue=false
@@ -343,21 +380,55 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     console.log(rating.value);
     if(rating.value==('Yes')){
-      this.isDisabledAchievedRating=false
+      // this.isDisabledAchievedRating=false
+      this.formData.at(index).get('rating')?.setValidators([Validators.required])
+      this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
+        Validators.pattern(/^(?:[0-5])$/)])
+       this.formData.at(index).get('rating')?.markAsDirty()
+       this.formData.at(index).get('rating')?.updateValueAndValidity()
       this.formData.at(index).get('rating')?.patchValue(5)
-   this.formData.at(index).get('achievedRating')?.patchValue(null)
+      this.formData.at(index).get('achievedRating')?.patchValue(null)
+     
+
+
+
     }
     else if(rating.value==('No')){
-      this.isDisabledAchievedRating=false
+      // this.isDisabledAchievedRating=false
+      this.formData.at(index).get('rating')?.setValidators([Validators.required])
+      this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
+        Validators.pattern(/^(?:[0-5])$/)])
+       this.formData.at(index).get('rating')?.markAsDirty()
+       this.formData.at(index).get('rating')?.updateValueAndValidity()
 
    this.formData.at(index).get('rating')?.patchValue(5)
    this.formData.at(index).get('achievedRating')?.patchValue(null)
+   this.formData.at(index).get('rating')?.setValidators([Validators.required])
+   this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
+     Validators.pattern(/^(?:[0-5])$/)])
+     this.formData.at(index).get('rating')?.markAsDirty()
+     this.formData.at(index).get('rating')?.updateValueAndValidity()
+
     }
     else if(rating.value==('NA')){
-      this.isDisabledAchievedRating=true
+      // this.isDisabledAchievedRating=true
+      this.formData.at(index).get('rating')?.setValidators([Validators.required])
+      this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
+        Validators.pattern(/^(?:[0-5])$/)])
+       this.formData.at(index).get('rating')?.markAsDirty()
+       this.formData.at(index).get('rating')?.updateValueAndValidity()
       this.formData.at(index).get('rating')?.patchValue(0)
        this.formData.at(index).get('achievedRating')?.patchValue(0)
-
+       this.formData.at(index).get('rating')?.setValidators([Validators.required])
+       this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
+         Validators.pattern(/^(?:[0-5])$/)])
+         this.formData.at(index).get('rating')?.markAsDirty()
+         this.formData.at(index).get('rating')?.updateValueAndValidity()
+  
+    }
+    else{
+      this.formData.at(index).get('rating')?.clearValidators()
+      this.formData.at(index).get('achievedRating')?.clearValidators()
     }
 
   }
@@ -365,6 +436,10 @@ export class CodeReviewTrackerComponent implements OnInit {
   isChildReadOnly(index:number){
   const control=this.formData.at(index).get('achievedRating')
   if(control){
+   
+
+
+
   if(this.formData.at(index).get('options')?.value=='NA'){
     return true
   }
@@ -376,6 +451,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     return false
 
   }
+
 
   }
 
@@ -520,6 +596,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 // (Total marks obtained / Total marks possible) x 100
   //  (350/500)*100
   onGetSideSelectedValue(value?:any){
+    this.isDisableSubmit=false
     this.reviewDetailsHeader=value.tab.textLabel
     this.getReviewDetails()
     
