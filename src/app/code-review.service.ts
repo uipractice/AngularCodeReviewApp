@@ -52,7 +52,7 @@ projectDetails=new Subject()
   onEditDetails(data:any,headers:any){
     return this.http.put(`${this.baseUrl}/details`,data,{headers})
 
-  }
+  }vie
   getTechnicalStackDetails(headers:any){
     return this.http.get(`${this.baseUrl}/technicalStack`,{headers})
   }
@@ -72,7 +72,6 @@ projectDetails=new Subject()
       })
     )
 
-
   }
   getSideNav(stackId:any,techId:any,headers:any){
     return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`,{headers})
@@ -84,7 +83,9 @@ projectDetails=new Subject()
     return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}`,{headers})
   }
 
-
+  createUser(data:any,headers:any){
+    return this.http.post(`${this.baseUrl}/users`,data,{headers})
+  }
 
   }
 

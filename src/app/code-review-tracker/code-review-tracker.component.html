@@ -10,9 +10,9 @@
       <div class="table-button details-main top-heading top-page" style="border: 0px solid red;">
         <div><h1>React Js Checklist</h1>
           <ul class="pagination">
-          <li><a href="">Dashboard</a></li>
+          <li><a routerLink="/startCodeReviewTracker" href="">Dashboard</a></li>
           <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-          <li><a href=""> Create New Project</a></li>
+          <li><a routerLink="/codeReviewerDetails" href=""> Create New Project</a></li>
           <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
           <li>Code Review</li>
         </ul>
@@ -30,8 +30,7 @@
             <span class="steps-title" >{{sideData}}</span>
         </ng-template>
         <h2 class="heading">{{selectelTabCheckList?.key}} Checklist</h2>
-
-
+        <span class="info-message"> <img src="../assets/icons-info.svg" alt="icons" title="light"> Please save your details</span>
     <div formArrayName="value">
       <div  *ngFor="let list of reviewTrackerForm.get('value')['controls'];let i=index" [formGroupName]="i" >
             <div class="heading-grey"><h4  class="top-20"  > {{selectelTabCheckList.value[i]?.key}} </h4>
@@ -273,14 +272,11 @@
 -->
 <button class="button-all btn-outline mg-0 white-btn">Send Report</button>
         <button class="button-all btn-blue mg-0" (click)="submitReport()" >Submit</button>
-
       </div>
   </form>
-
 </div>
-
-
+    </div>
       </div>
-      </div> </mat-tab>
+    </mat-tab>
   </mat-tab-group>
   </div>

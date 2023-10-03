@@ -781,7 +781,7 @@ font-weight: 400;
 
 img.icon-login {
   position: absolute;
-  top: 13px;
+  top: 14.5px;
   left: 8px;
 }
 
@@ -1092,6 +1092,28 @@ display: none;
 margin-top:10px;
 width:100%;
 }
+
+.cdk-overlay-pane {
+max-width:600px !important;
+width:100%;
+
+}
+
+.delete-project {
+padding:20px 0px 0px 0px;
+}
+.info-message {
+  position: absolute;
+  top: 57px;
+  right: 20px;
+  font-weight: 800;
+}
+.info-message img{
+  width:22px;
+  height:22px;
+  margin-right:5px;
+}
+
 
 @media only screen and (max-width: 768px) {
   .m-logo {

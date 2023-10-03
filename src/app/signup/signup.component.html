@@ -16,39 +16,37 @@
           <div class="details-main">
 
 
-          <form class="row details-box" [formGroup]="signupForm" (ngSubmit)="signUp()">
+          <form class="row details-box Project-details" [formGroup]="signupForm" (ngSubmit)="signUp()">
               <div class="mb-3 col-md-4 col-sm-12">
-                <label for="developers" class="form-label">First Name <span>*</span></label>
+                <label for="developers" class="form-label">First Name <span class="red-dot"></span></label>
                   <input formControlName="firstName" type="text"  required="" autofocus="" class="form-control px-4">
               </div>
               <div class="mb-3 col-md-4 col-sm-12">
-                <label for="developers" class="form-label">Last Name <span>*</span></label>
+                <label for="developers" class="form-label">Last Name <span class="red-dot"></span></label>
                   <input formControlName="lastName" type="text"  required="" class="form-control px-4 text-primary">
               </div>
               <div class="mb-3 col-md-4 col-sm-12">
-                <label for="developers" class="form-label">Employee ID <span>*</span></label>
+                <label for="developers" class="form-label">Employee ID <span class="red-dot"></span></label>
                 <input formControlName="email" type="email"  required="" class="form-control px-4 text-primary">
             </div>
-            <div class="mb-3 col-md-4 col-sm-12">
-              <label for="developers" class="form-label">Email Address <span>*</span></label>
-              <input formControlName="email" type="email"  required="" class="form-control px-4 text-primary">
-          </div>
+
           <div class="mb-3 col-md-4 col-sm-12">
-            <label for="developers" class="form-label">Password <span>*</span></label>
+            <label for="developers" class="form-label">Password <span class="red-dot"></span></label>
             <input formControlName="password" type="password"  required="" class="form-control px-4 text-primary">
         </div>
 
           <div class="mb-3 col-md-4 col-sm-12">
-            <label for="developers" class="form-label">Confirm Password <span>*</span></label>
+            <label for="developers" class="form-label">Confirm Password <span class="red-dot"></span></label>
             <input formControlName="password" type="password" required="" class="form-control px-4 text-primary">
         </div>
 
-        <div class="buttons">
+       <!-- <div class="buttons">
         <select name="work_days" id="id_work_days" multiple>
           <option id="b-user" value="1">Basic User</option>
           <option id="admin" value="2">Admin</option>
           </select>
-      </div>
+      </div>-->
+
       <div class="center">
       <button class="button-all btn-outline mg-0">Cancel</button>
       <button class="button-all btn-blue mg-0">Create User</button>

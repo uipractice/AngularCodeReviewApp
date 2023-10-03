@@ -20,7 +20,7 @@ export class UserManagementComponent implements OnInit {
 
 
   // displayedColumns: string[] = ['firstname', 'lastname', 'contact', 'email', 'status', 'action'];
-  displayedColumns: string[] = ['firstname', 'lastname',  'email','action'];
+  displayedColumns: string[] = ['firstname', 'lastname', 'email','contact', 'status', 'action'];
 
   dataSource:any
 
@@ -35,7 +35,7 @@ export class UserManagementComponent implements OnInit {
       console.log(res);
       this.usersList=res.data
       this.dataSource=this.usersList
-      
+
     })
 
 
