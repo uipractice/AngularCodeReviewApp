@@ -97,12 +97,12 @@ codeReviewerForm=new FormGroup({
   project:new FormControl('',Validators.required),
   // technicalStack:new FormControl(null),
   technology:new FormControl('',Validators.required),
-  storyId:new FormControl('',Validators.required),
+  storyId:new FormControl(''),
   developers:new FormControl('',Validators.required),
   projectLead:new FormControl('',Validators.required),
-  reviewPackagesandFiles:new FormControl('',Validators.required),
+  reviewPackagesandFiles:new FormControl(''),
   reviewersName:new FormControl('',Validators.required),
-  codeReviewComments:new FormControl('',Validators.required)
+  codeReviewComments:new FormControl('')
 })
 
 getBackDetails(){

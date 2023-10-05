@@ -13,7 +13,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./code-review-tracker.component.css'],
 })
 export class CodeReviewTrackerComponent implements OnInit {
-  // @ViewChild('subChild') subChild!:ElementRef<HTMLDivElement>
   detailsId:any
   selectOptions:any
   reviewDetailsHeader='Functional'
@@ -22,8 +21,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   reviewTrackerForm:any=FormGroup
   auth_token=''
   isDisableSubmit:boolean=false
-  isActiveChildCOmments:boolean[]=[true]
-  isActiveComments:boolean[]=[true]
+  isActiveChildCOmments:boolean[]=[false]
+  isActiveComments:boolean[][]=[[false],[false]]
   disableSave:boolean=false
   showSummary:boolean=false
   summaryArray:any[]=[]
@@ -34,24 +33,22 @@ export class CodeReviewTrackerComponent implements OnInit {
   commentsData:any
   ratingValue:boolean=false
   achievedRatingValue:boolean=false
-  isLoaderActive:boolean=true
+  isLoaderActive:boolean=false
 
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
-    console.log('auth toke in review tracker',this.auth_token);
     this.projectDetails=JSON.parse(localStorage.getItem('projectDetails')||'{}')
+    
+
+    
 
     this.buildReactiveForm()
     this.getSideNavData(this.projectDetails.technicalStackId,this.projectDetails.technologiesId)
 
     this.getOptions()
     this.getReviewDetails()
-    // this.validateSubmit()
-    // this.reviewTrackerForm.valueChanges.subscribe((value:any)=>{
-    //   this.validateSubmit()
-    // })
    
   }
 
@@ -69,6 +66,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
     getReviewDetails(){
+      this.isLoaderActive=true
 
     this.buildReactiveForm()
     const headers = new HttpHeaders({
@@ -80,10 +78,11 @@ export class CodeReviewTrackerComponent implements OnInit {
     })
 
       this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
-    this.isLoaderActive==true
        
         if(res.success==true){
-        this.isLoaderActive==false
+        this.isLoaderActive=false
+    console.log('loader status',this.isLoaderActive);
+
         console.log(res.data[0].data[0].value);
         this.selectelTabCheckList=res.data[0].data[0]
 
@@ -209,15 +208,15 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   console.log('summary array',this.summaryArray);
-  let saveJson={
-    "data":[this.reviewTrackerForm.value],
-    "detailsId":this.projectDetails.technologiesId
-  }
+  // let saveJson={
+  //   "data":[this.reviewTrackerForm.value],
+  //   "detailsId":this.projectDetails.technologiesId
+  // }
 
-  this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
-    console.log('submitted',res);
+  // this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
+  //   console.log('submitted',res);
     
-  })
+  // })
  
   
    
@@ -519,6 +518,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   getSideNavData(stackId?:any,techId?:any){
+    
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
@@ -531,36 +531,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   }
 
-  hideComments(j:number,i:number){
-    const parentControl=this.formData.at(i).get('value') as FormArray
-    const CommentsControl=parentControl.at(j).get('comments') as FormControl
-    // if(CommentsControl){
-      if(CommentsControl && this.isActiveComments[j]==true){
-        return true
-      }
-      else  if(CommentsControl && this.isActiveComments[j]==false){
-        return false
-
-      }
-
-
-
-    // }
-
-  
  
-    return true
-  }
-
-  hideChildComments(i:number){
-    if(this.isActiveChildCOmments[i]==true){
-     return true
-    }
-    else if(this.isActiveChildCOmments[i]==false){
-    return  false
-    }
-    return true
-  }
 
   openChildComments(i:number){
       this.isActiveChildCOmments[i]=!this.isActiveChildCOmments[i]
@@ -570,11 +541,15 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
   openSubChildComments(j:number,i:number){
 
+    console.log(i,j);
+    
     const parentControl=this.formData.at(i).get('value') as FormArray
     const commentsControl=parentControl.at(j).get('comments') as FormControl
     if(commentsControl){
+      console.log('isactive comments',  this.isActiveComments[i][j]);
       
-        this.isActiveComments[j]=!this.isActiveComments[j]
+      
+       
       
     
 
@@ -596,26 +571,17 @@ export class CodeReviewTrackerComponent implements OnInit {
 // (Total marks obtained / Total marks possible) x 100
   //  (350/500)*100
   onGetSideSelectedValue(value?:any){
-    this.isDisableSubmit=false
+   this.isActiveChildCOmments=[false]
+   console.log('child comments',this.isActiveChildCOmments);
+   
+    // this.isDisableSubmit=false
     this.reviewDetailsHeader=value.tab.textLabel
     this.getReviewDetails()
     
 
   }
-  getRating(rating:any){
-    console.log(rating);
-  }
-  name: string | undefined;
-  color: string | undefined;
-    openDialog(index:number,parentIndex:number) {
-      console.log('Before click',this.isActiveComments);
-      
-      // console.log(index)
-      // console.log(parentIndex);
-      this.isActiveComments[parentIndex][index]=!this.isActiveComments[parentIndex][index]
-      console.log('After click',this.isActiveComments);
-
-  }
+  
+  
 }
 
 
