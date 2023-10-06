@@ -22,7 +22,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   auth_token=''
   isDisableSubmit:boolean=false
   isActiveChildCOmments:boolean[]=[false]
-  isActiveComments:boolean[][]=[[false],[false]]
+  isActiveComments:boolean[]=[false,false]
   disableSave:boolean=false
   showSummary:boolean=false
   summaryArray:any[]=[]
@@ -546,10 +546,10 @@ export class CodeReviewTrackerComponent implements OnInit {
     const parentControl=this.formData.at(i).get('value') as FormArray
     const commentsControl=parentControl.at(j).get('comments') as FormControl
     if(commentsControl){
-      console.log('isactive comments',  this.isActiveComments[i][j]);
+      console.log('isactive comments',);
       
       
-       
+        this.isActiveComments[[i][j]]=!this.isActiveComments[[i][j]]
       
     
 

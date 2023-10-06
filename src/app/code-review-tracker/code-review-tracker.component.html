@@ -134,8 +134,8 @@
                     
 
                      </div>
-                     <div *ngIf="false">
-                   
+                     <div *ngIf=" this.isActiveComments[[i][j]]"   >
+                                        
                       <textarea class="full-textarea"  placeholder="Enter your comments here" formControlName="comments"  rows="4" cols="50" ></textarea>
  
                       </div>
@@ -252,7 +252,7 @@
           <div class="main-sonar border-b-none">
             <div class="row ">
 
-              <h2 class="code-percentage">Code Review <span>25%</span></h2>
+              <h2 class="code-percentage">Code Review </h2>
               <h1>{{summaryPercentage}}%</h1>
               <mat-progress-bar mode="determinate" value="{{summaryPercentage}}"></mat-progress-bar>
 
