@@ -8,3 +8,9 @@ padding:7px 21px;
 .line-grey {
   margin-top:20px;
 }
+
+.cdk-overlay-pane {
+  max-width:600px !important;
+  width:100%;
+
+  }

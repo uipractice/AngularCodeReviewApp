@@ -1093,9 +1093,9 @@ margin-top:10px;
 width:100%;
 }
 
-.cdk-overlay-pane {
-max-width:600px !important;
-width:100%;
+.cdk-overlay-pane .dialog-card {
+  min-width: 600px !important;
+  width: 100%;
 
 }
 

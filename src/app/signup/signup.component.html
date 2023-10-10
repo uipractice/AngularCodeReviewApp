@@ -26,7 +26,7 @@
                   <input formControlName="lastName" type="text"  required="" class="form-control px-4 text-primary">
               </div>
               <div class="mb-3 col-md-4 col-sm-12">
-                <label for="developers" class="form-label">Employee ID <span class="red-dot"></span></label>
+                <label for="developers" class="form-label">Email Address <span class="red-dot"></span></label>
                 <input formControlName="email" type="email"  required="" class="form-control px-4 text-primary">
             </div>
 
@@ -49,7 +49,7 @@
 
       <div class="center">
       <button class="button-all btn-outline mg-0">Cancel</button>
-      <button class="button-all btn-blue mg-0">Create User</button>
+      <button (click)="createUser()" class="button-all btn-blue mg-0">Create User</button>
     </div>
 
           </form>
