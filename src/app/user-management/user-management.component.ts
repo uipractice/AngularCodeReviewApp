@@ -15,6 +15,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class UserManagementComponent implements OnInit {
   auth_token=''
   usersList:any
+  isLoaderActive:boolean=false
 
   constructor(private router:Router,private codeService:CodeReviewService){}
 
@@ -28,19 +29,22 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(){
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+    this.getUsersList()
+   
+  }
+
+  getUsersList(){
+    this.isLoaderActive=true
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
     this.codeService.getUSersList(headers).subscribe((res:any)=>{
+      this.isLoaderActive=false
       console.log(res);
       this.usersList=res.data
       this.dataSource=this.usersList
 
     })
-
-
-
-
   }
 
   ngAfterViewInit() {
