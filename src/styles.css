@@ -1114,6 +1114,12 @@ padding:20px 0px 0px 0px;
   margin-right:5px;
 }
 
+.spinner{
+  position: absolute;
+  left: 25%;
+  /* top: 10%; */
+}
+
 
 @media only screen and (max-width: 768px) {
   .m-logo {
@@ -1164,3 +1170,4 @@ padding:20px 0px 0px 0px;
   padding:9px 3px 3px 10px;
 }
 }
+

@@ -5,9 +5,9 @@
         <div class="table-button details-main top-heading ">
           <h1>Create New User</h1>
           <ul>
-            <li><a href="">Home</a></li>
+            <li><a routerLink="/startCodeReviewTracker">Home</a></li>
             <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-            <li><a href="">User Management</a></li>
+            <li><a routerLink="/user-management">User Management</a></li>
             <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
             <li>Add New User</li>
           </ul>
@@ -39,6 +39,10 @@
             <label for="developers" class="form-label">Confirm Password <span class="red-dot"></span></label>
             <input formControlName="password" type="password" required="" class="form-control px-4 text-primary">
         </div>
+        <div class="mb-3 col-md-4 col-sm-12">
+          <label for=""></label>
+          <mat-slide-toggle (change)="isAdmin($event)">{{role}}</mat-slide-toggle>
+      </div>
 
        <!-- <div class="buttons">
         <select name="work_days" id="id_work_days" multiple>
@@ -49,7 +53,7 @@
 
       <div class="center">
       <button class="button-all btn-outline mg-0">Cancel</button>
-      <button (click)="createUser()" class="button-all btn-blue mg-0">Create User</button>
+      <button class="button-all btn-blue mg-0" [disabled]="signupForm.invalid">Create User</button>
     </div>
 
           </form>

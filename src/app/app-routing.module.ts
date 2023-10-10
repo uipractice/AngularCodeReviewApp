@@ -20,12 +20,13 @@ const routes: Routes = [
   {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
   {path:'codeReviewTracker/:id/:status',component:CodeReviewTrackerComponent},
-  // {path:'codeReviewTracker',component:HeaderComponent},
   {path:'login',component:LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'user-management', component:UserManagementComponent},
   {path:'create-checklist', component:CreateChecklistComponent},
   {path:'codereview-managment', component:CodereviewManagementComponent}
+
+
 
 ];
 

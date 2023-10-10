@@ -10,9 +10,9 @@
       <div class="table-button details-main top-heading top-page" style="border: 0px solid red;">
         <div><h1>{{projectDetails.project|titlecase }} <span style="font-size: 15px;">({{projectDetails.technologies.name|lowercase}})</span> </h1>
           <ul class="pagination">
-          <li><a routerLink="/startCodeReviewTracker" href="">Dashboard</a></li>
+          <li><a routerLink="/startCodeReviewTracker" >Dashboard</a></li>
           <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-          <li><a routerLink="/codeReviewerDetails" href=""> Create New Project</a></li>
+          <li><a routerLink="/codeReviewerDetails" > Create New Project</a></li>
           <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
           <li>Code Review</li>
         </ul>
@@ -29,125 +29,133 @@
             <div class="steps"></div>
             <span class="steps-title" >{{sideData}}</span>
         </ng-template>
-        <h2 class="heading">{{selectelTabCheckList?.key}} Checklist</h2>
-        <span class="info-message"> <img src="../assets/icons-info.svg" alt="icons" title="light"> Please save your details</span>
-    <div formArrayName="value">
-      <div  *ngFor="let list of reviewTrackerForm.get('value')['controls'];let i=index" [formGroupName]="i" >
-            <div class="heading-grey"><h4  class="top-20"  > {{selectelTabCheckList.value[i]?.key}} </h4>
+        <div class="spinner">
+        <mat-spinner *ngIf="isLoaderActive"></mat-spinner>
 
-              <div class="box--right">
-              <div class="selection select-dropdown" *ngIf="selectelTabCheckList.value[i]?.options==''">
-                <mat-label>Applicable <span class="line-top"></span></mat-label>
-                <mat-form-field >
-                    <mat-select formControlName="options" (selectionChange)="getChildSelectedOption($event,'child',i)">
-                      <mat-option value="" >Select</mat-option>
-                      <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
-                    </mat-select>
+        </div>
 
+        <div *ngIf="!isLoaderActive" >
+          <h2 class="heading">{{selectelTabCheckList?.key}} Checklist</h2>
+          <span class="info-message"> <img src="../assets/icons-info.svg" alt="icons" title="light"> Please save your details</span>
+      <div formArrayName="value">
+        <div  *ngFor="let list of reviewTrackerForm.get('value')['controls'];let i=index" [formGroupName]="i" >
+              <div class="heading-grey"><h4  class="top-20"  > {{selectelTabCheckList.value[i]?.key}} </h4>
+  
+                <div class="box--right">
+                <div class="selection select-dropdown" *ngIf="selectelTabCheckList.value[i]?.options==''">
+                  <mat-label>Applicable <span class="line-top"></span></mat-label>
+                  <mat-form-field >
+                      <mat-select formControlName="options" (selectionChange)="getChildSelectedOption($event,'child',i)">
+                        <mat-option value="" >Select</mat-option>
+                        <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+                      </mat-select>
+  
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="rating select-dropdown" *ngIf="selectelTabCheckList.value[i]?.rating==''" >
+  
+                   <mat-label>Rating <span class="line-top rating-line"></span></mat-label>
+                   <mat-form-field class="example-full-width">
+                    <input matInput type="number" [readonly]="true"  formControlName="rating" >
+  
                   </mat-form-field>
+  
+  
+                 </div>
+  
+  
+                  <div class="rating-number" *ngIf="selectelTabCheckList.value[i]?.achievedRating==''" >
+  
+                   <div class="rating select-dropdown"  >
+                    <mat-label>Achieved <span class="line-top achieved-line"></span></mat-label>
+                    <mat-form-field class="example-full-width">
+                    <input type="number"  matInput [readonly]=" isChildReadOnly(i)"  formControlName="achievedRating" >
+                   </mat-form-field>
+  
+  
+                  </div>
+  
+  
+                 </div>
+  
+  
+  
+                <div *ngIf="selectelTabCheckList.value[i]?.comments==''">
+                  <div class="Comment" (click)="openChildComments(i)"     >
+                    <img src="../assets/comment_light.svg">
+  
+                 </div>
                 </div>
-
-                <div class="rating select-dropdown" *ngIf="selectelTabCheckList.value[i]?.rating==''" >
-
-                 <mat-label>Rating <span class="line-top rating-line"></span></mat-label>
-                 <mat-form-field class="example-full-width">
-                  <input matInput type="number" [readonly]="true"  formControlName="rating" >
-
-                </mat-form-field>
-
-
-               </div>
-
-
-                <div class="rating-number" *ngIf="selectelTabCheckList.value[i]?.achievedRating==''" >
-
-                 <div class="rating select-dropdown"  >
-                  <mat-label>Achieved <span class="line-top achieved-line"></span></mat-label>
-                  <mat-form-field class="example-full-width">
-                  <input type="number"  matInput [readonly]=" isChildReadOnly(i)" (ngModelChange)="onvalue(i)" formControlName="achievedRating" >
-                 </mat-form-field>
-
-
-                </div>
-
-
-               </div>
-
-
-
-              <div *ngIf="selectelTabCheckList.value[i]?.comments==''">
-                <div class="Comment" (click)="openChildComments(i)"     >
-                  <img src="../assets/comment_light.svg">
-
-               </div>
               </div>
+              <div *ngIf="isActiveChildCOmments[i]">
+              <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"   formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
 
-
+              </div>
+  
             </div>
-            <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"  [hidden]="hideChildComments(i)" formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
+  
+              <div *ngIf="selectelTabCheckList.value[i]?.value">
+                <div formArrayName="value" class="list-sub">
+                  <div class="quality" *ngFor="let subChild of list.get('value')['controls'];let j=index" [formGroupName]="j">
+                    <div class="questions" >
+                      {{selectelTabCheckList.value[i]?.value[j]?.key}}
+                      </div>
+                      <div class="box--right">
+                        <div class="selection select-dropdown" >
+                        <mat-label>Applicable <span class="line-top"></span></mat-label>
+                        <mat-form-field>
+                            <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption',j,i)" formControlName="options"  >
+                              <mat-option value="" >Select</mat-option>
+                              <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
+                            </mat-select>
+  
+  
+  
+                          </mat-form-field>
+                        </div>
+                        <div class="rating select-dropdown">
+                         <mat-label>Rating <span class="line-top rating-line"></span></mat-label>
+                         <mat-form-field class="example-full-width">
+                          <input matInput  [readonly]='true'  formControlName="rating" onlyNumber  >
+                        </mat-form-field>
+                       </div>
+                       <div class="rating-number">
+                        <div class="achieved select-dropdown">
+                          <mat-label>Achieved <span class="line-top achieved-line"></span></mat-label>
+                          <mat-form-field class="example-full-width">
+                            <input matInput type="number" [readonly]="isSubChildReadOnly(j,i)"    formControlName="achievedRating" >
+                          </mat-form-field>
+  
+                        </div>
+                       </div>
+                      <div class="Comment" (click)=" openSubChildComments(j,i)"  ><img src="../assets/comment_light.svg">
+                     </div>
+                    
 
+                     </div>
+                     <div *ngIf=" this.isActiveComments[[i][j]]"   >
+                                        
+                      <textarea class="full-textarea"  placeholder="Enter your comments here" formControlName="comments"  rows="4" cols="50" ></textarea>
+ 
+                      </div>
+
+                     
+  
+                </div>
+              </div>
+  
+        </div>
+        <div class="table-button flex-center top-5">
+  
           </div>
-
-            <div *ngIf="selectelTabCheckList.value[i]?.value">
-              <div formArrayName="value" class="list-sub">
-                <div class="quality" *ngFor="let subChild of list.get('value')['controls'];let j=index" [formGroupName]="j">
-                  <div class="questions" >
-                    {{selectelTabCheckList.value[i]?.value[j]?.key}}
-                    </div>
-                    <div class="box--right">
-                      <div class="selection select-dropdown" >
-                      <mat-label>Applicable <span class="line-top"></span></mat-label>
-                      <mat-form-field>
-                          <mat-select   (selectionChange)="getSubChildSelection($event,'subChildOption',j,i)" formControlName="options"  >
-                            <mat-option value="" >Select</mat-option>
-                            <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
-                          </mat-select>
-
-
-
-                        </mat-form-field>
-                      </div>
-
-
-                      <div class="rating select-dropdown">
-                       <mat-label>Rating <span class="line-top rating-line"></span></mat-label>
-                       <mat-form-field class="example-full-width">
-                        <input matInput  [readonly]='true'  formControlName="rating" onlyNumber  >
-                      </mat-form-field>
-                     </div>
-
-
-                     <div class="rating-number">
-                      <div class="achieved select-dropdown">
-                        <mat-label>Achieved <span class="line-top achieved-line"></span></mat-label>
-                        <mat-form-field class="example-full-width">
-                          <input matInput type="number" [readonly]="isSubChildReadOnly(j,i)"    formControlName="achievedRating" >
-                        </mat-form-field>
-
-                      </div>
-                     </div>
-
-
-                    <div class="Comment" (click)=" openSubChildComments(j,i)"  ><img src="../assets/comment_light.svg">
-
-
-
-                   </div>
-                   </div>
-                   <textarea class="full-textarea" [hidden]="hideComments(j,i)"  placeholder="Enter your comments here" formControlName="comments"  rows="4" cols="50" ></textarea>
-
-              </div>
-            </div>
-
-      </div>
-      <div class="table-button flex-center top-5">
-
+          </div>
+         <div class="table-button flex-center top-20 bottom-100">
+        <button class="button-all btn-blue mg-0 save-btn" [disabled]=" this.reviewTrackerForm.invalid"   (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
+          </div>
         </div>
         </div>
-       <div class="table-button flex-center top-20 bottom-100">
-      <button class="button-all btn-blue mg-0 save-btn"    (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
-        </div>
-      </div>
+      
 
 
 
@@ -244,7 +252,7 @@
           <div class="main-sonar border-b-none">
             <div class="row ">
 
-              <h2 class="code-percentage">Code Review <span>25%</span></h2>
+              <h2 class="code-percentage">Code Review </h2>
               <h1>{{summaryPercentage}}%</h1>
               <mat-progress-bar mode="determinate" value="{{summaryPercentage}}"></mat-progress-bar>
 
