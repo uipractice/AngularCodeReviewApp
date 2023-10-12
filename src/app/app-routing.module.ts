@@ -11,6 +11,7 @@ import { AdminUserListComponent } from './admin-user-list/admin-user-list.compon
 import { UserManagementComponent } from './user-management/user-management.component';
 import { CreateChecklistComponent } from './create-checklist/create-checklist.component';
 import { CodereviewManagementComponent } from './codereview-management/codereview-management.component';
+import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path:'signup', component:SignupComponent},
   {path:'user-management', component:UserManagementComponent},
   {path:'create-checklist', component:CreateChecklistComponent},
-  {path:'codereview-managment', component:CodereviewManagementComponent}
+  {path:'codereview-managment', component:CodereviewManagementComponent},
+  {path:'technical-stack', component:TechnicalStackComponent}
 
 
 
