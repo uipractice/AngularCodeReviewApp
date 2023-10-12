@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
@@ -33,6 +33,8 @@ deleteValue:any
     this.onGetReviewDetails()
 
   }
+
+  
   onGetReviewDetails(){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
