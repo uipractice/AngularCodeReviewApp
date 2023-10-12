@@ -134,10 +134,12 @@
                     
 
                      </div>
-                     <div *ngIf=" this.isActiveComments[[i][j]]"   >
+                     <div *ngIf=" isActiveComments[[i][j]]"   >
+                     <!-- <div *ngIf=" isActiveComments[j]"   > -->
+
                                         
                       <textarea class="full-textarea"  placeholder="Enter your comments here" formControlName="comments"  rows="4" cols="50" ></textarea>
- 
+
                       </div>
 
                      
@@ -225,7 +227,7 @@
                                 <div class="row ">
                             <div class="mb-3 col-md-12 col-sm-12">
                               <label for="account" class="form-label"> Comments: </label>
-                            <textarea class="full-textarea" style="height: 84px;" placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
+                            <textarea class="full-textarea" style="height: 84px;" [(ngModel)]="commentsData" [ngModelOptions]="{standalone: true}"placeholder="Enter your comments here" rows="5" cols="50" class="form-control"></textarea>
 
                             </div>
 
@@ -258,7 +260,7 @@
 
         <div class="mb-3 col-md-12 col-sm-12 overall-comments">
           <label for="account" class="form-label">Overall Comments:</label>
-        <textarea placeholder="" rows="10" cols="50" class="form-control"></textarea>
+        <textarea placeholder="" rows="10" cols="50" class="form-control"> {{commentsData}} </textarea>
 
         </div>
 

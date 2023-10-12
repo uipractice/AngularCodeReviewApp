@@ -23,6 +23,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDisableSubmit:boolean=false
   isActiveChildCOmments:boolean[]=[false]
   isActiveComments:boolean[]=[false,false]
+  // isActiveComments:boolean[]=[false]
+
   disableSave:boolean=false
   showSummary:boolean=false
   summaryArray:any[]=[]
@@ -291,9 +293,10 @@ export class CodeReviewTrackerComponent implements OnInit {
     if(rating.value==('Yes')){
       childRatingControl.setValidators([Validators.required])
       childAchievedControl.setValidators([Validators.required, 
-        Validators.min(0),
-      Validators.max(5),
-      Validators.pattern(/^\d*\.?\d*$/)
+      //    Validators.min(0),
+      //  Validators.max(5),
+      this.validateNumberRange,
+      Validators.pattern('^[0-5]$')
     ])
       childRatingControl.patchValue(5)
       childAchievedControl.patchValue(null)
@@ -302,9 +305,10 @@ export class CodeReviewTrackerComponent implements OnInit {
     else if(rating.value==('No')){
       childRatingControl.setValidators([Validators.required])
       childAchievedControl.setValidators([Validators.required, 
-        Validators.min(0),
-      Validators.max(5),
-      Validators.pattern(/^\d*\.?\d*$/)
+        //    Validators.min(0),
+      //  Validators.max(5),
+      this.validateNumberRange,
+      Validators.pattern('^[0-5]$')
     ])
       childRatingControl.patchValue(5)
       childAchievedControl.patchValue(null)
@@ -312,9 +316,10 @@ export class CodeReviewTrackerComponent implements OnInit {
     else if(rating.value==('NA')){
       childRatingControl.setValidators([Validators.required])
       childAchievedControl.setValidators([Validators.required, 
-        Validators.min(0),
-      Validators.max(5),
-      Validators.pattern(/^\d*\.?\d*$/)
+      //    Validators.min(0),
+      //  Validators.max(5),
+      this.validateNumberRange,
+      Validators.pattern('^[0-5]$')
     ])
       childRatingControl.patchValue(0)
       childAchievedControl.patchValue(0)
@@ -326,6 +331,18 @@ export class CodeReviewTrackerComponent implements OnInit {
 
  
   }
+
+  validateNumberRange(control: AbstractControl) {
+    const inputValue = control.value;
+    
+    if (inputValue === '' || (inputValue >= 0 && inputValue <= 5)) {
+      return null; // Valid input
+    } else {
+      control.setValue(''); // Clear the input field
+      return { invalidNumber: true };
+    }
+  }
+
 
   isSubChildReadOnly(index:number,parentIndex:number){
     
@@ -382,7 +399,13 @@ export class CodeReviewTrackerComponent implements OnInit {
       // this.isDisabledAchievedRating=false
       this.formData.at(index).get('rating')?.setValidators([Validators.required])
       this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
-        Validators.pattern(/^(?:[0-5])$/)])
+        // Validators.pattern(/^(?:[0-5])$/)
+          //    Validators.min(0),
+      //  Validators.max(5),
+      this.validateNumberRange,
+      Validators.pattern('^[0-5]$')
+      ]
+        )
        this.formData.at(index).get('rating')?.markAsDirty()
        this.formData.at(index).get('rating')?.updateValueAndValidity()
       this.formData.at(index).get('rating')?.patchValue(5)
@@ -396,7 +419,12 @@ export class CodeReviewTrackerComponent implements OnInit {
       // this.isDisabledAchievedRating=false
       this.formData.at(index).get('rating')?.setValidators([Validators.required])
       this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
-        Validators.pattern(/^(?:[0-5])$/)])
+        // Validators.pattern(/^(?:[0-5])$/)
+          //    Validators.min(0),
+      //  Validators.max(5),
+      this.validateNumberRange,
+      Validators.pattern('^[0-5]$')]
+        )
        this.formData.at(index).get('rating')?.markAsDirty()
        this.formData.at(index).get('rating')?.updateValueAndValidity()
 
@@ -404,7 +432,11 @@ export class CodeReviewTrackerComponent implements OnInit {
    this.formData.at(index).get('achievedRating')?.patchValue(null)
    this.formData.at(index).get('rating')?.setValidators([Validators.required])
    this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
-     Validators.pattern(/^(?:[0-5])$/)])
+ // Validators.pattern(/^(?:[0-5])$/)
+          //    Validators.min(0),
+      //  Validators.max(5),
+      this.validateNumberRange,
+      Validators.pattern(/^\d*\.?\d*$/)    ])
      this.formData.at(index).get('rating')?.markAsDirty()
      this.formData.at(index).get('rating')?.updateValueAndValidity()
 
@@ -413,14 +445,18 @@ export class CodeReviewTrackerComponent implements OnInit {
       // this.isDisabledAchievedRating=true
       this.formData.at(index).get('rating')?.setValidators([Validators.required])
       this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
-        Validators.pattern(/^(?:[0-5])$/)])
+ // Validators.pattern(/^(?:[0-5])$/)
+          //    Validators.min(0),
+      //  Validators.max(5),
+      this.validateNumberRange,
+      Validators.pattern('^[0-5]$')      ])
        this.formData.at(index).get('rating')?.markAsDirty()
        this.formData.at(index).get('rating')?.updateValueAndValidity()
       this.formData.at(index).get('rating')?.patchValue(0)
        this.formData.at(index).get('achievedRating')?.patchValue(0)
        this.formData.at(index).get('rating')?.setValidators([Validators.required])
        this.formData.at(index).get('achievedRating')?.setValidators([Validators.required, 
-         Validators.pattern(/^(?:[0-5])$/)])
+         Validators.pattern('^[0-5]$')])
          this.formData.at(index).get('rating')?.markAsDirty()
          this.formData.at(index).get('rating')?.updateValueAndValidity()
   
@@ -541,16 +577,20 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
   openSubChildComments(j:number,i:number){
 
-    console.log(i,j);
+    console.log([i,j]);
     
     const parentControl=this.formData.at(i).get('value') as FormArray
     const commentsControl=parentControl.at(j).get('comments') as FormControl
     if(commentsControl){
-      console.log('isactive comments',);
+      console.log('isactive comments',[[i][j]]);
       
-      
+    
         this.isActiveComments[[i][j]]=!this.isActiveComments[[i][j]]
-      
+        // this.isActiveComments[j]=!this.isActiveComments[j]
+
+        console.log('after clicked',this.isActiveComments[[i][j]]);
+        
+
     
 
 

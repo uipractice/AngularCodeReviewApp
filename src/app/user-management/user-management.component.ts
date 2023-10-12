@@ -16,6 +16,8 @@ export class UserManagementComponent implements OnInit {
   auth_token=''
   usersList:any
   isLoaderActive:boolean=false
+  isUser:boolean=false
+  status:string=''
 
   constructor(private router:Router,private codeService:CodeReviewService){}
 
@@ -43,13 +45,126 @@ export class UserManagementComponent implements OnInit {
       console.log(res);
       this.usersList=res.data
       this.dataSource=this.usersList
-
+      console.log('data source',this.dataSource.length);
+      for(let i=0;i<this.dataSource.length;i++){
+       if(this.dataSource[i].role=='admin'){
+        this.isUser=false
+       }
+       else if(this.dataSource[i].role=='user'){
+        this.isUser=true
+       }
+        
+      }
+      
     })
   }
 
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
+  getToggle(element:any){
+
+    if(element.role=='admin'){
+      return false
+    }
+    else if(element.role=='user'){
+      return true
+    }
+    
+    return
+    
   }
+
+  getStatus(element:any){
+    if(element.isActive==1){
+      this.status='Active'
+      return true
+    }
+    else if(element.isActive==0){
+      this.status='Inactive'
+      return false
+
+    }
+    return 
+
+  }
+
+  updateRole(element:any,value:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    console.log('updated element',element);
+    if(value.checked){
+      console.log('user');
+      let userData={
+        "_id": element._id,
+        "firstName": element.firstName,
+        "lastName":element.lastName,
+        "email": element.email,
+        "isActive": element.isActive,
+        "role": "user"
+    }
+    this.codeService.updatetUsersList(userData,headers).subscribe((res:any)=>{
+      console.log(res);
+      this.getUsersList()
+      
+    })
+    }
+    else{
+      console.log('admin');
+      
+      let userData= {
+        "_id": element._id,
+        "firstName": element.firstName,
+        "lastName":element.lastName,
+        "email": element.email,
+        "isActive": element.isActive,
+        "role": "admin"
+    }
+    this.codeService.updatetUsersList(userData,headers).subscribe((res:any)=>{
+      console.log(res);
+      this.getUsersList()
+      
+    })
+    
+    }
+  
+  }
+  updateActiveStatus(element:any,value:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    if(value.checked){
+      let userData= {
+        "_id": element._id,
+        "firstName": element.firstName,
+        "lastName":element.lastName,
+        "email": element.email,
+        "isActive": 1,
+        "role": element.role
+    }
+    this.codeService.updatetUsersList(userData,headers).subscribe((res:any)=>{
+      console.log(res);
+      this.getUsersList()
+    })
+    }
+    else{
+      let userData= {
+        "_id": element._id,
+        "firstName": element.firstName,
+        "lastName":element.lastName,
+        "email": element.email,
+        "isActive": 0,
+        "role": element.role
+    }
+    this.codeService.updatetUsersList(userData,headers).subscribe((res:any)=>{
+      console.log(res);
+      this.getUsersList()
+      
+    })
+
+    }
+  }
+ 
+
+ 
 
   createUser(){
     this.router.navigate(['/signup'])

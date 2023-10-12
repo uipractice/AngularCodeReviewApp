@@ -28,6 +28,8 @@ const routes: Routes = [
   {path:'codereview-managment', component:CodereviewManagementComponent},
   {path:'technical-stack', component:TechnicalStackComponent}
 
+ 
+
 
 
 ];

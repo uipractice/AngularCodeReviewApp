@@ -28,6 +28,12 @@ projectDetails=new Subject()
     }))
 
   }
+  updatetUsersList(data:any,headers:any){
+    return this.http.put(`${this.baseUrl}/users`,data,{headers}).pipe(map((res:any)=>{
+      return res
+    }))
+
+  }
 
 
 
