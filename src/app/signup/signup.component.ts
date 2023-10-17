@@ -70,7 +70,7 @@ signUp(){
   
   this.codeService.createUser(userData,headers).subscribe((res:any)=>{
     console.log(res);
-    this.router.navigate(['/startCodeReviewTracker'])
+    this.router.navigate(['/header/startCodeReviewTracker'])
 
   })
   

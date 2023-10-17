@@ -167,7 +167,7 @@ export class UserManagementComponent implements OnInit {
  
 
   createUser(){
-    this.router.navigate(['/signup'])
+    this.router.navigate(['header/signup'])
   }
 }
 

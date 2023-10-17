@@ -4,7 +4,13 @@
 <ul class="menu" *ngIf="userRole=='admin'">
 <li><a routerLink="/header/startCodeReviewTracker"  href="">Dashboard</a></li>
 <li><a routerLink="/header/user-management" href="">User management</a></li>
-<li><a routerLink="/header/codereview-managment" href="">Code Review Management</a></li>
+<li><a mat-button [matMenuTriggerFor]="menu" routerLink="/header/codereview-managment" href="">Code Review Management</a></li>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/header/codereview-managment">Create New Checklist</button>
+  <button mat-menu-item routerLink="/header/technical-stack">Technical Stack</button>
+</mat-menu>
+
 </ul>
 
 

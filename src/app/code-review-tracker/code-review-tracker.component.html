@@ -88,7 +88,7 @@
                  </div>
                 </div>
               </div>
-              <div *ngIf="isActiveChildCOmments[i]">
+              <div *ngIf="isActiveChildCOmments[i]" class="comments-box">
               <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"   formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
 
               </div>
@@ -134,7 +134,7 @@
                     
 
                      </div>
-                     <div *ngIf=" isActiveComments[[i][j]]"   >
+                     <div *ngIf=" isActiveComments[[i][j]]" class="comments-box"   >
                      <!-- <div *ngIf=" isActiveComments[j]"   > -->
 
                                         
