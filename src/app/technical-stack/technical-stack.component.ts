@@ -5,6 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpHeaders } from '@angular/common/http';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -17,9 +18,10 @@ export class TechnicalStackComponent {
 
   auth_token=''
   usersList:any
+  technologiesForm:any=FormGroup
   isLoaderActive:boolean=false
 
-  constructor(private router:Router,private codeService:CodeReviewService){}
+  constructor(private router:Router,private codeService:CodeReviewService,private fb:FormBuilder){}
 
 
   // displayedColumns: string[] = ['firstname', 'lastname', 'contact', 'email', 'status', 'action'];
@@ -30,17 +32,20 @@ export class TechnicalStackComponent {
   @ViewChild(MatPaginator) paginator: any=MatPaginator;
 
   ngOnInit(){
+    this.technologiesForm=this.fb.group({
+      'name':new FormControl('',Validators.required)
+    })
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
-    this.getUsersList()
+    this.getTechnologyList()
 
   }
 
-  getUsersList(){
+  getTechnologyList(){
     this.isLoaderActive=true
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-    this.codeService.getUSersList(headers).subscribe((res:any)=>{
+    this.codeService.getTechnologyDetails(headers).subscribe((res:any)=>{
       this.isLoaderActive=false
       console.log(res);
       this.usersList=res.data
@@ -51,6 +56,25 @@ export class TechnicalStackComponent {
 
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
+  }
+
+  addTechnology(){
+    console.log(this.technologiesForm.value);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    let tech=
+    {
+      "technicalStackId": "649077e32c2bcc35b8343b90",
+      "name": "Vue"
+  }
+    this.codeService.addTechnologyDetails(tech,headers).subscribe((res:any)=>{
+      console.log(res);
+      this.getTechnologyList()
+      
+    })
+    
+    
   }
 
   createUser(){

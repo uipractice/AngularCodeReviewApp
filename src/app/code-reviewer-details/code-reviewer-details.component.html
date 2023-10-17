@@ -5,7 +5,7 @@
         <div class="table-button details-main top-heading">
           <div><h1 style="font-size: 1.25rem;">Code Review Project Details</h1>
              <ul class="pagination">
-            <li><a routerLink="/startCodeReviewTracker">Dashboard</a></li>
+            <li><a  routerLink="/header/startCodeReviewTracker">Dashboard</a></li>
             <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
             <li>Create New Project</li>
           </ul>
@@ -41,7 +41,7 @@
                       <div class="mb-3 col-md-4 col-sm-12">
                         <label for="storyId" class="form-label">Technology <span class="red-dot"></span></label>
 
-                      <mat-select (selectionChange)="onSelectTechnology($event.value)" [(ngModel)]="technology" class="form-control"
+                      <mat-select (selectionChange)="onSelectTechnology($event.value)"  class="form-control"
                       formControlName="technology"  >
                         <mat-option *ngFor="let technology of technologyList" [value]="technology" >
                           {{technology.name}}

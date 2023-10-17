@@ -40,6 +40,9 @@ export class CodeReviewTrackerComponent implements OnInit {
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
+   
+
+
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     this.projectDetails=JSON.parse(localStorage.getItem('projectDetails')||'{}')
     
@@ -114,7 +117,7 @@ export class CodeReviewTrackerComponent implements OnInit {
               rating:new FormControl(subChild.rating),
 
               achievedRating:new FormControl(subChild.achievedRating),
-              comments:new FormControl(subChild.comments)
+              comments:new FormControl(subChild.comments )
             })
 
 
@@ -210,15 +213,15 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   console.log('summary array',this.summaryArray);
-  // let saveJson={
-  //   "data":[this.reviewTrackerForm.value],
-  //   "detailsId":this.projectDetails.technologiesId
-  // }
+  let saveJson={
+    "data":[this.reviewTrackerForm.value],
+    "detailsId":this.projectDetails.technologiesId
+  }
 
-  // this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
-  //   console.log('submitted',res);
+  this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
+    console.log('submitted',res);
     
-  // })
+  })
  
   
    

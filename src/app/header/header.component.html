@@ -2,18 +2,13 @@
 <a routerLink="/startCodeReviewTracker" class="logo"><img title="Logo" alt="log" src="../assets/Evoke_logo.png"></a>
 
 <ul class="menu" *ngIf="userRole=='admin'">
-<li><a routerLink="/startCodeReviewTracker"  href="">Dashboard</a></li>
-<li><a routerLink="/user-management" href="">User management</a></li>
-<li><a routerLink="/codereview-managment" href="">Code Review Management</a></li>
+<li><a routerLink="/header/startCodeReviewTracker"  href="">Dashboard</a></li>
+<li><a routerLink="/header/user-management" href="">User management</a></li>
+<li><a routerLink="/header/codereview-managment" href="">Code Review Management</a></li>
 </ul>
 
-<!-- <ul class="menu">
-  <li><a href="" *ngIf="userRole=='admin'">Dashboard</a></li>
-  <li><a href="" *ngIf="userRole=='admin'">User management</a></li>
-  <li><a href="" *ngIf="userRole=='admin'">Code Review Management</a></li>
-  </ul> -->
 
-<div class="right" *ngIf="userDetails.firstName">
+<div class="right" *ngIf="userDetails">
   <button mat-button [matMenuTriggerFor]="menu" >
     <span class="white">  {{userName}}</span>
     <span>{{technologies}}</span>
@@ -28,26 +23,4 @@
 
 </div>
 </header>
-
-<!--
-<mat-toolbar color="primary">
-  <div fxHide.gt-xs>
-      <button mat-icon-button (click)="onToggleSidenav()">
-          <mat-icon>menu</mat-icon>
-      </button>
-  </div>
-  <div>
-      <a routerLink="/home">Owner-Account</a>
-  </div>
-  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-      <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-          <li>
-              <a routerLink="/owner">Owner Actions</a>
-          </li>
-          <li>
-              <a routerLink="/account">Account Actions</a>
-          </li>
-      </ul>
-  </div>
-</mat-toolbar>
--->
+<router-outlet></router-outlet>
