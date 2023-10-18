@@ -36,11 +36,10 @@
 
         <div *ngIf="!isLoaderActive" >
           <h2 class="heading">{{selectelTabCheckList?.key}} Checklist</h2>
-          <span class="info-message"> <img src="../assets/icons-info.svg" alt="icons" title="light"> Please save your details</span>
+          <span class="info-message"> <img src="../assets/icons-info.svg" alt="icons" title="light">Please save your details.</span>
       <div formArrayName="value">
         <div  *ngFor="let list of reviewTrackerForm.get('value')['controls'];let i=index" [formGroupName]="i" >
               <div class="heading-grey"><h4  class="top-20"  > {{selectelTabCheckList.value[i]?.key}} </h4>
-  
                 <div class="box--right">
                 <div class="selection select-dropdown" *ngIf="selectelTabCheckList.value[i]?.options==''">
                   <mat-label>Applicable <span class="line-top"></span></mat-label>
@@ -49,42 +48,42 @@
                         <mat-option value="" >Select</mat-option>
                         <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                       </mat-select>
-  
+
                     </mat-form-field>
                   </div>
-  
+
                   <div class="rating select-dropdown" *ngIf="selectelTabCheckList.value[i]?.rating==''" >
-  
+
                    <mat-label>Rating <span class="line-top rating-line"></span></mat-label>
                    <mat-form-field class="example-full-width">
                     <input matInput type="number" [readonly]="true"  formControlName="rating" >
-  
+
                   </mat-form-field>
-  
-  
+
+
                  </div>
-  
-  
+
+
                   <div class="rating-number" *ngIf="selectelTabCheckList.value[i]?.achievedRating==''" >
-  
+
                    <div class="rating select-dropdown"  >
                     <mat-label>Achieved <span class="line-top achieved-line"></span></mat-label>
                     <mat-form-field class="example-full-width">
                     <input type="number"  matInput [readonly]=" isChildReadOnly(i)"  formControlName="achievedRating" >
                    </mat-form-field>
-  
-  
+
+
                   </div>
-  
-  
+
+
                  </div>
-  
-  
-  
+
+
+
                 <div *ngIf="selectelTabCheckList.value[i]?.comments==''">
                   <div class="Comment" (click)="openChildComments(i)"     >
                     <img src="../assets/comment_light.svg">
-  
+
                  </div>
                 </div>
               </div>
@@ -92,9 +91,9 @@
               <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"   formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
 
               </div>
-  
+
             </div>
-  
+
               <div *ngIf="selectelTabCheckList.value[i]?.value">
                 <div formArrayName="value" class="list-sub">
                   <div class="quality" *ngFor="let subChild of list.get('value')['controls'];let j=index" [formGroupName]="j">
@@ -109,9 +108,9 @@
                               <mat-option value="" >Select</mat-option>
                               <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{opt}}</mat-option>
                             </mat-select>
-  
-  
-  
+
+
+
                           </mat-form-field>
                         </div>
                         <div class="rating select-dropdown">
@@ -126,30 +125,30 @@
                           <mat-form-field class="example-full-width">
                             <input matInput type="number" [readonly]="isSubChildReadOnly(j,i)"    formControlName="achievedRating" >
                           </mat-form-field>
-  
+
                         </div>
                        </div>
                       <div class="Comment" (click)=" openSubChildComments(j,i)"  ><img src="../assets/comment_light.svg">
                      </div>
-                    
+
 
                      </div>
                      <div *ngIf=" isActiveComments[[i][j]]"   >
                      <!-- <div *ngIf=" isActiveComments[j]"   > -->
 
-                                        
+
                       <textarea class="full-textarea"  placeholder="Enter your comments here" formControlName="comments"  rows="4" cols="50" ></textarea>
 
                       </div>
 
-                     
-  
+
+
                 </div>
               </div>
-  
+
         </div>
         <div class="table-button flex-center top-5">
-  
+
           </div>
           </div>
          <div class="table-button flex-center top-20 bottom-100">
@@ -157,7 +156,7 @@
           </div>
         </div>
         </div>
-      
+
 
 
 
