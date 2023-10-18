@@ -84,6 +84,7 @@ export class CodeReviewerDetailsComponent implements OnInit {
     })
     }
     this.getTechnicalStackDetails()
+    
 
 
 
@@ -106,7 +107,10 @@ codeReviewerForm=new FormGroup({
 })
 
 getBackDetails(){
-  this.router.navigate(['/startCodeReviewTracker'])
+  this.router.navigate(['header/startCodeReviewTracker'])
+}
+onNavigateDashboard(){
+  this.router.navigate(['header/startCodeReviewTracker'])
 }
 
 

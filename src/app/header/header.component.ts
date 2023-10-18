@@ -18,26 +18,36 @@ export class HeaderComponent {
   userRole: any;
   auth_token: any;
   technologies: any;
+  interval:any
+
   
 
   constructor(private codeService:CodeReviewService, private router:Router) {}
 
   ngOnInit(): void {
-    console.log('userdetails',this.userDetails);
-    
+    console.log('userdetails',this.userDetails);  
+    setInterval(()=>{
+
+    this.interval=  this.getUserDetails()
+    },1000)
+  }
+
+ 
+
+  getUserDetails(){
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     this.userDetails=JSON.parse(localStorage.getItem('user Details')||'{}')
   
+  
     this.userName=this.userDetails.firstName
     this.userRole=this.userDetails.role
-    console.log('username',this.userName,'userRole',this.userRole);
-    
   }
   
 
 logout() {
   localStorage.clear()
   this.router.navigate(['/login']);
+ 
 }
 
 }

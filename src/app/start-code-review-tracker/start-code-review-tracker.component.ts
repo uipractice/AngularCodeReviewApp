@@ -25,11 +25,8 @@ deleteValue:any
     private dialog:MatDialog){}
 
   ngOnInit(): void {
-    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
-   
-   
   
-
+    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     this.onGetReviewDetails()
 
   }
@@ -92,12 +89,12 @@ deleteValue:any
     localStorage.setItem('projectDetails',JSON.stringify(rowData))
 
 
-    this.router.navigate(['/codeReviewTracker',rowData._id,rowData.status])
+    this.router.navigate(['header/codeReviewTracker',rowData._id,rowData.status])
 
   }
 
   gettingStarted(){
-    this.router.navigate(['/codeReviewerDetails'])
+    this.router.navigate(['header/codeReviewerDetails'])
   }
 
  

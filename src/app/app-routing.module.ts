@@ -14,19 +14,42 @@ import { CodereviewManagementComponent } from './codereview-management/coderevie
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'login',pathMatch:'full'},
-  {path:'userManagement',component:UserManagementComponent},
-  {path:'startCodeReviewTracker',component:StartCodeReviewTrackerComponent},
-  {path:'adminUserList',component:AdminUserListComponent},
-  {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
-  {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
-  {path:'codeReviewTracker/:id/:status',component:CodeReviewTrackerComponent},
-  {path:'login',component:LoginComponent},
-  {path:'signup', component:SignupComponent},
-  {path:'user-management', component:UserManagementComponent},
-  {path:'create-checklist', component:CreateChecklistComponent},
-  {path:'codereview-managment', component:CodereviewManagementComponent},
-  {path:'technical-stack', component:TechnicalStackComponent}
+  // {path:'',redirectTo:'login',pathMatch:'full'},
+  // {path:'login',component:LoginComponent},
+  // {path:'userManagement',component:UserManagementComponent},
+  // {path:'startCodeReviewTracker',component:StartCodeReviewTrackerComponent},
+  // {path:'adminUserList',component:AdminUserListComponent},
+  // {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
+  // {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
+  // {path:'codeReviewTracker/:id/:status',component:CodeReviewTrackerComponent},
+  // {path:'signup', component:SignupComponent},
+  // {path:'user-management', component:UserManagementComponent},
+  // {path:'create-checklist', component:CreateChecklistComponent},
+  // {path:'codereview-managment', component:CodereviewManagementComponent},
+  // {path:'technical-stack', component:TechnicalStackComponent},
+  // {path:'header',component:HeaderComponent}
+
+  //-------------------------------------------------------------------------//
+
+   {path:'',redirectTo:'login',pathMatch:'full'},
+   {path:'login',component:LoginComponent},
+   {path:'header',component:HeaderComponent, children:[
+     {path:'',redirectTo:'startCodeReviewTracker',pathMatch:'full'},
+    {path:'userManagement',component:UserManagementComponent},
+    {path:'startCodeReviewTracker',component:StartCodeReviewTrackerComponent},
+    {path:'adminUserList',component:AdminUserListComponent},
+    {path:'codeReviewerDetails',component:CodeReviewerDetailsComponent,},
+    {path:'codeReviewerDetails/:id/:status',component:CodeReviewerDetailsComponent,},
+    {path:'codeReviewTracker/:id/:status',component:CodeReviewTrackerComponent},
+    {path:'signup', component:SignupComponent},
+    {path:'user-management', component:UserManagementComponent},
+    {path:'create-checklist', component:CreateChecklistComponent},
+    {path:'codereview-managment', component:CodereviewManagementComponent},
+    {path:'technical-stack', component:TechnicalStackComponent},
+
+   ]}
+
+
 
  
 

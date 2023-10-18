@@ -10,9 +10,9 @@
       <div class="table-button details-main top-heading top-page" style="border: 0px solid red;">
         <div><h1>{{projectDetails.project|titlecase }} <span style="font-size: 15px;">({{projectDetails.technologies.name|lowercase}})</span> </h1>
           <ul class="pagination">
-          <li><a routerLink="/startCodeReviewTracker" >Dashboard</a></li>
+          <li><a routerLink="/header/startCodeReviewTracker" >Dashboard</a></li>
           <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-          <li><a routerLink="/codeReviewerDetails" > Create New Project</a></li>
+          <li><a routerLink="/header/codeReviewerDetails" > Create New Project</a></li>
           <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
           <li>Code Review</li>
         </ul>
@@ -87,7 +87,7 @@
                  </div>
                 </div>
               </div>
-              <div *ngIf="isActiveChildCOmments[i]">
+              <div *ngIf="isActiveChildCOmments[i]" class="comments-box">
               <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"   formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
 
               </div>
@@ -133,7 +133,7 @@
 
 
                      </div>
-                     <div *ngIf=" isActiveComments[[i][j]]"   >
+                     <div *ngIf=" isActiveComments[[i][j]]" class="comments-box"   >
                      <!-- <div *ngIf=" isActiveComments[j]"   > -->
 
 

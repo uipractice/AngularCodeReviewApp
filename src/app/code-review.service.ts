@@ -65,6 +65,9 @@ projectDetails=new Subject()
   getTechnologyDetails(headers:any){
     return this.http.get(`${this.baseUrl}/technologies`,{headers})
   }
+  addTechnologyDetails(headers:any,data:any){
+    return this.http.put(`${this.baseUrl}/technologies`,data,{headers})
+  }
   getSelectedReviewDetails(data:any,headers:any){
     return this.http.get(`${this.baseUrl}/details?detailsId=${data}`,{headers})
   }
