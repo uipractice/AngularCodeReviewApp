@@ -33,6 +33,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FooterComponent } from './footer/footer.component';
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
+import { ChecklistDetailsComponent } from './checklist-details/checklist-details.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { TechnicalStackComponent } from './technical-stack/technical-stack.compo
     CodereviewManagementComponent,
     AddCommentsComponent,
     FooterComponent,
-    TechnicalStackComponent
+    TechnicalStackComponent,
+    ChecklistDetailsComponent
 
 
 
