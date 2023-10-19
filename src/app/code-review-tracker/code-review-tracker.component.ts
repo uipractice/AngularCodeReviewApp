@@ -23,8 +23,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDisableSubmit:boolean=false
   isActiveChildCOmments:boolean[]=[false]
   isActiveComments:boolean[]=[false,false]
-  // isActiveComments:boolean[]=[false]
-
+  reviewStatus:string=''  
   disableSave:boolean=false
   showSummary:boolean=false
   summaryArray:any[]=[]
@@ -41,14 +40,13 @@ export class CodeReviewTrackerComponent implements OnInit {
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
    
-
-
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     this.projectDetails=JSON.parse(localStorage.getItem('projectDetails')||'{}')
-    
-
-    
-
+    this.activatedRoute.paramMap.subscribe((res:any)=>{
+      console.log(res.params.status);
+      this.reviewStatus=res.params.status
+      
+    })
     this.buildReactiveForm()
     this.getSideNavData(this.projectDetails.technicalStackId,this.projectDetails.technologiesId)
 
