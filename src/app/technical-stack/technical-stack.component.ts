@@ -71,10 +71,10 @@ export class TechnicalStackComponent {
     this.codeService.addTechnologyDetails(tech,headers).subscribe((res:any)=>{
       console.log(res);
       this.getTechnologyList()
-      
+
     })
-    
-    
+
+
   }
 
   createUser(){

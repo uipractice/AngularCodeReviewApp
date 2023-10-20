@@ -32,7 +32,7 @@ export class UserManagementComponent implements OnInit {
   ngOnInit(){
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     this.getUsersList()
-   
+
   }
 
   getUsersList(){
@@ -53,9 +53,9 @@ export class UserManagementComponent implements OnInit {
        else if(this.dataSource[i].role=='user'){
         this.isUser=true
        }
-        
+
       }
-      
+
     })
   }
 
@@ -67,9 +67,9 @@ export class UserManagementComponent implements OnInit {
     else if(element.role=='user'){
       return true
     }
-    
+
     return
-    
+
   }
 
   getStatus(element:any){
@@ -82,7 +82,7 @@ export class UserManagementComponent implements OnInit {
       return false
 
     }
-    return 
+    return
 
   }
 
@@ -104,12 +104,12 @@ export class UserManagementComponent implements OnInit {
     this.codeService.updatetUsersList(userData,headers).subscribe((res:any)=>{
       console.log(res);
       this.getUsersList()
-      
+
     })
     }
     else{
       console.log('admin');
-      
+
       let userData= {
         "_id": element._id,
         "firstName": element.firstName,
@@ -121,11 +121,11 @@ export class UserManagementComponent implements OnInit {
     this.codeService.updatetUsersList(userData,headers).subscribe((res:any)=>{
       console.log(res);
       this.getUsersList()
-      
+
     })
-    
+
     }
-  
+
   }
   updateActiveStatus(element:any,value:any){
     const headers = new HttpHeaders({
@@ -157,18 +157,20 @@ export class UserManagementComponent implements OnInit {
     this.codeService.updatetUsersList(userData,headers).subscribe((res:any)=>{
       console.log(res);
       this.getUsersList()
-      
+
     })
 
     }
   }
- 
 
- 
+
+
 
   createUser(){
     this.router.navigate(['header/signup'])
   }
+
+
 }
 
 export interface PeriodicElement {

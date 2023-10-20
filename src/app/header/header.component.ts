@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Input, Renderer2 } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -20,34 +20,43 @@ export class HeaderComponent {
   technologies: any;
   interval:any
 
-  
+  @Input('class')
+  klass: string | undefined
+
+  @Input()
+  ngClass: string | string[] | Set<string> | { [klass: string]: any; } | undefined
+
 
   constructor(private codeService:CodeReviewService, private router:Router) {}
 
   ngOnInit(): void {
-    console.log('userdetails',this.userDetails);  
+    console.log('userdetails',this.userDetails);
     setInterval(()=>{
 
     this.interval=  this.getUserDetails()
     },1000)
+
+
+
   }
 
- 
+
 
   getUserDetails(){
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     this.userDetails=JSON.parse(localStorage.getItem('user Details')||'{}')
-  
-  
+
+
     this.userName=this.userDetails.firstName
     this.userRole=this.userDetails.role
   }
-  
+
 
 logout() {
   localStorage.clear()
   this.router.navigate(['/login']);
- 
+
 }
+
 
 }

@@ -2,11 +2,11 @@
 <a routerLink="/startCodeReviewTracker" class="logo"><img title="Logo" alt="log" src="../assets/Evoke_logo.png"></a>
 
 <ul class="menu" *ngIf="userRole=='admin'">
-<li><a routerLink="/header/startCodeReviewTracker"  href="">Dashboard</a></li>
-<li><a routerLink="/header/user-management" href="">User management</a></li>
-<li><a mat-button [matMenuTriggerFor]="menu" routerLink="/header/codereview-managment" href="">Code Review Management</a></li>
+<li><a  [className]="'active'" class="list" routerLink="/header/startCodeReviewTracker"  href="">Dashboard</a></li>
+<li><a  [className]="'active'" class="list" routerLink="/header/user-management" href="">User management</a></li>
+<li><a  [className]="'active'" class="list" mat-button [matMenuTriggerFor]="menu" routerLink="/header/codereview-managment" href="">Code Review Management <img src="../assets/Expand_down.svg" height="16" alt="Expand" title="Expand down"></a></li>
 
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" class="menu-drop">
   <button mat-menu-item routerLink="/header/codereview-managment">Create New Checklist</button>
   <button mat-menu-item routerLink="/header/technical-stack">Technical Stack</button>
 </mat-menu>
@@ -22,7 +22,7 @@
     <img  src="../assets/Expand_down.svg" alt="Expand" title="Expand down">
   </button>
 
-  <mat-menu #menu="matMenu">
+  <mat-menu #menu="matMenu" class="logout">
     <button mat-menu-item (click)="logout()">Logout</button>
   </mat-menu>
 

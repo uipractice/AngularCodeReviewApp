@@ -7,7 +7,7 @@ a:hover, a:active{
   color: lightgray;
 }
 
-.navigation-items{
+.navigation-items {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -24,8 +24,28 @@ mat-toolbar{
 }
 
 .menu li {
-  padding:5px 10px;
   margin-bottom:0px;
+  padding-top: 4px;
+}
+.menu li a {
+  padding: 26px 10px 25px 10px;
+  margin-bottom: 0px;
+  color: #64818F;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family:'Lato', sans-serif !important;
+}
+.menu li a:hover{
+  background:#219EBC;
+  color:#fff;
+}
+.mat-mdc-button {
+  height:auto!important;
+  color:#fff;
+}
+.menu-drop {
+border:0px;
 }
 @media(max-width: 959px){
   mat-toolbar {
