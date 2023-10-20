@@ -31,7 +31,7 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     console.log('userdetails',this.userDetails);
-    setInterval(()=>{
+    setTimeout(()=>{
 
     this.interval=  this.getUserDetails()
     },1000)
@@ -49,6 +49,8 @@ export class HeaderComponent {
 
     this.userName=this.userDetails.firstName
     this.userRole=this.userDetails.role
+    console.log('user');
+
   }
 
 
