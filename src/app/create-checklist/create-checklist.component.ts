@@ -44,6 +44,6 @@ export class CreateChecklistComponent implements OnInit {
   }
 
   navigateToAdminPage() {
-    this.router.navigate(['/checklist-details'])
+    this.router.navigate(['/header/checklist-details'])
   }
 }
