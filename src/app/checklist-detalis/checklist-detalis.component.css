@@ -1,0 +1,193 @@
+.details-body {
+  height: 75%;
+}
+
+.details-body .container {
+  height: 100%!important;
+}
+
+.details-body .left-content ul {
+  line-height: 3;
+  margin-left: -30px;
+  width: 270px;
+  cursor: pointer;
+}
+
+.details-body .left-content {
+  border-right: 1px solid antiquewhite;
+}
+
+.details-body .left-content ul li {
+  width: 273px;
+}
+
+.details-body .left-content ul li:first-child a {
+  color: #003B5C;
+  font-weight: 800;
+  margin-left: 22px;
+}
+
+.details-body .left-content ul li a {
+  text-decoration: none;
+  color: #2C3336;
+  margin-left: 22px;
+}
+
+.details-body .left-content ul li:first-child {
+  background-color:#EBF6FD;
+}
+
+.details-body .left-content ul li:hover {
+  background-color: #EBF6FD;
+}
+
+.details-body .row-heading {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 0px 22px 22px;
+}
+
+.details-body .right-content1 {
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.details-body .btn-delete {
+  width: 164px;
+  height: 38px;
+  border-radius: 4px;
+  font-style: normal;
+}
+
+.details-body .btn-main-question {
+  width: 171px;
+  height: 38px;
+  border-radius: 4px;
+  font-style: normal;
+  margin-right: 0px!important;
+}
+
+.details-body .question-content {
+  color: #000;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  margin: 0px 0px 0px 22px;
+}
+
+.details-body .sub-question-content {
+  margin: 0px 0px 0px 22px;
+}
+
+.details-body .main-question {
+  width: 100%;
+  height: 84px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: #F8F8F8;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.details-body .sub-question {
+  width: 100%;
+  height: 64px;
+  color: #212121;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed #CBCBCB;
+}
+
+.details-body .row-content .sub-question:nth-child(3)  {
+  margin-top: -14px;
+}
+
+.details-body .edit-btn {
+  margin: 0px 22px 0px 22px;
+  cursor: pointer;
+}
+
+.details-body .delete-btn {
+  cursor: pointer;
+}
+
+/* ************************* */
+
+.details-body {
+  padding: 0px 22px 0px 22px;
+}
+
+.details-heading .btn-blue {
+  height: 38px;
+}
+
+.btn-add {
+  width: 273px;
+}
+
+::placeholder {
+  color: rgba(163, 163, 163, 0.87)!important;
+  font-weight: 400!important;
+}
+
+.details-heading {
+  padding: 76px 22px 22px 22px;
+}
+
+.checklist-details-box .form-control {
+  border-radius: 4px;
+  border: 1px solid #C1C1C1;
+  height: 53px;
+  padding: 12px 10px;
+  font-weight: 700;
+  color:#000;
+  margin-bottom: 16px;
+  background: #fff !important;
+}
+
+.checklist-details-box .form-label {
+  color: rgba(0, 0, 0, 0.60);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0.15px;
+  position: absolute;
+  top: -11px;
+  margin-left:16px;
+  background: #fff;
+  display: inline-block;
+  padding:4.5px 14px 5px 6px;
+}
+
+.checklist-details-box .form-control {
+  width: 273px!important;
+}
+
+.checklist-details-box  .mb-3 {
+  position: relative;
+}
+
+.checklist-details-box textarea {
+  border-radius: 4px;
+  border: 1px solid #C1C1C1;
+  padding: 12px 10px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  width:100%;
+}
+
+.checklist-details {
+  padding: 17px 0px 0px 0px;
+}
