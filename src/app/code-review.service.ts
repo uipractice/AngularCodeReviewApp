@@ -66,7 +66,7 @@ projectDetails=new Subject()
     return this.http.get(`${this.baseUrl}/technologies`,{headers})
   }
   addTechnologyDetails(headers:any,data:any){
-    return this.http.put(`${this.baseUrl}/technologies`,data,{headers})
+    return this.http.post(`${this.baseUrl}/technologies`,data,{headers})
   }
   getSelectedReviewDetails(data:any,headers:any){
     return this.http.get(`${this.baseUrl}/details?detailsId=${data}`,{headers})
@@ -88,8 +88,8 @@ projectDetails=new Subject()
   saveCheckListData(data:any,headers:any){
     return this.http.post(`${this.baseUrl}/checklist`,data,{headers})
   }
-  getSavedCheckListData(headers:any,detailsId:any){
-    return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}`,{headers})
+  getSavedCheckListData(headers:any,detailsId:any,key:any){
+    return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}&key=${key}`,{headers})
   }
 
   createUser(data:any,headers:any){
