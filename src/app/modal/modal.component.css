@@ -11,7 +11,6 @@ cr-modal {
       /* z-index must be higher than everything else on the page */
       z-index: 10000;
       background-color: rgba(0, 0, 0, .75);
-      padding: 240px;
       overflow: auto;
       display: flex;
       justify-content: center;
