@@ -28,7 +28,7 @@ cr-modal {
   width: 450px;
 }
 
-.cr-modal-open .add-main-question .cr-modal-body {
+.cr-modal-open .add-question-popup .cr-modal-body {
   width: 750px;
 }
 

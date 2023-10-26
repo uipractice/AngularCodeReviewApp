@@ -191,21 +191,21 @@
 }
 
 /****************************** Add Main Question Popup CSS **********************************************/
-.add-main-question .button-all {
+.add-question-popup .button-all {
   padding: 7px 21px;
 }
 
-.add-main-question {
+.add-question-popup {
   min-width: 600px !important;
   width: 100%;
 }
 
-.add-main-question .main-question-box {
+.add-question-popup .main-question-box {
   margin-top: 40px;
   position: relative;
 }
 
-.add-main-question .comment-question {
+.add-question-popup .comment-question {
   margin-bottom: 25px;
 }
 
@@ -236,13 +236,13 @@
   padding:4.5px 14px 5px 6px;
 }
 
-.add-main-question .close {
-  position: absolute;
-  right: 430px;
-  top: 260px;
+.add-question-popup .checklist-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.add-main-question hr {
+.add-question-popup hr {
   width: 750px;
   margin-left: -20px;
 }
@@ -252,8 +252,8 @@
   padding: 7px 21px;
 }
 
-.delete-popup .close {
-  position: absolute;
-  right: 590px;
-  top: 357px;
+.delete-popup .checklist-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
