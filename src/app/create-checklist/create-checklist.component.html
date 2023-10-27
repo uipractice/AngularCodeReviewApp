@@ -36,34 +36,34 @@
   <div class="container">
 
 
-        <div class="table-button details-main top-heading">
-          <div><h1 style="font-size: 1.25rem;">Create New Checklist</h1>
-          <ul class="pagination">
-            <li><a href="">Dashboard</a></li>
-            <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-            <li><a href="">Code Review Management</a></li>
-            <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-            <li>Create New Checklist</li>
-          </ul>
-        </div>
+    <div class="table-button details-main top-heading">
+      <div>
+        <h1 style="font-size: 1.25rem;">Create New Checklist</h1>
+        <ul class="pagination">
+          <li><a href="">Dashboard</a></li>
+          <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+          <li><a href="">Code Review Management</a></li>
+          <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+          <li>Create New Checklist</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="details-main">
+      <form class="row details-box Project-details">
+
+        <div class=" d-flex justify-content-center" [formGroup]="technologyForm">
+          <div class="mb-3 col-md-4 col-sm-12">
+            <label for="storyId" class="form-label">Technology Name <span class="red-dot"></span></label>
+            <mat-select class="form-control" formControlName="technology">
+              <mat-option [value]="tech.name" *ngFor="let tech of technologies">
+                {{tech.name}}
+              </mat-option>
+            </mat-select>
           </div>
+        </div>
 
-<div class="details-main">
-        <form class="row details-box Project-details">
-
-          <div class=" d-flex justify-content-center" [formGroup]="technologyForm">
-                    <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="storyId" class="form-label">Technology Name <span class="red-dot"></span></label>
-                      <mat-select class="form-control" 
-                      formControlName="technology"  >
-                        <mat-option [value]="tech.name" *ngFor="let tech of technologies">
-                          {{tech.name}}
-                        </mat-option>
-                      </mat-select>
-                      </div>
-                    </div>
-
-                    <!-- <div class="col-md-12 d-flex justify-content-center">
+        <!-- <div class="col-md-12 d-flex justify-content-center">
                       <div class="mb-3 col-md-4 col-sm-12 ">
                         <label for="storyId" class="form-label">Technical Stack <span class="red-dot"></span></label>
                       <mat-select class="form-control"
@@ -80,21 +80,22 @@
 
 
 
-                      <div class="table-button flex-center">
+        <div class="table-button flex-center">
 
 
-                        <div class="center">
-                          <button class="button-all btn-outline mg-0" (click)="cancelTechCreation()">Cancel</button>
-                          <button class="button-all btn-blue mg-0" [disabled]="technologyForm.invalid">Create New</button>
-                        </div>
+          <div class="center">
+            <button class="button-all btn-outline mg-0" (click)="cancelTechCreation()">Cancel</button>
+            <button class="button-all btn-blue mg-0" [disabled]="technologyForm.invalid"
+              (click)="navigateToAdminPage()">Create New</button>
+          </div>
 
 
 
 
-                    </div>
-                </form>
+        </div>
+      </form>
 
 
-   </div>
-</div>
+    </div>
+  </div>
 </div>

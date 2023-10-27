@@ -41,6 +41,7 @@ export class TechnicalStackComponent {
   }
 
   getTechnologyList(){
+
     this.isLoaderActive=true
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
@@ -59,16 +60,17 @@ export class TechnicalStackComponent {
   }
 
   addTechnology(){
-    console.log(this.technologiesForm.value);
+    console.log(this.technologiesForm.get('name').value);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
     let tech=
     {
-      "technicalStackId": "649077e32c2bcc35b8343b90",
-      "name": "Vue"
+      
+      "name": this.technologiesForm.get('name').value,
+      "isSonar":false
   }
-    this.codeService.addTechnologyDetails(tech,headers).subscribe((res:any)=>{
+    this.codeService.addTechnologyDetails(headers,tech).subscribe((res:any)=>{
       console.log(res);
       this.getTechnologyList()
 

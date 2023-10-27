@@ -162,67 +162,7 @@ console.log(techObj);
 }
 
 
-save(){
 
-  if(this.status=='pending'){
-    let data={
-      "_id":this.id,
-      "account": this.codeReviewerForm.get('account')?.value,
-      "project": this.codeReviewerForm.get('project')?.value,
-      "storyId": this.codeReviewerForm.get('storyId')?.value,
-      "developers":this.codeReviewerForm.get('developers')?.value,
-      "technicalStackId":this.technicalStackId,
-      "technologiesId":this.technologiesId,
-      "projectLead":this.codeReviewerForm.get('projectLead')?.value,
-      "reviewPackagesandFiles":this.codeReviewerForm.get('reviewPackagesandFiles')?.value,
-      "reviewersName": this.codeReviewerForm.get('reviewersName')?.value,
-      "codeReviewComments":  this.codeReviewerForm.get('codeReviewComments')?.value,
-      "status":"pending"
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth_token}`
-    });
-    this.codeService.onEditDetails(data,headers).subscribe((res:any)=>{
-      if(res.success==true){
-        console.log(res)
-        this.router.navigate(['/startCodeReviewTracker'])
-      }
-    })
-
-  }
-  else{
-    let data={
-      "account": this.codeReviewerForm.get('account')?.value,
-      "project": this.codeReviewerForm.get('project')?.value,
-      "storyId": this.codeReviewerForm.get('storyId')?.value,
-      "developers":this.codeReviewerForm.get('developers')?.value,
-      "technicalStackId":this.technicalStackId,
-      "technologiesId":this.technologiesId,
-      "projectLead":this.codeReviewerForm.get('projectLead')?.value,
-      "reviewPackagesandFiles":this.codeReviewerForm.get('reviewPackagesandFiles')?.value,
-      "reviewersName": this.codeReviewerForm.get('reviewersName')?.value,
-      "codeReviewComments":  this.codeReviewerForm.get('codeReviewComments')?.value,
-      "status":"pending"
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth_token}`
-    });
-    this.codeService.postReviewDetails(data,headers).subscribe((res:any)=>{
-        console.log(res);
-        console.log(JSON.stringify(this.codeReviewerForm.value));
-      this.router.navigate(['/startCodeReviewTracker'])
-
-    })
-
-  }
-
-
-
-
-
-
-
-}
 
 submitReviewDetails(){
   console.log('submit');

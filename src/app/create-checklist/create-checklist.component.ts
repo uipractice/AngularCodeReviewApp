@@ -36,10 +36,14 @@ export class CreateChecklistComponent implements OnInit {
     this.codeService.getTechnologyDetails(headers).subscribe((res:any)=>{
       console.log(res);
       this.technologies=res.data
-      
+
     })
   }
   cancelTechCreation(){
     this.router.navigate(['/header/user-management'])
+  }
+
+  navigateToAdminPage() {
+    this.router.navigate(['/header/checklist-details'])
   }
 }

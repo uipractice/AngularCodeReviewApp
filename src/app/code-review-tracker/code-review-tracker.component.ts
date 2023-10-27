@@ -45,10 +45,11 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     this.projectDetails=JSON.parse(localStorage.getItem('projectDetails')||'{}')
-    
-
-    
-
+    this.activatedRoute.paramMap.subscribe((res:any)=>{
+      this.status=res.params['status']
+      this.detailsId=res.params['id']
+      console.log(this.status,this.detailsId)     
+    })
     this.buildReactiveForm()
     this.getSideNavData(this.projectDetails.technicalStackId,this.projectDetails.technologiesId)
 
@@ -77,59 +78,80 @@ export class CodeReviewTrackerComponent implements OnInit {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-    this.codeService.getSavedCheckListData(headers,this.projectDetails.technologiesId).subscribe((res:any)=>{
-      console.log('saved data',res);
+    this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
+       
+      if(res.success==true){
+      this.isLoaderActive=false
+  console.log('loader status',this.isLoaderActive);
+
+      console.log(res.data[0].data[0].value);
+      this.selectelTabCheckList=res.data[0].data[0]
+      this.getCheckListQuestions()
       
+     }
     })
 
-      this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
+    // this.codeService.getSavedCheckListData(headers,this.detailsId,this.reviewDetailsHeader).subscribe((res:any)=>{
+    //   console.log('saved data',res.data);
+    //   if(res.success==true){
+    //     if(res.data.length==0){
+    //       console.log('No saved data');
        
-        if(res.success==true){
-        this.isLoaderActive=false
-    console.log('loader status',this.isLoaderActive);
+          
+    //     }
+    //     else{
+    //       this.isLoaderActive=false
+    //       console.log('loader status',this.isLoaderActive);
+      
+    //           console.log(res.data[0].data[0].value);
+    //           this.selectelTabCheckList=res.data[0].data[0]
+    //           this.getCheckListQuestions()
 
-        console.log(res.data[0].data[0].value);
-        this.selectelTabCheckList=res.data[0].data[0]
+    //     }
+    //   }     
+    // })
 
-
-        const checkListChildGroupData=this.reviewTrackerForm.get('value') as FormArray
-        for(let child of this.selectelTabCheckList.value){
-          if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
-            const checkListChildGroup=new FormGroup({
-              key:new FormControl(child.key),
-              options:new FormControl(child.options),
-              rating:new FormControl(child.rating),
-              achievedRating:new FormControl(child.achievedRating),
-              comments:new FormControl(child.comments)
-            })
-            checkListChildGroupData.push(checkListChildGroup)
-          }
-          else if(child.value){
-            const checkListChildGroup=new FormGroup({
-              key:new FormControl(child.key,Validators.required),
-              value:new FormArray([])
-            })
-            const checkListsubChildGroupData=checkListChildGroup.get('value') as FormArray
-            for(let subChild of child.value ){
-            const checkListsubChildGroup=new FormGroup({
-              key:new FormControl(subChild.key),
-              options:new FormControl(subChild.options),
-              rating:new FormControl(subChild.rating),
-
-              achievedRating:new FormControl(subChild.achievedRating),
-              comments:new FormControl(subChild.comments )
-            })
-
-
-            checkListsubChildGroupData.push(checkListsubChildGroup)
-           }
-            checkListChildGroupData.push(checkListChildGroup)
-
-          }
-        }
-       }
-      })
+     
     }
+
+    getCheckListQuestions(){
+      const checkListChildGroupData=this.reviewTrackerForm.get('value') as FormArray
+      for(let child of this.selectelTabCheckList.value){
+        if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
+          const checkListChildGroup=new FormGroup({
+            key:new FormControl(child.key),
+            options:new FormControl(child.options),
+            rating:new FormControl(child.rating),
+            achievedRating:new FormControl(child.achievedRating),
+            comments:new FormControl(child.comments)
+          })
+          checkListChildGroupData.push(checkListChildGroup)
+        }
+        else if(child.value){
+          const checkListChildGroup=new FormGroup({
+            key:new FormControl(child.key,Validators.required),
+            value:new FormArray([])
+          })
+          const checkListsubChildGroupData=checkListChildGroup.get('value') as FormArray
+          for(let subChild of child.value ){
+          const checkListsubChildGroup=new FormGroup({
+            key:new FormControl(subChild.key),
+            options:new FormControl(subChild.options),
+            rating:new FormControl(subChild.rating),
+
+            achievedRating:new FormControl(subChild.achievedRating),
+            comments:new FormControl(subChild.comments )
+          })
+
+
+          checkListsubChildGroupData.push(checkListsubChildGroup)
+         }
+          checkListChildGroupData.push(checkListChildGroup)
+
+        }
+      }
+    }
+   
 
     onvalue(number:any){
       const control=this.formData.at(number).get('achievedRating')?.value
@@ -215,7 +237,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   console.log('summary array',this.summaryArray);
   let saveJson={
     "data":[this.reviewTrackerForm.value],
-    "detailsId":this.projectDetails.technologiesId
+    "detailsId":this.detailsId
   }
 
   this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
