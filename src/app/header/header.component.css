@@ -47,8 +47,14 @@ mat-toolbar{
 .menu-drop {
 border:0px;
 }
+.active {
+  background:#219EBC;
+  color:#fff!important;
+}
+
 @media(max-width: 959px){
   mat-toolbar {
       border-radius: 0px;
   }
 }
+

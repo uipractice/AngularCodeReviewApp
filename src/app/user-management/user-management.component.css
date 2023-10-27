@@ -1,0 +1,12 @@
+.user-managment button:disabled {
+border: 0px;
+background-color:inherit;
+color: #666666;
+}
+button:disabled, button[disabled] {
+background-color:inherit!important;
+}
+.menu li a.active{
+ background:#219EBC;
+ color:#fff;
+}
