@@ -7,7 +7,7 @@
         <div class="heading-text"> <h1>Empowering Code Excellence. Seamless Reviews. Stronger Code, Brighter Future.</h1></div>
 
         <div class="login-footer">
-          <p>Designed & Developed by Evoke Technologies Pvt Ltd © 2023.</p>
+          <!-- <p>Designed & Developed by Evoke Technologies Pvt Ltd © 2023.</p> -->
           <ul>
             <li>All Rights Reserved</li>
             <li>|</li>
@@ -22,7 +22,10 @@
 
       <!-- The content half -->
       <div class="col-md-6 bg-white">
+        <a href="index.html#default" class="logo m-logo"><img title="Logo" alt="log" height="35" src="../assets/Evoke_logo.png"></a>
           <div class="login d-flex align-items-center py-5">
+
+
 
               <!-- Demo content-->
               <div class="container">
@@ -30,26 +33,32 @@
                       <div class="col-lg-10 col-xl-7 mx-auto">
                           <strong class="sign-title">Sign in to your Account</strong>
 
-                          <form (submit)="onSubmit()">
+                          <form (submit)="onSubmit()" [formGroup]="loginForm">
                               <div class="form-group mb-bottom">
                                 <label class="overlay-text">Email Address</label>
-                                  <input id="inputEmail" type="email"  [(ngModel)]="email" name="username" class="form-control px-4">
+                                  <input id="inputEmail" type="email" formControlName="email"  name="username" class="form-control px-4">
                                   <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
                                 </div>
                               <div class="form-group mb-bottom">
 
                                 <label class="overlay-text">Password</label>
-                                  <input id="inputPassword"  type="password" placeholder="Password" [(ngModel)]="password" name="password" class="form-control px-4 text-primary">
+                                  <input id="inputPassword" formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password"  name="password" class="form-control px-4 text-primary">
                                   <img class="icon-login" src="../assets/Lock_light.svg" alt="Lock icon" title="Lock">
-                                  <img class="icon-view" src="../assets/View_light.svg" alt="view" title="view">
+                                  <!-- <img class="icon-view" src="../assets/View_light.svg" alt="view" title="view">-->
+
+                                  <mat-icon class="icon-view" matSuffix (click)="togglePasswordVisibility()">
+                                    {{showPassword?'visibility_off':'visibility'}}
+                                </mat-icon>
                                 </div>
-                              <button type="submit" class="full-btn blue">Login</button>
+
+                              <button type="submit"  class="full-btn blue not-allowed" [ngStyle]="loginForm.invalid?{'background':'#92c4d0'}:{'background':'#219EBC'}" [disabled]="loginForm.invalid">Login</button>
 <div class="remeber">
-                             <div class="checkbox"> <input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label></div>
-                              <a routerLink="/signup">Forgot password?</a>
+
+
 
                             </div>
                           </form>
+
                       </div>
                   </div>
               </div><!-- End -->

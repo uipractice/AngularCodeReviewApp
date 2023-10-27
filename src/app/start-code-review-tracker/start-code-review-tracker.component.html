@@ -6,7 +6,7 @@
   <button class="button-all btn-blue mg-0" (click)="gettingStarted()">Create New Project</button>
   </div>
 
- <div class="row">
+ <!-- <div class="row">
         <div class="col-md-12"> <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container matColumnDef="index">
             <th mat-header-cell *matHeaderCellDef> Sr.No </th>
@@ -62,53 +62,32 @@
         <div *ngIf="!dataSource">
           <h1>No data</h1>
         </div>
-    </div>
-<br/>
-<br/>
+    </div> -->
 
-<div class="project-name">
+<div class="project-name" *ngFor="let data of dataSource">
 <div class="project">
- <h6><span>Project Name</span>VSG Rotary Application</h6>
- <span class="green-color review-status"><img title="view page" alt="View" src="../assets/pending.svg"> Code Review Pending</span>
+ <h6><span>Project Name</span>{{data.project}}</h6>
+ <span class="green-color review-status"><img title="view page" alt="View" src="../assets/pending.svg"> Code Review {{data.status}}</span>
   <ul class="icons-view">
-    <li><img title="view page" alt="View" src="../assets/view.svg"></li>
-    <li><img title="view page" alt="View" src="../assets/comments.svg"></li>
-    <li><img title="view page" alt="View" src="../assets/export.svg"></li>
-    <li><img title="view page" alt="View" src="../assets/delete.svg"></li>
+    <li><img *ngIf="data.status=='completed'" title="export page" alt="export" src="../assets/export.svg"></li>
+    <li (click)="onViewSubmittedDetails(data)"><img title="view page" alt="View" src="../assets/File_dock_light.svg"></li>
+    <li (click)="onDeleteCompleteDetails(data)"><img title="trash" alt="Delete" src="../assets/trash-can-l.svg"></li>
+
   </ul>
 </div>
   <div class="line"></div>
   <ul class="project accounts">
-    <li>Account <strong>CSC</strong></li>
-    <li>Developers <strong>Raju Kadduri</strong></li>
-    <li>Reviewer <strong>Sowjanya / Himanshu</strong></li>
-    <li>Date <strong>14/07/2023</strong></li>
-    <li>Comments <strong>Partial code execution pending.</strong></li>
+    <li>Account <strong>{{data.account}}</strong></li>
+    <li>Developers <strong>{{data.developers}}</strong></li>
+    <li>Reviewer <strong>{{data.reviewersName}}</strong></li>
+    <li>Date <strong>{{data.createdDate}}</strong></li>
+    <li>Comments <strong>{{data.codeReviewComments}}</strong></li>
   </ul>
 </div>
 
 
 
-<div class="project-name">
-  <div class="project">
-   <h6><span>Project Name</span>Domain Transfer</h6>
-   <strong class="green-color review-status"><img title="view page" alt="View" src="../assets/completed.svg"> Code Review Completed</strong>
-    <ul class="icons-view">
-      <li><img title="view page" alt="View" src="../assets/view.svg"></li>
-      <li><img title="view page" alt="View" src="../assets/comments.svg"></li>
-      <li><img title="view page" alt="View" src="../assets/export.svg"></li>
-      <li><img title="view page" alt="View" src="../assets/delete.svg"></li>
-    </ul>
-  </div>
-    <div class="line"></div>
-    <ul class="project accounts">
-      <li>Account <strong>CSC</strong></li>
-      <li>Developers <strong>Raju Kadduri</strong></li>
-      <li>Reviewer <strong>Sowjanya / Himanshu</strong></li>
-      <li>Date <strong>14/07/2023</strong></li>
-      <li>Comments <strong>Partial code execution pending.</strong></li>
-    </ul>
-  </div>
+
 
 
 

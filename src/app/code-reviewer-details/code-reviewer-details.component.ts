@@ -27,6 +27,17 @@ export class CodeReviewerDetailsComponent implements OnInit {
   constructor(private router:Router,private http:HttpClient,private codeService:CodeReviewService, private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.getTechnologyDetails(headers).subscribe((res:any)=>{
+      if(res.success==true){
+        console.log(res);
+  
+        this.technologyList=res.data
+      }
+  
+    })
 
     if(this.activatedRoute.snapshot.params['id']){
       console.log('id',this.activatedRoute.snapshot.params['id']);
@@ -73,6 +84,7 @@ export class CodeReviewerDetailsComponent implements OnInit {
     })
     }
     this.getTechnicalStackDetails()
+    
 
 
 
@@ -84,18 +96,21 @@ export class CodeReviewerDetailsComponent implements OnInit {
 codeReviewerForm=new FormGroup({
   account:new FormControl('',Validators.required),
   project:new FormControl('',Validators.required),
-  technicalStack:new FormControl(null),
+  // technicalStack:new FormControl(null),
   technology:new FormControl('',Validators.required),
-  storyId:new FormControl('',Validators.required),
+  storyId:new FormControl(''),
   developers:new FormControl('',Validators.required),
   projectLead:new FormControl('',Validators.required),
-  reviewPackagesandFiles:new FormControl('',Validators.required),
+  reviewPackagesandFiles:new FormControl(''),
   reviewersName:new FormControl('',Validators.required),
-  codeReviewComments:new FormControl('',Validators.required)
+  codeReviewComments:new FormControl('')
 })
 
 getBackDetails(){
-  this.router.navigate(['/startCodeReviewTracker'])
+  this.router.navigate(['header/startCodeReviewTracker'])
+}
+onNavigateDashboard(){
+  this.router.navigate(['header/startCodeReviewTracker'])
 }
 
 
@@ -121,7 +136,7 @@ onSelectStack(value:any){
   this.technicalStackId=value._id
 
 
-  this.codeService.getTechnologyDetails(value._id,headers).subscribe((res:any)=>{
+  this.codeService.getTechnologyDetails({headers}).subscribe((res:any)=>{
     if(res.success==true){
       console.log(res);
 
@@ -144,102 +159,36 @@ var techObj={
   "technicalStackId":value.technicalStackId
 }
 console.log(techObj);
-localStorage.setItem('techObj',JSON.stringify(techObj))
 }
 
 
-save(){
 
-  if(this.status=='pending'){
-    let data={
-      "_id":this.id,
-      "account": this.codeReviewerForm.get('account')?.value,
-      "project": this.codeReviewerForm.get('project')?.value,
-      "storyId": this.codeReviewerForm.get('storyId')?.value,
-      "developers":this.codeReviewerForm.get('developers')?.value,
-      "technicalStackId":this.technicalStackId,
-      "technologiesId":this.technologiesId,
-      "projectLead":this.codeReviewerForm.get('projectLead')?.value,
-      "reviewPackagesandFiles":this.codeReviewerForm.get('reviewPackagesandFiles')?.value,
-      "reviewersName": this.codeReviewerForm.get('reviewersName')?.value,
-      "codeReviewComments":  this.codeReviewerForm.get('codeReviewComments')?.value,
-      "status":"pending"
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth_token}`
-    });
-    this.codeService.onEditDetails(data,headers).subscribe((res:any)=>{
-      if(res.success==true){
-        console.log(res)
-        this.router.navigate(['/startCodeReviewTracker'])
-      }
-    })
 
-  }
-  else{
+submitReviewDetails(){
+  console.log('submit');
+  
     let data={
       "account": this.codeReviewerForm.get('account')?.value,
       "project": this.codeReviewerForm.get('project')?.value,
       "storyId": this.codeReviewerForm.get('storyId')?.value,
       "developers":this.codeReviewerForm.get('developers')?.value,
-      "technicalStackId":this.technicalStackId,
       "technologiesId":this.technologiesId,
       "projectLead":this.codeReviewerForm.get('projectLead')?.value,
       "reviewPackagesandFiles":this.codeReviewerForm.get('reviewPackagesandFiles')?.value,
       "reviewersName": this.codeReviewerForm.get('reviewersName')?.value,
       "codeReviewComments":  this.codeReviewerForm.get('codeReviewComments')?.value,
-      "status":"pending"
+      "status":"pending"  
     }
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
     this.codeService.postReviewDetails(data,headers).subscribe((res:any)=>{
         console.log(res);
-        console.log(JSON.stringify(this.codeReviewerForm.value));
       this.router.navigate(['/startCodeReviewTracker'])
 
     })
-
-  }
-
-
-
-
-
-
-
-}
-
-submitReviewDetails(){
-  if(this.status=='pending'){
-    let data={
-      "account": this.codeReviewerForm.get('account')?.value,
-      "project": this.codeReviewerForm.get('project')?.value,
-      "storyId": this.codeReviewerForm.get('storyId')?.value,
-      "developers":this.codeReviewerForm.get('developers')?.value,
-      "technicalStackId":this.technicalStackId,
-      "technologiesId":this.technologiesId,
-      "projectLead":this.codeReviewerForm.get('projectLead')?.value,
-      "reviewPackagesandFiles":this.codeReviewerForm.get('reviewPackagesandFiles')?.value,
-      "reviewersName": this.codeReviewerForm.get('reviewersName')?.value,
-      "codeReviewComments":  this.codeReviewerForm.get('codeReviewComments')?.value,
-      "status":"completed"
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth_token}`
-    });
-    this.codeService.postReviewDetails(data,headers).subscribe((res:any)=>{
-        console.log(res);
-        console.log(JSON.stringify(this.codeReviewerForm.value));
-      this.router.navigate(['/codeReviewTracker'])
-
-    })
-  }
-  else if(this.status=='completed'){
-    this.router.navigate(['/codeReviewTracker'])
-
-
-  }
+  // }
+ 
 
 }
 

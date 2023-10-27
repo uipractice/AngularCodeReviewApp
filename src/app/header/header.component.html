@@ -1,32 +1,32 @@
 <header class="header hide-login">
-<a href="index.html#default" class="logo"><img title="Logo" alt="log" height="35" src="../assets/Evoke_logo.png"></a>
-<!--
-<ul>
-<li><a href="">Dashboard</a></li>
-<li><a href="">User management</a></li>
-<li><a href="">Code Review Management</a></li>
-</ul>-->
-</header>
+<a routerLink="/startCodeReviewTracker" class="logo"><img title="Logo" alt="log" src="../assets/Evoke_logo.png"></a>
 
-<!--
-<mat-toolbar color="primary">
-  <div fxHide.gt-xs>
-      <button mat-icon-button (click)="onToggleSidenav()">
-          <mat-icon>menu</mat-icon>
-      </button>
-  </div>
-  <div>
-      <a routerLink="/home">Owner-Account</a>
-  </div>
-  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-      <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-          <li>
-              <a routerLink="/owner">Owner Actions</a>
-          </li>
-          <li>
-              <a routerLink="/account">Account Actions</a>
-          </li>
-      </ul>
-  </div>
-</mat-toolbar>
--->
+<ul class="menu" *ngIf="userRole=='admin'">
+<li><a  (click)="onClick(1)" [ngClass]="{ active: tab === 'tab1' }"  class="list" routerLink="/header/startCodeReviewTracker"  href="">Dashboard</a></li>
+<li><a  (click)="onClick(2)" [ngClass]="{ active: tab === 'tab2' }"   class="list" routerLink="/header/user-management" href="">User management</a></li>
+<li><a  (click)="onClick(3)" [ngClass]="{ active: tab === 'tab3' }"   class="list" mat-button [matMenuTriggerFor]="menu" routerLink="/header/codereview-managment" href="">Code Review Management <img src="../assets/Expand_down.svg" height="16" alt="Expand" title="Expand down"></a></li>
+
+<mat-menu #menu="matMenu" class="menu-drop">
+  <button mat-menu-item routerLink="/header/codereview-managment">Create New Checklist</button>
+  <button mat-menu-item routerLink="/header/technical-stack">Technical Stack</button>
+</mat-menu>
+
+</ul>
+
+
+<div class="right" *ngIf="userDetails">
+  <button mat-button [matMenuTriggerFor]="menu" >
+    <span class="white">  {{userName}}</span>
+    <span>{{technologies}}</span>
+    <img  src="../assets/User_cicrle.svg" alt="User" title="User login">
+    <img  src="../assets/Expand_down.svg" alt="Expand" title="Expand down">
+  </button>
+
+  <mat-menu #menu="matMenu" class="logout">
+    <button mat-menu-item (click)="logout()">Logout</button>
+  </mat-menu>
+
+
+</div>
+</header>
+<router-outlet></router-outlet>

@@ -9,6 +9,8 @@ import { MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -23,7 +25,11 @@ import {MatToolbarModule} from '@angular/material/toolbar';
         MatIconModule,
         MatSlideToggleModule,
         MatToolbarModule,
-        MatButtonModule
+        MatButtonModule,
+        MatInputModule,
+    MatProgressSpinnerModule
+
+
     ]
 })
 export class MaterialModule{}
