@@ -36,6 +36,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   ratingValue:boolean=false
   achievedRatingValue:boolean=false
   isLoaderActive:boolean=false
+  isDataAvailable:boolean=false
 
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute){}
@@ -54,7 +55,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     this.getSideNavData(this.projectDetails.technicalStackId,this.projectDetails.technologiesId)
 
     this.getOptions()
-    this.getReviewDetails()
+    // this.getReviewDetails()
    
   }
 
@@ -81,15 +82,17 @@ export class CodeReviewTrackerComponent implements OnInit {
     //checklist questions with saved data
     this.codeService.getSavedCheckListData(headers,this.detailsId,this.reviewDetailsHeader).subscribe((res:any)=>{
       if( res.success==true && res.data.length!=0){       
+        this.isDataAvailable=true
         this.isLoaderActive=false
         this.selectelTabCheckList=res.data[0].data[0]
-        this.getCheckListQuestions()
+        this.getSavedCheckListQuestions()
         console.log('saved checked list data',res.data[0].data[0]);
         }
         else{
           this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((response:any)=>{
        
             if(response.success==true){
+              this.isDataAvailable=false
             this.isLoaderActive=false
             
             console.log(response.data[0].data[0].value);
@@ -133,7 +136,45 @@ export class CodeReviewTrackerComponent implements OnInit {
     getCheckListQuestions(){
       const checkListChildGroupData=this.reviewTrackerForm.get('value') as FormArray
       for(let child of this.selectelTabCheckList.value){
-        if(child.options && child.rating && child.achievedRating && child.comments){
+        if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
+          const checkListChildGroup=new FormGroup({
+            key:new FormControl(child.key),
+            options:new FormControl(child.options),
+            rating:new FormControl(child.rating),
+            achievedRating:new FormControl(child.achievedRating),
+            comments:new FormControl(child.comments)
+          })
+          checkListChildGroupData.push(checkListChildGroup)
+        }
+        else if(child.value){
+          const checkListChildGroup=new FormGroup({
+            key:new FormControl(child.key,Validators.required),
+            value:new FormArray([])
+          })
+          const checkListsubChildGroupData=checkListChildGroup.get('value') as FormArray
+          for(let subChild of child.value ){
+          const checkListsubChildGroup=new FormGroup({
+            key:new FormControl(subChild.key),
+            options:new FormControl(subChild.options),
+            rating:new FormControl(subChild.rating),
+
+            achievedRating:new FormControl(subChild.achievedRating),
+            comments:new FormControl(subChild.comments )
+          })
+
+
+          checkListsubChildGroupData.push(checkListsubChildGroup)
+         }
+          checkListChildGroupData.push(checkListChildGroup)
+
+        }
+      }
+    }
+
+    getSavedCheckListQuestions(){
+      const checkListChildGroupData=this.reviewTrackerForm.get('value') as FormArray
+      for(let child of this.selectelTabCheckList.value){
+        if(child.options!=null ){
           const checkListChildGroup=new FormGroup({
             key:new FormControl(child.key),
             options:new FormControl(child.options),
@@ -256,10 +297,22 @@ export class CodeReviewTrackerComponent implements OnInit {
     "detailsId":this.detailsId
   }
 
-  this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
-    console.log('submitted',res);
-    
-  })
+  if(this.isDataAvailable==true){
+    this.codeService.updateCheckListData(saveJson,headers).subscribe((res:any)=>{
+      console.log('submitted',res);
+      
+    })
+
+  }
+  else{
+    this.codeService.saveCheckListData(saveJson,headers).subscribe((res:any)=>{
+      console.log('submitted',res);
+      
+    })
+
+  }
+
+ 
  
   
    
@@ -652,6 +705,8 @@ export class CodeReviewTrackerComponent implements OnInit {
 // (Total marks obtained / Total marks possible) x 100
   //  (350/500)*100
   onGetSideSelectedValue(value?:any){
+    console.log('selected value');
+    
    this.isActiveChildCOmments=[false]
    console.log('child comments',this.isActiveChildCOmments);
    

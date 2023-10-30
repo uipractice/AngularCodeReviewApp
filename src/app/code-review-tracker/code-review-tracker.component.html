@@ -41,7 +41,7 @@
         <div  *ngFor="let list of reviewTrackerForm.get('value')['controls'];let i=index" [formGroupName]="i" >
               <div class="heading-grey"><h4  class="top-20"  > {{selectelTabCheckList.value[i]?.key}} </h4>
                 <div class="box--right">
-                <div class="selection select-dropdown" *ngIf="selectelTabCheckList.value[i]?.options==''">
+                <div class="selection select-dropdown" *ngIf="selectelTabCheckList.value[i]?.options==''||selectelTabCheckList.value[i]?.options">
                   <mat-label>Applicable <span class="line-top"></span></mat-label>
                   <mat-form-field >
                       <mat-select formControlName="options" (selectionChange)="getChildSelectedOption($event,'child',i)">
@@ -52,7 +52,7 @@
                     </mat-form-field>
                   </div>
 
-                  <div class="rating select-dropdown" *ngIf="selectelTabCheckList.value[i]?.rating==''" >
+                  <div class="rating select-dropdown" *ngIf="selectelTabCheckList.value[i]?.rating==''||selectelTabCheckList.value[i]?.rating" >
 
                    <mat-label>Rating <span class="line-top rating-line"></span></mat-label>
                    <mat-form-field class="example-full-width">
@@ -64,7 +64,7 @@
                  </div>
 
 
-                  <div class="rating-number" *ngIf="selectelTabCheckList.value[i]?.achievedRating==''" >
+                  <div class="rating-number" *ngIf="selectelTabCheckList.value[i]?.achievedRating==''||selectelTabCheckList.value[i]?.achievedRating" >
 
                    <div class="rating select-dropdown"  >
                     <mat-label>Achieved <span class="line-top achieved-line"></span></mat-label>
@@ -80,7 +80,7 @@
 
 
 
-                <div *ngIf="selectelTabCheckList.value[i]?.comments==''">
+                <div *ngIf="selectelTabCheckList.value[i]?.comments==''||selectelTabCheckList.value[i]?.comments">
                   <div class="Comment" (click)="openChildComments(i)"     >
                     <img src="../assets/comment_light.svg">
 
@@ -89,7 +89,7 @@
               </div>
               <div class="questions"></div>
               <div *ngIf="isActiveChildCOmments[i]" class="comments-box">
-              <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"   formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
+              <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''||selectelTabCheckList.value[i]?.comments"   formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
 
               </div>
 

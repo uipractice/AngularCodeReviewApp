@@ -88,6 +88,9 @@ projectDetails=new Subject()
   saveCheckListData(data:any,headers:any){
     return this.http.post(`${this.baseUrl}/checklist`,data,{headers})
   }
+  updateCheckListData(data:any,headers:any){
+    return this.http.put(`${this.baseUrl}/checklist`,data,{headers})
+  }
   getSavedCheckListData(headers:any,detailsId:any,key:any){
     return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}&key=${key}`,{headers})
   }
