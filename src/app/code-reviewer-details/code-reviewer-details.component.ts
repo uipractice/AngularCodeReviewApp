@@ -184,7 +184,7 @@ submitReviewDetails(){
     });
     this.codeService.postReviewDetails(data,headers).subscribe((res:any)=>{
         console.log(res);
-      this.router.navigate(['/startCodeReviewTracker'])
+      this.router.navigate(['header/startCodeReviewTracker'])
 
     })
   // }

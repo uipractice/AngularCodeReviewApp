@@ -78,38 +78,54 @@ export class CodeReviewTrackerComponent implements OnInit {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-    this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
+    //checklist questions with saved data
+    this.codeService.getSavedCheckListData(headers,this.detailsId,this.reviewDetailsHeader).subscribe((res:any)=>{
+      if( res.success==true && res.data.length!=0){       
+        this.isLoaderActive=false
+        this.selectelTabCheckList=res.data[0].data[0]
+        this.getCheckListQuestions()
+        console.log('saved checked list data',res.data[0].data[0]);
+        }
+        else{
+          this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((response:any)=>{
        
-      if(res.success==true){
-      this.isLoaderActive=false
-  console.log('loader status',this.isLoaderActive);
-
-      console.log(res.data[0].data[0].value);
-      this.selectelTabCheckList=res.data[0].data[0]
-      this.getCheckListQuestions()
-      
-     }
+            if(response.success==true){
+            this.isLoaderActive=false
+            
+            console.log(response.data[0].data[0].value);
+            this.selectelTabCheckList=response.data[0].data[0]
+            console.log('The checklist questions ',this.selectelTabCheckList);
+            this.getCheckListQuestions()
+           
+            
+           }
+          })
+        }
+     
+       
     })
 
-    // this.codeService.getSavedCheckListData(headers,this.detailsId,this.reviewDetailsHeader).subscribe((res:any)=>{
-    //   console.log('saved data',res.data);
-    //   if(res.success==true){
-    //     if(res.data.length==0){
-    //       console.log('No saved data');
-       
-          
-    //     }
-    //     else{
-    //       this.isLoaderActive=false
-    //       console.log('loader status',this.isLoaderActive);
-      
-    //           console.log(res.data[0].data[0].value);
-    //           this.selectelTabCheckList=res.data[0].data[0]
-    //           this.getCheckListQuestions()
 
-    //     }
-    //   }     
-    // })
+
+    //checklist questions
+    //   this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
+       
+    //     if(res.success==true ){
+    //     this.isLoaderActive=false
+    // console.log('loader status',this.isLoaderActive);
+  
+    //     console.log(res.data[0].data[0].value);
+    //     this.selectelTabCheckList=res.data[0].data[0]
+    //     this.getCheckListQuestions()
+        
+    //    }
+    //   })
+    
+  
+
+    
+
+    
 
      
     }
@@ -117,7 +133,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     getCheckListQuestions(){
       const checkListChildGroupData=this.reviewTrackerForm.get('value') as FormArray
       for(let child of this.selectelTabCheckList.value){
-        if(child.options=='' && child.rating=='' && child.achievedRating=='' && child.comments==''){
+        if(child.options && child.rating && child.achievedRating && child.comments){
           const checkListChildGroup=new FormGroup({
             key:new FormControl(child.key),
             options:new FormControl(child.options),
