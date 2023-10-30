@@ -2,9 +2,9 @@
 <a routerLink="/startCodeReviewTracker" class="logo"><img title="Logo" alt="log" src="../assets/Evoke_logo.png"></a>
 
 <ul class="menu" *ngIf="userRole=='admin'">
-<li><a  [className]="'active'" class="list" routerLink="/header/startCodeReviewTracker"  href="">Dashboard</a></li>
-<li><a  [className]="'active'" class="list" routerLink="/header/user-management" href="">User management</a></li>
-<li><a  [className]="'active'" class="list" mat-button [matMenuTriggerFor]="menu" routerLink="/header/codereview-managment" href="">Code Review Management <img src="../assets/Expand_down.svg" height="16" alt="Expand" title="Expand down"></a></li>
+<li><a  (click)="onClick(1)" [ngClass]="{ active: tab === 'tab1' }"  class="list" routerLink="/header/startCodeReviewTracker"  href="">Dashboard</a></li>
+<li><a  (click)="onClick(2)" [ngClass]="{ active: tab === 'tab2' }"   class="list" routerLink="/header/user-management" href="">User management</a></li>
+<li><a  (click)="onClick(3)" [ngClass]="{ active: tab === 'tab3' }"   class="list" mat-button [matMenuTriggerFor]="menu" routerLink="/header/codereview-managment" href="">Code Review Management <img src="../assets/Expand_down.svg" height="16" alt="Expand" title="Expand down"></a></li>
 
 <mat-menu #menu="matMenu" class="menu-drop">
   <button mat-menu-item routerLink="/header/codereview-managment">Create New Checklist</button>

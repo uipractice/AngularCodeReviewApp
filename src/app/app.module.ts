@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FooterComponent } from './footer/footer.component';
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
 import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
@@ -51,10 +52,8 @@ import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis
     AddCommentsComponent,
     FooterComponent,
     TechnicalStackComponent,
-    ChecklistDetailsComponent
-
-
-
+    ChecklistDetailsComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -77,16 +76,12 @@ import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis
     MatCardModule,
     MatDialogModule,
     MatProgressBarModule,
-
-
     // MatIconModule,
     // MatButtonModule,
     // MatToolbarModule,
     // MatTabsModule,
     // MatSelectModule,
     // MatFormFieldModule
-
-
   ],
   providers: [],
   bootstrap: [AppComponent]

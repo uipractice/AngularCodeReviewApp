@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild,OnInit} from '@angular/core';
+import {AfterViewInit, Component, ViewChild,OnInit, Input} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -13,6 +13,9 @@ import { HttpHeaders } from '@angular/common/http';
 
 })
 export class UserManagementComponent implements OnInit {
+
+  @Input() name: string | undefined;
+
   auth_token=''
   usersList:any
   isLoaderActive:boolean=false

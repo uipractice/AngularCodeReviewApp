@@ -30,7 +30,7 @@
             <span class="steps-title" >{{sideData}}</span>
         </ng-template>
         <div class="spinner">
-        <mat-spinner *ngIf="isLoaderActive"></mat-spinner>
+        <mat-spinner class="center spinn" *ngIf="isLoaderActive"></mat-spinner>
 
         </div>
 
@@ -87,6 +87,7 @@
                  </div>
                 </div>
               </div>
+              <div class="questions"></div>
               <div *ngIf="isActiveChildCOmments[i]" class="comments-box">
               <textarea  *ngIf="selectelTabCheckList.value[i]?.comments==''"   formControlName="comments"    class="form-control" placeholder="Enter your comments here"  rows="4" cols="50"></textarea>
 
@@ -133,7 +134,9 @@
 
 
                      </div>
-                     <div *ngIf=" isActiveComments[[i][j]]" class="comments-box"   >
+                     <div class="questions"></div>
+
+                     <div *ngIf=" isActiveComments[[i][j]]" class="comments-box">
                      <!-- <div *ngIf=" isActiveComments[j]"   > -->
 
 
