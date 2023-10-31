@@ -154,7 +154,7 @@
 
           </div>
           </div>
-         <div class="table-button flex-center top-20 bottom-100">
+         <div class="table-button flex-center top-20 bottom-100" *ngIf="(status=='pending'||status=='submitted')">
         <button class="button-all btn-blue mg-0 save-btn" [disabled]=" this.reviewTrackerForm.invalid"   (click)="saveCheckListData(reviewTrackerForm.valid)">Save</button>
           </div>
         </div>
