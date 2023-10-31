@@ -1304,11 +1304,19 @@ height:40px;
   --mdc-switch-selected-pressed-track-color:#fff!important;
   --mdc-switch-selected-track-color:#fff!important;
 }
-.spinner {
-  border: 10px solid red;
 
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: #219EBC;
 }
-
+.mat-mdc-progress-spinner {
+width:50px !important;
+height:50px !important;
+}
+.spinn {
+ position: absolute;
+ top:40%;
+ left:40%;
+}
 @media only screen and (max-width: 768px) {
   .m-logo {
     display: block;
