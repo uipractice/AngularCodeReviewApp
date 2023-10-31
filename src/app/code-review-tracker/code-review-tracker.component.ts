@@ -3,7 +3,7 @@ import { CodeReviewService } from '../code-review.service';
 import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormControlName, FormGroup, ValidationErrors, Validators,  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -39,7 +39,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDataAvailable:boolean=false
 
 
-  constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute){}
+  constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute,private router:Router){}
   ngOnInit(): void {
    
 
@@ -366,6 +366,10 @@ export class CodeReviewTrackerComponent implements OnInit {
       console.log('updated review details',res);
     })
     }
+
+    this.router.navigate(['header/startCodeReviewTracker'])
+
+    
   }
 
 

@@ -35,7 +35,7 @@
               <!-- Name Column -->
               <ng-container matColumnDef="Delete">
               <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Actions</th>
-              <td mat-cell *matCellDef="let element"><img src="../assets/trash-can.svg" alt="Trash icon" title="Delete Technology"> </td>
+              <td mat-cell *matCellDef="let element" (click)="onDeleteTechnology(element)"><img src="../assets/trash-can.svg" alt="Trash icon" title="Delete Technology"> </td>
               </ng-container>
 
               <!-- Weight Column -->

@@ -68,6 +68,9 @@ projectDetails=new Subject()
   addTechnologyDetails(headers:any,data:any){
     return this.http.post(`${this.baseUrl}/technologies`,data,{headers})
   }
+  deleteTechnologies(headers:any,technologiesId:any){
+    return this.http.delete(`${this.baseUrl}/technologies?technologiesId=${technologiesId}`,{headers})
+  }
   getSelectedReviewDetails(data:any,headers:any){
     return this.http.get(`${this.baseUrl}/details?detailsId=${data}`,{headers})
   }
