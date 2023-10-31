@@ -35,6 +35,7 @@ mat-toolbar{
   text-transform: uppercase;
   font-size: 14px;
   font-family:'Lato', sans-serif !important;
+  border-radius:0px;
 }
 .menu li a:hover{
   background:#219EBC;

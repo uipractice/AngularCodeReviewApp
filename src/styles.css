@@ -366,8 +366,7 @@ border-bottom:0px;
 /*****main body styles*****/
 
 .main-body {
-  padding:66px 22px 0px 22px;
-  height: 93vh;
+  padding:66px 22px 16px 22px;
 }
 
 .table-button {
@@ -675,10 +674,7 @@ color: rgba(0, 0, 0, 0.60);
   box-shadow: 2px 5px 8px 0px rgba(0, 0, 0, 0.12);
   border-radius: 0px;
 }
-.grey-bg.user-managment {
-  height:93vh;
 
-}
 .user-managment .mdc-data-table__header-cell {
 background: #353737 !important;
 color: #fff;
