@@ -3,14 +3,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export interface ModalData {
-  name: string;
-  color: string;
   popupHeaderTitle: string;
   popupOkBtn: string;
   popupCancelBtn: string;
-  popupAddSubQuestionBool: Boolean;
-  popupAddMainQuestionBool: Boolean;
-  popupDeleteBool: Boolean;
+  popupDeleteBool?: Boolean;
+  popupAddSubQuestionBool?: Boolean;
+  popupAddMainQuestionBool?: Boolean;
 }
 
 @Component({
