@@ -1516,7 +1516,15 @@ position: relative;
 }
 
 .details-heading {
-  padding: 76px 22px 22px 22px;
+  padding: 76px 22px 0px 22px;
+}
+
+.details-body .right-content .logo-btns {
+  margin-right: 2%;
+}
+
+.details-body .left-content .checklist-details {
+  margin-top: 2%;
 }
 
 .checklist-details-box .form-control {
