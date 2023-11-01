@@ -39,9 +39,9 @@
       <div class="row-heading">
         <div class="right-content1">Functional Checklist</div>
         <div class="right-content2">
-          <button class="btn-outline btn-delete mg-0" (click)="modalService.open('modal-1')">Delete this
+          <button class="btn-outline btn-delete mg-0" (click)="deletePopup()">Delete this
             section</button>
-          <button class="btn-outline btn-main-question mg-0" (click)="modalService.open('modal-2')">Add Main
+          <button class="btn-outline btn-main-question mg-0" (click)="addMainQuestionPopup()">Add Main
             Question</button>
         </div>
       </div>
@@ -52,12 +52,12 @@
             <span class="question-content">Does code meet functional requirement?</span>
           </div>
           <div>
-            <button class="btn-outline btn-main-question mg-0" (click)="modalService.open('modal-3')">Add Sub
+            <button class="btn-outline btn-main-question mg-0" (click)="addSubQuestionPopup()">Add Sub
               Question</button>
-            <span class="edit-btn"><a (click)="modalService.open('modal-2')"><img src="../assets/Edit_light.svg"
+            <span class="edit-btn"><a (click)="addMainQuestionPopup()"><img src="../assets/Edit_light.svg"
                   alt="editIcon" title="edit"></a></span>
-            <span class="delete-btn"><a (click)="modalService.open('modal-1')"><img src="../assets/trash-can.svg"
-                  alt="deleteIcon" title="delete"></a></span>
+            <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
+                  title="delete"></a></span>
           </div>
         </div>
         <div class="main-question">
@@ -66,12 +66,12 @@
               Story?</span>
           </div>
           <div>
-            <button class="btn-outline btn-main-question mg-0" (click)="modalService.open('modal-3')">Add Sub
+            <button class="btn-outline btn-main-question mg-0" (click)="addSubQuestionPopup()">Add Sub
               Question</button>
-            <span class="edit-btn"><a (click)="modalService.open('modal-2')"><img src="../assets/Edit_light.svg"
+            <span class="edit-btn"><a (click)="addMainQuestionPopup()"><img src="../assets/Edit_light.svg"
                   alt="editIcon" title="edit"></a></span>
-            <span class="delete-btn"><a (click)="modalService.open('modal-1')"><img src="../assets/trash-can.svg"
-                  alt="deleteIcon" title="delete"></a></span>
+            <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
+                  title="delete"></a></span>
           </div>
         </div>
         <div class="sub-question">
@@ -79,94 +79,28 @@
             <span class="sub-question-content">Does it define the expected system service and behavior</span>
           </div>
           <div>
-            <span class="edit-btn"><a (click)="modalService.open('modal-3')"><img src="../assets/Edit_light.svg"
-                  alt="editIcon" title="edit"></a></span>
-            <span class="delete-btn"><a (click)="modalService.open('modal-1')"><img src="../assets/trash-can.svg"
-                  alt="deleteIcon" title="delete"></a></span>
+            <span class="edit-btn"><a (click)="addSubQuestionPopup()"><img src="../assets/Edit_light.svg" alt="editIcon"
+                  title="edit"></a></span>
+            <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
+                  title="delete"></a></span>
           </div>
         </div>
         <div class="sub-question">
           <div>
             <span class="sub-question-content">Is is expressed in Use Case form or user story as they exhibit
-              externally
-              visible functional behaviour</span>
+              externally visible functional behaviour</span>
           </div>
           <div>
-            <span class="edit-btn"><a (click)="modalService.open('modal-3')"><img src="../assets/Edit_light.svg"
-                  alt="editIcon" title="edit"></a></span>
-            <span class="delete-btn"><a (click)="modalService.open('modal-1')"><img src="../assets/trash-can.svg"
-                  alt="deleteIcon" title="delete"></a></span>
+            <span class="edit-btn"><a (click)="addSubQuestionPopup()"><img src="../assets/Edit_light.svg" alt="editIcon"
+                  title="edit"></a></span>
+            <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
+                  title="delete"></a></span>
           </div>
         </div>
       </div>
 
     </div>
   </div>
+
+
 </div>
-
-
-<cr-modal id="modal-1" class="dialog-card main-cards delete-popup">
-  <!-- <div class="dialog-card main-cards "> -->
-  <mat-dialog-content class="mat-typography">
-    <div class="checklist-header">
-      <span><strong class="comment-question">Do you really want to delete?</strong></span>
-      <span class="close-btn" mat-button mat-dialog-close (click)="modalService.close()"><img alt="close btn"
-          src="../assets/close-popup.svg" /></span>
-    </div>
-    <form>
-      <div class="table-button flex-center delete-project">
-        <button class="button-all btn-outline mg-0 delete-box" (click)="modalService.close()">Cancel</button>
-        <button class="button-all btn-blue mg-0 delete-box" style="margin-left: 20px;">Delete</button>
-      </div>
-    </form>
-  </mat-dialog-content>
-  <!-- </div> -->
-</cr-modal>
-
-
-<cr-modal id="modal-2" class="add-question-popup">
-  <mat-dialog-content class="mat-typography">
-    <div class="checklist-header">
-      <span><strong class="comment-question">Add Main Question</strong></span>
-      <span class="close-btn" mat-button mat-dialog-close (click)="modalService.close()"><img alt="close btn"
-          src="../assets/close-popup.svg" /></span>
-    </div>
-    <hr>
-
-    <div class="main-question-box">
-      <label for="enter-question" class="form-label">Question Text </label>
-      <textarea type="text" class="form-control" id="enter-question" placeholder="Enter question here"></textarea>
-    </div>
-
-    <form>
-      <div class="table-button flex-center delete-project">
-        <button class="button-all btn-outline mg-0 delete-box" (click)="modalService.close()">Cancel</button>
-        <button class="button-all btn-blue mg-0 delete-box" style="margin-left: 20px;">Add</button>
-      </div>
-    </form>
-  </mat-dialog-content>
-</cr-modal>
-
-
-<cr-modal id="modal-3" class="add-question-popup">
-  <mat-dialog-content class="mat-typography">
-    <div class="checklist-header">
-      <strong class="comment-question">Add Sub Question</strong>
-      <span class="close-btn" mat-button mat-dialog-close (click)="modalService.close()"><img alt="close btn"
-          src="../assets/close-popup.svg" /></span>
-    </div>
-    <hr>
-
-    <div class="main-question-box">
-      <label for="enter-question" class="form-label">Question Text </label>
-      <textarea type="text" class="form-control" id="enter-question" placeholder="Enter question here"></textarea>
-    </div>
-
-    <form>
-      <div class="table-button flex-center delete-project">
-        <button class="button-all btn-outline mg-0 delete-box" (click)="modalService.close()">Cancel</button>
-        <button class="button-all btn-blue mg-0 delete-box" style="margin-left: 20px;">Add</button>
-      </div>
-    </form>
-  </mat-dialog-content>
-</cr-modal>
