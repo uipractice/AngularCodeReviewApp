@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentsComponent } from '../add-comments/add-comments.component';
 import { ModalData } from '../add-comments/add-comments.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CodeReviewService } from '../code-review.service';
+import { HttpHeaders } from '@angular/common/http';
+import { Obj } from '@popperjs/core';
 
 @Component({
   selector: 'app-checklist-detalis',
@@ -12,12 +16,68 @@ import { ModalData } from '../add-comments/add-comments.component';
 export class ChecklistDetailsComponent implements OnInit {
   checklistHeading: string = '';
   deleteValue: any
+  auth_token:any
   addMainQuestion: any
   addSubQuestion: any
+  technologyId:any
+  technologyName:any
+  sideNavData:any
+  sideNavHeading:any
+  checkListData:any
+  checklistQuestions:any=[]
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private codeService:CodeReviewService, private dialog: MatDialog,private router:Router,private activatedRouter:ActivatedRoute) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+
+    this.activatedRouter.paramMap.subscribe((res:any)=>{
+      this.technologyId=res.params.id,
+      this.technologyName=res.params.techname
+    })
+    this.getSideNavData()
+    this.checkListData={
+      "technologiesId":this.technologyId,
+      "data":this.checklistHeading
+    }
+    console.log('checklistData',this.checkListData);
+    
+  }
+  getSideNavData(){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.getSideNav(this.technologyId,headers).subscribe((res:any)=>{
+      this.sideNavData=res.data[0].leftNav
+      console.log('sidenav List', this.sideNavData);
+      
+    })
+
+  }
+  onSelectSideNav(heading:any){
+    console.log('heading',heading);
+    this.sideNavHeading=heading
+    
+
+  }
+  addSideNavData(){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    let checklistHeadingJson={
+      "leftNav" : [this.checklistHeading],
+      "technologiesId": this.technologyId
+    }
+    console.log('checklist heading',checklistHeadingJson);
+    this.codeService.postSideNav(checklistHeadingJson,headers).subscribe((res:any)=>{
+      if(res.success==true){
+        console.log(res); 
+        this.getSideNavData()
+
+      }
+      
+    })
+  }
 
   deletePopup() {
     const sampleData: ModalData = {

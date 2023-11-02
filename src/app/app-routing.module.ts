@@ -48,7 +48,7 @@ const routes: Routes = [
       { path: 'create-checklist', component: CreateChecklistComponent },
       { path: 'codereview-managment', component: CodereviewManagementComponent },
       { path: 'technical-stack', component: TechnicalStackComponent },
-      { path: 'checklist-details', component: ChecklistDetailsComponent }
+      { path: 'checklist-details/:techname/:id', component: ChecklistDetailsComponent }
 
 
     ]

@@ -667,7 +667,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     });
     console.log(stackId,techId,headers);
 
-    this.codeService.getSideNav(stackId,techId,headers).subscribe((res:any)=>{
+    this.codeService.getSideNav(techId,headers).subscribe((res:any)=>{
       console.log(res);
       
       this.sideNavDetails=res.data[0].leftNav

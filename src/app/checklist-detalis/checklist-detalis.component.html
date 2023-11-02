@@ -1,7 +1,7 @@
 <div class="table-button details-main details-heading grey-bg">
   <div>
     <!-- Himanshu -- Static currently as create-checklist drpdown is not functional currently -->
-    <h1 style="font-size: 1.25rem;">React Js Checklist</h1>
+    <h1 style="font-size: 1.25rem;">{{technologyName}} Checklist</h1>
     <ul class="pagination">
       <li><a href="">Dashboard</a></li>
       <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
@@ -22,22 +22,22 @@
           <label for="checklist-heading" class="form-label">Checklist Heading <span class="red-dot"></span></label>
           <input type="text" class="form-control checklist-heading" id="checklist-heading"
             [(ngModel)]="checklistHeading" placeholder="Enter checklist heading here" />
-          <button class="button-all btn-outline btn-add mg-0">Add</button>
+          <button class="button-all btn-outline btn-add mg-0"(click)="addSideNavData()">Add</button>
         </div>
       </div>
 
-      <ul>
-        <li> <a class="nav-links">FUNCTIONAL CHECKLIST</a> </li>
-        <li> <a class="nav-links">PERFORMANCE</a> </li>
+      <ul *ngFor="let heading of sideNavData"(click)="onSelectSideNav(heading)"> 
+        <li > <a class="nav-links" >{{heading|uppercase}}</a> </li>
+        <!-- <li> <a class="nav-links">PERFORMANCE</a> </li>
         <li> <a class="nav-links">STRUCTURAL</a> </li>
         <li> <a class="nav-links">SECURITY</a> </li>
-        <li> <a class="nav-links">UNIT TESTING</a> </li>
+        <li> <a class="nav-links">UNIT TESTING</a> </li> -->
       </ul>
     </div>
 
     <div class="right-content col-md-9 col-sm-8">
-      <div class="row-heading">
-        <div class="right-content1">Functional Checklist</div>
+      <div class="row-heading" *ngIf="sideNavHeading">
+        <div class="right-content1">{{sideNavHeading}} Checklist</div>
         <div class="right-content2">
           <button class="btn-outline btn-delete mg-0" (click)="deletePopup()">Delete this
             section</button>

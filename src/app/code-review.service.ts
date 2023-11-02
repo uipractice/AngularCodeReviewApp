@@ -34,11 +34,6 @@ projectDetails=new Subject()
     }))
 
   }
-
-
-
-
-
   getReviewDetails(headers:any){
     return this.http.get(`${this.baseUrl}/details`,{headers}).pipe(map((res:any)=>{
       return res
@@ -83,10 +78,12 @@ projectDetails=new Subject()
         return res
       })
     )
-
   }
-  getSideNav(stackId:any,techId:any,headers:any){
-    return this.http.get(`${this.baseUrl}/lefNavData?technicalStackId=${stackId}&technologiesId=${techId}`,{headers})
+  getSideNav(techId:any,headers:any){
+    return this.http.get(`${this.baseUrl}/lefNavData?technologiesId=${techId}`,{headers})
+  }
+  postSideNav(data:any,headers:any,){
+    return this.http.post(`${this.baseUrl}/lefNavData`,data,{headers})
   }
   saveCheckListData(data:any,headers:any){
     return this.http.post(`${this.baseUrl}/checklist`,data,{headers})
