@@ -23,8 +23,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDisableSubmit:boolean=false
   isActiveChildCOmments:boolean[]=[false]
   isActiveComments:boolean[]=[false,false]
-  // isActiveComments:boolean[]=[false]
-
+  completeCheckList='Save'
   disableSave:boolean=false
   showSummary:boolean=false
   summaryArray:any[]=[]
@@ -98,6 +97,8 @@ export class CodeReviewTrackerComponent implements OnInit {
             console.log(response.data[0].data[0].value);
             this.selectelTabCheckList=response.data[0].data[0]
             console.log('The checklist questions ',this.selectelTabCheckList);
+            console.log('complete response',response);
+            
             this.getCheckListQuestions()
            
             
@@ -321,6 +322,13 @@ export class CodeReviewTrackerComponent implements OnInit {
   getStatusValue(value:any){
     console.log('checkbox value',value.target.checked);
     this.completedStatusValue=value.target.checked  
+    if(this.completedStatusValue){
+      this.completeCheckList='Submit'
+    }
+    else{
+      this.completeCheckList='Save'
+
+    }
   }
   submitReport(){
     if(this.completedStatusValue){
@@ -345,6 +353,7 @@ export class CodeReviewTrackerComponent implements OnInit {
       console.log('updated review details',res);
     })
     } else{
+
       let data={
         "_id": this.projectDetails._id,
         "account": this.projectDetails.account,
@@ -659,6 +668,8 @@ export class CodeReviewTrackerComponent implements OnInit {
     console.log(stackId,techId,headers);
 
     this.codeService.getSideNav(stackId,techId,headers).subscribe((res:any)=>{
+      console.log(res);
+      
       this.sideNavDetails=res.data[0].leftNav
 
     })

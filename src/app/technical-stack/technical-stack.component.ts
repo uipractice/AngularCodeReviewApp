@@ -87,7 +87,12 @@ export class TechnicalStackComponent {
     });
     console.log('delete tech',element._id);
     const dialogRef= this.dialog.open(AddCommentsComponent,{
-    })
+      data: {
+        popupHeaderTitle: 'Do you really want to delete?',
+        popupOkBtn: 'Delete',
+        popupCancelBtn: 'Cancel',
+        popupDeleteBool: true
+      }})
     dialogRef.afterClosed().subscribe((res:any)=>{
       if(res.value=='Yes'){
         this.codeService.deleteTechnologies(headers,element._id).subscribe((res:any)=>{
