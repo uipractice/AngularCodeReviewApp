@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentsComponent } from '../add-comments/add-comments.component';
+import { ModalData } from '../add-comments/add-comments.component';
 
 @Component({
   selector: 'app-checklist-detalis',
@@ -16,17 +17,17 @@ export class ChecklistDetailsComponent implements OnInit {
 
   constructor(private dialog: MatDialog) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   deletePopup() {
+    const sampleData: ModalData = {
+      popupHeaderTitle: 'Do you really want to delete?',
+      popupOkBtn: 'Delete',
+      popupCancelBtn: 'Cancel',
+      popupDeleteBool: true
+    }
     const dialogRef = this.dialog.open(AddCommentsComponent, {
-      data: {
-        popupHeaderTitle: 'Do you really want to delete?',
-        popupOkBtn: 'Delete',
-        popupCancelBtn: 'Cancel',
-        popupDeleteBool: true
-      },
+      data: sampleData
     })
     dialogRef.afterClosed().subscribe((val: any) => {
       this.deleteValue = val.value
@@ -41,13 +42,14 @@ export class ChecklistDetailsComponent implements OnInit {
   }
 
   addMainQuestionPopup() {
+    const sampleData: ModalData = {
+      popupHeaderTitle: 'Add Main Question',
+      popupOkBtn: 'Add',
+      popupCancelBtn: 'Cancel',
+      popupAddMainQuestionBool: true
+    }
     const dialogRef = this.dialog.open(AddCommentsComponent, {
-      data: {
-        popupHeaderTitle: 'Add Main Question',
-        popupOkBtn: 'Add',
-        popupCancelBtn: 'Cancel',
-        popupAddMainQuestionBool: true
-      },
+      data: sampleData
     })
     dialogRef.afterClosed().subscribe((val: any) => {
       this.addMainQuestion = val.value
@@ -62,13 +64,14 @@ export class ChecklistDetailsComponent implements OnInit {
   }
 
   addSubQuestionPopup() {
+    const sampleData: ModalData = {
+      popupHeaderTitle: 'Add Sub Question',
+      popupOkBtn: 'Add',
+      popupCancelBtn: 'Cancel',
+      popupAddSubQuestionBool: true
+    }
     const dialogRef = this.dialog.open(AddCommentsComponent, {
-      data: {
-        popupHeaderTitle: 'Add Sub Question',
-        popupOkBtn: 'Add',
-        popupCancelBtn: 'Cancel',
-        popupAddSubQuestionBool: true
-      },
+      data: sampleData
     })
     dialogRef.afterClosed().subscribe((val: any) => {
       this.addSubQuestion = val.value
