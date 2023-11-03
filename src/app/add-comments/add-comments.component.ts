@@ -18,6 +18,7 @@ export interface ModalData {
 })
 
 export class AddCommentsComponent implements OnInit {
+  textareaValue: string = '';
 
   constructor( public dialogRef: MatDialogRef<AddCommentsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ModalData) { }
