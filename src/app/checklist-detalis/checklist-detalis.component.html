@@ -1,106 +1,112 @@
-<div class="table-button details-main details-heading grey-bg">
-  <div>
-    <!-- Himanshu -- Static currently as create-checklist drpdown is not functional currently -->
-    <h1 style="font-size: 1.25rem;">{{technologyName}} Checklist</h1>
-    <ul class="pagination">
-      <li><a href="">Dashboard</a></li>
-      <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-      <li><a href="">Code Review Management</a></li>
-      <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-      <li>Create New Checklist</li>
-    </ul>
-  </div>
-  <button class="button-all btn-blue save-btn">Save</button>
-</div>
+<div class="checklist-details-parent-container">
 
-<div class="details-body">
-  <div class="container row">
-
-    <div class="left-content col-md-3 col-sm-4">
-      <div class="checklist-details-box checklist-details">
-        <div class="mb-3">
-          <label for="checklist-heading" class="form-label">Checklist Heading <span class="red-dot"></span></label>
-          <input type="text" class="form-control checklist-heading" id="checklist-heading"
-            [(ngModel)]="checklistHeading" placeholder="Enter checklist heading here" />
-          <button class="button-all btn-outline btn-add mg-0"(click)="addSideNavData()">Add</button>
-        </div>
-      </div>
-
-      <ul *ngFor="let heading of sideNavData"(click)="onSelectSideNav(heading)"> 
-        <li > <a class="nav-links" >{{heading|uppercase}}</a> </li>
-        <!-- <li> <a class="nav-links">PERFORMANCE</a> </li>
-        <li> <a class="nav-links">STRUCTURAL</a> </li>
-        <li> <a class="nav-links">SECURITY</a> </li>
-        <li> <a class="nav-links">UNIT TESTING</a> </li> -->
+  <div class="table-button details-main details-heading grey-bg">
+    <div>
+      <!-- Himanshu -- Static currently as create-checklist drpdown is not functional currently -->
+      <h1 style="font-size: 1.25rem;">{{technologyName}} Checklist</h1>
+      <ul class="pagination">
+        <li><a href="">Dashboard</a></li>
+        <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+        <li><a href="">Code Review Management</a></li>
+        <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
+        <li>Create New Checklist</li>
       </ul>
     </div>
-
-    <div class="right-content col-md-9 col-sm-8">
-      <div class="row-heading" *ngIf="sideNavHeading">
-        <div class="right-content1">{{sideNavHeading}} Checklist</div>
-        <div class="right-content2">
-          <button class="btn-outline btn-delete mg-0" (click)="deletePopup()">Delete this
-            section</button>
-          <button class="btn-outline btn-main-question mg-0" (click)="addMainQuestionPopup()">Add Main
-            Question</button>
-        </div>
-      </div>
-
-      <div class="row-content">
-        <div class="main-question">
-          <div>
-            <span class="question-content">Does code meet functional requirement?</span>
-          </div>
-          <div class="logo-btns">
-            <button class="btn-outline btn-main-question mg-0" (click)="addSubQuestionPopup()">Add Sub
-              Question</button>
-            <span class="edit-btn"><a (click)="addMainQuestionPopup()"><img src="../assets/Edit_light.svg"
-                  alt="editIcon" title="edit"></a></span>
-            <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
-                  title="delete"></a></span>
-          </div>
-        </div>
-        <div class="main-question">
-          <div>
-            <span class="question-content">Is there any excess functionality in the code but not declined in the
-              Story?</span>
-          </div>
-          <div class="logo-btns">
-            <button class="btn-outline btn-main-question mg-0" (click)="addSubQuestionPopup()">Add Sub
-              Question</button>
-            <span class="edit-btn"><a (click)="addMainQuestionPopup()"><img src="../assets/Edit_light.svg"
-                  alt="editIcon" title="edit"></a></span>
-            <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
-                  title="delete"></a></span>
-          </div>
-        </div>
-        <div class="sub-question">
-          <div>
-            <span class="sub-question-content">Does it define the expected system service and behavior</span>
-          </div>
-          <div class="logo-btns">
-            <span class="edit-btn"><a (click)="addSubQuestionPopup()"><img src="../assets/Edit_light.svg" alt="editIcon"
-                  title="edit"></a></span>
-            <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
-                  title="delete"></a></span>
-          </div>
-        </div>
-        <div class="sub-question">
-          <div>
-            <span class="sub-question-content">Is is expressed in Use Case form or user story as they exhibit
-              externally visible functional behaviour</span>
-          </div>
-          <div class="logo-btns">
-            <span class="edit-btn"><a (click)="addSubQuestionPopup()"><img src="../assets/Edit_light.svg" alt="editIcon"
-                  title="edit"></a></span>
-            <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
-                  title="delete"></a></span>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <button class="button-all btn-blue save-btn">Save</button>
   </div>
 
+  <div class="details-body">
+    <div class="container row">
+
+      <div class="left-content col-md-3 col-sm-4">
+        <div class="checklist-details-box checklist-details">
+          <div class="mb-3">
+            <label for="checklist-heading" class="form-label">Checklist Heading <span class="red-dot"></span></label>
+            <input type="text" class="form-control checklist-heading" id="checklist-heading"
+              [(ngModel)]="checklistHeading" placeholder="Enter checklist heading here" />
+            <button class="button-all btn-outline btn-add mg-0" (click)="addSideNavData()">Add</button>
+          </div>
+        </div>
+
+        <ul  id="checklistHeadingList" *ngFor="let heading of sideNavData" (click)="onSelectSideNav(heading)">
+          <li (click)="test()"> <a class="nav-links" >{{heading|uppercase}}</a> </li>
+          <!-- <li> <a class="nav-links">PERFORMANCE</a> </li>
+          <li> <a class="nav-links">STRUCTURAL</a> </li>
+          <li> <a class="nav-links">SECURITY</a> </li>
+          <li> <a class="nav-links">UNIT TESTING</a> </li> -->
+        </ul>
+      </div>
+
+      <div class="right-content col-md-9 col-sm-8">
+        <div class="row-heading" *ngIf="sideNavHeading">
+          <div class="right-content1">{{sideNavHeading}} Checklist</div>
+          <div class="right-content2">
+            <button class="btn-outline btn-delete mg-0" (click)="deletePopup()">Delete this
+              section</button>
+            <button class="btn-outline btn-main-question mg-0" (click)="addMainQuestionPopup()">Add Main
+              Question</button>
+          </div>
+        </div>
+
+        <div class="row-content">
+          <div class="main-question">
+            <div>
+              <span class="question-content">Does code meet functional requirement?</span>
+            </div>
+            <div class="logo-btns">
+              <button class="btn-outline btn-main-question mg-0" (click)="addSubQuestionPopup()">Add Sub
+                Question</button>
+              <span class="edit-btn"><a (click)="addMainQuestionPopup()"><img src="../assets/Edit_light.svg"
+                    alt="editIcon" title="edit"></a></span>
+              <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
+                    title="delete"></a></span>
+            </div>
+          </div>
+          <div class="main-question">
+            <div>
+              <span class="question-content">Is there any excess functionality in the code but not declined in the
+                Story?</span>
+            </div>
+            <div class="logo-btns">
+              <button class="btn-outline btn-main-question mg-0" (click)="addSubQuestionPopup()">Add Sub
+                Question</button>
+              <span class="edit-btn"><a (click)="addMainQuestionPopup()"><img src="../assets/Edit_light.svg"
+                    alt="editIcon" title="edit"></a></span>
+              <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
+                    title="delete"></a></span>
+            </div>
+          </div>
+          <div class="sub-question">
+            <div>
+              <span class="sub-question-content">Does it define the expected system service and behavior</span>
+            </div>
+            <div class="logo-btns">
+              <span class="edit-btn"><a (click)="addSubQuestionPopup()"><img src="../assets/Edit_light.svg" alt="editIcon"
+                    title="edit"></a></span>
+              <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
+                    title="delete"></a></span>
+            </div>
+          </div>
+          <div class="sub-question">
+            <div>
+              <span class="sub-question-content">Is is expressed in Use Case form or user story as they exhibit
+                externally visible functional behaviour</span>
+            </div>
+            <div class="logo-btns">
+              <span class="edit-btn"><a (click)="addSubQuestionPopup()"><img src="../assets/Edit_light.svg" alt="editIcon"
+                    title="edit"></a></span>
+              <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
+                    title="delete"></a></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
 
 </div>
+
+

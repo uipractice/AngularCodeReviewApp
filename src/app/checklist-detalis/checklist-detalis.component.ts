@@ -16,7 +16,7 @@ import { Obj } from '@popperjs/core';
 export class ChecklistDetailsComponent implements OnInit {
   checklistHeading: string = '';
   deleteValue: any
-  auth_token:any
+  auth_token: any
   addMainQuestion: any
   addSubQuestion: any
   technologyId:any
@@ -24,59 +24,68 @@ export class ChecklistDetailsComponent implements OnInit {
   sideNavData:any
   sideNavHeading:any
   checkListData:any
-  checklistQuestions:any=[] //data array
+  checklistQuestions:any=[]
 
-  constructor(private codeService:CodeReviewService, private dialog: MatDialog,private router:Router,private activatedRouter:ActivatedRoute) { }
+  constructor(private codeService: CodeReviewService, private dialog: MatDialog, private router: Router, private activatedRouter: ActivatedRoute) { }
 
-  ngOnInit(): void { 
-    this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
+  ngOnInit(): void {
+    this.auth_token = JSON.parse(localStorage.getItem('auth_token') || '{}')
 
-    this.activatedRouter.paramMap.subscribe((res:any)=>{
-      this.technologyId=res.params.id,
-      this.technologyName=res.params.techname
+    this.activatedRouter.paramMap.subscribe((res: any) => {
+      this.technologyId = res.params.id,
+        this.technologyName = res.params.techname
     })
     this.getSideNavData()
-    this.checkListData={
-      "technologiesId":this.technologyId,
-      "data":this.checklistHeading
+    this.checkListData = {
+      "technologiesId": this.technologyId,
+      "data": this.checklistHeading
     }
     this.checklistQuestions.push(this.checkListData)
-    console.log('checklistData',this.checklistQuestions);
-    
+    console.log('checklistData', this.checklistQuestions);
   }
-  getSideNavData(){
+
+  getSideNavData() {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-    this.codeService.getSideNav(this.technologyId,headers).subscribe((res:any)=>{
-      this.sideNavData=res.data[0].leftNav
+    this.codeService.getSideNav(this.technologyId, headers).subscribe((res: any) => {
+      this.sideNavData = res.data[0].leftNav
       console.log('sidenav List', this.sideNavData);
-      
     })
-
   }
-  onSelectSideNav(heading:any){
-    console.log('heading',heading);
-    this.sideNavHeading=heading
-    
 
+  onSelectSideNav(heading: any) {
+    console.log('heading', heading);
+    this.sideNavHeading = heading
   }
-  addSideNavData(){
+
+  test() {
+    const listItems = document.querySelectorAll("#checklistHeadingList li");
+    // Add a click event listener to each <li> to toggle the "selected" class
+    listItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        // Remove the "selected" class from all <li> elements
+        listItems.forEach((li) => li.classList.remove("selected"));
+        // Add the "selected" class to the clicked <li> element
+        item.classList.add("selected");
+      });
+    });
+  }
+
+  addSideNavData() {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-    let checklistHeadingJson={
-      "leftNav" : [this.checklistHeading],
+    let checklistHeadingJson = {
+      "leftNav": [this.checklistHeading],
       "technologiesId": this.technologyId
     }
-    console.log('checklist heading',checklistHeadingJson);
-    this.codeService.postSideNav(checklistHeadingJson,headers).subscribe((res:any)=>{
-      if(res.success==true){
-        console.log(res); 
+    console.log('checklist heading', checklistHeadingJson);
+    this.codeService.postSideNav(checklistHeadingJson, headers).subscribe((res: any) => {
+      if (res.success == true) {
+        console.log(res);
         this.getSideNavData()
-
       }
-      
     })
   }
 
@@ -91,12 +100,13 @@ export class ChecklistDetailsComponent implements OnInit {
       data: sampleData
     })
     dialogRef.afterClosed().subscribe((val: any) => {
+      console.log(val)
       this.deleteValue = val.value
       console.log(this.deleteValue);
       if (this.deleteValue == 'Yes') {
         console.log('Val deleted');
       }
-      else if (this.deleteValue == 'No') {
+      else {
         console.log('Cancelled deletion');
       }
     })
@@ -113,12 +123,13 @@ export class ChecklistDetailsComponent implements OnInit {
       data: sampleData
     })
     dialogRef.afterClosed().subscribe((val: any) => {
+      console.log(val)
       this.addMainQuestion = val.value
       console.log(this.addMainQuestion);
-      if (this.addMainQuestion == 'Yes') {
+      if (this.addMainQuestion) {
         console.log('Main Question added');
       }
-      else if (this.addMainQuestion == 'No') {
+      else {
         console.log('Cancelled main question addition');
       }
     })
@@ -137,10 +148,10 @@ export class ChecklistDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((val: any) => {
       this.addSubQuestion = val.value
       console.log(this.addSubQuestion);
-      if (this.addSubQuestion == 'Yes') {
+      if (this.addSubQuestion) {
         console.log('Sub question added');
       }
-      else if (this.addSubQuestion == 'No') {
+      else {
         console.log('Cancelled sub question addition');
       }
     })

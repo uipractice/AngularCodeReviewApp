@@ -11,13 +11,14 @@
 
         <div class="main-question-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))">
           <label for="enter-question" class="form-label">Question Text </label>
-          <textarea type="text" class="form-control" id="enter-question" placeholder="Enter question here"></textarea>
+          <textarea type="text" class="form-control" id="enter-question" placeholder="Enter question here" [(ngModel)]="textareaValue"></textarea>
         </div>
 
         <form>
           <div class="table-button flex-center delete-project">
-            <button class="button-all btn-outline mg-0 delete-box" (click)=" onClick('No')">{{ data.popupCancelBtn }}</button>
-            <button class="button-all btn-blue mg-0 delete-box" (click)=" onClick('Yes')" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+            <button class="button-all btn-outline mg-0 delete-box" (click)=" onClick(textareaValue)">{{ data.popupCancelBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box" *ngIf="(!data.popupDeleteBool)" [disabled]="!textareaValue" (click)=" onClick(textareaValue)" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box" *ngIf="(data.popupDeleteBool)" (click)=" onClick('Yes')" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
           </div>
         </form>
       </mat-dialog-content>
