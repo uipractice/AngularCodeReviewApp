@@ -11,9 +11,9 @@
 <div class="project-name" *ngFor="let data of dataSource">
 <div class="project">
  <h6><span>Project Name</span>{{data.project}}</h6>
- <span class="green-color review-status" *ngIf="data.status=='pending'" ><img title="view page" alt="View" src="../assets/pending.svg"> Code Review {{data.status}}</span>
- <span class="green-color review-status" *ngIf="data.status=='submitted'" ><img title="view page" alt="View" src="../assets/Submitted.svg"> Code Review {{data.status}}</span>
- <span class="green-color review-status" *ngIf="data.status=='completed'" ><img title="view page" alt="View" src="../assets/completed.svg"> Code Review {{data.status}}</span>
+ <span class="green-color review-status" *ngIf="data.status=='pending'" style="color: red;"><img title="view page" alt="View" src="../assets/pending.svg"> Code Review {{data.status}}</span>
+ <span class="green-color review-status" *ngIf="data.status=='submitted'" style="color: blue"><img title="view page" alt="View" src="../assets/Submitted.svg"> Code Review {{data.status}}</span>
+ <span class="green-color review-status" *ngIf="data.status=='completed'" style="color: green" ><img title="view page" alt="View" src="../assets/completed.svg"> Code Review {{data.status}}</span>
 
   <ul class="icons-view">
     <li><img *ngIf="data.status=='completed'" title="export page" alt="export" src="../assets/export.svg"></li>

@@ -34,7 +34,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FooterComponent } from './footer/footer.component';
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
 import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis.component';
-import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
@@ -53,7 +52,6 @@ import { ModalComponent } from './modal/modal.component';
     FooterComponent,
     TechnicalStackComponent,
     ChecklistDetailsComponent,
-    ModalComponent
   ],
   imports: [
     BrowserModule,

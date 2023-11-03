@@ -12,5 +12,41 @@ padding:7px 21px;
 .cdk-overlay-pane {
   max-width:600px !important;
   width:100%;
+}
 
+/* --------------------------------------------------------------------- */
+/* MODAL STYLES
+-------------------------------*/
+cr-modal {
+  display: none;
+
+  .cr-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background-color: rgba(0, 0, 0, .75);
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
   }
+
+  .cr-modal-body {
+      padding: 20px;
+      background: #fff;
+  }
+}
+
+.cr-modal-open .delete-popup .cr-modal-body {
+  width: 450px;
+}
+
+.cr-modal-open .add-question-popup .cr-modal-body {
+  width: 750px;
+}
+
+body.cr-modal-open {
+  overflow: hidden;
+}
+/* --------------------------------------------------------------------- */
+

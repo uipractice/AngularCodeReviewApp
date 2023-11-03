@@ -55,8 +55,8 @@
         <div class=" d-flex justify-content-center" [formGroup]="technologyForm">
           <div class="mb-3 col-md-4 col-sm-12">
             <label for="storyId" class="form-label">Technology Name <span class="red-dot"></span></label>
-            <mat-select class="form-control" formControlName="technology">
-              <mat-option [value]="tech.name" *ngFor="let tech of technologies">
+            <mat-select class="form-control" formControlName="technology" (selectionChange)="getTechId($event)">
+              <mat-option [value]="tech" *ngFor="let tech of technologies">
                 {{tech.name}}
               </mat-option>
             </mat-select>
