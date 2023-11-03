@@ -96,7 +96,7 @@ export class CodeReviewTrackerComponent implements OnInit {
             
             console.log(response.data[0].data[0].value);
             this.selectelTabCheckList=response.data[0].data[0]
-            console.log('The checklist questions ',this.selectelTabCheckList);
+            // console.log('The checklist questions ',this.selectelTabCheckList);
             console.log('complete response',response);
             
             this.getCheckListQuestions()

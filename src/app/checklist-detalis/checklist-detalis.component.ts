@@ -24,7 +24,7 @@ export class ChecklistDetailsComponent implements OnInit {
   sideNavData:any
   sideNavHeading:any
   checkListData:any
-  checklistQuestions:any=[]
+  checklistQuestions:any=[] //data array
 
   constructor(private codeService:CodeReviewService, private dialog: MatDialog,private router:Router,private activatedRouter:ActivatedRoute) { }
 
@@ -40,7 +40,8 @@ export class ChecklistDetailsComponent implements OnInit {
       "technologiesId":this.technologyId,
       "data":this.checklistHeading
     }
-    console.log('checklistData',this.checkListData);
+    this.checklistQuestions.push(this.checkListData)
+    console.log('checklistData',this.checklistQuestions);
     
   }
   getSideNavData(){
