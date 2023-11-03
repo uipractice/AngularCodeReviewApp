@@ -544,7 +544,8 @@ margin: 0px;
   display: block;
 }
 .accounts li {
-color: #585858;
+/*color: #585858;*/
+color:#7e7979;
 font-size: 0.75rem;
 font-weight:500;
 width: 18%;
@@ -554,12 +555,15 @@ width: 18%;
 width:28%;
 
 }
-
+.mat-body, .mat-body-2, .mat-typography .mat-body, .mat-typography .mat-body-2, .mat-typography {
+  line-height: inherit !important;
+}
 .accounts li strong {
 color: #0E0E0E;
-font-size: 0.875rem;
-font-weight:600;
+font-size:13px;
+font-weight:500;
 display: block;
+margin-top: 6px;
 }
 .icons-view {
   display:flex;
@@ -568,7 +572,7 @@ display: block;
 }
 .icons-view li {
   display: flex;
-  padding:0 0 0 33px;
+  padding:0 0 0 24px;
   cursor: pointer;
 }
 .review-status {
@@ -1313,6 +1317,12 @@ height:50px !important;
  top:40%;
  left:40%;
 }
+
+.btn-h {
+  height:50px;
+
+}
+
 @media only screen and (max-width: 768px) {
   .m-logo {
     display: block;
