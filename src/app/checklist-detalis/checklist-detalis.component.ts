@@ -25,6 +25,7 @@ export class ChecklistDetailsComponent implements OnInit {
   sideNavHeading:any
   checkListData:any
   checklistQuestions:any=[]
+  marginTop: any = '2%';
 
   constructor(private codeService: CodeReviewService, private dialog: MatDialog, private router: Router, private activatedRouter: ActivatedRoute) { }
 
@@ -56,7 +57,8 @@ export class ChecklistDetailsComponent implements OnInit {
 
   onSelectSideNav(heading: any) {
     console.log('heading', heading);
-    this.sideNavHeading = heading
+    this.sideNavHeading = heading;
+    this.marginTop = '0%';
   }
 
   test() {
