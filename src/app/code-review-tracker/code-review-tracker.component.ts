@@ -56,6 +56,11 @@ export class CodeReviewTrackerComponent implements OnInit {
    
   }
 
+  getTabLabel(label?:any){
+    console.log('tab details',label);
+    
+  }
+
  
 
   buildReactiveForm(){
@@ -656,17 +661,6 @@ export class CodeReviewTrackerComponent implements OnInit {
     
   })
 
-  let finalSubmit={
-    "detailsId": this.detailsId,
-    "comments": this.commentsData,
-    "percentage": this.summaryPercentage
-  }
-  this.codeService.updateCheckListData(finalSubmit,headers).subscribe((res:any)=>{
-    console.log(res);
-    
-  })
-
-    
     this.showSummary=true
     let rating=0
     let achievedRating=0
@@ -681,6 +675,18 @@ export class CodeReviewTrackerComponent implements OnInit {
     console.log('summary percentage',totalPercentage);
     this.summaryPercentage=totalPercentage.toFixed(2)
     
+    let finalSubmit={
+      "detailsId": this.detailsId,
+      "data":[this.reviewTrackerForm.value],
+      "comments": this.commentsData,
+      "percentage": this.summaryPercentage
+    }
+    console.log('updated percentage and comments',finalSubmit);
+    
+    this.codeService.updateCheckListData(finalSubmit,headers).subscribe((res:any)=>{
+      console.log(res);
+      
+    })
     
 
   }

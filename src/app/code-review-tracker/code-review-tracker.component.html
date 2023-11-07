@@ -2,10 +2,10 @@
 <div class="container">
 
 
-  <mat-tab-group class="tabs-grey">
+  <mat-tab-group class="tabs-grey" >
 
 
-    <mat-tab class="tab-heading" label="Code Review">
+    <mat-tab class="tab-heading" label="Code Review" (click)="getTabLabel('Code Review')">
 
       <div class="table-button details-main top-heading top-page" style="border: 0px solid red;">
         <div><h1>{{projectDetails.account}}-{{projectDetails.project|titlecase }} <span style="font-size: 21px;">({{projectDetails.technologies.name|titlecase}})</span> </h1>
