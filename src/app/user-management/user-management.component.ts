@@ -26,7 +26,7 @@ export class UserManagementComponent implements OnInit {
 
 
   // displayedColumns: string[] = ['firstname', 'lastname', 'contact', 'email', 'status', 'action'];
-  displayedColumns: string[] = ['firstname', 'lastname', 'email','contact', 'status', 'action'];
+  displayedColumns: string[] = ['firstname', 'lastname', 'email', 'status', 'action'];
 
   dataSource:any
 

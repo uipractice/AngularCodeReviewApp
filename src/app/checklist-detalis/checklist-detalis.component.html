@@ -28,13 +28,11 @@
           </div>
         </div>
 
+      <div *ngIf="sideNavData">
         <ul  id="checklistHeadingList" *ngFor="let heading of sideNavData" (click)="onSelectSideNav(heading)">
           <li (click)="test()"> <a class="nav-links" >{{heading|uppercase}}</a> </li>
-          <!-- <li> <a class="nav-links">PERFORMANCE</a> </li>
-          <li> <a class="nav-links">STRUCTURAL</a> </li>
-          <li> <a class="nav-links">SECURITY</a> </li>
-          <li> <a class="nav-links">UNIT TESTING</a> </li> -->
         </ul>
+      </div>
       </div>
 
       <div class="right-content col-md-9 col-sm-8">

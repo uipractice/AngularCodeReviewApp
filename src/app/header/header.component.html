@@ -7,7 +7,7 @@
 <li><a  (click)="onClick(3)" [ngClass]="{ active: tab === 'tab3' }"   class="list" mat-button [matMenuTriggerFor]="menu" routerLink="/header/codereview-managment" href="">Code Review Management <img src="../assets/Expand_down.svg" height="16" alt="Expand" title="Expand down"></a></li>
 
 <mat-menu #menu="matMenu" class="menu-drop">
-  <button mat-menu-item routerLink="/header/codereview-managment">Create New Checklist</button>
+  <button mat-menu-item routerLink="/header/create-checklist">Create New Checklist</button>
   <button mat-menu-item routerLink="/header/technical-stack">Technical Stack</button>
 </mat-menu>
 

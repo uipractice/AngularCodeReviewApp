@@ -23,12 +23,15 @@ export class ChecklistDetailsComponent implements OnInit {
   technologyName:any
   sideNavData:any
   sideNavHeading:any
+  leftNavId:any
   checkListData:any
   checklistQuestions:any=[]
 
   constructor(private codeService: CodeReviewService, private dialog: MatDialog, private router: Router, private activatedRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log('sidenavdata',this.sideNavData);
+    
     this.auth_token = JSON.parse(localStorage.getItem('auth_token') || '{}')
 
     this.activatedRouter.paramMap.subscribe((res: any) => {
@@ -49,9 +52,15 @@ export class ChecklistDetailsComponent implements OnInit {
       'Authorization': `Bearer ${this.auth_token}`
     });
     this.codeService.getSideNav(this.technologyId, headers).subscribe((res: any) => {
-      this.sideNavData = res.data[0].leftNav
-      console.log('sidenav List', this.sideNavData);
+      if(res.success==true && res.data){
+        this.sideNavData = res.data[0].leftNav
+      this.leftNavId= res.data[0]._id
+      console.log('sidenav List', res);
+      }
+     
+      
     })
+    
   }
 
   onSelectSideNav(heading: any) {
@@ -80,16 +89,30 @@ export class ChecklistDetailsComponent implements OnInit {
       "leftNav": [this.checklistHeading],
       "technologiesId": this.technologyId
     }
-    console.log('checklist heading', checklistHeadingJson);
-    this.codeService.postSideNav(checklistHeadingJson, headers).subscribe((res: any) => {
-      if (res.success == true) {
-        console.log(res);
-        this.getSideNavData()
-      }
-    })
+    let updatetHeadingJson = {
+      "leftNav": this.checklistHeading,
+      "leftNavId": this.leftNavId
+    }
+    if(this.sideNavData){
+      this.codeService.updateSideNav(updatetHeadingJson, headers).subscribe((res:any)=>{
+        if(res.success == true ){
+          this.getSideNavData()
+        }
+      })
+    }
+    else{
+      this.codeService.postSideNav(checklistHeadingJson, headers).subscribe((res:any)=>{
+        if(res.success == true ){
+          this.getSideNavData()
+        }
+      })
+
+    }
+   
+   
   }
 
-  deletePopup() {
+  deletePopup(sideNavHeading?:any) {
     const sampleData: ModalData = {
       popupHeaderTitle: 'Do you really want to delete?',
       popupOkBtn: 'Delete',

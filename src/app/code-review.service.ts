@@ -85,6 +85,9 @@ projectDetails=new Subject()
   postSideNav(data:any,headers:any,){
     return this.http.post(`${this.baseUrl}/lefNavData`,data,{headers})
   }
+  updateSideNav(data:any,headers:any,){
+    return this.http.put(`${this.baseUrl}/lefNavData`,data,{headers})
+  }
   saveCheckListData(data:any,headers:any){
     return this.http.post(`${this.baseUrl}/checklist`,data,{headers})
   }
