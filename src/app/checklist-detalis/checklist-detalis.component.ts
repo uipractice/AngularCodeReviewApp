@@ -66,7 +66,7 @@ export class ChecklistDetailsComponent implements OnInit {
 
   onSelectSideNav(heading: any) {
     console.log('heading', heading);
-    this.sideNavHeading = heading;
+    this.sideNavHeading = heading
     this.marginTop = '0%';
   }
 
@@ -178,6 +178,7 @@ export class ChecklistDetailsComponent implements OnInit {
       }
       else {
         console.log('Cancelled sub question addition');
+        
       }
     })
   }

@@ -36,6 +36,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   achievedRatingValue:boolean=false
   isLoaderActive:boolean=false
   isDataAvailable:boolean=false
+  updateCommentsData:any
+  updateSummaryPercentage:any
 
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute,private router:Router){}
@@ -49,32 +51,38 @@ export class CodeReviewTrackerComponent implements OnInit {
     })
     this.buildReactiveForm()
     this.getSideNavData(this.projectDetails.technicalStackId,this.projectDetails.technologiesId)
-    
-
     this.getOptions()
-    // this.getReviewDetails()
-   
+    this.getPercantageAndComments()
   }
 
-  getTabLabel(label?:any){
-    console.log('tab details',label);
+  getPercantageAndComments(){
+    const headers = new HttpHeaders({ 
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.getSavedPercentageData(headers,this.detailsId).subscribe((res:any)=>{
+      if(res.data.length===0){
+        console.log('no saved data');
+      }
+      else{
+        this.commentsData=res.data[0].comments
+        this.updateCommentsData=res.data[0].percentage
+        console.log(this.commentsData, this.updateCommentsData);
+        
+         
+
+      }
     
+      
+    })
+
   }
-
- 
-
   buildReactiveForm(){
     this.reviewTrackerForm=this.formBuilder.group({
       key:new FormControl(this.reviewDetailsHeader,Validators.required),
       value:new FormArray([])
       })
   }
-
- 
-
-
-
-    getReviewDetails(){
+ getReviewDetails(){
       this.isLoaderActive=true
 
     this.buildReactiveForm()
@@ -755,6 +763,14 @@ export class CodeReviewTrackerComponent implements OnInit {
     
   }
 
+  isNaN(value){
+    if(value==='number'){
+      return true
+    }
+    else{
+     return  false
+    }
+  }
 
 
 

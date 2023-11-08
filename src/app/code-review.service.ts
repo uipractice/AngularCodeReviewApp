@@ -94,8 +94,11 @@ projectDetails=new Subject()
   updateCheckListData(data:any,headers:any){
     return this.http.put(`${this.baseUrl}/checklist`,data,{headers})
   }
-  getSavedCheckListData(headers:any,detailsId:any,key:any){
+  getSavedCheckListData(headers:any,detailsId:any,key?:any){
     return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}&key=${key}`,{headers})
+  }
+  getSavedPercentageData(headers:any,detailsId:any){
+    return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}`,{headers})
   }
 
   createUser(data:any,headers:any){
