@@ -3,8 +3,8 @@
 
     <div [ngClass] = "data.popupDeleteBool? 'dialog-card main-cards delete-popup': 'add-question-popup'">
       <mat-dialog-content class="mat-typography">
-        <div class="checklist-header">
-          <span><strong class="comment-question">{{ data.popupHeaderTitle }}</strong></span>
+        <div [ngClass] = "data.popupExportBool? 'export-header': 'checklist-header'">
+          <span><strong [ngClass] = "data.popupExportBool? 'export-header-title': 'comment-question'">{{ data.popupHeaderTitle }}</strong></span>
           <span class="close-btn" mat-button mat-dialog-close><img alt="close btn" src="../assets/close-popup.svg" /></span>
         </div>
         <hr *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))">
@@ -14,10 +14,18 @@
           <textarea type="text" class="form-control" id="enter-question" placeholder="Enter question here" [(ngModel)]="textareaValue"></textarea>
         </div>
 
-        <form>
+        <div class="export-popup-content" *ngIf="data.popupExportBool">
+          <div class="export-email-box">
+            <label for="enter-email" class="form-label">Email Address <span class="red-dot"></span></label>
+            <input type="text" class="form-control" id="enter-email" placeholder="Enter email address here" [(ngModel)]="emailValue"/>
+          </div>
+          <button class="send-report" (click)=" onClick(emailValue)">{{ data.popupExportBtn }}</button>
+        </div>
+
+        <form *ngIf="!data.popupExportBool">
           <div class="table-button flex-center delete-project">
-            <button class="button-all btn-outline mg-0 delete-box" (click)=" onClick(textareaValue)">{{ data.popupCancelBtn }}</button>
-            <button class="button-all btn-blue mg-0 delete-box" *ngIf="(!data.popupDeleteBool)" [disabled]="!textareaValue" (click)=" onClick(textareaValue)" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+            <button class="button-all btn-outline mg-0 delete-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool) || (data.popupDeleteBool))" (click)=" onClick(textareaValue)">{{ data.popupCancelBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))" [disabled]="!textareaValue" (click)=" onClick(textareaValue)" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
             <button class="button-all btn-blue mg-0 delete-box" *ngIf="(data.popupDeleteBool)" (click)=" onClick('Yes')" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
           </div>
         </form>

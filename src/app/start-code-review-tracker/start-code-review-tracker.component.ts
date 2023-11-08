@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { AddCommentsComponent } from '../add-comments/add-comments.component';
+import { AddCommentsComponent, ModalData } from '../add-comments/add-comments.component';
 
 @Component({
   selector: 'app-start-code-review-tracker',
@@ -18,6 +18,8 @@ export class StartCodeReviewTrackerComponent implements OnInit {
   element: any;
   auth_token = ''
   deleteValue: any
+  popupExportBool: Boolean = false;
+  enterEmail: string = '';
 
   constructor(private router: Router, private codeService: CodeReviewService, private http: HttpClient, private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
@@ -85,4 +87,21 @@ export class StartCodeReviewTrackerComponent implements OnInit {
     this.router.navigate(['header/codeReviewerDetails'])
   }
 
+  exportPopup() {
+    const sampleData: ModalData = {
+      popupHeaderTitle: 'Send Code Review Report',
+      popupExportBtn: 'Send Report',
+      popupExportBool: true
+    }
+    const dialogRef = this.dialog.open(AddCommentsComponent, {
+      data: sampleData
+    })
+    dialogRef.afterClosed().subscribe((val: any) => {
+      this.enterEmail = val.value
+      console.log(this.enterEmail);
+      if (this.enterEmail) {
+        console.log('Email Added');
+      }
+    })
+  }
 }
