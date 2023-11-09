@@ -2,10 +2,10 @@
 <div class="container">
 
 
-  <mat-tab-group class="tabs-grey">
+  <mat-tab-group class="tabs-grey" >
 
 
-    <mat-tab class="tab-heading" label="Code Review">
+    <mat-tab class="tab-heading" label="Code Review" >
 
       <div class="table-button details-main top-heading top-page" style="border: 0px solid red;">
         <div><h1>{{projectDetails.account}}-{{projectDetails.project|titlecase }} <span style="font-size: 21px;">({{projectDetails.technologies.name|titlecase}})</span> </h1>
@@ -262,7 +262,7 @@
 
         <div class="mb-3 col-md-12 col-sm-12 overall-comments">
           <label for="account" class="form-label">Overall Comments:</label>
-        <textarea placeholder="" rows="10" cols="50" class="form-control"> {{commentsData}} </textarea>
+        <textarea placeholder="" rows="10" cols="50" class="form-control"> {{updateCommentsData?updateCommentsData:commentsData}} </textarea>
 
         </div>
 

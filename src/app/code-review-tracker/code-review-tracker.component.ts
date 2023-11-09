@@ -36,13 +36,12 @@ export class CodeReviewTrackerComponent implements OnInit {
   achievedRatingValue:boolean=false
   isLoaderActive:boolean=false
   isDataAvailable:boolean=false
+  updateCommentsData:any
+  updateSummaryPercentage:any
 
 
   constructor(private codeService:CodeReviewService,private formBuilder:FormBuilder, public dialog: MatDialog,private activatedRoute:ActivatedRoute,private router:Router){}
   ngOnInit(): void {
-   
-
-
     this.auth_token=JSON.parse(localStorage.getItem('auth_token')||'{}')
     this.projectDetails=JSON.parse(localStorage.getItem('projectDetails')||'{}')
     this.activatedRoute.paramMap.subscribe((res:any)=>{
@@ -52,26 +51,41 @@ export class CodeReviewTrackerComponent implements OnInit {
     })
     this.buildReactiveForm()
     this.getSideNavData(this.projectDetails.technicalStackId,this.projectDetails.technologiesId)
-
     this.getOptions()
-    // this.getReviewDetails()
-   
+    this.getPercantageAndComments()
   }
 
- 
+  
 
+  getPercantageAndComments(){
+    const headers = new HttpHeaders({ 
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.getSavedPercentageData(headers,this.detailsId).subscribe((res:any)=>{
+      
+      if(res.data.length===0){
+        console.log('no saved data');
+      }
+      else{
+        this.commentsData=res.data[0].comments
+        this.updateCommentsData=res.data[0].percentage
+        console.log(this.commentsData, this.updateCommentsData);
+        
+         
+
+      }
+    
+      
+    })
+
+  }
   buildReactiveForm(){
     this.reviewTrackerForm=this.formBuilder.group({
       key:new FormControl(this.reviewDetailsHeader,Validators.required),
       value:new FormArray([])
       })
   }
-
- 
-
-
-
-    getReviewDetails(){
+ getReviewDetails(){
       this.isLoaderActive=true
 
     this.buildReactiveForm()
@@ -85,6 +99,8 @@ export class CodeReviewTrackerComponent implements OnInit {
         this.isLoaderActive=false
         this.selectelTabCheckList=res.data[0].data[0]
         this.getSavedCheckListQuestions()
+        console.log('form status',this.reviewTrackerForm);
+
         console.log('saved checked list data',res.data[0].data[0]);
         }
         else{
@@ -96,7 +112,7 @@ export class CodeReviewTrackerComponent implements OnInit {
             
             console.log(response.data[0].data[0].value);
             this.selectelTabCheckList=response.data[0].data[0]
-            console.log('The checklist questions ',this.selectelTabCheckList);
+            // console.log('The checklist questions ',this.selectelTabCheckList);
             console.log('complete response',response);
             
             this.getCheckListQuestions()
@@ -111,26 +127,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 
 
 
-    //checklist questions
-    //   this.codeService.getReviewTrackerDetails(headers,this.projectDetails.technicalStackId,this.projectDetails.technologiesId, this.reviewDetailsHeader).subscribe((res:any)=>{
-       
-    //     if(res.success==true ){
-    //     this.isLoaderActive=false
-    // console.log('loader status',this.isLoaderActive);
   
-    //     console.log(res.data[0].data[0].value);
-    //     this.selectelTabCheckList=res.data[0].data[0]
-    //     this.getCheckListQuestions()
-        
-    //    }
-    //   })
-    
-  
-
-    
-
-    
-
      
     }
 
@@ -176,14 +173,38 @@ export class CodeReviewTrackerComponent implements OnInit {
       const checkListChildGroupData=this.reviewTrackerForm.get('value') as FormArray
       for(let child of this.selectelTabCheckList.value){
         if(child.options!=null ){
-          const checkListChildGroup=new FormGroup({
-            key:new FormControl(child.key),
-            options:new FormControl(child.options),
-            rating:new FormControl(child.rating),
-            achievedRating:new FormControl(child.achievedRating),
-            comments:new FormControl(child.comments)
-          })
-          checkListChildGroupData.push(checkListChildGroup)
+         if(child.achievedRating==''){
+          console.log('saved data');
+
+           const checkListChildGroup=new FormGroup({
+              key:new FormControl(child.key),
+              options:new FormControl(child.options),
+              rating:new FormControl(child.rating),
+              achievedRating:new FormControl(child.achievedRating
+              ),
+              comments:new FormControl(child.comments)
+            })
+            checkListChildGroupData.push(checkListChildGroup)
+         }
+         else{
+          console.log('saved data');
+          
+           const checkListChildGroup=new FormGroup({
+              key:new FormControl(child.key),
+              options:new FormControl(child.options),
+              rating:new FormControl(child.rating),
+              achievedRating:new FormControl(child.achievedRating,[Validators.required, 
+                this.validateNumberRange,
+                Validators.pattern('^[0-5]$')
+              ]
+              ),
+              comments:new FormControl(child.comments)
+            })
+            checkListChildGroupData.push(checkListChildGroup)
+         }
+           
+
+         
         }
         else if(child.value){
           const checkListChildGroup=new FormGroup({
@@ -192,17 +213,34 @@ export class CodeReviewTrackerComponent implements OnInit {
           })
           const checkListsubChildGroupData=checkListChildGroup.get('value') as FormArray
           for(let subChild of child.value ){
-          const checkListsubChildGroup=new FormGroup({
+            if(subChild.achievedRating==''){
+               const checkListsubChildGroup=new FormGroup({
             key:new FormControl(subChild.key),
             options:new FormControl(subChild.options),
             rating:new FormControl(subChild.rating),
 
-            achievedRating:new FormControl(subChild.achievedRating),
+            achievedRating:new FormControl(subChild.achievedRating,
+             
+            ),
             comments:new FormControl(subChild.comments )
           })
-
-
           checkListsubChildGroupData.push(checkListsubChildGroup)
+            }
+            else{
+           const checkListsubChildGroup=new FormGroup({
+            key:new FormControl(subChild.key),
+            options:new FormControl(subChild.options),
+            rating:new FormControl(subChild.rating),
+
+            achievedRating:new FormControl(subChild.achievedRating,[Validators.required, 
+              this.validateNumberRange,
+              Validators.pattern('^[0-5]$')]
+            ),
+            comments:new FormControl(subChild.comments )
+          })
+          checkListsubChildGroupData.push(checkListsubChildGroup)
+            }
+          
          }
           checkListChildGroupData.push(checkListChildGroup)
 
@@ -295,8 +333,13 @@ export class CodeReviewTrackerComponent implements OnInit {
   console.log('summary array',this.summaryArray);
   let saveJson={
     "data":[this.reviewTrackerForm.value],
-    "detailsId":this.detailsId
+    "detailsId":this.detailsId,
+    "comments": "hello",
+    "percentage": 97
   }
+
+  console.log('savejson',saveJson);
+  
 
   if(this.isDataAvailable==true){
     this.codeService.updateCheckListData(saveJson,headers).subscribe((res:any)=>{
@@ -629,7 +672,6 @@ export class CodeReviewTrackerComponent implements OnInit {
     
   })
 
-    
     this.showSummary=true
     let rating=0
     let achievedRating=0
@@ -644,6 +686,18 @@ export class CodeReviewTrackerComponent implements OnInit {
     console.log('summary percentage',totalPercentage);
     this.summaryPercentage=totalPercentage.toFixed(2)
     
+    let finalSubmit={
+      "detailsId": this.detailsId,
+      "data":[this.reviewTrackerForm.value],
+      "comments": this.commentsData,
+      "percentage": this.summaryPercentage
+    }
+    console.log('updated percentage and comments',finalSubmit);
+    
+    this.codeService.updateCheckListData(finalSubmit,headers).subscribe((res:any)=>{
+      console.log(res);
+      
+    })
     
 
   }
@@ -712,6 +766,14 @@ export class CodeReviewTrackerComponent implements OnInit {
     
   }
 
+  isNaN(value){
+    if(value==='number'){
+      return true
+    }
+    else{
+     return  false
+    }
+  }
 
 
 
