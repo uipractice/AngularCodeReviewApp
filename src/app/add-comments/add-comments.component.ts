@@ -4,11 +4,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export interface ModalData {
   popupHeaderTitle: string;
-  popupOkBtn: string;
-  popupCancelBtn: string;
+  popupOkBtn?: string;
+  popupCancelBtn?: string;
+  popupExportBtn?: string;
   popupDeleteBool?: Boolean;
   popupAddSubQuestionBool?: Boolean;
   popupAddMainQuestionBool?: Boolean;
+  popupExportBool?: Boolean;
 }
 
 @Component({
@@ -19,6 +21,7 @@ export interface ModalData {
 
 export class AddCommentsComponent implements OnInit {
   textareaValue: string = '';
+  emailValue: string = '';
 
   constructor( public dialogRef: MatDialogRef<AddCommentsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ModalData) { }
@@ -33,6 +36,7 @@ export class AddCommentsComponent implements OnInit {
   ngOnInit() {
     console.log(this.data);
   }
+
 
 }
 
