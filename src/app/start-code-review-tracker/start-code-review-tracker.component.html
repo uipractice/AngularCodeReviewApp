@@ -6,24 +6,24 @@
   <button class="button-all btn-blue mg-0" (click)="gettingStarted()">Create New Project</button>
   </div>
 
- 
+
 
 <div class="project-name" *ngFor="let data of dataSource">
 <div class="project">
  <h6><span>Project Name</span>{{data.project}}</h6>
- <span class="green-color review-status" *ngIf="data.status=='pending'" style="color: red;"><img title="view page" alt="View" src="../assets/pending.svg"> Code Review {{data.status}}</span>
- <span class="green-color review-status" *ngIf="data.status=='submitted'" style="color: blue"><img title="view page" alt="View" src="../assets/Submitted.svg"> Code Review {{data.status}}</span>
- <span class="green-color review-status" *ngIf="data.status=='completed'" style="color: green" ><img title="view page" alt="View" src="../assets/completed.svg"> Code Review {{data.status}}</span>
+ <span class="green-color review-status" *ngIf="data.status=='pending'" style="color:#D34E27;"><img title="view project" alt="View" src="../assets/pending.svg"> Code Review {{data.status}}</span>
+ <span class="green-color review-status" *ngIf="data.status=='submitted'" style="color:#219EBC"><img title="view page" alt="View" src="../assets/Submitted.svg"> Code Review {{data.status}}</span>
+ <span class="green-color review-status" *ngIf="data.status=='completed'" style="color:#139347" ><img title="view page" alt="View" src="../assets/completed.svg"> Code Review {{data.status}}</span>
 
   <ul class="icons-view">
-    <li><img *ngIf="data.status=='completed'" title="export page" alt="export" src="../assets/export.svg"></li>
-    <li (click)="onViewSubmittedDetails(data)"><img title="view page" alt="View" src="../assets/File_dock_light.svg"></li>
-    <li (click)="onDeleteCompleteDetails(data)"><img title="trash" alt="Delete" src="../assets/trash-can-l.svg"></li>
+    <li><img *ngIf="data.status=='completed'" title="Email project list" alt="Email" src="../assets/export.svg"></li>
+    <li (click)="onViewSubmittedDetails(data)"><img title="View Project" alt="View" src="../assets/File_dock_light.svg"></li>
+    <li (click)="onDeleteCompleteDetails(data)"><img title="Delete Project" alt="Delete" src="../assets/trash-can-l.svg"></li>
 
   </ul>
 </div>
   <div class="line"></div>
-  <ul class="project accounts">
+  <ul class="project accounts project-top">
     <li>Account <strong>{{data.account}}</strong></li>
     <li>Developers <strong>{{data.developers}}</strong></li>
     <li>Reviewer <strong>{{data.reviewersName}}</strong></li>

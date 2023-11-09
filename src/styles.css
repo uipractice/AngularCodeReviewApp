@@ -88,8 +88,8 @@ ul {
     position: fixed;
     width: 100%;
     z-index:91;
-    padding-top:73px;
-    padding-bottom: 20px;
+    padding-top:80px;
+    padding-bottom: 15px;
   }
 
 
@@ -131,7 +131,7 @@ ul {
     padding-top:18px;
     position: fixed;
     height: 100vh;
-    top: 142px;
+    top: 144px;
   }
   .vertical-tabs .mat-mdc-tab-labels {
      display:inline-block !important;
@@ -444,12 +444,12 @@ display: flex;
   height: 75vh;
   color: #FAFAFA;
   text-shadow: 2px 6px 14px 0px rgba(0, 0, 0, 0.57);
-  font-size: 2.625rem !important;
+  font-size:1.8rem !important;
   font-weight: 600;
   line-height: 3.875rem !important;
   padding: 0px 110px;
-  text-align: center;
-
+  text-align:left;
+  text-transform:uppercase;
 }
 
 .login-footer {
@@ -527,6 +527,11 @@ padding:1.06rem 1.38rem;
 margin: 0px;
 
 }
+
+.project-top {
+  padding-top:10px;
+
+}
 .project h6 {
   color:#0E0E0E;
   font-size:1.0625rem !important;
@@ -560,10 +565,10 @@ width:28%;
 }
 .accounts li strong {
 color: #0E0E0E;
-font-size:13px;
+font-size:14px;
 font-weight:500;
 display: block;
-margin-top: 6px;
+margin-top: 5px;
 }
 .icons-view {
   display:flex;
@@ -670,13 +675,14 @@ color: rgba(0, 0, 0, 0.60);
   box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.07);
 }
 .mat-mdc-elevation-specific.menu-drop.mat-elevation-z8 {
-  width: 260px;
+  width: 302px;
   border-right: 1px solid #EDEDED;
   border-bottom: 1px solid #EDEDED;
   border-left: 1px solid #EDEDED;
   background: #FFF;
   box-shadow: 2px 5px 8px 0px rgba(0, 0, 0, 0.12);
   border-radius: 0px;
+  max-width:302px;
 }
 
 .user-managment .mdc-data-table__header-cell {
@@ -862,7 +868,7 @@ img.icon-login {
 .line-top {
   border-top: 2px solid #fff;
   content: "";
-  bottom: 10px;
+  bottom: 7px;
   left: 2px;
   position: absolute;
   width: 80px;
@@ -936,7 +942,7 @@ display: block;
     position:fixed;
     z-index: 92;
     left: 20px;
-    top: 45px;
+    top: 53px;
 }
 
 
@@ -1049,7 +1055,7 @@ span.red-dot {
   padding: 14px 0px;
   margin: 0px !important;
   text-align: left;
-  padding-left: 20px;
+  padding-left:24px;
 }
 
 
@@ -1320,7 +1326,7 @@ height:50px !important;
 
 .btn-h {
   height:50px;
-
+  text-transform: uppercase;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1637,7 +1643,17 @@ position: relative;
   margin-left: -24px;
   margin-right: -24px;
 }
-
+/*.vertical-tabs .mat-mdc-tab-header .mat-mdc-tab {
+  background-color: #EBF6FD;
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 24px;
+}
+*/
 /****************************** Delete Popup CSS **********************************************/
 .button-all {
   padding: 7px 21px;
@@ -1648,3 +1664,4 @@ position: relative;
   flex-direction: row;
   justify-content: space-between;
 }
+

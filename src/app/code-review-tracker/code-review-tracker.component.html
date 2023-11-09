@@ -19,10 +19,10 @@
       </div>
         </div>
 
-     <mat-tab-group class="vertical-tabs" animationDuration="0ms"  (selectedTabChange)=" onGetSideSelectedValue($event)"  [formGroup]="reviewTrackerForm"   >
+     <mat-tab-group [disableRipple]="true" class="vertical-tabs" animationDuration="0ms"  (selectedTabChange)=" onGetSideSelectedValue($event)"  [formGroup]="reviewTrackerForm"   >
 
 
-      <mat-tab  *ngFor="let sideData of sideNavDetails; let i=index"  [label]="sideData"   >
+      <mat-tab   *ngFor="let sideData of sideNavDetails; let i=index"  [label]="sideData"   >
 
 
           <ng-template mat-tab-label  >
