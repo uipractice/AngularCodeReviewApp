@@ -55,11 +55,14 @@ export class CodeReviewTrackerComponent implements OnInit {
     this.getPercantageAndComments()
   }
 
+  
+
   getPercantageAndComments(){
     const headers = new HttpHeaders({ 
       'Authorization': `Bearer ${this.auth_token}`
     });
     this.codeService.getSavedPercentageData(headers,this.detailsId).subscribe((res:any)=>{
+      
       if(res.data.length===0){
         console.log('no saved data');
       }

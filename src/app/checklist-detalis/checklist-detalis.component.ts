@@ -114,7 +114,10 @@ export class ChecklistDetailsComponent implements OnInit {
    
   }
 
-  deletePopup(sideNavHeading?:any) {
+  deletePopup(sideNavHeading?:any, sectionName?:any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
     const sampleData: ModalData = {
       popupHeaderTitle: 'Do you really want to delete?',
       popupOkBtn: 'Delete',
@@ -130,6 +133,19 @@ export class ChecklistDetailsComponent implements OnInit {
       console.log(this.deleteValue);
       if (this.deleteValue == 'Yes') {
         console.log('Val deleted');
+        console.log(sideNavHeading,sectionName);
+        let deleteJson={
+          "leftNav":sectionName,
+          "leftNavId":this.leftNavId,
+          "remove":true
+        }
+        this.codeService.updateSideNav(deleteJson,headers).subscribe((res:any)=>{
+          console.log(res);
+          
+        })
+
+        
+        
       }
       else {
         console.log('Cancelled deletion');
@@ -178,7 +194,7 @@ export class ChecklistDetailsComponent implements OnInit {
       }
       else {
         console.log('Cancelled sub question addition');
-        
+
       }
     })
   }
