@@ -5,7 +5,8 @@
       <mat-dialog-content class="mat-typography">
         <div [ngClass] = "data.popupExportBool? 'export-header': 'checklist-header'">
           <span><strong [ngClass] = "data.popupExportBool? 'export-header-title': 'comment-question'">{{ data.popupHeaderTitle }}</strong></span>
-          <span class="close-btn" mat-button mat-dialog-close><img alt="close btn" src="../assets/close-popup.svg" /></span>
+          <span *ngIf="!data.popupExportBool" class="close-btn" mat-button mat-dialog-close><img alt="close btn" src="../assets/close-popup.svg" /></span>
+          <span *ngIf="data.popupExportBool" class="close-btn" mat-button mat-dialog-close><img alt="close btn" src="../assets/close-btn-white.svg" /></span>
         </div>
         <hr *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))">
 
