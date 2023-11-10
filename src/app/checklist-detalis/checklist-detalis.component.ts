@@ -5,7 +5,7 @@ import { ModalData } from '../add-comments/add-comments.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpHeaders } from '@angular/common/http';
-import { Obj } from '@popperjs/core';
+import { checkListData } from '../checklistData.model';
 
 @Component({
   selector: 'app-checklist-detalis',
@@ -24,9 +24,26 @@ export class ChecklistDetailsComponent implements OnInit {
   sideNavData:any
   sideNavHeading:any
   leftNavId:any
-  checkListData:any
-  checklistQuestions:any=[]
+  parentQuestionsData:any[]=[]
   marginTop: any = '2%';
+ postCheckListQuestionsData={
+  "data" : [
+  {
+  key : '',
+  value:[]
+  },
+ 
+],
+total:{
+      "rating": "",
+      "achievedRating": ""
+  },
+totlaPerc : {
+  rating: "",
+  achievedRating: ""
+},
+technologiesId: ""
+}
 
   constructor(private codeService: CodeReviewService, private dialog: MatDialog, private router: Router, private activatedRouter: ActivatedRoute) { }
 
@@ -40,12 +57,8 @@ export class ChecklistDetailsComponent implements OnInit {
         this.technologyName = res.params.techname
     })
     this.getSideNavData()
-    this.checkListData = {
-      "technologiesId": this.technologyId,
-      "data": this.checklistHeading
-    }
-    this.checklistQuestions.push(this.checkListData)
-    console.log('checklistData', this.checklistQuestions);
+    this.postCheckListQuestionsData.technologiesId=this.technologyId
+   
   }
 
   getSideNavData() {
@@ -68,6 +81,10 @@ export class ChecklistDetailsComponent implements OnInit {
     console.log('heading', heading);
     this.sideNavHeading = heading
     this.marginTop = '0%';
+    this.postCheckListQuestionsData.data[0].key=this.sideNavHeading
+    // this.postCheckListQuestionsData.data[0].value=this.parentQuestionsData
+    console.log('checklist questions',this.postCheckListQuestionsData);
+    
   }
 
   test() {
@@ -141,7 +158,7 @@ export class ChecklistDetailsComponent implements OnInit {
         }
         this.codeService.updateSideNav(deleteJson,headers).subscribe((res:any)=>{
           console.log(res);
-          
+          this.getSideNavData()
         })
 
         
