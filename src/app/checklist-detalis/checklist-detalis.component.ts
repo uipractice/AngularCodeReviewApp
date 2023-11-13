@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpHeaders } from '@angular/common/http';
 import { checkListData } from '../checklistData.model';
+import { Obj } from '@popperjs/core';
 
 @Component({
   selector: 'app-checklist-detalis',
@@ -24,10 +25,11 @@ export class ChecklistDetailsComponent implements OnInit {
   sideNavData:any
   sideNavHeading:any
   leftNavId:any
-  parentQuestionsData:any[]=[]
+  parentQuestionsData:Object[]=[]
+  completeCheckList:Object[]=[]
   marginTop: any = '2%';
- postCheckListQuestionsData={
-  "data" : [
+ postCheckListQuestionsData:any={
+  data: [
   {
   key : '',
   value:[]
@@ -58,6 +60,7 @@ technologiesId: ""
     })
     this.getSideNavData()
     this.postCheckListQuestionsData.technologiesId=this.technologyId
+    
    
   }
 
@@ -81,10 +84,7 @@ technologiesId: ""
     console.log('heading', heading);
     this.sideNavHeading = heading
     this.marginTop = '0%';
-    this.postCheckListQuestionsData.data[0].key=this.sideNavHeading
-    // this.postCheckListQuestionsData.data[0].value=this.parentQuestionsData
-    console.log('checklist questions',this.postCheckListQuestionsData);
-    
+   
   }
 
   test() {
@@ -171,6 +171,9 @@ technologiesId: ""
   }
 
   addMainQuestionPopup() {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
     const sampleData: ModalData = {
       popupHeaderTitle: 'Add Main Question',
       popupOkBtn: 'Add',
@@ -185,7 +188,33 @@ technologiesId: ""
       this.addMainQuestion = val.value
       console.log(this.addMainQuestion);
       if (this.addMainQuestion) {
-        console.log('Main Question added');
+        console.log('Main Question added',this.addMainQuestion);
+        const parentDataObj:Object={
+          key:this.addMainQuestion,
+          options:'',
+          rating:'',
+          achievedRating:'',
+          comments:''
+        }
+        this.postCheckListQuestionsData.technologiesId=this.technologyId
+        this.parentQuestionsData.push(parentDataObj)
+        const parentKey={
+          key:this.sideNavHeading,
+          value:this.parentQuestionsData
+        }
+        this.completeCheckList.push(parentKey)
+        this.postCheckListQuestionsData.data=this.completeCheckList
+        
+        console.log('posted checklist data',this.postCheckListQuestionsData);
+
+        // this.codeService.postCheckListQuestions(this.technologyId,this.sideNavData,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
+        //   console.log(res);
+          
+        // })
+        
+        
+        
+
       }
       else {
         console.log('Cancelled main question addition');

@@ -53,7 +53,7 @@ projectDetails=new Subject()
   onEditDetails(data:any,headers:any){
     return this.http.put(`${this.baseUrl}/details`,data,{headers})
 
-  }vie
+  }
   getTechnicalStackDetails(headers:any){
     return this.http.get(`${this.baseUrl}/technicalStack`,{headers})
   }
@@ -89,7 +89,7 @@ projectDetails=new Subject()
     return this.http.put(`${this.baseUrl}/lefNavData`,data,{headers})
   }
  
-  
+
   saveCheckListData(data:any,headers:any){
     return this.http.post(`${this.baseUrl}/checklist`,data,{headers})
   }
@@ -105,6 +105,9 @@ projectDetails=new Subject()
 
   createUser(data:any,headers:any){
     return this.http.post(`${this.baseUrl}/users`,data,{headers})
+  }
+  postCheckListQuestions(technologiesId:any,step:any,data:any,headers:any){
+    return this.http.post(`${this.baseUrl}/checkListQuestions?technologiesId=${technologiesId}&type=${step}`,data,{headers})
   }
 
   }
