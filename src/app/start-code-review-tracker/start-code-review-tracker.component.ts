@@ -20,6 +20,8 @@ export class StartCodeReviewTrackerComponent implements OnInit {
   deleteValue: any
   popupExportBool: Boolean = false;
   enterEmail: string = '';
+  emails: string[] = [];
+  newEmail: string = '';
 
   constructor(private router: Router, private codeService: CodeReviewService, private http: HttpClient, private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
@@ -87,7 +89,7 @@ export class StartCodeReviewTrackerComponent implements OnInit {
     this.router.navigate(['header/codeReviewerDetails'])
   }
 
-  exportPopup() {
+  exportPopup(row: any) {
     const sampleData: ModalData = {
       popupHeaderTitle: 'Send Code Review Report',
       popupExportBtn: 'Send Report',
@@ -96,12 +98,44 @@ export class StartCodeReviewTrackerComponent implements OnInit {
     const dialogRef = this.dialog.open(AddCommentsComponent, {
       data: sampleData
     })
+
+    // this.addEmail();
+
     dialogRef.afterClosed().subscribe((val: any) => {
       this.enterEmail = val.value
       console.log(this.enterEmail);
       if (this.enterEmail) {
         console.log('Email Added');
+        console.log(row._id);
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${this.auth_token}`
+        });
+        let dataDetails = {
+          "detailsId": row._id,
+          // "toEmail": ["hraj@evoketechnologies.com", "raj016.hk@gmail.com"]
+          "toEmail": this.enterEmail
+        }
+        this.codeService.exportToExcel(dataDetails, headers).subscribe((res: any) => {
+          console.log(res);
+          console.log(this.enterEmail)
+          // if (res.success == true) {
+          //   this.onGetReviewDetails()
+          // }
+        })
       }
     })
+  }
+
+  addEmail() {
+    if (this.newEmail && this.isValidEmail(this.newEmail)) {
+      this.emails.push(this.newEmail);
+      this.newEmail = ''; // Clear the input field after adding
+    }
+  }
+
+  isValidEmail(email: string): boolean {
+    // Use a regular expression or any other validation logic for email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 }
