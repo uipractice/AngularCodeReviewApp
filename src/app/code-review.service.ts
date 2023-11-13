@@ -50,11 +50,6 @@ export class CodeReviewService {
   exportToExcel(data: any, headers: any) {
     return this.http.post(`${this.baseUrl}/reportSending`, data, { headers })
   }
-  // addEmail(email: string) {
-  //   const currentList = this.emailListSubject.value;
-  //   currentList.push(email);
-  //   this.emailListSubject.next(currentList);
-  // }
   onDeleteDetails(data: any, headers: any) {
     return this.http.delete(`${this.baseUrl}/details?detailsId=${data}`, { headers })
   }

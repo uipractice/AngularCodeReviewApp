@@ -19,9 +19,8 @@ export class StartCodeReviewTrackerComponent implements OnInit {
   auth_token = ''
   deleteValue: any
   popupExportBool: Boolean = false;
-  enterEmail: string = '';
-  emails: string[] = [];
-  newEmail: string = '';
+  emailString: string = '';
+  emailArray: string[] = [];
 
   constructor(private router: Router, private codeService: CodeReviewService, private http: HttpClient, private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
@@ -99,43 +98,29 @@ export class StartCodeReviewTrackerComponent implements OnInit {
       data: sampleData
     })
 
-    // this.addEmail();
-
     dialogRef.afterClosed().subscribe((val: any) => {
-      this.enterEmail = val.value
-      console.log(this.enterEmail);
-      if (this.enterEmail) {
-        console.log('Email Added');
-        console.log(row._id);
-        const headers = new HttpHeaders({
-          'Authorization': `Bearer ${this.auth_token}`
-        });
-        let dataDetails = {
-          "detailsId": row._id,
-          // "toEmail": ["hraj@evoketechnologies.com", "raj016.hk@gmail.com"]
-          "toEmail": this.enterEmail
+      if (val) {
+        this.emailString = val.value
+        console.log(this.emailString);
+        this.emailArray = this.emailString.split(',')
+        console.log(this.emailArray)
+
+        if (this.emailArray) {
+          console.log('Email Added');
+          console.log(row._id);
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${this.auth_token}`
+          });
+          let dataDetails = {
+            "detailsId": row._id,
+            "toEmail": this.emailArray
+          }
+          this.codeService.exportToExcel(dataDetails, headers).subscribe((res: any) => {
+            console.log(res);
+          })
         }
-        this.codeService.exportToExcel(dataDetails, headers).subscribe((res: any) => {
-          console.log(res);
-          console.log(this.enterEmail)
-          // if (res.success == true) {
-          //   this.onGetReviewDetails()
-          // }
-        })
       }
     })
   }
 
-  addEmail() {
-    if (this.newEmail && this.isValidEmail(this.newEmail)) {
-      this.emails.push(this.newEmail);
-      this.newEmail = ''; // Clear the input field after adding
-    }
-  }
-
-  isValidEmail(email: string): boolean {
-    // Use a regular expression or any other validation logic for email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
 }
