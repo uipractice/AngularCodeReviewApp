@@ -101,9 +101,7 @@ export class CodeReviewService {
   getSavedCheckListData(headers: any, detailsId: any, key?: any) {
     return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}&key=${key}`, { headers })
   }
-  getSavedPercentageData(headers: any, detailsId: any) {
-    return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}`, { headers })
-  }
+ 
 
   createUser(data: any, headers: any) {
     return this.http.post(`${this.baseUrl}/users`, data, { headers })

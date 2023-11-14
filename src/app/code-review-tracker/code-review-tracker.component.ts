@@ -52,33 +52,12 @@ export class CodeReviewTrackerComponent implements OnInit {
     this.buildReactiveForm()
     this.getSideNavData(this.projectDetails.technicalStackId,this.projectDetails.technologiesId)
     this.getOptions()
-    this.getPercantageAndComments()
+    // this.getPercantageAndComments()
   }
 
   
 
-  getPercantageAndComments(){
-    const headers = new HttpHeaders({ 
-      'Authorization': `Bearer ${this.auth_token}`
-    });
-    this.codeService.getSavedPercentageData(headers,this.detailsId).subscribe((res:any)=>{
-      
-      if(res.data.length===0){
-        console.log('no saved data');
-      }
-      else{
-        this.commentsData=res.data[0].comments
-        this.updateCommentsData=res.data[0].percentage
-        console.log(this.commentsData, this.updateCommentsData);
-        
-         
-
-      }
-    
-      
-    })
-
-  }
+  
   buildReactiveForm(){
     this.reviewTrackerForm=this.formBuilder.group({
       key:new FormControl(this.reviewDetailsHeader,Validators.required),
@@ -98,6 +77,10 @@ export class CodeReviewTrackerComponent implements OnInit {
         this.isDataAvailable=true
         this.isLoaderActive=false
         this.selectelTabCheckList=res.data[0].data[0]
+        this.commentsData=res.data[0].comments,
+        this.summaryPercentage=res.data[0].percentage
+        console.log('comments',this.commentsData,'percentage',this.summaryPercentage);
+        
         this.getSavedCheckListQuestions()
         console.log('form status',this.reviewTrackerForm);
 
@@ -108,8 +91,11 @@ export class CodeReviewTrackerComponent implements OnInit {
        
             if(response.success==true){
               this.isDataAvailable=false
-            this.isLoaderActive=false
-            
+            this.isLoaderActive=false  
+        //     this.commentsData=res.data[0].comments,
+        //     this.summaryPercentage=res.data[0].percentage
+        // console.log('comments',this.commentsData,'percentage',this.summaryPercentage);
+
             console.log(response.data[0].data[0].value);
             this.selectelTabCheckList=response.data[0].data[0]
             // console.log('The checklist questions ',this.selectelTabCheckList);
