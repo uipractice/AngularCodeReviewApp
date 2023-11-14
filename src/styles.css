@@ -189,6 +189,21 @@ ul {
   width: 270px;
   display: block;
 }
+.vertical-tabs .mat-mdc-tab-header .mat-mdc-tab:hover {
+  background: #ebf6fd;
+}
+
+.vertical-tabs .mat-mdc-tab-header .mat-mdc-tab:hover:after {
+  background-color: #ebf6fd;
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 24px;
+}
+
 
 .example-tab-icon {
   position: absolute;
