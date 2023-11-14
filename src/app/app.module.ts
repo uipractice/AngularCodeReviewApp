@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FooterComponent } from './footer/footer.component';
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
 import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis.component';
+import { ForgotPwdComponent } from './forgot-pwd/forgot-pwd.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis
     FooterComponent,
     TechnicalStackComponent,
     ChecklistDetailsComponent,
+    ForgotPwdComponent,
   ],
   imports: [
     BrowserModule,

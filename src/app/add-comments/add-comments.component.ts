@@ -26,10 +26,11 @@ export class AddCommentsComponent implements OnInit {
   constructor( public dialogRef: MatDialogRef<AddCommentsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ModalData) { }
 
-  onClick(value: any): void {
+  onClick(val: any): void {
     let data = {
-      value: value
+      value: val
     }
+    console.log(data)
     this.dialogRef.close(data);
   }
 

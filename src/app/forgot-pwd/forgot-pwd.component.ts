@@ -1,5 +1,3 @@
-// login.component.ts
-
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
@@ -8,50 +6,40 @@ import { HttpHeaders } from '@angular/common/http';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-forgot-pwd',
+  templateUrl: './forgot-pwd.component.html',
+  styleUrls: ['./forgot-pwd.component.css']
 })
-
-export class LoginComponent implements OnInit {
-  email: any;
-  password: any;
+export class ForgotPwdComponent {
+  newPassword: any;
+  confirmPassword: any;
   handleUpdateResponse: any;
   handleError: any;
   auth_token = ''
   userRole: any
   public showPassword: boolean = false;
-  loginForm: any = FormGroup
-  activationLinkForm: any = FormGroup
-  currentForm: string = 'form1';
-
-  showForm(formName: string) {
-    this.currentForm = formName;
-  }
+  forgotPasswordForm: any = FormGroup
 
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
-  constructor(private authService: AuthService, private router: Router, private codeService: CodeReviewService, private renderer: Renderer2) { }
+  constructor(private authService: AuthService, private router: Router,
+    private codeService: CodeReviewService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
-    })
-
-    this.activationLinkForm = new FormGroup({
-      activationEmail: new FormControl('', Validators.required),
+    this.forgotPasswordForm = new FormGroup({
+      newPassword: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', Validators.required)
     })
 
     this.renderer.addClass(document.body, 'hide-header');
   }
 
   onSubmit() {
-    console.log('login value', this.loginForm.value);
+    console.log('login value', this.forgotPasswordForm.value);
 
-    this.authService.login(this.loginForm.value).subscribe((res: any) => {
+    this.authService.login(this.forgotPasswordForm.value).subscribe((res: any) => {
       if (res.success == true) {
 
         console.log('login', res);
@@ -67,12 +55,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/header'])
       }
     })
-
-
-  }
-
-  onSendLinkToMail() {
-    this.showForm('form1');
   }
 
   getUserDetails() {
@@ -93,6 +75,8 @@ export class LoginComponent implements OnInit {
     this.renderer.removeClass(document.body, 'hide-header');
   }
 }
+
+
 
 
 

@@ -5,7 +5,6 @@ import { ModalData } from '../add-comments/add-comments.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpHeaders } from '@angular/common/http';
-import { Obj } from '@popperjs/core';
 
 @Component({
   selector: 'app-checklist-detalis',
@@ -24,9 +23,27 @@ export class ChecklistDetailsComponent implements OnInit {
   sideNavData:any
   sideNavHeading:any
   leftNavId:any
-  checkListData:any
-  checklistQuestions:any=[]
+  parentQuestionsData:Object[]=[]
+  completeCheckList:Object[]=[]
   marginTop: any = '2%';
+ postCheckListQuestionsData:any={
+  data: [
+  {
+  key : '',
+  value:[]
+  },
+ 
+],
+total:{
+      "rating": "",
+      "achievedRating": ""
+  },
+totlaPerc : {
+  rating: "",
+  achievedRating: ""
+},
+technologiesId: ""
+}
 
   constructor(private codeService: CodeReviewService, private dialog: MatDialog, private router: Router, private activatedRouter: ActivatedRoute) { }
 
@@ -40,12 +57,9 @@ export class ChecklistDetailsComponent implements OnInit {
         this.technologyName = res.params.techname
     })
     this.getSideNavData()
-    this.checkListData = {
-      "technologiesId": this.technologyId,
-      "data": this.checklistHeading
-    }
-    this.checklistQuestions.push(this.checkListData)
-    console.log('checklistData', this.checklistQuestions);
+    this.postCheckListQuestionsData.technologiesId=this.technologyId
+    
+   
   }
 
   getSideNavData() {
@@ -68,6 +82,7 @@ export class ChecklistDetailsComponent implements OnInit {
     console.log('heading', heading);
     this.sideNavHeading = heading
     this.marginTop = '0%';
+   
   }
 
   test() {
@@ -141,7 +156,7 @@ export class ChecklistDetailsComponent implements OnInit {
         }
         this.codeService.updateSideNav(deleteJson,headers).subscribe((res:any)=>{
           console.log(res);
-          
+          this.getSideNavData()
         })
 
         
@@ -154,6 +169,9 @@ export class ChecklistDetailsComponent implements OnInit {
   }
 
   addMainQuestionPopup() {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
     const sampleData: ModalData = {
       popupHeaderTitle: 'Add Main Question',
       popupOkBtn: 'Add',
@@ -168,7 +186,33 @@ export class ChecklistDetailsComponent implements OnInit {
       this.addMainQuestion = val.value
       console.log(this.addMainQuestion);
       if (this.addMainQuestion) {
-        console.log('Main Question added');
+        console.log('Main Question added',this.addMainQuestion);
+        const parentDataObj:Object={
+          key:this.addMainQuestion,
+          options:'',
+          rating:'',
+          achievedRating:'',
+          comments:''
+        }
+        this.postCheckListQuestionsData.technologiesId=this.technologyId
+        this.parentQuestionsData.push(parentDataObj)
+        const parentKey={
+          key:this.sideNavHeading,
+          value:this.parentQuestionsData
+        }
+        this.completeCheckList.push(parentKey)
+        this.postCheckListQuestionsData.data=this.completeCheckList
+        
+        console.log('posted checklist data',this.postCheckListQuestionsData);
+
+        this.codeService.postCheckListQuestions(this.technologyId,this.sideNavData,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
+          console.log(res);
+          
+        })
+        
+        
+        
+
       }
       else {
         console.log('Cancelled main question addition');
