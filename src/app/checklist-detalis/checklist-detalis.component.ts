@@ -23,6 +23,7 @@ export class ChecklistDetailsComponent implements OnInit {
   sideNavData:any
   sideNavHeading:any
   leftNavId:any
+  updatedParentQuestionsData:any[]=[]
   parentQuestionsData:Object[]=[]
   completeCheckList:Object[]=[]
   marginTop: any = '2%';
@@ -75,13 +76,29 @@ technologiesId: ""
      
       
     })
+
+    
     
   }
 
   onSelectSideNav(heading: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
     console.log('heading', heading);
     this.sideNavHeading = heading
     this.marginTop = '0%';
+    this.codeService.getReviewTrackerDetails(headers,undefined,this.technologyId,heading).subscribe((res:any)=>{
+      console.log(res);
+      
+      if(res.data.length){
+        this.updatedParentQuestionsData=res.data[0].data[0]
+        console.log('existing or updated array',this.updatedParentQuestionsData);
+      }
+    
+    })
+    
+   
    
   }
 
@@ -182,9 +199,21 @@ technologiesId: ""
       data: sampleData
     })
     dialogRef.afterClosed().subscribe((val: any) => {
+      // if(exsiting_array_length==0){
+      //   //push the complete object
+      //   }
+      //   else if(key===existing_array_key){
+      //   //update the value array
+      //   }
+      //   else{
+      //   //update the data array
+      //   }
+      console.log('existing array',this.updatedParentQuestionsData);
+      
       console.log(val)
       this.addMainQuestion = val.value
       console.log(this.addMainQuestion);
+    
       if (this.addMainQuestion) {
         console.log('Main Question added',this.addMainQuestion);
         const parentDataObj:Object={
@@ -204,11 +233,12 @@ technologiesId: ""
         this.postCheckListQuestionsData.data=this.completeCheckList
         
         console.log('posted checklist data',this.postCheckListQuestionsData);
+      
 
-        this.codeService.postCheckListQuestions(this.technologyId,this.sideNavData,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
-          console.log(res);
+        // this.codeService.postCheckListQuestions(this.technologyId,this.sideNavData,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
+        //   console.log(res);
           
-        })
+        // })
         
         
         
@@ -218,6 +248,7 @@ technologiesId: ""
         console.log('Cancelled main question addition');
       }
     })
+   
   }
 
   addSubQuestionPopup() {
