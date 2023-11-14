@@ -1036,7 +1036,7 @@ span.red-dot {
 }
 
 .footer {
-  position: static;
+  /*position:absolute;*/
   left: 0;
   bottom: 0;
   width: 100%;
@@ -1625,7 +1625,7 @@ button[disabled] {
 }
 
 .checklist-details-parent-container {
-  height: 94.9%;
+  height: 129.9%;
 }
 
 .checklist-details-parent-container .container {
@@ -1820,4 +1820,12 @@ button[disabled] {
   width: 115px;
   height: 52px;
   border: 1px solid white;
+}
+
+.pd-20 {
+  padding-bottom: 200px;
+}
+
+.technical-stack {
+padding-bottom: 157px;
 }

@@ -30,6 +30,7 @@
 
       <div *ngIf="sideNavData">
         <ul  id="checklistHeadingList" *ngFor="let heading of sideNavData" (click)="onSelectSideNav(heading)">
+
           <li (click)="test()"> <a class="nav-links" >{{heading|uppercase}}</a> </li>
         </ul>
       </div>
