@@ -30,9 +30,10 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-10 col-xl-7 mx-auto">
-              <strong class="sign-title">Sign in to your Account</strong>
+              <strong *ngIf="currentForm === 'form1'" class="sign-title">Sign in to your Account</strong>
+              <strong *ngIf="currentForm === 'form2'" class="sign-title">Forgot Password</strong>
 
-              <form (submit)="onSubmit()" [formGroup]="loginForm">
+              <form *ngIf="currentForm === 'form1'" (submit)="onSubmit()" [formGroup]="loginForm">
                 <div class="form-group mb-bottom">
                   <label class="overlay-text">Email Address</label>
                   <input id="inputEmail" type="email" formControlName="email" name="username" class="form-control px-4">
@@ -58,6 +59,24 @@
                 <div class="remeber">
                 </div>
               </form>
+
+
+              <form *ngIf="currentForm === 'form2'" (submit)="onSendLinkToMail()" [formGroup]="activationLinkForm">
+                <div class="form-group mb-bottom">
+                  <label class="overlay-text">Email Address</label>
+                  <input id="inputEmail" type="email" formControlName="activationEmail" name="username" class="form-control px-4">
+                  <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
+                </div>
+
+                <button type="submit" class="btn-h full-btn blue not-allowed"
+                  [ngStyle]= "activationLinkForm.invalid?{'background':'#ccc'}:{'background':'#219EBC'}"
+                  [disabled]= "activationLinkForm.invalid">Continue
+                </button>
+              </form>
+
+              <div class="forgot-pwd">
+                <a *ngIf="currentForm === 'form1'" class="forgot-pwd-link" (click)="showForm('form2')">Forgot Password?</a>
+              </div>
 
             </div>
           </div>

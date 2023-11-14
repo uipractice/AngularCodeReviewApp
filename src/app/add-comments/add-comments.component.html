@@ -15,12 +15,13 @@
           <textarea type="text" class="form-control" id="enter-question" placeholder="Enter question here" [(ngModel)]="textareaValue"></textarea>
         </div>
 
+
         <div class="export-popup-content" *ngIf="data.popupExportBool">
           <div class="export-email-box">
             <label for="enter-email" class="form-label">Email Address <span class="red-dot"></span></label>
             <input type="text" class="form-control" id="enter-email" placeholder="Enter email address here" [(ngModel)]="emailValue"/>
           </div>
-          <button class="send-report" (click)=" onClick(emailValue)">{{ data.popupExportBtn }}</button>
+          <button class="send-report" (click)=" onClick(emailValue)" [disabled]="!emailValue">{{ data.popupExportBtn }}</button>
         </div>
 
         <form *ngIf="!data.popupExportBool">

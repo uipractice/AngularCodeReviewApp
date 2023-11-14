@@ -19,7 +19,8 @@ export class StartCodeReviewTrackerComponent implements OnInit {
   auth_token = ''
   deleteValue: any
   popupExportBool: Boolean = false;
-  enterEmail: string = '';
+  emailString: string = '';
+  emailArray: string[] = [];
 
   constructor(private router: Router, private codeService: CodeReviewService, private http: HttpClient, private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
@@ -87,7 +88,7 @@ export class StartCodeReviewTrackerComponent implements OnInit {
     this.router.navigate(['header/codeReviewerDetails'])
   }
 
-  exportPopup() {
+  exportPopup(row: any) {
     const sampleData: ModalData = {
       popupHeaderTitle: 'Send Code Review Report',
       popupExportBtn: 'Send Report',
@@ -96,12 +97,30 @@ export class StartCodeReviewTrackerComponent implements OnInit {
     const dialogRef = this.dialog.open(AddCommentsComponent, {
       data: sampleData
     })
+
     dialogRef.afterClosed().subscribe((val: any) => {
-      this.enterEmail = val.value
-      console.log(this.enterEmail);
-      if (this.enterEmail) {
-        console.log('Email Added');
+      if (val) {
+        this.emailString = val.value
+        console.log(this.emailString);
+        this.emailArray = this.emailString.split(',')
+        console.log(this.emailArray)
+
+        if (this.emailArray) {
+          console.log('Email Added');
+          console.log(row._id);
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${this.auth_token}`
+          });
+          let dataDetails = {
+            "detailsId": row._id,
+            "toEmail": this.emailArray
+          }
+          this.codeService.exportToExcel(dataDetails, headers).subscribe((res: any) => {
+            console.log(res);
+          })
+        }
       }
     })
   }
+
 }

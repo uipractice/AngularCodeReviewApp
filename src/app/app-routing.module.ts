@@ -13,6 +13,7 @@ import { CreateChecklistComponent } from './create-checklist/create-checklist.co
 import { CodereviewManagementComponent } from './codereview-management/codereview-management.component';
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
 import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis.component';
+import { ForgotPwdComponent } from './forgot-pwd/forgot-pwd.component';
 
 const routes: Routes = [
   // {path:'',redirectTo:'login',pathMatch:'full'},
@@ -34,6 +35,7 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'forgot-pwd', component: ForgotPwdComponent },
   {
     path: 'header', component: HeaderComponent, children: [
       { path: '', redirectTo: 'startCodeReviewTracker', pathMatch: 'full' },

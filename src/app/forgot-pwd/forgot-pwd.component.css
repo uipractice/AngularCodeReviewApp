@@ -81,13 +81,7 @@ button.disabled:hover {
   font-weight: 600;
   line-height: 18.6px; /* 132.857% */
   letter-spacing: 0.14px;
-  text-decoration: none;
-  cursor: pointer;
-  width: 115px;
-  height: 20px;
-}
-
-.forgot-pwd {
   display: flex;
   justify-content: center;
+  text-decoration: none;
 }
