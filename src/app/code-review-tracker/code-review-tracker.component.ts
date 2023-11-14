@@ -782,7 +782,7 @@ export class CodeReviewTrackerComponent implements OnInit {
 // (Total marks obtained / Total marks possible) x 100
   //  (350/500)*100
   onGetSideSelectedValue(value?:any){
-    console.log('selected value');
+    console.log('selected value',value);
     
    this.isActiveChildCOmments=[false]
    console.log('child comments',this.isActiveChildCOmments);

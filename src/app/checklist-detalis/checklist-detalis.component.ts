@@ -5,8 +5,6 @@ import { ModalData } from '../add-comments/add-comments.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpHeaders } from '@angular/common/http';
-import { checkListData } from '../checklistData.model';
-import { Obj } from '@popperjs/core';
 
 @Component({
   selector: 'app-checklist-detalis',
@@ -207,10 +205,10 @@ technologiesId: ""
         
         console.log('posted checklist data',this.postCheckListQuestionsData);
 
-        // this.codeService.postCheckListQuestions(this.technologyId,this.sideNavData,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
-        //   console.log(res);
+        this.codeService.postCheckListQuestions(this.technologyId,this.sideNavData,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
+          console.log(res);
           
-        // })
+        })
         
         
         
