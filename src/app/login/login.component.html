@@ -74,6 +74,19 @@
                 </button>
               </form>
 
+              <form *ngIf="currentForm === 'form3'" (submit)="routeToLogin()" [formGroup]="activationLinkForm">
+                <strong class="forgot-title">Forgot Password</strong>
+
+                <div class="form-group mb-bottom">
+                  <span>An email has been sent your email id. Please click the link to reset your password.</span>
+                </div>
+
+                <button type="submit" class="btn-backToLogin full-btn blue not-allowed"
+                  [ngStyle]= "activationLinkForm.invalid?{'background':'#ccc'}:{'background':'#219EBC'}"
+                  [disabled]= "activationLinkForm.invalid">Back To Login
+                </button>
+              </form>
+
               <div class="forgot-pwd">
                 <a *ngIf="currentForm === 'form1'" class="forgot-pwd-link" (click)="showForm('form2')">Forgot Password?</a>
               </div>

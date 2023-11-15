@@ -83,19 +83,19 @@ ul {
 .menu {
   margin-left: 0px;
 }
-  .blue-color {
-    color:#003B5C;
-  }
-  .tabs-grey .mat-mdc-tab-header {
-    background:#f9f8f8;
-    padding-left: 20px;
-    border-bottom: 1px solid #E7E7E7;
-    position: fixed;
-    width: 100%;
-    z-index:91;
-    padding-top:80px;
-    padding-bottom: 15px;
-  }
+.blue-color {
+  color: #003b5c;
+}
+.tabs-grey .mat-mdc-tab-header {
+  background: #f9f8f8;
+  padding-left: 20px;
+  border-bottom: 1px solid #e7e7e7;
+  position: fixed;
+  width: 100%;
+  z-index: 91;
+  padding-top: 80px;
+  padding-bottom: 15px;
+}
 
 .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs
   > .mat-mdc-tab-header
@@ -157,20 +157,20 @@ ul {
   display: block;
 }
 
-  .vertical-tabs .mat-mdc-tab-header {
-    background:#fff;
-    border: 0px;
-    width: 100%;
-    max-width: 315px;
-    border-right: 1px solid #F5F1F1;
-    padding-top:18px;
-    position: fixed;
-    height: 100vh;
-    top: 144px;
-  }
-  .vertical-tabs .mat-mdc-tab-labels {
-     display:inline-block !important;
-   }
+.vertical-tabs .mat-mdc-tab-header {
+  background: #fff;
+  border: 0px;
+  width: 100%;
+  max-width: 315px;
+  border-right: 1px solid #f5f1f1;
+  padding-top: 18px;
+  position: fixed;
+  height: 100vh;
+  top: 144px;
+}
+.vertical-tabs .mat-mdc-tab-labels {
+  display: inline-block !important;
+}
 
 .vertical-tabs .steps-title {
   display: block;
@@ -203,7 +203,6 @@ ul {
   right: -10px;
   top: 24px;
 }
-
 
 .example-tab-icon {
   position: absolute;
@@ -477,12 +476,12 @@ ul {
   height: 75vh;
   color: #fafafa;
   text-shadow: 2px 6px 14px 0px rgba(0, 0, 0, 0.57);
-  font-size:1.8rem !important;
+  font-size: 1.8rem !important;
   font-weight: 600;
   line-height: 3.875rem !important;
   padding: 0px 110px;
-  text-align:left;
-  text-transform:uppercase;
+  text-align: left;
+  text-transform: uppercase;
 }
 
 .login-footer {
@@ -560,8 +559,7 @@ ul {
 }
 
 .project-top {
-  padding-top:10px;
-
+  padding-top: 10px;
 }
 .project h6 {
   color: #0e0e0e;
@@ -597,11 +595,11 @@ ul {
   line-height: inherit !important;
 }
 .accounts li strong {
-color: #0E0E0E;
-font-size:14px;
-font-weight:500;
-display: block;
-margin-top: 5px;
+  color: #0e0e0e;
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+  margin-top: 5px;
 }
 .icons-view {
   display: flex;
@@ -708,13 +706,13 @@ margin-top: 5px;
 }
 .mat-mdc-elevation-specific.menu-drop.mat-elevation-z8 {
   width: 302px;
-  border-right: 1px solid #EDEDED;
-  border-bottom: 1px solid #EDEDED;
-  border-left: 1px solid #EDEDED;
-  background: #FFF;
+  border-right: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
+  border-left: 1px solid #ededed;
+  background: #fff;
   box-shadow: 2px 5px 8px 0px rgba(0, 0, 0, 0.12);
   border-radius: 0px;
-  max-width:302px;
+  max-width: 302px;
 }
 
 .user-managment .mdc-data-table__header-cell {
@@ -955,11 +953,11 @@ img.icon-login {
   margin: 10px 20px;
 }
 
-  .top-page {
-    position:fixed;
-    z-index: 92;
-    left: 20px;
-    top: 53px;
+.top-page {
+  position: fixed;
+  z-index: 92;
+  left: 20px;
+  top: 53px;
 }
 
 .save-btn {
@@ -1067,7 +1065,7 @@ span.red-dot {
   padding: 14px 0px;
   margin: 0px !important;
   text-align: left;
-  padding-left:24px;
+  padding-left: 24px;
 }
 
 .list-sub .quality:last-child {
@@ -1336,7 +1334,7 @@ button[disabled] {
 }
 
 .btn-h {
-  height:50px;
+  height: 50px;
   text-transform: uppercase;
 }
 
@@ -1811,7 +1809,8 @@ button[disabled] {
 .add-question-popup .export-email-box {
   margin-top: 40px;
   position: relative;
-  min-width: 353px;
+  /* min-width: 353px; */
+  min-width: 384px;
 }
 
 .add-question-popup .export-popup-content {
@@ -1842,5 +1841,36 @@ button[disabled] {
 }
 
 .technical-stack {
-padding-bottom: 157px;
+  padding-bottom: 157px;
+}
+
+.export-popup .content1 {
+  color: #808080;
+  font-family: Lato;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-left: 12px;
+}
+
+.export-popup .content2 {
+  color: #252525;
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.forgot-title {
+  font-weight: 800;
+  line-height: 1.25rem;
+  font-size: 1.25rem;
+  display: block;
+  margin-bottom: 1.88rem;
+}
+
+.btn-backToLogin {
+  height: 50px;
 }

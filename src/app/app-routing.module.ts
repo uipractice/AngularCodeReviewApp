@@ -35,7 +35,8 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'forgot-pwd', component: ForgotPwdComponent },
+  // { path: 'forgot-pwd', component: ForgotPwdComponent },
+  { path: 'resetPassword/:authToken', component: ForgotPwdComponent },
   {
     path: 'header', component: HeaderComponent, children: [
       { path: '', redirectTo: 'startCodeReviewTracker', pathMatch: 'full' },

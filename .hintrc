@@ -5,6 +5,20 @@
   "hints": {
     "axe/forms": "off",
     "no-inline-styles": "off",
-    "button-type": "off"
+    "button-type": "off",
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "min-height: auto"
+        ]
+      }
+    ],
+    "axe/text-alternatives": [
+      "default",
+      {
+        "image-alt": "off"
+      }
+    ]
   }
 }
