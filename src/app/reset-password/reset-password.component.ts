@@ -3,7 +3,9 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpHeaders } from '@angular/common/http';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { customValidator } from '../custom-validators';
 
 @Component({
   selector: 'app-reset-password',
@@ -20,62 +22,33 @@ export class ResetPasswordComponent {
   resetPasswordToken = '';
   userRole: any
   public showPassword: boolean = false;
-  forgotPasswordForm: any = FormGroup
+  booleanChecker: boolean = false;
+  forgotPasswordForm: any = FormGroup;
+
+  constructor(private authService: AuthService, private router: Router,
+    private codeService: CodeReviewService, private renderer: Renderer2,
+    private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.forgotPasswordForm = new FormGroup({
+      newPassword: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', Validators.required),
+      // customValidator  // Use the custom validator
+    });
+
+    this.resetPasswordToken = this.route.snapshot.params['authToken'];
+    console.log('Reset password Token :', this.resetPasswordToken);
+    this.renderer.addClass(document.body, 'hide-header');
+    this.booleanChecker = false;
+  }
 
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
-  constructor(private authService: AuthService, private router: Router,
-    private codeService: CodeReviewService, private renderer: Renderer2) { }
-
-  ngOnInit(): void {
-    this.forgotPasswordForm = new FormGroup({
-      newPassword: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required)
-    })
-
-    this.renderer.addClass(document.body, 'hide-header');
-  }
-
-  onSubmit() {
-    console.log('login value', this.forgotPasswordForm.value);
-
-    this.authService.login(this.forgotPasswordForm.value).subscribe((res: any) => {
-      if (res.success == true) {
-
-        console.log('login', res);
-        localStorage.setItem('auth_token', JSON.stringify(res.token))
-        const headers = new HttpHeaders({
-          'Authorization': `Bearer ${this.auth_token}`
-        });
-        this.auth_token = JSON.parse(localStorage.getItem('auth_token') || '{}')
-        console.log('auth token', this.auth_token);
-        this.getUserDetails()
-
-        // this.router.navigate(['/startCodeReviewTracker'])
-        this.router.navigate(['/header'])
-      }
-    })
-  }
-
-  getUserDetails() {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth_token}`
-    });
-
-    this.codeService.getUserDetails(headers).subscribe((res: any) => {
-      localStorage.setItem('user Details', JSON.stringify(res.data))
-      this.userRole = res.data.role
-      console.log('userdetails', res)
-      console.log('role', res.data.role)
-    })
-    this.codeService.userDetails.next(this.userRole)
-  }
-
   onResetPassword() {
-    console.log('Updated password is : ', this.forgotPasswordForm.value);
-    console.log('Reset password token is : ', this.forgotPasswordForm.value);
+    console.log('Updated password is : ', this.forgotPasswordForm.value.newPassword);
+    console.log('Reset password token is : ', this.forgotPasswordForm.value.confirmPassword);
 
     this.newPassword = this.forgotPasswordForm.value.newPassword;
     this.confirmPassword = this.forgotPasswordForm.value.confirmPassword;
@@ -83,15 +56,24 @@ export class ResetPasswordComponent {
       'Authorization': `Bearer ${this.auth_token}`
     });
     let dataDetails = {
-      // "resetToken": "",
-      // "password": "Login@cra1"
+      // "resetToken": 'abv',
       "resetToken": this.resetPasswordToken,
       "password": this.newPassword
     }
-    // this.codeService.resetPasswordOnAuthorization(dataDetails, headers).subscribe((res: any) => {
-    //   console.log(res);
-    //   if(res.success == true) {}
-    // })
+    if (this.newPassword === this.confirmPassword) {
+      this.codeService.resetPasswordOnAuthorization(dataDetails, headers).subscribe({
+        next: (res: any) => {
+          console.log(res.message);
+          this.router.navigate(['/login']);
+        },
+        error: (err: any) => {
+          console.log(err.error.message);
+        }
+      })
+    } else {
+      this.booleanChecker = true;
+    }
+
   }
 
   ngOnDestroy() {

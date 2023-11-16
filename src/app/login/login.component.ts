@@ -78,13 +78,15 @@ export class LoginComponent implements OnInit {
       'Authorization': `Bearer ${this.auth_token}`
     });
     let dataDetails = {
-      // "email": "raj016.hk@gmail.com"
       "email": this.activationEmail
     }
-    this.codeService.sendLinkTokenToMail(dataDetails, headers).subscribe((res: any) => {
-      console.log(res);
-      if(res.success == true) {
+    this.codeService.sendLinkTokenToMail(dataDetails, headers).subscribe({
+      next: (res: any) => {
+        console.log(res.message);
         this.showForm('form3');
+      },
+      error: (err: any) => {
+        console.log(err.error.message);
       }
     })
   }
