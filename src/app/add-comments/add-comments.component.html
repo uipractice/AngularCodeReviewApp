@@ -15,14 +15,17 @@
           <textarea type="text" class="form-control" id="enter-question" placeholder="Enter question here" [(ngModel)]="textareaValue"></textarea>
         </div>
 
-
-        <div class="export-popup-content" *ngIf="data.popupExportBool">
-          <div class="export-email-box">
-            <label for="enter-email" class="form-label">Email Address <span class="red-dot"></span></label>
-            <input type="text" class="form-control" id="enter-email" placeholder="Enter email address here" [(ngModel)]="emailValue"/>
+        <div class="export-popup" *ngIf="data.popupExportBool">
+          <div class="export-popup-content" >
+            <div class="export-email-box">
+              <label for="enter-email" class="form-label">Email Address <span class="red-dot"></span></label>
+              <input type="text" class="form-control" id="enter-email" placeholder="Enter email address here" [(ngModel)]="emailValue"/>
+            </div>
+            <button class="send-report" (click)=" onClick(emailValue)" [disabled]="!emailValue">{{ data.popupExportBtn }}</button>
           </div>
-          <button class="send-report" (click)=" onClick(emailValue)" [disabled]="!emailValue">{{ data.popupExportBtn }}</button>
+          <span class="content1">To add multiple email address. Please separate with comma <span class="content2">“,”</span>.</span>
         </div>
+
 
         <form *ngIf="!data.popupExportBool">
           <div class="table-button flex-center delete-project">

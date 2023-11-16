@@ -35,8 +35,8 @@
 
               <form *ngIf="currentForm === 'form1'" (submit)="onSubmit()" [formGroup]="loginForm">
                 <div class="form-group mb-bottom">
-                  <label class="overlay-text">Email Address</label>
-                  <input id="inputEmail" type="email" formControlName="email" name="username" class="form-control px-4">
+                  <label for="email" class="overlay-text">Email Address</label>
+                  <input id="email" type="email" formControlName="email" name="username" class="form-control px-4">
                   <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
                 </div>
 
@@ -63,14 +63,27 @@
 
               <form *ngIf="currentForm === 'form2'" (submit)="onSendLinkToMail()" [formGroup]="activationLinkForm">
                 <div class="form-group mb-bottom">
-                  <label class="overlay-text">Email Address</label>
-                  <input id="inputEmail" type="email" formControlName="activationEmail" name="username" class="form-control px-4">
+                  <label for="activationEmail" class="overlay-text">Email Address</label>
+                  <input id="activationEmail" type="email" formControlName="activationEmail" name="username" class="form-control px-4">
                   <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
                 </div>
 
                 <button type="submit" class="btn-h full-btn blue not-allowed"
                   [ngStyle]= "activationLinkForm.invalid?{'background':'#ccc'}:{'background':'#219EBC'}"
-                  [disabled]= "activationLinkForm.invalid">Continue
+                  [disabled]= "activationLinkForm.invalid">Submit
+                </button>
+              </form>
+
+              <form *ngIf="currentForm === 'form3'" (submit)="routeToLogin()" [formGroup]="activationLinkForm">
+                <strong class="forgot-title">Forgot Password</strong>
+
+                <div class="form-group mb-bottom">
+                  <span>An email has been sent your email id. Please click the link to reset your password.</span>
+                </div>
+
+                <button type="submit" class="btn-backToLogin full-btn blue not-allowed"
+                  [ngStyle]= "activationLinkForm.invalid?{'background':'#ccc'}:{'background':'#219EBC'}"
+                  [disabled]= "activationLinkForm.invalid">Back To Login
                 </button>
               </form>
 

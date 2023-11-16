@@ -67,12 +67,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/header'])
       }
     })
-
-
   }
 
   onSendLinkToMail() {
-    this.showForm('form1');
+    this.showForm('form3');
   }
 
   getUserDetails() {
@@ -87,6 +85,11 @@ export class LoginComponent implements OnInit {
       console.log('role', res.data.role)
     })
     this.codeService.userDetails.next(this.userRole)
+  }
+
+  routeToLogin() {
+    // this.router.navigate(['/login'])
+    this.showForm('form1');
   }
 
   ngOnDestroy() {
