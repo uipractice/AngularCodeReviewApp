@@ -1,4 +1,4 @@
-import { Component,ElementRef,OnInit,ViewChild } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { CodeReviewService } from '../code-review.service';
 import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormControlName, FormGroup, ValidationErrors, Validators,  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
@@ -23,6 +23,9 @@ export class CodeReviewTrackerComponent implements OnInit {
   isDisableSubmit:boolean=false
   isActiveChildCOmments:boolean[]=[false]
   isActiveComments:boolean[]=[false,false]
+
+
+
   completeCheckList='Save'
   disableSave:boolean=false
   showSummary:boolean=false
@@ -49,10 +52,12 @@ export class CodeReviewTrackerComponent implements OnInit {
       this.detailsId=res.params['id']
       console.log(this.status,this.detailsId)     
     })
+    if(this.status=='completed'){
+      this.showSummary=true
+    }
     this.buildReactiveForm()
     this.getSideNavData(this.projectDetails.technicalStackId,this.projectDetails.technologiesId)
     this.getOptions()
-    // this.getPercantageAndComments()
   }
 
   
@@ -735,6 +740,8 @@ export class CodeReviewTrackerComponent implements OnInit {
       
     
         this.isActiveComments[[i][j]]=!this.isActiveComments[[i][j]]
+        // this.isActiveComments[i][j]=!this.isActiveComments[i][j]
+
         // this.isActiveComments[j]=!this.isActiveComments[j]
 
         console.log('after clicked',this.isActiveComments[[i][j]]);
