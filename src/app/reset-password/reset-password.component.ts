@@ -6,16 +6,18 @@ import { HttpHeaders } from '@angular/common/http';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-forgot-pwd',
-  templateUrl: './forgot-pwd.component.html',
-  styleUrls: ['./forgot-pwd.component.css']
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.css']
 })
-export class ForgotPwdComponent {
+
+export class ResetPasswordComponent {
   newPassword: any;
   confirmPassword: any;
   handleUpdateResponse: any;
   handleError: any;
-  auth_token = ''
+  auth_token = '';
+  resetPasswordToken = '';
   userRole: any
   public showPassword: boolean = false;
   forgotPasswordForm: any = FormGroup
@@ -71,12 +73,28 @@ export class ForgotPwdComponent {
     this.codeService.userDetails.next(this.userRole)
   }
 
+  onResetPassword() {
+    console.log('Updated password is : ', this.forgotPasswordForm.value);
+    console.log('Reset password token is : ', this.forgotPasswordForm.value);
+
+    this.newPassword = this.forgotPasswordForm.value.newPassword;
+    this.confirmPassword = this.forgotPasswordForm.value.confirmPassword;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    let dataDetails = {
+      // "resetToken": "",
+      // "password": "Login@cra1"
+      "resetToken": this.resetPasswordToken,
+      "password": this.newPassword
+    }
+    // this.codeService.resetPasswordOnAuthorization(dataDetails, headers).subscribe((res: any) => {
+    //   console.log(res);
+    //   if(res.success == true) {}
+    // })
+  }
+
   ngOnDestroy() {
     this.renderer.removeClass(document.body, 'hide-header');
   }
 }
-
-
-
-
-

@@ -22,8 +22,9 @@ export class LoginComponent implements OnInit {
   userRole: any
   public showPassword: boolean = false;
   loginForm: any = FormGroup
-  activationLinkForm: any = FormGroup
+  activationLinkForm: any = FormGroup;
   currentForm: string = 'form1';
+  activationEmail: string = '';
 
   showForm(formName: string) {
     this.currentForm = formName;
@@ -70,7 +71,22 @@ export class LoginComponent implements OnInit {
   }
 
   onSendLinkToMail() {
-    this.showForm('form3');
+    console.log('activation link sending to mail : ', this.activationLinkForm.value.activationEmail);
+
+    this.activationEmail = this.activationLinkForm.value.activationEmail;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    let dataDetails = {
+      // "email": "raj016.hk@gmail.com"
+      "email": this.activationEmail
+    }
+    this.codeService.sendLinkTokenToMail(dataDetails, headers).subscribe((res: any) => {
+      console.log(res);
+      if(res.success == true) {
+        this.showForm('form3');
+      }
+    })
   }
 
   getUserDetails() {
