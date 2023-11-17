@@ -35,8 +35,6 @@ import { FooterComponent } from './footer/footer.component';
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
 import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-// import { customValidator } from './custom-validators';
-
 
 @NgModule({
   declarations: [

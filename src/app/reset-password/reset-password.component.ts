@@ -5,7 +5,6 @@ import { CodeReviewService } from '../code-review.service';
 import { HttpHeaders } from '@angular/common/http';
 import { AbstractControl, Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { customValidator } from '../custom-validators';
 
 @Component({
   selector: 'app-reset-password',
@@ -22,7 +21,6 @@ export class ResetPasswordComponent {
   resetPasswordToken = '';
   userRole: any
   public showPassword: boolean = false;
-  booleanChecker: boolean = false;
   forgotPasswordForm: any = FormGroup;
 
   constructor(private authService: AuthService, private router: Router,
@@ -33,17 +31,32 @@ export class ResetPasswordComponent {
     this.forgotPasswordForm = new FormGroup({
       newPassword: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
-      // customValidator  // Use the custom validator
+    });
+
+    // Subscribe to value changes and compare passwords
+    this.forgotPasswordForm.valueChanges.subscribe(() => {
+      this.comparePasswords();
     });
 
     this.resetPasswordToken = this.route.snapshot.params['authToken'];
     console.log('Reset password Token :', this.resetPasswordToken);
     this.renderer.addClass(document.body, 'hide-header');
-    this.booleanChecker = false;
   }
 
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
+  }
+
+  comparePasswords() {
+    const password = this.forgotPasswordForm.get('newPassword').value;
+    const confirmPassword = this.forgotPasswordForm.get('confirmPassword').value;
+
+    // Compare passwords and set a custom error if they don't match
+    if (password === confirmPassword) {
+      this.forgotPasswordForm.get('confirmPassword').setErrors(null);
+    } else {
+      this.forgotPasswordForm.get('confirmPassword').setErrors({ mismatch: true });
+    }
   }
 
   onResetPassword() {
@@ -60,7 +73,7 @@ export class ResetPasswordComponent {
       "resetToken": this.resetPasswordToken,
       "password": this.newPassword
     }
-    if (this.newPassword === this.confirmPassword) {
+    if (this.forgotPasswordForm.valid) {
       this.codeService.resetPasswordOnAuthorization(dataDetails, headers).subscribe({
         next: (res: any) => {
           console.log(res.message);
@@ -70,10 +83,7 @@ export class ResetPasswordComponent {
           console.log(err.error.message);
         }
       })
-    } else {
-      this.booleanChecker = true;
     }
-
   }
 
   ngOnDestroy() {
