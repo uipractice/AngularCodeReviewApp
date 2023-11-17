@@ -50,6 +50,12 @@ export class CodeReviewService {
   exportToExcel(data: any, headers: any) {
     return this.http.post(`${this.baseUrl}/reportSending`, data, { headers })
   }
+  sendLinkTokenToMail(data: any, headers: any) {
+    return this.http.post(`${this.baseUrl}/forgotPassword`, data, { headers })
+  }
+  resetPasswordOnAuthorization(data: any, headers: any) {
+    return this.http.post(`${this.baseUrl}/resetPassword`, data, { headers })
+  }
   onDeleteDetails(data: any, headers: any) {
     return this.http.delete(`${this.baseUrl}/details?detailsId=${data}`, { headers })
   }
@@ -104,7 +110,7 @@ export class CodeReviewService {
   getSavedCheckListData(headers: any, detailsId: any, key?: any) {
     return this.http.get(`${this.baseUrl}/checklist?detailsId=${detailsId}&key=${key}`, { headers })
   }
- 
+
 
   createUser(data: any, headers: any) {
     return this.http.post(`${this.baseUrl}/users`, data, { headers })

@@ -34,7 +34,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FooterComponent } from './footer/footer.component';
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
 import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis.component';
-import { ForgotPwdComponent } from './forgot-pwd/forgot-pwd.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+// import { customValidator } from './custom-validators';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ForgotPwdComponent } from './forgot-pwd/forgot-pwd.component';
     FooterComponent,
     TechnicalStackComponent,
     ChecklistDetailsComponent,
-    ForgotPwdComponent,
+    ResetPasswordComponent,
+
   ],
   imports: [
     BrowserModule,
