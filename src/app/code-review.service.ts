@@ -74,6 +74,9 @@ export class CodeReviewService {
   getReviewTrackerDetails(headers: any, stackId?: any, techId?: any, step?: any) {
     return this.http.get(`${this.baseUrl}/checkListQuestions?technicalStackId=${stackId}&technologiesId=${techId}&type=${step}`, { headers })
   }
+  getCompleteReviewTrackerDetails(headers: any, stackId?: any) {
+    return this.http.get(`${this.baseUrl}/checkListQuestions?technologiesId=${stackId}`, { headers })
+  }
   getOptions(headers: any) {
     return this.http.get(`${this.baseUrl}/options`, { headers }).pipe(
       map((res: any) => {
@@ -108,6 +111,9 @@ export class CodeReviewService {
   }
   postCheckListQuestions(technologiesId: any, step: any, data: any, headers: any) {
     return this.http.post(`${this.baseUrl}/checkListQuestions?technologiesId=${technologiesId}&type=${step}`, data, { headers })
+  }
+  updateCheckListQuestions( data: any, headers: any) {
+    return this.http.put(`${this.baseUrl}/checkListQuestions`, data, { headers })
   }
 
 }
