@@ -103,6 +103,12 @@ checkListQuestionsId:""
     
   }
 
+  saveCheckListData(){
+    this.router.navigate(['/header/codereview-managment'])
+  }
+
+  
+
   onSelectSideNav(heading: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
