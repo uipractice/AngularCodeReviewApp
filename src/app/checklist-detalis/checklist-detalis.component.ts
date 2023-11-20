@@ -196,6 +196,10 @@ checkListQuestionsId:""
     })
   }
 
+  findIndexOfExistingKey(array:any[],searchItem:string):number{
+    return array.findIndex((item:any)=>item.key===searchItem)
+  }
+
   addMainQuestionPopup() {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
@@ -210,20 +214,13 @@ checkListQuestionsId:""
       data: sampleData
     })
     dialogRef.afterClosed().subscribe((val: any) => {
-      // if(exsiting_array_length==0){
-      //   //push the complete object
-      //   }
-      //   else if(key===existing_array_key){
-      //   //update the value array
-      //   }
-      //   else{
-      //   //update the data array
-      //   }
+     
       console.log('existing array',this.updatedParentQuestionsData);
       
       console.log(val)
       this.addMainQuestion = val.value
       console.log(this.addMainQuestion);
+
     
       if (this.updatedParentQuestionsData.length==0) {
         const parentCheckListObjext={
@@ -243,68 +240,136 @@ checkListQuestionsId:""
         console.log('created checklist parent object',this.postCheckListQuestionsData);
         
         this.codeService.postCheckListQuestions(this.technologyId,this.sideNavHeading,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
-          console.log(res);
+          if(res.success==true){
+            this.parentQuestionsData=[]
+            console.log(res);
+            this.getCompleteChecklist()
+            
+          }
           
         })
       }
       else {
         this.postCheckListQuestionsData.checkListQuestionsId=this.checkListId
-        for(let i=0;i<this.updatedParentQuestionsData.length;i++){
-          if(this.updatedParentQuestionsData[i].key==this.sideNavHeading){
-            console.log(this.sideNavHeading,'is there in the list'); 
-            const updatedParentCheckListObjext={
-            key:this.addMainQuestion,
-            options:'',
-            rating:'',
-            achievedRating:'',
-            comments:''
-          }
-         
-            this.updatedParentQuestionsData[i].value.push(updatedParentCheckListObjext)
-            console.log('updated parent checklist array',this.updatedParentQuestionsData);
-            const updatedJsonObj={
-              data:this.updatedParentQuestionsData,
-              checkListQuestionsId:this.checkListId,
-              technologiesId:this.technologyId
-              
-            }
-            this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-              console.log(res);
-              
-            })
-           
-          }
-          else{
-            const parentCheckListObjext={
+        const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
+        if(ifExistingKey!=-1){
+          console.log(this.sideNavHeading,'is there in the list'); 
+              const updatedParentCheckListObjext={
               key:this.addMainQuestion,
-            options:'',
-            rating:'',
-            achievedRating:'',
-            comments:''
-          }
-          this.parentQuestionsData.push(parentCheckListObjext)
-          const parentWithKey={
-            key:this.sideNavHeading,
-            value:this.parentQuestionsData
-          }
-          this.updatedParentQuestionsData.push(parentWithKey)
-          const updatedJsonObj={
-            data:this.updatedParentQuestionsData,
-            checkListQuestionsId:this.checkListId,
-            technologiesId:this.technologyId
+              options:'',
+              rating:'',
+              achievedRating:'',
+              comments:''
+            }
+           
+              this.updatedParentQuestionsData[ifExistingKey].value.push(updatedParentCheckListObjext)
+              console.log('updated parent checklist array',this.updatedParentQuestionsData);
+              const updatedJsonObj={
+                data:this.updatedParentQuestionsData,
+                checkListQuestionsId:this.checkListId,
+                technologiesId:this.technologyId
+                
+              }
+              this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+                console.log(res);
+                
+              })
+
+        }
+        else{
+          const parentCheckListObjext={
+                  key:this.addMainQuestion,
+                options:'',
+                rating:'',
+                achievedRating:'',
+                comments:''
+              }
+              this.parentQuestionsData.push(parentCheckListObjext)
+              const parentWithKey={
+                key:this.sideNavHeading,
+                value:this.parentQuestionsData
+              }
+              this.updatedParentQuestionsData.push(parentWithKey)
+              const updatedJsonObj={
+                data:this.updatedParentQuestionsData,
+                checkListQuestionsId:this.checkListId,
+                technologiesId:this.technologyId
+                
+              }
+              console.log(updatedJsonObj);
+              
+              this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+                if(res.success==true){
+                  this.parentQuestionsData=[]
+                  console.log(res);
+                }
+                
+              })
+
+        }
+
+
+
+
+
+
+
+        // for(let i=0;i<this.updatedParentQuestionsData.length;i++){
+        //   if(this.updatedParentQuestionsData[i].key==this.sideNavHeading ){
+        //     console.log(this.sideNavHeading,'is there in the list'); 
+        //     const updatedParentCheckListObjext={
+        //     key:this.addMainQuestion,
+        //     options:'',
+        //     rating:'',
+        //     achievedRating:'',
+        //     comments:''
+        //   }
+         
+        //     this.updatedParentQuestionsData[i].value.push(updatedParentCheckListObjext)
+        //     console.log('updated parent checklist array',this.updatedParentQuestionsData);
+        //     const updatedJsonObj={
+        //       data:this.updatedParentQuestionsData,
+        //       checkListQuestionsId:this.checkListId,
+        //       technologiesId:this.technologyId
+              
+        //     }
+        //     this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+        //       console.log(res);
+              
+        //     })
+           
+        //   }
+        //   else{
+        //     const parentCheckListObjext={
+        //       key:this.addMainQuestion,
+        //     options:'',
+        //     rating:'',
+        //     achievedRating:'',
+        //     comments:''
+        //   }
+        //   this.parentQuestionsData.push(parentCheckListObjext)
+        //   const parentWithKey={
+        //     key:this.sideNavHeading,
+        //     value:this.parentQuestionsData
+        //   }
+        //   this.updatedParentQuestionsData.push(parentWithKey)
+        //   const updatedJsonObj={
+        //     data:this.updatedParentQuestionsData,
+        //     checkListQuestionsId:this.checkListId,
+        //     technologiesId:this.technologyId
             
-          }
-          console.log(updatedJsonObj);
+        //   }
+        //   console.log(updatedJsonObj);
           
-          this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-            console.log(res);
+        //   this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+        //     console.log(res);
             
-          })
+        //   })
   
 
-          }
+        //   }
         
-        }
+        // }
        
         
       }
