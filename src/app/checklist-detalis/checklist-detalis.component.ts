@@ -49,9 +49,7 @@ checkListQuestionsId:""
     console.log('sidenavdata',this.sideNavData);
     
     this.auth_token = JSON.parse(localStorage.getItem('auth_token') || '{}')
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth_token}`
-    });
+  
 
     this.activatedRouter.paramMap.subscribe((res: any) => {
       this.technologyId = res.params.id,
@@ -59,12 +57,24 @@ checkListQuestionsId:""
     })
     this.getSideNavData()
     this.postCheckListQuestionsData.technologiesId=this.technologyId
+    this.getCompleteChecklist()
+   
+    
+   
+  }
+
+  getCompleteChecklist(){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
     this.codeService.getCompleteReviewTrackerDetails(headers,this.technologyId).subscribe((res:any)=>{
-      console.log(res);
+      console.log(res.data[0].data);
        
       if(res.data.length){
         this.updatedParentQuestionsData=res.data[0].data
         this.checkListId=res.data[0]._id
+      console.log(this.updatedParentQuestionsData);
+      
       }
       else{
         this.updatedParentQuestionsData=res.data
@@ -73,8 +83,6 @@ checkListQuestionsId:""
     
       
     })
-    
-   
   }
 
   getSideNavData() {
@@ -102,25 +110,6 @@ checkListQuestionsId:""
     console.log('heading', heading);
     this.sideNavHeading = heading
     this.marginTop = '0%';
-    
-    
-    
-    this.codeService.getReviewTrackerDetails(headers,this.technologyId).subscribe((res:any)=>{
-      console.log(res);
-      
-      // if(res.data.length){
-      //   this.updatedParentQuestionsData=res.data[0].data
-      //   this.checkListId=res.data[0]._id
-      // }
-      // else{
-      //   this.updatedParentQuestionsData=res.data
-      // }
-      // console.log('existing or updated array',this.updatedParentQuestionsData.length); 
-    
-    })
-    
-   
-   
   }
   
 
@@ -253,25 +242,6 @@ checkListQuestionsId:""
 
         console.log('created checklist parent object',this.postCheckListQuestionsData);
         
-        // console.log('Main Question added',this.addMainQuestion);
-        // const parentDataObj:Object={
-        //   key:this.addMainQuestion,
-        //   options:'',
-        //   rating:'',
-        //   achievedRating:'',
-        //   comments:''
-        // }
-        // this.parentQuestionsData.push(parentDataObj)
-        // const parentKey={
-        //   key:this.sideNavHeading,
-        //   value:this.parentQuestionsData
-        // }
-        // this.completeCheckList.push(parentKey)
-        // this.postCheckListQuestionsData.data.push(this.completeCheckList)
-        
-        // console.log('posted checklist data',this.postCheckListQuestionsData);
-      
-
         this.codeService.postCheckListQuestions(this.technologyId,this.sideNavHeading,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
           console.log(res);
           
@@ -283,7 +253,7 @@ checkListQuestionsId:""
           if(this.updatedParentQuestionsData[i].key==this.sideNavHeading){
             console.log(this.sideNavHeading,'is there in the list'); 
             const updatedParentCheckListObjext={
-              key:this.addMainQuestion,
+            key:this.addMainQuestion,
             options:'',
             rating:'',
             achievedRating:'',
@@ -317,7 +287,7 @@ checkListQuestionsId:""
             key:this.sideNavHeading,
             value:this.parentQuestionsData
           }
-          this.updatedParentQuestionsData[i].data[0].data.push(parentWithKey)
+          this.updatedParentQuestionsData.push(parentWithKey)
           const updatedJsonObj={
             data:this.updatedParentQuestionsData,
             checkListQuestionsId:this.checkListId,
@@ -326,10 +296,10 @@ checkListQuestionsId:""
           }
           console.log(updatedJsonObj);
           
-          // this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-          //   console.log(res);
+          this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+            console.log(res);
             
-          // })
+          })
   
 
           }
