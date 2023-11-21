@@ -47,21 +47,21 @@
           </div>
         </div>
 
-        <div class="row-content" [ngStyle]="{'margin-top': marginTop}">
-          <div class="main-question">
+        <div class="row-content" [ngStyle]="{'margin-top': marginTop}" *ngIf="tabCheckListData">
+          <div class="main-question" *ngFor="let tabData of tabCheckListData; index as i ">
             <div>
-              <span class="question-content">Does code meet functional requirement?</span>
+              <span class="question-content">{{tabData.key}}</span>
             </div>
             <div class="logo-btns">
               <button class="btn-outline btn-main-question mg-0" (click)="addSubQuestionPopup()">Add Sub
                 Question</button>
-              <span class="edit-btn"><a (click)="addMainQuestionPopup()"><img src="../assets/Edit_light.svg"
+              <span class="edit-btn"><a (click)="editMainQuestionPopup(i,tabData.key,tabData)"><img src="../assets/Edit_light.svg"
                     alt="editIcon" title="edit"></a></span>
               <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
                     title="delete"></a></span>
             </div>
           </div>
-          <div class="main-question">
+          <!-- <div class="main-question">
             <div>
               <span class="question-content">Is there any excess functionality in the code but not declined in the
                 Story?</span>
@@ -74,8 +74,11 @@
               <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
                     title="delete"></a></span>
             </div>
-          </div>
-          <div class="sub-question">
+          </div> -->
+
+
+          <!-- sub question data -->
+          <!-- <div class="sub-question">
             <div>
               <span class="sub-question-content">Does it define the expected system service and behavior</span>
             </div>
@@ -97,7 +100,7 @@
               <span class="delete-btn"><a (click)="deletePopup()"><img src="../assets/trash-can.svg" alt="deleteIcon"
                     title="delete"></a></span>
             </div>
-          </div>
+          </div> -->
         </div>
 
       </div>

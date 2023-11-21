@@ -10,7 +10,7 @@
         </div>
         <hr *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))">
 
-        <div class="main-question-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))">
+        <div class="main-question-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool) || (data.popupEditMainQuestionBool))">
           <label for="enter-question" class="form-label">Question Text </label>
           <textarea type="text" class="form-control" id="enter-question" placeholder="Enter question here" [(ngModel)]="textareaValue"></textarea>
         </div>
@@ -29,8 +29,9 @@
 
         <form *ngIf="!data.popupExportBool">
           <div class="table-button flex-center delete-project">
-            <button class="button-all btn-outline mg-0 delete-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool) || (data.popupDeleteBool))" (click)=" onClick(textareaValue)">{{ data.popupCancelBtn }}</button>
-            <button class="button-all btn-blue mg-0 delete-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))" [disabled]="!textareaValue" (click)=" onClick(textareaValue)" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+            <button class="button-all btn-outline mg-0 delete-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool) || (data.popupDeleteBool)) || (data.popupEditMainQuestionBool)" (click)=" onClick({'key':textareaValue,'btnValue':'cancel'})">{{ data.popupCancelBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))" [disabled]="!textareaValue" (click)=" onClick({'key':textareaValue,'btnValue':'ok'})" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box" *ngIf=" data.popupEditMainQuestionBool" [disabled]="!textareaValue" (click)=" onClick({'key':textareaValue,'btnValue':'edit'})" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
             <button class="button-all btn-blue mg-0 delete-box" *ngIf="(data.popupDeleteBool)" (click)=" onClick('Yes')" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
           </div>
         </form>

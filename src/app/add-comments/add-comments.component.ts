@@ -10,7 +10,9 @@ export interface ModalData {
   popupDeleteBool?: Boolean;
   popupAddSubQuestionBool?: Boolean;
   popupAddMainQuestionBool?: Boolean;
+  popupEditMainQuestionBool?: Boolean;
   popupExportBool?: Boolean;
+  popupTabKey?:string
 }
 
 @Component({
@@ -20,11 +22,13 @@ export interface ModalData {
 })
 
 export class AddCommentsComponent implements OnInit {
-  textareaValue: string = '';
+  textareaValue: any ;
   emailValue: string = '';
 
   constructor( public dialogRef: MatDialogRef<AddCommentsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ModalData) { }
+    @Inject(MAT_DIALOG_DATA) public data: ModalData) { 
+      this.textareaValue=data.popupTabKey
+    }
 
   onClick(val: any): void {
     let data = {

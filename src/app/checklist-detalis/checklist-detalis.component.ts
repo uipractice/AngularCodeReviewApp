@@ -24,6 +24,7 @@ export class ChecklistDetailsComponent implements OnInit {
   sideNavHeading:any
   leftNavId:any
   checkListId:any
+  tabCheckListData:any
   updatedParentQuestionsData:any[]=[]
   parentQuestionsData:Object[]=[]
   completeCheckList:Object[]=[]
@@ -116,6 +117,20 @@ checkListQuestionsId:""
     console.log('heading', heading);
     this.sideNavHeading = heading
     this.marginTop = '0%';
+    this.getTabCheckListData(this.sideNavHeading)
+  
+  }
+
+  getTabCheckListData(heading:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    this.codeService.getReviewTrackerDetails(headers,undefined,this.technologyId,heading).subscribe((res:any)=>{
+      console.log(res.data[0].data[0].value);
+      this.tabCheckListData=res.data[0].data[0].value
+    })
+
+
   }
   
 
@@ -223,164 +238,129 @@ checkListQuestionsId:""
      
       console.log('existing array',this.updatedParentQuestionsData);
       
-      console.log(val)
-      this.addMainQuestion = val.value
+      this.addMainQuestion = val.value.key
       console.log(this.addMainQuestion);
-
-    
-      if (this.updatedParentQuestionsData.length==0) {
-        const parentCheckListObjext={
-            key:this.addMainQuestion,
-          options:'',
-          rating:'',
-          achievedRating:'',
-          comments:''
-        }
-        this.parentQuestionsData.push(parentCheckListObjext)
-        const parentWithKey={
-          key:this.sideNavHeading,
-          value:this.parentQuestionsData
-        }
-        this.postCheckListQuestionsData.data.push(parentWithKey)
-
-        console.log('created checklist parent object',this.postCheckListQuestionsData);
-        
-        this.codeService.postCheckListQuestions(this.technologyId,this.sideNavHeading,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
-          if(res.success==true){
-            this.parentQuestionsData=[]
-            console.log(res);
-            this.getCompleteChecklist()
-            
-          }
-          
-        })
-      }
-      else {
-        this.postCheckListQuestionsData.checkListQuestionsId=this.checkListId
-        const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
-        if(ifExistingKey!=-1){
-          console.log(this.sideNavHeading,'is there in the list'); 
-              const updatedParentCheckListObjext={
-              key:this.addMainQuestion,
-              options:'',
-              rating:'',
-              achievedRating:'',
-              comments:''
-            }
-           
-              this.updatedParentQuestionsData[ifExistingKey].value.push(updatedParentCheckListObjext)
-              console.log('updated parent checklist array',this.updatedParentQuestionsData);
-              const updatedJsonObj={
-                data:this.updatedParentQuestionsData,
-                checkListQuestionsId:this.checkListId,
-                technologiesId:this.technologyId
-                
-              }
-              this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-                console.log(res);
-                
-              })
-
-        }
-        else{
+      if(val.value.btnValue=='ok'){
+        if (this.updatedParentQuestionsData.length==0) {
           const parentCheckListObjext={
-                  key:this.addMainQuestion,
+              key:this.addMainQuestion,
+            options:'',
+            rating:'',
+            achievedRating:'',
+            comments:''
+          }
+          this.parentQuestionsData.push(parentCheckListObjext)
+          const parentWithKey={
+            key:this.sideNavHeading,
+            value:this.parentQuestionsData
+          }
+          this.postCheckListQuestionsData.data.push(parentWithKey)
+  
+          console.log('created checklist parent object',this.postCheckListQuestionsData);
+          
+          this.codeService.postCheckListQuestions(this.technologyId,this.sideNavHeading,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
+            if(res.success==true){
+              this.parentQuestionsData=[]
+              console.log(res);
+              this.getCompleteChecklist()
+              this.getTabCheckListData(this.sideNavHeading)
+              
+            }
+            
+          })
+        }
+        else {
+          this.postCheckListQuestionsData.checkListQuestionsId=this.checkListId
+          const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
+          if(ifExistingKey!=-1){
+            console.log(this.sideNavHeading,'is there in the list'); 
+                const updatedParentCheckListObjext={
+                key:this.addMainQuestion,
                 options:'',
                 rating:'',
                 achievedRating:'',
                 comments:''
               }
-              this.parentQuestionsData.push(parentCheckListObjext)
-              const parentWithKey={
-                key:this.sideNavHeading,
-                value:this.parentQuestionsData
-              }
-              this.updatedParentQuestionsData.push(parentWithKey)
-              const updatedJsonObj={
-                data:this.updatedParentQuestionsData,
-                checkListQuestionsId:this.checkListId,
-                technologiesId:this.technologyId
-                
-              }
-              console.log(updatedJsonObj);
-              
-              this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-                if(res.success==true){
-                  this.parentQuestionsData=[]
-                  console.log(res);
+             
+                this.updatedParentQuestionsData[ifExistingKey].value.push(updatedParentCheckListObjext)
+                console.log('updated parent checklist array',this.updatedParentQuestionsData);
+                const updatedJsonObj={
+                  data:this.updatedParentQuestionsData,
+                  checkListQuestionsId:this.checkListId,
+                  technologiesId:this.technologyId
+                  
                 }
-                
-              })
-
-        }
-
-
-
-
-
-
-
-        // for(let i=0;i<this.updatedParentQuestionsData.length;i++){
-        //   if(this.updatedParentQuestionsData[i].key==this.sideNavHeading ){
-        //     console.log(this.sideNavHeading,'is there in the list'); 
-        //     const updatedParentCheckListObjext={
-        //     key:this.addMainQuestion,
-        //     options:'',
-        //     rating:'',
-        //     achievedRating:'',
-        //     comments:''
-        //   }
-         
-        //     this.updatedParentQuestionsData[i].value.push(updatedParentCheckListObjext)
-        //     console.log('updated parent checklist array',this.updatedParentQuestionsData);
-        //     const updatedJsonObj={
-        //       data:this.updatedParentQuestionsData,
-        //       checkListQuestionsId:this.checkListId,
-        //       technologiesId:this.technologyId
-              
-        //     }
-        //     this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-        //       console.log(res);
-              
-        //     })
-           
-        //   }
-        //   else{
-        //     const parentCheckListObjext={
-        //       key:this.addMainQuestion,
-        //     options:'',
-        //     rating:'',
-        //     achievedRating:'',
-        //     comments:''
-        //   }
-        //   this.parentQuestionsData.push(parentCheckListObjext)
-        //   const parentWithKey={
-        //     key:this.sideNavHeading,
-        //     value:this.parentQuestionsData
-        //   }
-        //   this.updatedParentQuestionsData.push(parentWithKey)
-        //   const updatedJsonObj={
-        //     data:this.updatedParentQuestionsData,
-        //     checkListQuestionsId:this.checkListId,
-        //     technologiesId:this.technologyId
-            
-        //   }
-        //   console.log(updatedJsonObj);
-          
-        //   this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-        //     console.log(res);
-            
-        //   })
+                this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+                  console.log(res);
+                  this.getTabCheckListData(this.sideNavHeading)
   
-
-        //   }
-        
-        // }
-       
-        
+                  
+                })
+  
+          }
+          else{
+            const parentCheckListObjext={
+                    key:this.addMainQuestion,
+                  options:'',
+                  rating:'',
+                  achievedRating:'',
+                  comments:''
+                }
+                this.parentQuestionsData.push(parentCheckListObjext)
+                const parentWithKey={
+                  key:this.sideNavHeading,
+                  value:this.parentQuestionsData
+                }
+                this.updatedParentQuestionsData.push(parentWithKey)
+                const updatedJsonObj={
+                  data:this.updatedParentQuestionsData,
+                  checkListQuestionsId:this.checkListId,
+                  technologiesId:this.technologyId
+                  
+                }
+                console.log(updatedJsonObj);
+                
+                this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+                  if(res.success==true){
+                    this.parentQuestionsData=[]
+                    console.log(res);
+                   this.getTabCheckListData(this.sideNavHeading)
+  
+                  }
+                  
+                })
+  
+          }
+  
+  
+  
+        }
       }
+
+    
+     
     })
    
+  }
+  editMainQuestionPopup(index:number,tabkey:string,parentTab:string){
+    console.log('index',index,'tabkey',tabkey,'parent tab',parentTab);
+    const sampleData: ModalData = {
+      popupHeaderTitle: ' edit main question',
+      popupOkBtn: 'Add',
+      popupCancelBtn: 'Cancel',
+      popupEditMainQuestionBool: true,  
+      popupTabKey:tabkey
+    }
+    const dialogRef = this.dialog.open(AddCommentsComponent, {
+      data: sampleData
+    })
+    dialogRef.afterClosed().subscribe((value:any)=>{
+      console.log(value)
+      
+    })
+    
+    
+    
   }
 
   addSubQuestionPopup() {
