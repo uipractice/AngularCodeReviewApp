@@ -178,7 +178,11 @@ checkListQuestionsId:""
    
   }
 
-  deletePopup(sideNavHeading?:any, sectionName?:any) {
+  deletePopup(sideNavHeading?:any, sectionName?:any,index?:number) {
+    console.log(sideNavHeading);
+    console.log(sectionName);
+    console.log(index);
+    
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
@@ -198,15 +202,42 @@ checkListQuestionsId:""
       if (this.deleteValue == 'Yes') {
         console.log('Val deleted');
         console.log(sideNavHeading,sectionName);
-        let deleteJson={
-          "leftNav":sectionName,
-          "leftNavId":this.leftNavId,
-          "remove":true
+        if(index!=-1){
+          this.tabCheckListData.splice(index,1)
+          console.log('updated tabchecklistdata',this.tabCheckListData);
+          const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
+        if(ifExistingKey!=-1){
+          this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
+          const updatedJsonObj={
+            data:this.updatedParentQuestionsData,
+            checkListQuestionsId:this.checkListId,
+            technologiesId:this.technologyId
+            
+          }
+          this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+            console.log(res);
+            this.getCompleteChecklist()
+            this.getTabCheckListData(this.sideNavHeading)
+
+            
+          })
+          
         }
-        this.codeService.updateSideNav(deleteJson,headers).subscribe((res:any)=>{
-          console.log(res);
-          this.getSideNavData()
-        })
+          
+
+        }
+        else{
+          let deleteJson={
+            "leftNav":sectionName,
+            "leftNavId":this.leftNavId,
+            "remove":true
+          }
+          this.codeService.updateSideNav(deleteJson,headers).subscribe((res:any)=>{
+            console.log(res);
+            this.getSideNavData()
+          })
+        }
+        
 
         
         
@@ -343,7 +374,12 @@ checkListQuestionsId:""
    
   }
   editMainQuestionPopup(index:number,tabkey:string,parentTab:string){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
     console.log('index',index,'tabkey',tabkey,'parent tab',parentTab);
+    console.log(this.sideNavHeading);
+    
     const sampleData: ModalData = {
       popupHeaderTitle: ' edit main question',
       popupOkBtn: 'Add',
@@ -354,8 +390,38 @@ checkListQuestionsId:""
     const dialogRef = this.dialog.open(AddCommentsComponent, {
       data: sampleData
     })
-    dialogRef.afterClosed().subscribe((value:any)=>{
-      console.log(value)
+    dialogRef.afterClosed().subscribe((val:any)=>{
+      if(val.value.btnValue=='edit'){
+        console.log(val)
+        this.tabCheckListData[index].key=val.value.key
+        console.log('updated checklist data',this.tabCheckListData);
+      
+        const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
+        if(ifExistingKey!=-1){
+          this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
+          const updatedJsonObj={
+            data:this.updatedParentQuestionsData,
+            checkListQuestionsId:this.checkListId,
+            technologiesId:this.technologyId
+            
+          }
+          this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+            console.log(res);
+            this.getCompleteChecklist()
+            this.getTabCheckListData(this.sideNavHeading)
+
+            
+          })
+          
+        }
+
+        
+        
+      }
+      else{
+        console.log('cancelled');
+        
+      }
       
     })
     

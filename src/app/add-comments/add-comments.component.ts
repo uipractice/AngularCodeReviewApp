@@ -34,7 +34,7 @@ export class AddCommentsComponent implements OnInit {
     let data = {
       value: val
     }
-    console.log(data)
+    // console.log(data)  
     this.dialogRef.close(data);
   }
 
