@@ -645,7 +645,7 @@ ul {
 }
 
 .top-heading {
-  padding: 9px 5px 20px 5px;}
+  padding:12px 5px 13px 5px;}
 .right-Name {
   position: relative;
 }
@@ -956,7 +956,7 @@ img.icon-login {
   position: fixed;
   z-index: 92;
   left: 20px;
-  top: 53px;
+  top:62px;
 }
 
 .save-btn {
@@ -1571,6 +1571,7 @@ button[disabled] {
 
 .details-heading .btn-blue {
   height: 38px;
+  margin: 10px 0px;
 }
 
 .btn-add {
@@ -1583,7 +1584,7 @@ button[disabled] {
 }
 
 .details-heading {
-  padding: 76px 22px 0px 22px;
+  padding: 76px 22px 15px 22px;
 }
 
 .details-body .right-content .logo-btns {
@@ -1904,4 +1905,8 @@ font-size: 20px !important;
   width: 77%;
   text-align: left;
   vertical-align: baseline;
+}
+
+.check-list-top {
+padding-bottom: 15px;
 }
