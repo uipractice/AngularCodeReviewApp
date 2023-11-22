@@ -14,12 +14,12 @@
 
     <!-- (click)="create-checklist" -->
 
-<div class="project-name">
-  <div class="project">
-   <h6><span>Technology Name</span>React JS</h6>
+<div class="project-name" *ngFor="let tech of technologyList">
+  <div class="project" >
+   <h6><span>Technology Name</span>{{tech.name}}</h6>
       <ul class="icons-view">
       <!--<li><img title="view page" alt="View" src="../assets/view.svg"></li> -->
-      <li><img title="view page" alt="View" src="../assets/File_dock_light.svg"></li>
+      <li (click)="navigateCCheckListPage(tech.name,tech._id)"><img title="view page" alt="View" src="../assets/File_dock_light.svg"></li>
       <li><img title="Delete Framework" alt="View" src="../assets/trash-can-l.svg"></li>
     </ul>
   </div>
@@ -34,22 +34,7 @@
 
 
 
-  <div class="project-name">
-    <div class="project">
-     <h6><span>Technology Name</span>Angular</h6>
-
-      <ul class="icons-view">
-        <li><img title="view page" alt="View" src="../assets/File_dock_light.svg"></li>
-        <li><img title="Delete Framework" alt="View" src="../assets/trash-can-l.svg"></li>
-      </ul>
-    </div>
-      <div class="line"></div>
-      <ul class="project accounts">
-        <li>Version Type <strong>V9.86.3</strong></li>
-        <li>Technology Type <strong>Type Script, Front End, Material UI</strong></li>
-        <li>Additional Information <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore </strong></li>
-        </ul>
-    </div>
+  
 
   </div>
 </div>
