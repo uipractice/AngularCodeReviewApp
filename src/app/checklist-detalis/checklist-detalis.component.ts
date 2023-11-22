@@ -18,74 +18,66 @@ export class ChecklistDetailsComponent implements OnInit {
   auth_token: any
   addMainQuestion: any
   addSubQuestion: any
-  technologyId:any
-  technologyName:any
-  sideNavData:any
-  sideNavHeading:any
-  leftNavId:any
-  checkListId:any
-  tabCheckListData:any
-  updatedParentQuestionsData:any[]=[]
-  parentQuestionsData:Object[]=[]
-  completeCheckList:Object[]=[]
+  technologyId: any
+  technologyName: any
+  sideNavData: any
+  sideNavHeading: any
+  leftNavId: any
+  checkListId: any
+  tabCheckListData: any
+  updatedParentQuestionsData: any[] = []
+  parentQuestionsData: Object[] = []
+  completeCheckList: Object[] = []
   marginTop: any = '2%';
- postCheckListQuestionsData:any={
-  data: [],
-total:{
-  rating: "",
-  achievedRating: ""
-  },
-totlaPerc : {
-  rating: "",
-  achievedRating: ""
-},
-technologiesId: "",
-checkListQuestionsId:""
-}
+  postCheckListQuestionsData: any = {
+    data: [],
+    total: {
+      rating: "",
+      achievedRating: ""
+    },
+    totlaPerc: {
+      rating: "",
+      achievedRating: ""
+    },
+    technologiesId: "",
+    checkListQuestionsId: ""
+  }
 
-selectedItemIndex: number= 0;
-
+  selectedItemIndex: number = 0;
 
   constructor(private codeService: CodeReviewService, private dialog: MatDialog, private router: Router, private activatedRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    console.log('sidenavdata',this.sideNavData);
+    console.log('sidenavdata', this.sideNavData);
 
     this.auth_token = JSON.parse(localStorage.getItem('auth_token') || '{}')
-
-
     this.activatedRouter.paramMap.subscribe((res: any) => {
       this.technologyId = res.params.id,
         this.technologyName = res.params.techname
     })
     this.getSideNavData()
-    this.postCheckListQuestionsData.technologiesId=this.technologyId
+    this.postCheckListQuestionsData.technologiesId = this.technologyId
     this.getCompleteChecklist()
     // this.getTabCheckListData(this.sideNavHeading)
     // this.onSelectSideNav(this.sideNavData[0],0)
-
   }
 
-  getCompleteChecklist(){
+  getCompleteChecklist() {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-    this.codeService.getCompleteReviewTrackerDetails(headers,this.technologyId).subscribe((res:any)=>{
+    this.codeService.getCompleteReviewTrackerDetails(headers, this.technologyId).subscribe((res: any) => {
       console.log(res.data[0].data);
-
-      if(res.data.length){
-        this.updatedParentQuestionsData=res.data[0].data
-        this.checkListId=res.data[0]._id
-      console.log(this.updatedParentQuestionsData);
-
+      if (res.data.length) {
+        this.updatedParentQuestionsData = res.data[0].data
+        this.checkListId = res.data[0]._id
+        console.log(this.updatedParentQuestionsData);
       }
-      else{
-        this.updatedParentQuestionsData=res.data
+      else {
+        this.updatedParentQuestionsData = res.data
       }
-      console.log('existing or updated array',this.updatedParentQuestionsData);
-
-
+      console.log('existing or updated array', this.updatedParentQuestionsData);
     })
   }
 
@@ -94,24 +86,17 @@ selectedItemIndex: number= 0;
       'Authorization': `Bearer ${this.auth_token}`
     });
     this.codeService.getSideNav(this.technologyId, headers).subscribe((res: any) => {
-      if(res.success==true && res.data){
+      if (res.success == true && res.data) {
         this.sideNavData = res.data[0].leftNav
-      this.leftNavId= res.data[0]._id
-      console.log('sidenav List', res);
+        this.leftNavId = res.data[0]._id
+        console.log('sidenav List', res);
       }
-
-
     })
-
-
-
   }
 
-  saveCheckListData(){
+  saveCheckListData() {
     this.router.navigate(['/header/codereview-managment'])
   }
-
-
 
   onSelectSideNav(heading: any, index: number) {
     const headers = new HttpHeaders({
@@ -122,23 +107,17 @@ selectedItemIndex: number= 0;
     this.marginTop = '0%';
     this.getTabCheckListData(this.sideNavHeading)
     this.selectedItemIndex = index;
-
-
-
   }
 
-  getTabCheckListData(heading:any){
+  getTabCheckListData(heading: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-    this.codeService.getReviewTrackerDetails(headers,undefined,this.technologyId,heading).subscribe((res:any)=>{
+    this.codeService.getReviewTrackerDetails(headers, undefined, this.technologyId, heading).subscribe((res: any) => {
       console.log(res.data[0].data[0].value);
-      this.tabCheckListData=res.data[0].data[0].value
+      this.tabCheckListData = res.data[0].data[0].value
     })
-
-
   }
-
 
   // test() {
   //   const listItems = document.querySelectorAll("#checklistHeadingList li");
@@ -165,26 +144,23 @@ selectedItemIndex: number= 0;
       "leftNav": this.checklistHeading,
       "leftNavId": this.leftNavId
     }
-    if(this.sideNavData){
-      this.codeService.updateSideNav(updatetHeadingJson, headers).subscribe((res:any)=>{
-        if(res.success == true ){
+    if (this.sideNavData) {
+      this.codeService.updateSideNav(updatetHeadingJson, headers).subscribe((res: any) => {
+        if (res.success == true) {
           this.getSideNavData()
         }
       })
     }
-    else{
-      this.codeService.postSideNav(checklistHeadingJson, headers).subscribe((res:any)=>{
-        if(res.success == true ){
+    else {
+      this.codeService.postSideNav(checklistHeadingJson, headers).subscribe((res: any) => {
+        if (res.success == true) {
           this.getSideNavData()
         }
       })
-
     }
-
-
   }
 
-  deletePopup(sideNavHeading?:any, sectionName?:any,index?:number) {
+  deletePopup(sideNavHeading?: any, sectionName?: any, index?: number) {
     console.log(sideNavHeading);
     console.log(sectionName);
     console.log(index);
@@ -207,38 +183,38 @@ selectedItemIndex: number= 0;
       console.log(this.deleteValue);
       if (this.deleteValue == 'Yes') {
         console.log('Val deleted');
-        console.log(sideNavHeading,sectionName);
-        if(index!=-1){
-          this.tabCheckListData.splice(index,1)
-          console.log('updated tabchecklistdata',this.tabCheckListData);
-          const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
-        if(ifExistingKey!=-1){
-          this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
-          const updatedJsonObj={
-            data:this.updatedParentQuestionsData,
-            checkListQuestionsId:this.checkListId,
-            technologiesId:this.technologyId
+        console.log(sideNavHeading, sectionName);
+        if (index != -1) {
+          this.tabCheckListData.splice(index, 1)
+          console.log('updated tabchecklistdata', this.tabCheckListData);
+          const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
+          if (ifExistingKey != -1) {
+            this.updatedParentQuestionsData[ifExistingKey].value = this.tabCheckListData
+            const updatedJsonObj = {
+              data: this.updatedParentQuestionsData,
+              checkListQuestionsId: this.checkListId,
+              technologiesId: this.technologyId
+
+            }
+            this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
+              console.log(res);
+              this.getCompleteChecklist()
+              this.getTabCheckListData(this.sideNavHeading)
+
+
+            })
 
           }
-          this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-            console.log(res);
-            this.getCompleteChecklist()
-            this.getTabCheckListData(this.sideNavHeading)
-
-
-          })
-
-        }
 
 
         }
-        else{
-          let deleteJson={
-            "leftNav":sectionName,
-            "leftNavId":this.leftNavId,
-            "remove":true
+        else {
+          let deleteJson = {
+            "leftNav": sectionName,
+            "leftNavId": this.leftNavId,
+            "remove": true
           }
-          this.codeService.updateSideNav(deleteJson,headers).subscribe((res:any)=>{
+          this.codeService.updateSideNav(deleteJson, headers).subscribe((res: any) => {
             console.log(res);
             this.getSideNavData()
           })
@@ -254,8 +230,8 @@ selectedItemIndex: number= 0;
     })
   }
 
-  findIndexOfExistingKey(array:any[],searchItem:string):number{
-    return array.findIndex((item:any)=>item.key===searchItem)
+  findIndexOfExistingKey(array: any[], searchItem: string): number {
+    return array.findIndex((item: any) => item.key === searchItem)
   }
 
   addMainQuestionPopup() {
@@ -273,166 +249,138 @@ selectedItemIndex: number= 0;
     })
     dialogRef.afterClosed().subscribe((val: any) => {
 
-      console.log('existing array',this.updatedParentQuestionsData);
+      console.log('existing array', this.updatedParentQuestionsData);
 
       this.addMainQuestion = val.value.key
       console.log(this.addMainQuestion);
-      if(val.value.btnValue=='ok'){
-        if (this.updatedParentQuestionsData.length==0) {
-          const parentCheckListObjext={
-              key:this.addMainQuestion,
-            options:'',
-            rating:'',
-            achievedRating:'',
-            comments:''
+      if (val.value.btnValue == 'ok') {
+        if (this.updatedParentQuestionsData.length == 0) {
+          const parentCheckListObjext = {
+            key: this.addMainQuestion,
+            options: '',
+            rating: '',
+            achievedRating: '',
+            comments: ''
           }
           this.parentQuestionsData.push(parentCheckListObjext)
-          const parentWithKey={
-            key:this.sideNavHeading,
-            value:this.parentQuestionsData
+          const parentWithKey = {
+            key: this.sideNavHeading,
+            value: this.parentQuestionsData
           }
           this.postCheckListQuestionsData.data.push(parentWithKey)
 
-          console.log('created checklist parent object',this.postCheckListQuestionsData);
+          console.log('created checklist parent object', this.postCheckListQuestionsData);
 
-          this.codeService.postCheckListQuestions(this.technologyId,this.sideNavHeading,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
-            if(res.success==true){
-              this.parentQuestionsData=[]
+          this.codeService.postCheckListQuestions(this.technologyId, this.sideNavHeading, this.postCheckListQuestionsData, headers).subscribe((res: any) => {
+            if (res.success == true) {
+              this.parentQuestionsData = []
               console.log(res);
               this.getCompleteChecklist()
               this.getTabCheckListData(this.sideNavHeading)
-
             }
-
           })
         }
         else {
-          this.postCheckListQuestionsData.checkListQuestionsId=this.checkListId
-          const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
-          if(ifExistingKey!=-1){
-            console.log(this.sideNavHeading,'is there in the list');
-                const updatedParentCheckListObjext={
-                key:this.addMainQuestion,
-                options:'',
-                rating:'',
-                achievedRating:'',
-                comments:''
+          this.postCheckListQuestionsData.checkListQuestionsId = this.checkListId
+          const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
+          if (ifExistingKey != -1) {
+            console.log(this.sideNavHeading, 'is there in the list');
+            const updatedParentCheckListObjext = {
+              key: this.addMainQuestion,
+              options: '',
+              rating: '',
+              achievedRating: '',
+              comments: ''
+            }
+            this.updatedParentQuestionsData[ifExistingKey].value.push(updatedParentCheckListObjext)
+            console.log('updated parent checklist array', this.updatedParentQuestionsData);
+            const updatedJsonObj = {
+              data: this.updatedParentQuestionsData,
+              checkListQuestionsId: this.checkListId,
+              technologiesId: this.technologyId
+            }
+            this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
+              console.log(res);
+              this.getTabCheckListData(this.sideNavHeading)
+            })
+          }
+          else {
+            const parentCheckListObjext = {
+              key: this.addMainQuestion,
+              options: '',
+              rating: '',
+              achievedRating: '',
+              comments: ''
+            }
+            this.parentQuestionsData.push(parentCheckListObjext)
+            const parentWithKey = {
+              key: this.sideNavHeading,
+              value: this.parentQuestionsData
+            }
+            this.updatedParentQuestionsData.push(parentWithKey)
+            const updatedJsonObj = {
+              data: this.updatedParentQuestionsData,
+              checkListQuestionsId: this.checkListId,
+              technologiesId: this.technologyId
+            }
+            console.log(updatedJsonObj);
+
+            this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
+              if (res.success == true) {
+                this.parentQuestionsData = []
+                console.log(res);
+                this.getTabCheckListData(this.sideNavHeading)
               }
-
-                this.updatedParentQuestionsData[ifExistingKey].value.push(updatedParentCheckListObjext)
-                console.log('updated parent checklist array',this.updatedParentQuestionsData);
-                const updatedJsonObj={
-                  data:this.updatedParentQuestionsData,
-                  checkListQuestionsId:this.checkListId,
-                  technologiesId:this.technologyId
-
-                }
-                this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-                  console.log(res);
-                  this.getTabCheckListData(this.sideNavHeading)
-
-
-                })
-
+            })
           }
-          else{
-            const parentCheckListObjext={
-                    key:this.addMainQuestion,
-                  options:'',
-                  rating:'',
-                  achievedRating:'',
-                  comments:''
-                }
-                this.parentQuestionsData.push(parentCheckListObjext)
-                const parentWithKey={
-                  key:this.sideNavHeading,
-                  value:this.parentQuestionsData
-                }
-                this.updatedParentQuestionsData.push(parentWithKey)
-                const updatedJsonObj={
-                  data:this.updatedParentQuestionsData,
-                  checkListQuestionsId:this.checkListId,
-                  technologiesId:this.technologyId
-
-                }
-                console.log(updatedJsonObj);
-
-                this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
-                  if(res.success==true){
-                    this.parentQuestionsData=[]
-                    console.log(res);
-                   this.getTabCheckListData(this.sideNavHeading)
-
-                  }
-
-                })
-
-          }
-
-
-
         }
       }
-
-
-
     })
 
   }
-  editMainQuestionPopup(index:number,tabkey:string,parentTab:string){
+
+  editMainQuestionPopup(index: number, tabkey: string, parentTab: string) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
-    console.log('index',index,'tabkey',tabkey,'parent tab',parentTab);
+    console.log('index', index, 'tabkey', tabkey, 'parent tab', parentTab);
     console.log(this.sideNavHeading);
 
     const sampleData: ModalData = {
-      popupHeaderTitle: ' edit main question',
+      popupHeaderTitle: 'Edit Main question',
       popupOkBtn: 'Add',
       popupCancelBtn: 'Cancel',
       popupEditMainQuestionBool: true,
-      popupTabKey:tabkey
+      popupTabKey: tabkey
     }
     const dialogRef = this.dialog.open(AddCommentsComponent, {
       data: sampleData
     })
-    dialogRef.afterClosed().subscribe((val:any)=>{
-      if(val.value.btnValue=='edit'){
+    dialogRef.afterClosed().subscribe((val: any) => {
+      if (val.value.btnValue == 'edit') {
         console.log(val)
-        this.tabCheckListData[index].key=val.value.key
-        console.log('updated checklist data',this.tabCheckListData);
+        this.tabCheckListData[index].key = val.value.key
+        console.log('updated checklist data', this.tabCheckListData);
 
-        const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
-        if(ifExistingKey!=-1){
-          this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
-          const updatedJsonObj={
-            data:this.updatedParentQuestionsData,
-            checkListQuestionsId:this.checkListId,
-            technologiesId:this.technologyId
-
+        const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
+        if (ifExistingKey != -1) {
+          this.updatedParentQuestionsData[ifExistingKey].value = this.tabCheckListData
+          const updatedJsonObj = {
+            data: this.updatedParentQuestionsData,
+            checkListQuestionsId: this.checkListId,
+            technologiesId: this.technologyId
           }
-          this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
+          this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
             console.log(res);
             this.getCompleteChecklist()
             this.getTabCheckListData(this.sideNavHeading)
-
-
           })
-
         }
-
-
-
       }
-      else{
+      else {
         console.log('cancelled');
-
       }
-
     })
-
-
-
   }
 
   addSubQuestionPopup() {
