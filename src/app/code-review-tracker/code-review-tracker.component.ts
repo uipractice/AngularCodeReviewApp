@@ -15,7 +15,7 @@ export class CodeReviewTrackerComponent implements OnInit {
   detailsId: any;
   selectOptions: any;
   reviewDetailsHeader = 'Functional';
-  selectelTabCheckList: any;
+  selectelTabCheckList: any
   sideNavDetails: any;
   reviewTrackerForm: any = FormGroup;
   auth_token = '';
@@ -93,13 +93,23 @@ export class CodeReviewTrackerComponent implements OnInit {
           if (response.success == true) {
             this.isDataAvailable = false;
             this.isLoaderActive = false;
-            // this.commentsData=res.data[0].comments,
-            // this.summaryPercentage=res.data[0].percentage
-            // console.log('comments',this.commentsData,'percentage',this.summaryPercentage);
             console.log(response.data[0].data[0].value);
             this.selectelTabCheckList = response.data[0].data[0];
-            // console.log('The checklist questions ',this.selectelTabCheckList);
-            console.log('complete response', response);
+            console.log('complete response', this.selectelTabCheckList);
+            for(let i=0;i<this.selectelTabCheckList.value.length;i++){
+              if(this.selectelTabCheckList.value[i].value){
+                let key='selected'
+                this.selectelTabCheckList.value[i].value.forEach(element => {
+                  element[key]=false
+                  
+                });
+
+              }
+
+            }
+            console.log('updated selected tab checklist',this.selectelTabCheckList);
+            
+           
             this.getCheckListQuestions();
           }
         });
@@ -449,13 +459,10 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     console.log(rating.value);
     if (rating.value == 'Yes') {
-      // this.isDisabledAchievedRating=false
       this.formData.at(index).get('rating')?.setValidators([Validators.required]);
       this.formData.at(index).get('achievedRating')?.setValidators([
         Validators.required,
-        // Validators.pattern(/^(?:[0-5])$/)
-        // Validators.min(0),
-        // Validators.max(5),
+        
         this.validateNumberRange,
         Validators.pattern('^[0-5]$'),
       ]);
@@ -464,13 +471,10 @@ export class CodeReviewTrackerComponent implements OnInit {
       this.formData.at(index).get('rating')?.patchValue(5);
       this.formData.at(index).get('achievedRating')?.patchValue(null);
     } else if (rating.value == 'No') {
-      // this.isDisabledAchievedRating=false
       this.formData.at(index).get('rating')?.setValidators([Validators.required]);
       this.formData.at(index).get('achievedRating')?.setValidators([
         Validators.required,
-        // Validators.pattern(/^(?:[0-5])$/)
-        // Validators.min(0),
-        // Validators.max(5),
+      
         this.validateNumberRange,
         Validators.pattern('^[0-5]$'),
       ]);
@@ -482,22 +486,17 @@ export class CodeReviewTrackerComponent implements OnInit {
       this.formData.at(index).get('rating')?.setValidators([Validators.required]);
       this.formData.at(index).get('achievedRating')?.setValidators([
         Validators.required,
-        // Validators.pattern(/^(?:[0-5])$/)
-        // Validators.min(0),
-        // Validators.max(5),
+        
         this.validateNumberRange,
         Validators.pattern(/^\d*\.?\d*$/),
       ]);
       this.formData.at(index).get('rating')?.markAsDirty();
       this.formData.at(index).get('rating')?.updateValueAndValidity();
     } else if (rating.value == 'NA') {
-      // this.isDisabledAchievedRating=true
       this.formData.at(index).get('rating')?.setValidators([Validators.required]);
       this.formData.at(index).get('achievedRating')?.setValidators([
         Validators.required,
-        // Validators.pattern(/^(?:[0-5])$/)
-        // Validators.min(0),
-        // Validators.max(5),
+       
         this.validateNumberRange,
         Validators.pattern('^[0-5]$'),
       ]);
@@ -613,17 +612,9 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   openSubChildComments(j: number, i: number) {
-    console.log([i, j]);
+    
 
-    const parentControl = this.formData.at(i).get('value') as FormArray;
-    const commentsControl = parentControl.at(j).get('comments') as FormControl;
-    if (commentsControl) {
-      console.log('isactive comments', [[i][j]]);
-      this.isActiveComments[[i][j]] = !this.isActiveComments[[i][j]];
-      // this.isActiveComments[i][j]=!this.isActiveComments[i][j]
-      // this.isActiveComments[j]=!this.isActiveComments[j]
-      console.log('after clicked', this.isActiveComments[[i][j]]);
-    }
+    this.selectelTabCheckList.value[i].value[j].selected=!this.selectelTabCheckList.value[i].value[j].selected
   }
 
   isNaN(value) {

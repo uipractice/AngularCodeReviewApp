@@ -43,14 +43,17 @@ technologiesId: "",
 checkListQuestionsId:""
 }
 
+selectedItemIndex: number= 0;
+
+
   constructor(private codeService: CodeReviewService, private dialog: MatDialog, private router: Router, private activatedRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
- 
+
     console.log('sidenavdata',this.sideNavData);
-    
+
     this.auth_token = JSON.parse(localStorage.getItem('auth_token') || '{}')
-  
+
 
     this.activatedRouter.paramMap.subscribe((res: any) => {
       this.technologyId = res.params.id,
@@ -59,9 +62,9 @@ checkListQuestionsId:""
     this.getSideNavData()
     this.postCheckListQuestionsData.technologiesId=this.technologyId
     this.getCompleteChecklist()
-   
-    
-   
+    // this.getTabCheckListData(this.sideNavHeading)
+    // this.onSelectSideNav(this.sideNavData[0],0)
+
   }
 
   getCompleteChecklist(){
@@ -70,19 +73,19 @@ checkListQuestionsId:""
     });
     this.codeService.getCompleteReviewTrackerDetails(headers,this.technologyId).subscribe((res:any)=>{
       console.log(res.data[0].data);
-       
+
       if(res.data.length){
         this.updatedParentQuestionsData=res.data[0].data
         this.checkListId=res.data[0]._id
       console.log(this.updatedParentQuestionsData);
-      
+
       }
       else{
         this.updatedParentQuestionsData=res.data
       }
-      console.log('existing or updated array',this.updatedParentQuestionsData); 
-    
-      
+      console.log('existing or updated array',this.updatedParentQuestionsData);
+
+
     })
   }
 
@@ -96,21 +99,21 @@ checkListQuestionsId:""
       this.leftNavId= res.data[0]._id
       console.log('sidenav List', res);
       }
-     
-      
+
+
     })
 
-    
-    
+
+
   }
 
   saveCheckListData(){
     this.router.navigate(['/header/codereview-managment'])
   }
 
-  
 
-  onSelectSideNav(heading: any) {
+
+  onSelectSideNav(heading: any, index: number) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
@@ -118,7 +121,10 @@ checkListQuestionsId:""
     this.sideNavHeading = heading
     this.marginTop = '0%';
     this.getTabCheckListData(this.sideNavHeading)
-  
+    this.selectedItemIndex = index;
+
+
+
   }
 
   getTabCheckListData(heading:any){
@@ -132,20 +138,20 @@ checkListQuestionsId:""
 
 
   }
-  
 
-  test() {
-    const listItems = document.querySelectorAll("#checklistHeadingList li");
-    // Add a click event listener to each <li> to toggle the "selected" class
-    listItems.forEach((item) => {
-      item.addEventListener("click", () => {
-        // Remove the "selected" class from all <li> elements
-        listItems.forEach((li) => li.classList.remove("selected"));
-        // Add the "selected" class to the clicked <li> element
-        item.classList.add("selected");
-      });
-    });
-  }
+
+  // test() {
+  //   const listItems = document.querySelectorAll("#checklistHeadingList li");
+  //   // Add a click event listener to each <li> to toggle the "selected" class
+  //   listItems.forEach((item) => {
+  //     item.addEventListener("click", () => {
+  //       // Remove the "selected" class from all <li> elements
+  //       listItems.forEach((li) => li.classList.remove("selected"));
+  //       // Add the "selected" class to the clicked <li> element
+  //       item.classList.add("selected");
+  //     });
+  //   });
+  // }
 
   addSideNavData() {
     const headers = new HttpHeaders({
@@ -174,15 +180,15 @@ checkListQuestionsId:""
       })
 
     }
-   
-   
+
+
   }
 
   deletePopup(sideNavHeading?:any, sectionName?:any,index?:number) {
     console.log(sideNavHeading);
     console.log(sectionName);
     console.log(index);
-    
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
@@ -212,18 +218,18 @@ checkListQuestionsId:""
             data:this.updatedParentQuestionsData,
             checkListQuestionsId:this.checkListId,
             technologiesId:this.technologyId
-            
+
           }
           this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
             console.log(res);
             this.getCompleteChecklist()
             this.getTabCheckListData(this.sideNavHeading)
 
-            
+
           })
-          
+
         }
-          
+
 
         }
         else{
@@ -237,10 +243,10 @@ checkListQuestionsId:""
             this.getSideNavData()
           })
         }
-        
 
-        
-        
+
+
+
       }
       else {
         console.log('Cancelled deletion');
@@ -266,9 +272,9 @@ checkListQuestionsId:""
       data: sampleData
     })
     dialogRef.afterClosed().subscribe((val: any) => {
-     
+
       console.log('existing array',this.updatedParentQuestionsData);
-      
+
       this.addMainQuestion = val.value.key
       console.log(this.addMainQuestion);
       if(val.value.btnValue=='ok'){
@@ -286,25 +292,25 @@ checkListQuestionsId:""
             value:this.parentQuestionsData
           }
           this.postCheckListQuestionsData.data.push(parentWithKey)
-  
+
           console.log('created checklist parent object',this.postCheckListQuestionsData);
-          
+
           this.codeService.postCheckListQuestions(this.technologyId,this.sideNavHeading,this.postCheckListQuestionsData,headers).subscribe((res:any)=>{
             if(res.success==true){
               this.parentQuestionsData=[]
               console.log(res);
               this.getCompleteChecklist()
               this.getTabCheckListData(this.sideNavHeading)
-              
+
             }
-            
+
           })
         }
         else {
           this.postCheckListQuestionsData.checkListQuestionsId=this.checkListId
           const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
           if(ifExistingKey!=-1){
-            console.log(this.sideNavHeading,'is there in the list'); 
+            console.log(this.sideNavHeading,'is there in the list');
                 const updatedParentCheckListObjext={
                 key:this.addMainQuestion,
                 options:'',
@@ -312,22 +318,22 @@ checkListQuestionsId:""
                 achievedRating:'',
                 comments:''
               }
-             
+
                 this.updatedParentQuestionsData[ifExistingKey].value.push(updatedParentCheckListObjext)
                 console.log('updated parent checklist array',this.updatedParentQuestionsData);
                 const updatedJsonObj={
                   data:this.updatedParentQuestionsData,
                   checkListQuestionsId:this.checkListId,
                   technologiesId:this.technologyId
-                  
+
                 }
                 this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
                   console.log(res);
                   this.getTabCheckListData(this.sideNavHeading)
-  
-                  
+
+
                 })
-  
+
           }
           else{
             const parentCheckListObjext={
@@ -347,31 +353,31 @@ checkListQuestionsId:""
                   data:this.updatedParentQuestionsData,
                   checkListQuestionsId:this.checkListId,
                   technologiesId:this.technologyId
-                  
+
                 }
                 console.log(updatedJsonObj);
-                
+
                 this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
                   if(res.success==true){
                     this.parentQuestionsData=[]
                     console.log(res);
                    this.getTabCheckListData(this.sideNavHeading)
-  
+
                   }
-                  
+
                 })
-  
+
           }
-  
-  
-  
+
+
+
         }
       }
 
-    
-     
+
+
     })
-   
+
   }
   editMainQuestionPopup(index:number,tabkey:string,parentTab:string){
     const headers = new HttpHeaders({
@@ -379,12 +385,12 @@ checkListQuestionsId:""
     });
     console.log('index',index,'tabkey',tabkey,'parent tab',parentTab);
     console.log(this.sideNavHeading);
-    
+
     const sampleData: ModalData = {
       popupHeaderTitle: ' edit main question',
       popupOkBtn: 'Add',
       popupCancelBtn: 'Cancel',
-      popupEditMainQuestionBool: true,  
+      popupEditMainQuestionBool: true,
       popupTabKey:tabkey
     }
     const dialogRef = this.dialog.open(AddCommentsComponent, {
@@ -395,7 +401,7 @@ checkListQuestionsId:""
         console.log(val)
         this.tabCheckListData[index].key=val.value.key
         console.log('updated checklist data',this.tabCheckListData);
-      
+
         const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,this.sideNavHeading)
         if(ifExistingKey!=-1){
           this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
@@ -403,30 +409,30 @@ checkListQuestionsId:""
             data:this.updatedParentQuestionsData,
             checkListQuestionsId:this.checkListId,
             technologiesId:this.technologyId
-            
+
           }
           this.codeService.updateCheckListQuestions(updatedJsonObj,headers).subscribe((res:any)=>{
             console.log(res);
             this.getCompleteChecklist()
             this.getTabCheckListData(this.sideNavHeading)
 
-            
+
           })
-          
+
         }
 
-        
-        
+
+
       }
       else{
         console.log('cancelled');
-        
+
       }
-      
+
     })
-    
-    
-    
+
+
+
   }
 
   addSubQuestionPopup() {

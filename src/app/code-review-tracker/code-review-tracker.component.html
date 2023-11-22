@@ -111,7 +111,7 @@
                       </div>
                       <div class="questions"></div>
 
-                      <div *ngIf="isActiveComments[[i][j]]" class="comments-box">
+                      <div *ngIf="this.selectelTabCheckList.value[i].value[j].selected" class="comments-box">
                         <!-- <div *ngIf=" isActiveComments[j]"   > -->
                         <textarea class="full-textarea" placeholder="Enter your comments here" formControlName="comments" rows="4" cols="50">
                         </textarea>
