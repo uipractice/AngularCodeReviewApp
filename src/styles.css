@@ -1437,7 +1437,7 @@ button[disabled] {
   content: "";
   position: absolute;
   right: -42px;
-  top: 24px;
+  /* top: 24px; */
 }
 
 .details-body .left-content ul li.selected {
@@ -1464,7 +1464,7 @@ button[disabled] {
   content: "";
   position: absolute;
   right: -42px;
-  top: 24px;
+  /* top: 24px; */
 }
 
 .details-body .left-content ul li:hover {
