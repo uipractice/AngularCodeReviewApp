@@ -28,15 +28,14 @@
           </div>
         </div>
 
-      <div *ngIf="sideNavData">
-        <ul  id="checklistHeadingList" *ngFor="let heading of sideNavData" (click)="onSelectSideNav(heading)">
-
-          <li (click)="test()"> <a class="nav-links" >{{heading|uppercase}}</a> </li>
-        </ul>
+        <div *ngIf="sideNavData">
+          <ul  id="checklistHeadingList">
+            <li  *ngFor="let heading of sideNavData; let i = index"  (click)="onSelectSideNav(heading,i)"  [class.selected]="selectedItemIndex === i"> <a class="nav-links" >{{heading|uppercase}}</a> </li>
+          </ul>
+        </div>
       </div>
-      </div>
 
-      <div class="right-content col-md-9 col-sm-8">
+      <div class="right-content col-md-9 col-sm-8" >
         <div class="row-heading" *ngIf="sideNavHeading">
           <div class="right-content1">{{sideNavHeading}} Checklist</div>
           <div class="right-content2">
