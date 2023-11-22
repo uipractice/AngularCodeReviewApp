@@ -645,8 +645,7 @@ ul {
 }
 
 .top-heading {
-  padding: 20px 5px;
-}
+  padding: 9px 5px 20px 5px;}
 .right-Name {
   position: relative;
 }
@@ -1500,14 +1499,19 @@ button[disabled] {
   font-style: normal;
   margin-right: 0px !important;
 }
-
+.details-body  .btn-sub-question {
+  width: 141px;
+}
 .details-body .question-content {
   color: #000;
   font-size: 15px;
   font-style: normal;
   font-weight: 900;
   line-height: normal;
-  margin: 0px 0px 0px 22px;
+  margin-left: 10px;
+  display: block;
+  text-align: left;
+
 }
 
 .details-body .sub-question-content {
@@ -1545,14 +1549,22 @@ button[disabled] {
 }
 
 .details-body .edit-btn {
-  margin: 0px 22px 0px 22px;
+  margin:0px 15px 0px 20px;
   cursor: pointer;
 }
 
 .details-body .delete-btn {
   cursor: pointer;
 }
+.details-body .delete-btn img{
+  width: 22px;
+  height: 22px;
+}
 
+.details-body .edit-btn img{
+  width: 22px;
+  height: 22px;
+}
 .details-body {
   padding: 0px 22px 0px 22px;
 }
@@ -1658,10 +1670,10 @@ button[disabled] {
 @media (min-width: 1500px) and (max-width: 1684px) {
   .details-body .left-content {
     flex: 0 0 auto !important;
-    width: 20% !important;
+    width: 21% !important;
   }
   .details-body .right-content {
-    width: 80% !important;
+    width:79% !important;
   }
 }
 
@@ -1873,4 +1885,23 @@ button[disabled] {
 
 .btn-backToLogin {
   height: 50px;
+}
+
+.mdc-linear-progress__bar-inner {
+  border-color:#219ebc!important;
+}
+
+.mdc-linear-progress__bar-inner {
+  border-top-width: var(--mdc-linear-progress-track-height, 21px) !important;
+}
+
+.mat-typography h1 {
+font-size: 20px !important;
+
+}
+
+.left-question-add {
+  width: 77%;
+  text-align: left;
+  vertical-align: baseline;
 }
