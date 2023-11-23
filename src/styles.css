@@ -879,7 +879,7 @@ img.icon-login {
 }
 
 .select-dropdown mat-label {
-  /*background: #fff;*/
+  background: #fff;
   padding: 0px 4px;
   position: absolute;
   top: -9px;
