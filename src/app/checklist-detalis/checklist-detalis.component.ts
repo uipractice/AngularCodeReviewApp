@@ -60,6 +60,8 @@ export class ChecklistDetailsComponent implements OnInit {
     this.getSideNavData()
     this.postCheckListQuestionsData.technologiesId = this.technologyId
     this.getCompleteChecklist()
+   
+    
     
   }
 
@@ -150,7 +152,9 @@ export class ChecklistDetailsComponent implements OnInit {
     }
   }
 
-  deletePopup(sideNavHeading?: any, sectionName?: any, index?: number) {
+  deletePopup(index?: number, sectionName?: any,sideNavHeading?: any,childIndex?:number) {
+    console.log('childIndex',childIndex);
+    
     console.log(sideNavHeading);
     console.log(sectionName);
     console.log(index);
@@ -205,9 +209,29 @@ export class ChecklistDetailsComponent implements OnInit {
             "remove": true
           }
           this.codeService.updateSideNav(deleteJson, headers).subscribe((res: any) => {
-            console.log(res);
+            if(res.success==true){
             this.getSideNavData()
+            const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,sectionName)
+            if(ifExistingKey!=-1){
+              this.updatedParentQuestionsData.splice(ifExistingKey,1)
+            console.log('deleted updated array',this,this.updatedParentQuestionsData);
+           let updatedJson={
+            data: this.updatedParentQuestionsData,
+            checkListQuestionsId: this.checkListId,
+            technologiesId: this.technologyId
+            }
+            this.codeService.updateCheckListQuestions(updatedJson, headers).subscribe((res: any) => {
+              console.log(res);
+              this.getCompleteChecklist()
+            })
+
+            }
+            
+            
+
+            }
           })
+          
         }
 
 
@@ -218,6 +242,62 @@ export class ChecklistDetailsComponent implements OnInit {
         console.log('Cancelled deletion');
       }
     })
+  }
+  deleteSubChildPopup(index:number,childIndex:number,parentKey?:string){
+    console.log(parentKey);
+    
+    console.log(index,childIndex);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    const sampleData: ModalData = {
+      popupHeaderTitle: 'Do you really want to delete?',
+      popupOkBtn: 'Delete',
+      popupCancelBtn: 'Cancel',
+      popupDeleteBool: true
+    }
+    const dialogRef = this.dialog.open(AddCommentsComponent, {
+      data: sampleData
+    })
+    dialogRef.afterClosed().subscribe((val:any)=>{
+      this.deleteValue = val.value
+      console.log(this.deleteValue);
+      if(this.deleteValue=='Yes'){
+        this.tabCheckListData[index].value.splice(childIndex,1)
+        if(this.tabCheckListData[index].value.length==0){
+          let updatedParentJson={
+            key: parentKey,
+            options: '',
+            rating: '',
+            achievedRating: '',
+            comments: ''
+          }
+          this.tabCheckListData[index]=(updatedParentJson)
+        }
+
+        const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
+        if (ifExistingKey != -1) {
+       
+          this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
+          const updatedJsonObj = {
+            data: this.updatedParentQuestionsData,
+            checkListQuestionsId: this.checkListId,
+            technologiesId: this.technologyId
+          }
+          this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
+            console.log(res);
+            this.getTabCheckListData(this.sideNavHeading)
+          })
+        }
+
+
+      }
+      console.log('updated checklist',this.tabCheckListData);
+      
+      
+    })
+  
+    
   }
 
   findIndexOfExistingKey(array: any[], searchItem: string): number {
@@ -329,7 +409,9 @@ export class ChecklistDetailsComponent implements OnInit {
 
   }
 
-  editMainQuestionPopup(index: number, tabkey: string, parentTab: string) {
+  editQuestionPopup(index: number, tabkey: string, parentTab: string,childIndex?:number) {
+    console.log(childIndex);
+    
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
@@ -348,6 +430,7 @@ export class ChecklistDetailsComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe((val: any) => {
       if (val.value.btnValue == 'edit') {
+       if(childIndex==undefined){
         console.log(val)
         this.tabCheckListData[index].key = val.value.key
         console.log('updated checklist data', this.tabCheckListData);
@@ -366,6 +449,26 @@ export class ChecklistDetailsComponent implements OnInit {
             this.getTabCheckListData(this.sideNavHeading)
           })
         }
+       }
+       else{
+        this.tabCheckListData[index].value[childIndex].key=val.value.key
+        console.log('updated tab checklist data',this.tabCheckListData);
+        const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
+        if (ifExistingKey != -1) {
+          this.updatedParentQuestionsData[ifExistingKey].value = this.tabCheckListData
+          const updatedJsonObj = {
+            data: this.updatedParentQuestionsData,
+            checkListQuestionsId: this.checkListId,
+            technologiesId: this.technologyId
+          }
+          this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
+            console.log(res);
+            this.getCompleteChecklist()
+            this.getTabCheckListData(this.sideNavHeading)
+          })
+        }
+        
+       }
       }
       else {
         console.log('cancelled');
@@ -373,7 +476,7 @@ export class ChecklistDetailsComponent implements OnInit {
     })
   }
 
-  addSubQuestionPopup(i) {
+  addSubQuestionPopup(i?:any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
