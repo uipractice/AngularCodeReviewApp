@@ -46,13 +46,13 @@
           </div>
         </div>
 
-        <div class="row-content" [ngStyle]="{'margin-top': marginTop}" *ngIf="tabCheckListData">
-          <div class="main-question" *ngFor="let tabData of tabCheckListData; index as i ">
-            <div class="left-question-add">
+        <div class="row-content" [ngStyle]="{'margin-top': marginTop}" *ngFor="let tabData of tabCheckListData; index as i " >
+          <div class="main-question" >
+            <div class="left-question-add" *ngIf="tabCheckListData">
               <span class="question-content">{{tabData.key}}</span>
             </div>
-            <div class="logo-btns">
-              <button class="btn-outline btn-main-question btn-sub-question mg-0" (click)="addSubQuestionPopup()">Add Sub
+            <div class="logo-btns"*ngIf="tabCheckListData">
+              <button class="btn-outline btn-main-question btn-sub-question mg-0" (click)="addSubQuestionPopup(i)">Add Sub
                 Question</button>
               <span class="edit-btn"><a (click)="editMainQuestionPopup(i,tabData.key,tabData)"><img src="../assets/Edit_light.svg"
                     alt="editIcon" title="edit"></a></span>
@@ -109,5 +109,3 @@
   </div>
 
 </div>
-
-

@@ -27,6 +27,7 @@ export class ChecklistDetailsComponent implements OnInit {
   tabCheckListData: any
   updatedParentQuestionsData: any[] = []
   parentQuestionsData: Object[] = []
+  childQuestionsData:Object[]=[]
   completeCheckList: Object[] = []
   marginTop: any = '2%';
   postCheckListQuestionsData: any = {
@@ -59,8 +60,7 @@ export class ChecklistDetailsComponent implements OnInit {
     this.getSideNavData()
     this.postCheckListQuestionsData.technologiesId = this.technologyId
     this.getCompleteChecklist()
-    // this.getTabCheckListData(this.sideNavHeading)
-    // this.onSelectSideNav(this.sideNavData[0],0)
+    
   }
 
   getCompleteChecklist() {
@@ -90,6 +90,10 @@ export class ChecklistDetailsComponent implements OnInit {
         this.sideNavData = res.data[0].leftNav
         this.leftNavId = res.data[0]._id
         console.log('sidenav List', res);
+        let sideNavFirstElement= res.data[0].leftNav[0]
+        this.sideNavHeading=sideNavFirstElement
+        this.getTabCheckListData(sideNavFirstElement)
+      
       }
     })
   }
@@ -118,20 +122,6 @@ export class ChecklistDetailsComponent implements OnInit {
       this.tabCheckListData = res.data[0].data[0].value
     })
   }
-
-  // test() {
-  //   const listItems = document.querySelectorAll("#checklistHeadingList li");
-  //   // Add a click event listener to each <li> to toggle the "selected" class
-  //   listItems.forEach((item) => {
-  //     item.addEventListener("click", () => {
-  //       // Remove the "selected" class from all <li> elements
-  //       listItems.forEach((li) => li.classList.remove("selected"));
-  //       // Add the "selected" class to the clicked <li> element
-  //       item.classList.add("selected");
-  //     });
-  //   });
-  // }
-
   addSideNavData() {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
@@ -383,7 +373,10 @@ export class ChecklistDetailsComponent implements OnInit {
     })
   }
 
-  addSubQuestionPopup() {
+  addSubQuestionPopup(i) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
     const sampleData: ModalData = {
       popupHeaderTitle: 'Add Sub Question',
       popupOkBtn: 'Add',
@@ -394,10 +387,61 @@ export class ChecklistDetailsComponent implements OnInit {
       data: sampleData
     })
     dialogRef.afterClosed().subscribe((val: any) => {
-      this.addSubQuestion = val.value
+      this.addSubQuestion = val.value.key
+      
       console.log(this.addSubQuestion);
-      if (this.addSubQuestion) {
-        console.log('Sub question added');
+      if (val.value.btnValue=='ok') {
+        console.log('parent key',this.tabCheckListData[i].key);
+        let parentKey=this.tabCheckListData[i].key
+        //creation of subchild object
+       let subChildJson={
+        key: this.addSubQuestion,
+        options: '',
+        rating: '',
+        achievedRating: '',
+        comments: ''
+        }
+      
+        if(this.tabCheckListData[i].value){
+          this.tabCheckListData[i].value.push(subChildJson)
+        }
+        else{
+          this.childQuestionsData.push(subChildJson)
+        
+          let subChildCheckList={
+            key:parentKey,
+            value:this.childQuestionsData
+          }
+          this.tabCheckListData[i]=subChildCheckList
+
+        }
+
+        console.log('parent with child object',this.tabCheckListData);
+        
+        const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
+        if(ifExistingKey!=-1){
+          this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
+          console.log('final updated checklist data',this.updatedParentQuestionsData);
+          const updatedJsonObj = {
+            data: this.updatedParentQuestionsData,
+            checkListQuestionsId: this.checkListId,
+            technologiesId: this.technologyId
+          }
+          console.log(this.updatedParentQuestionsData);
+          
+          this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
+           if(res.success==true){
+            console.log(res);
+            this.getCompleteChecklist()
+            this.getTabCheckListData(this.sideNavHeading)
+            this.childQuestionsData=[]
+           }
+
+
+          })
+          
+        }
+        
       }
       else {
         console.log('Cancelled sub question addition');
