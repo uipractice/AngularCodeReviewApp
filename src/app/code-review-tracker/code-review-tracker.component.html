@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container user-page">
   <mat-tab-group class="tabs-grey">
     <mat-tab class="tab-heading" label="Code Review">
       <div class="table-button details-main top-heading top-page" style="border: 0px solid red">
@@ -31,8 +31,8 @@
             <h2 class="heading">{{ selectelTabCheckList?.key }} Checklist</h2>
             <span class="info-message">
               <img src="../assets/icons-info.svg" alt="icons" title="light" />Please save your details.</span>
-            <div formArrayName="value">
-              <div *ngFor="let list of reviewTrackerForm.get('value')['controls']; let i = index" [formGroupName]="i">
+            <div formArrayName="value" class="user-main-form">
+              <div *ngFor="let list of reviewTrackerForm.get('value')['controls']; let i = index" [formGroupName]="i" class="user-main-content">
                 <div class="heading-grey">
                   <h4 class="top-20">{{ selectelTabCheckList.value[i]?.key }}</h4>
                   <div class="box--right">
@@ -76,7 +76,7 @@
                   </div>
                 </div>
 
-                <div *ngIf="selectelTabCheckList.value[i]?.value">
+                <div *ngIf="selectelTabCheckList.value[i]?.value" class="list-sub-parent">
                   <div formArrayName="value" class="list-sub">
                     <div class="quality" *ngFor="let subChild of list.get('value')['controls']; let j = index" [formGroupName]="j">
                       <div class="questions">{{ selectelTabCheckList.value[i]?.value[j]?.key }}</div>

@@ -29,7 +29,7 @@ export class ChecklistDetailsComponent implements OnInit {
   parentQuestionsData: Object[] = []
   childQuestionsData:Object[]=[]
   completeCheckList: Object[] = []
-  marginTop: any = '2%';
+  marginTop: any = '0%';
   postCheckListQuestionsData: any = {
     data: [],
     total: {
@@ -60,9 +60,9 @@ export class ChecklistDetailsComponent implements OnInit {
     this.getSideNavData()
     this.postCheckListQuestionsData.technologiesId = this.technologyId
     this.getCompleteChecklist()
-   
-    
-    
+
+
+
   }
 
   getCompleteChecklist() {
@@ -95,7 +95,7 @@ export class ChecklistDetailsComponent implements OnInit {
         let sideNavFirstElement= res.data[0].leftNav[0]
         this.sideNavHeading=sideNavFirstElement
         this.getTabCheckListData(sideNavFirstElement)
-      
+
       }
     })
   }
@@ -154,7 +154,7 @@ export class ChecklistDetailsComponent implements OnInit {
 
   deletePopup(index?: number, sectionName?: any,sideNavHeading?: any,childIndex?:number) {
     console.log('childIndex',childIndex);
-    
+
     console.log(sideNavHeading);
     console.log(sectionName);
     console.log(index);
@@ -226,12 +226,12 @@ export class ChecklistDetailsComponent implements OnInit {
             })
 
             }
-            
-            
+
+
 
             }
           })
-          
+
         }
 
 
@@ -245,7 +245,7 @@ export class ChecklistDetailsComponent implements OnInit {
   }
   deleteSubChildPopup(index:number,childIndex:number,parentKey?:string){
     console.log(parentKey);
-    
+
     console.log(index,childIndex);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
@@ -277,7 +277,7 @@ export class ChecklistDetailsComponent implements OnInit {
 
         const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
         if (ifExistingKey != -1) {
-       
+
           this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
           const updatedJsonObj = {
             data: this.updatedParentQuestionsData,
@@ -293,11 +293,11 @@ export class ChecklistDetailsComponent implements OnInit {
 
       }
       console.log('updated checklist',this.tabCheckListData);
-      
-      
+
+
     })
-  
-    
+
+
   }
 
   findIndexOfExistingKey(array: any[], searchItem: string): number {
@@ -411,7 +411,7 @@ export class ChecklistDetailsComponent implements OnInit {
 
   editQuestionPopup(index: number, tabkey: string, parentTab: string,childIndex?:number) {
     console.log(childIndex);
-    
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
@@ -467,7 +467,7 @@ export class ChecklistDetailsComponent implements OnInit {
             this.getTabCheckListData(this.sideNavHeading)
           })
         }
-        
+
        }
       }
       else {
@@ -491,7 +491,7 @@ export class ChecklistDetailsComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe((val: any) => {
       this.addSubQuestion = val.value.key
-      
+
       console.log(this.addSubQuestion);
       if (val.value.btnValue=='ok') {
         console.log('parent key',this.tabCheckListData[i].key);
@@ -504,13 +504,13 @@ export class ChecklistDetailsComponent implements OnInit {
         achievedRating: '',
         comments: ''
         }
-      
+
         if(this.tabCheckListData[i].value){
           this.tabCheckListData[i].value.push(subChildJson)
         }
         else{
           this.childQuestionsData.push(subChildJson)
-        
+
           let subChildCheckList={
             key:parentKey,
             value:this.childQuestionsData
@@ -520,7 +520,7 @@ export class ChecklistDetailsComponent implements OnInit {
         }
 
         console.log('parent with child object',this.tabCheckListData);
-        
+
         const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
         if(ifExistingKey!=-1){
           this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
@@ -531,7 +531,7 @@ export class ChecklistDetailsComponent implements OnInit {
             technologiesId: this.technologyId
           }
           console.log(this.updatedParentQuestionsData);
-          
+
           this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
            if(res.success==true){
             console.log(res);
@@ -542,9 +542,9 @@ export class ChecklistDetailsComponent implements OnInit {
 
 
           })
-          
+
         }
-        
+
       }
       else {
         console.log('Cancelled sub question addition');

@@ -1049,6 +1049,7 @@ span.red-dot {
 
 .footer {
   /*position:absolute;*/
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -1483,6 +1484,9 @@ button[disabled] {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .details-body .btn-delete {
@@ -1544,8 +1548,21 @@ button[disabled] {
   border-bottom: 1px dashed #cbcbcb;
 }
 
-.details-body .row-content .sub-question:nth-child(3) {
+.details-body .row-content .sub-question:nth-child(1) {
   margin-top: -14px;
+}
+
+.details-body .row-content .sub-question:last-child {
+  border-bottom: none;
+}
+
+.details-body .row-content:last-child .main-question:last-child,
+.home-page .project-name:last-child {
+  margin-bottom: 58px;
+}
+
+.user-page .user-main-form  div.user-main-content:last-child {
+  padding-bottom: 58px;
 }
 
 .details-body .edit-btn {
@@ -1651,7 +1668,7 @@ button[disabled] {
 }
 
 .checklist-details-parent-container {
-  height: 129.9%;
+  height: 100%;
 }
 
 .checklist-details-parent-container .container {
