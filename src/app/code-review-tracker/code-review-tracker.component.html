@@ -39,7 +39,7 @@
                     <div class="selection select-dropdown" *ngIf="selectelTabCheckList.value[i]?.options == '' || selectelTabCheckList.value[i]?.options">
                       <mat-label>Applicable <span class="line-top"></span></mat-label>
                       <mat-form-field>
-                        <mat-select formControlName="options" (selectionChange)="getChildSelectedOption($event, 'child', i)">
+                        <mat-select  formControlName="options" (selectionChange)="getChildSelectedOption($event, 'child', i)">
                           <mat-option value="">Select</mat-option>
                           <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{ opt }}</mat-option>
                         </mat-select>
@@ -49,7 +49,7 @@
                     <div class="rating select-dropdown" *ngIf="selectelTabCheckList.value[i]?.rating == '' || selectelTabCheckList.value[i]?.rating">
                       <mat-label>Rating <span class="line-top rating-line"></span></mat-label>
                       <mat-form-field class="example-full-width">
-                        <input matInput type="number" [readonly]="true" formControlName="rating" />
+                        <input matInput type="number" [disabled]="true" [readonly]="true" formControlName="rating" />
                       </mat-form-field>
                     </div>
 

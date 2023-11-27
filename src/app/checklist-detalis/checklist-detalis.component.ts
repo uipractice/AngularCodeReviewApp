@@ -13,6 +13,9 @@ import { HttpHeaders } from '@angular/common/http';
 })
 
 export class ChecklistDetailsComponent implements OnInit {
+getActiveSelectedIndex(_t35: number) {
+throw new Error('Method not implemented.');
+}
   checklistHeading: string = '';
   deleteValue: any
   auth_token: any
@@ -30,6 +33,7 @@ export class ChecklistDetailsComponent implements OnInit {
   childQuestionsData:Object[]=[]
   completeCheckList: Object[] = []
   marginTop: any = '0%';
+  ifCheckListData:boolean=false
   postCheckListQuestionsData: any = {
     data: [],
     total: {
@@ -105,23 +109,30 @@ export class ChecklistDetailsComponent implements OnInit {
   }
 
   onSelectSideNav(heading: any, index: number) {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth_token}`
-    });
+   
     console.log('heading', heading);
     this.sideNavHeading = heading
     this.marginTop = '0%';
     this.getTabCheckListData(this.sideNavHeading)
     this.selectedItemIndex = index;
+    
   }
+ 
 
   getTabCheckListData(heading: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
     this.codeService.getReviewTrackerDetails(headers, undefined, this.technologyId, heading).subscribe((res: any) => {
-      console.log(res.data[0].data[0].value);
-      this.tabCheckListData = res.data[0].data[0].value
+      if(res.data.length!=0){
+        this.ifCheckListData=true
+        console.log(res.data[0].data[0].value);
+        this.tabCheckListData = res.data[0].data[0].value
+      }
+      else{
+        this.ifCheckListData=false
+      }
+    
     })
   }
   addSideNavData() {
@@ -140,6 +151,7 @@ export class ChecklistDetailsComponent implements OnInit {
       this.codeService.updateSideNav(updatetHeadingJson, headers).subscribe((res: any) => {
         if (res.success == true) {
           this.getSideNavData()
+          this.checklistHeading=''
         }
       })
     }
@@ -147,6 +159,8 @@ export class ChecklistDetailsComponent implements OnInit {
       this.codeService.postSideNav(checklistHeadingJson, headers).subscribe((res: any) => {
         if (res.success == true) {
           this.getSideNavData()
+          this.checklistHeading=''
+
         }
       })
     }
@@ -211,6 +225,8 @@ export class ChecklistDetailsComponent implements OnInit {
           this.codeService.updateSideNav(deleteJson, headers).subscribe((res: any) => {
             if(res.success==true){
             this.getSideNavData()
+            this.onSelectSideNav(sectionName,0)
+
             const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,sectionName)
             if(ifExistingKey!=-1){
               this.updatedParentQuestionsData.splice(ifExistingKey,1)

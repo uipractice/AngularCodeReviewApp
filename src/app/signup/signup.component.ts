@@ -80,6 +80,10 @@ signUp(){
 
 
   }
+
+  onCancel(){
+    this.router.navigate(['/header/user-management'])
+  }
 }
 
 

@@ -23,14 +23,14 @@
           <div class="mb-3">
             <label for="checklist-heading" class="form-label">Checklist Heading <span class="red-dot"></span></label>
             <input type="text" class="form-control checklist-heading" id="checklist-heading"
-              [(ngModel)]="checklistHeading" placeholder="Enter checklist heading here" />
-            <button class="button-all btn-outline btn-add mg-0" (click)="addSideNavData()">Add</button>
+              [(ngModel)]="checklistHeading"  placeholder="Enter checklist heading here" />
+            <button class="button-all btn-outline btn-add mg-0" [disabled]="checklistHeading?false:true"(click)="addSideNavData()">Add</button>
           </div>
         </div>
 
         <div *ngIf="sideNavData">
           <ul  id="checklistHeadingList">
-            <li  *ngFor="let heading of sideNavData; let i = index"  (click)="onSelectSideNav(heading,i)"  [class.selected]="selectedItemIndex === i"> <a class="nav-links" >{{heading|uppercase}}</a> </li>
+            <li  *ngFor="let heading of sideNavData; let i = index"  (click)="onSelectSideNav(heading,i)"  [class.selected]="selectedItemIndex ===i"> <a class="nav-links" >{{heading|uppercase}}</a> </li>
           </ul>
         </div>
       </div>
@@ -45,8 +45,8 @@
               Question</button>
           </div>
         </div>
-
-        <div class="row-content" [ngStyle]="{'margin-top': marginTop}" *ngFor="let tabData of tabCheckListData; index as i " >
+        <div *ngIf="ifCheckListData">
+          <div class="row-content" [ngStyle]="{'margin-top': marginTop}" *ngFor="let tabData of tabCheckListData; index as i " >
           <div class="main-question" >
             <div class="left-question-add" *ngIf="tabCheckListData">
               <span class="question-content">{{tabData.key}}</span>
@@ -76,7 +76,9 @@
           </div>
          
        
-        </div>
+        </div></div>
+
+     
 
       </div>
     </div>

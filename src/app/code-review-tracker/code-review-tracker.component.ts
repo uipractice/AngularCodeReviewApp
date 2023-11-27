@@ -82,6 +82,32 @@ export class CodeReviewTrackerComponent implements OnInit {
         this.isDataAvailable = true;
         this.isLoaderActive = false;
         this.selectelTabCheckList = res.data[0].data[0];
+        for(let i=0;i<this.selectelTabCheckList.value.length;i++){
+          if(this.selectelTabCheckList.value[i].value ){
+           if(this.status=='completed'){
+            let key='selected'
+            let statusKey='isCompleted'
+            this.selectelTabCheckList.value[i].value.forEach(element => {
+              element[key]=false
+              element[statusKey]=true
+              
+            });
+           }
+           else{
+            let key='selected'
+            let statusKey='isCompleted'
+            this.selectelTabCheckList.value[i].value.forEach(element => {
+              element[key]=false
+              element[statusKey]=false
+              
+            });
+
+           }
+
+          }
+     
+
+        }
         (this.commentsData = res.data[0].comments),
           (this.summaryPercentage = res.data[0].percentage);
         console.log('comments', this.commentsData, 'percentage', this.summaryPercentage);
@@ -102,11 +128,12 @@ export class CodeReviewTrackerComponent implements OnInit {
                 let statusKey='isCompleted'
                 this.selectelTabCheckList.value[i].value.forEach(element => {
                   element[key]=false
-                  element[statusKey]=false
+                  element[statusKey]=true
                   
                 });
 
               }
+         
 
             }
             console.log('updated selected tab checklist',this.selectelTabCheckList);
@@ -127,7 +154,7 @@ export class CodeReviewTrackerComponent implements OnInit {
           key: new FormControl(child.key),
           options: new FormControl(child.options),
           rating: new FormControl(child.rating),
-          achievedRating: new FormControl(child.achievedRating),
+          achievedRating: new FormControl(child.achievedRating,),
           comments: new FormControl(child.comments),
         });
         checkListChildGroupData.push(checkListChildGroup);
