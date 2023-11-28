@@ -13,9 +13,11 @@ import { HttpHeaders } from '@angular/common/http';
 })
 
 export class ChecklistDetailsComponent implements OnInit {
-getActiveSelectedIndex(_t35: number) {
-throw new Error('Method not implemented.');
-}
+
+  getActiveSelectedIndex(_t35: number) {
+    throw new Error('Method not implemented.');
+  }
+
   checklistHeading: string = '';
   deleteValue: any
   auth_token: any
@@ -31,10 +33,10 @@ throw new Error('Method not implemented.');
   isLoaderActive:boolean=false
   updatedParentQuestionsData: any[] = []
   parentQuestionsData: Object[] = []
-  childQuestionsData:Object[]=[]
+  childQuestionsData: Object[] = []
   completeCheckList: Object[] = []
   marginTop: any = '0%';
-  ifCheckListData:boolean=false
+  ifCheckListData: boolean = false
   postCheckListQuestionsData: any = {
     data: [],
     total: {
@@ -48,7 +50,6 @@ throw new Error('Method not implemented.');
     technologiesId: "",
     checkListQuestionsId: ""
   }
-
   selectedItemIndex: number = 0;
 
   constructor(private codeService: CodeReviewService, private dialog: MatDialog, private router: Router, private activatedRouter: ActivatedRoute) { }
@@ -65,9 +66,6 @@ throw new Error('Method not implemented.');
     this.getSideNavData()
     this.postCheckListQuestionsData.technologiesId = this.technologyId
     this.getCompleteChecklist()
-
-
-
   }
 
   getCompleteChecklist() {
@@ -97,10 +95,9 @@ throw new Error('Method not implemented.');
         this.sideNavData = res.data[0].leftNav
         this.leftNavId = res.data[0]._id
         console.log('sidenav List', res);
-        let sideNavFirstElement= res.data[0].leftNav[0]
-        this.sideNavHeading=sideNavFirstElement
+        let sideNavFirstElement = res.data[0].leftNav[0]
+        this.sideNavHeading = sideNavFirstElement
         this.getTabCheckListData(sideNavFirstElement)
-
       }
     })
   }
@@ -110,15 +107,12 @@ throw new Error('Method not implemented.');
   }
 
   onSelectSideNav(heading: any, index: number) {
-   
     console.log('heading', heading);
     this.sideNavHeading = heading
     this.marginTop = '0%';
     this.getTabCheckListData(this.sideNavHeading)
     this.selectedItemIndex = index;
-    
   }
- 
 
   getTabCheckListData(heading: any) {
     const headers = new HttpHeaders({
@@ -126,20 +120,20 @@ throw new Error('Method not implemented.');
     });
     this.codeService.getReviewTrackerDetails(headers, undefined, this.technologyId, heading).subscribe((res: any) => {
       this.isLoaderActive=true
-      if(res.data.length!=0){
-        this.ifCheckListData=true
+      if (res.data.length != 0) {
+        this.ifCheckListData = true
         this.isLoaderActive=false
         console.log(res.data[0].data[0].value);
         this.tabCheckListData = res.data[0].data[0].value
       }
-      else{
-        this.ifCheckListData=false
+      else {
+        this.ifCheckListData = false
         this.isLoaderActive=false
 
       }
-    
     })
   }
+
   addSideNavData() {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
@@ -156,7 +150,7 @@ throw new Error('Method not implemented.');
       this.codeService.updateSideNav(updatetHeadingJson, headers).subscribe((res: any) => {
         if (res.success == true) {
           this.getSideNavData()
-          this.checklistHeading=''
+          this.checklistHeading = ''
         }
       })
     }
@@ -164,16 +158,14 @@ throw new Error('Method not implemented.');
       this.codeService.postSideNav(checklistHeadingJson, headers).subscribe((res: any) => {
         if (res.success == true) {
           this.getSideNavData()
-          this.checklistHeading=''
-
+          this.checklistHeading = ''
         }
       })
     }
   }
 
-  deletePopup(index?: number, sectionName?: any,sideNavHeading?: any,childIndex?:number) {
-    console.log('childIndex',childIndex);
-
+  deletePopup(index?: number, sectionName?: any, sideNavHeading?: any, childIndex?: number) {
+    console.log('childIndex', childIndex);
     console.log(sideNavHeading);
     console.log(sectionName);
     console.log(index);
@@ -213,13 +205,8 @@ throw new Error('Method not implemented.');
               console.log(res);
               this.getCompleteChecklist()
               this.getTabCheckListData(this.sideNavHeading)
-
-
             })
-
           }
-
-
         }
         else {
           let deleteJson = {
@@ -228,46 +215,37 @@ throw new Error('Method not implemented.');
             "remove": true
           }
           this.codeService.updateSideNav(deleteJson, headers).subscribe((res: any) => {
-            if(res.success==true){
-            this.getSideNavData()
-            this.onSelectSideNav(sectionName,0)
+            if (res.success == true) {
+              this.getSideNavData()
+              this.onSelectSideNav(sectionName, 0)
 
-            const ifExistingKey=this.findIndexOfExistingKey(this.updatedParentQuestionsData,sectionName)
-            if(ifExistingKey!=-1){
-              this.updatedParentQuestionsData.splice(ifExistingKey,1)
-            console.log('deleted updated array',this,this.updatedParentQuestionsData);
-           let updatedJson={
-            data: this.updatedParentQuestionsData,
-            checkListQuestionsId: this.checkListId,
-            technologiesId: this.technologyId
-            }
-            this.codeService.updateCheckListQuestions(updatedJson, headers).subscribe((res: any) => {
-              console.log(res);
-              this.getCompleteChecklist()
-            })
-
-            }
-
-
-
+              const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, sectionName)
+              if (ifExistingKey != -1) {
+                this.updatedParentQuestionsData.splice(ifExistingKey, 1)
+                console.log('deleted updated array', this, this.updatedParentQuestionsData);
+                let updatedJson = {
+                  data: this.updatedParentQuestionsData,
+                  checkListQuestionsId: this.checkListId,
+                  technologiesId: this.technologyId
+                }
+                this.codeService.updateCheckListQuestions(updatedJson, headers).subscribe((res: any) => {
+                  console.log(res);
+                  this.getCompleteChecklist()
+                })
+              }
             }
           })
-
         }
-
-
-
-
       }
       else {
         console.log('Cancelled deletion');
       }
     })
   }
-  deleteSubChildPopup(index:number,childIndex:number,parentKey?:string){
-    console.log(parentKey);
 
-    console.log(index,childIndex);
+  deleteSubChildPopup(index: number, childIndex: number, parentKey?: string) {
+    console.log(parentKey);
+    console.log(index, childIndex);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
@@ -280,26 +258,24 @@ throw new Error('Method not implemented.');
     const dialogRef = this.dialog.open(AddCommentsComponent, {
       data: sampleData
     })
-    dialogRef.afterClosed().subscribe((val:any)=>{
+    dialogRef.afterClosed().subscribe((val: any) => {
       this.deleteValue = val.value
       console.log(this.deleteValue);
-      if(this.deleteValue=='Yes'){
-        this.tabCheckListData[index].value.splice(childIndex,1)
-        if(this.tabCheckListData[index].value.length==0){
-          let updatedParentJson={
+      if (this.deleteValue == 'Yes') {
+        this.tabCheckListData[index].value.splice(childIndex, 1)
+        if (this.tabCheckListData[index].value.length == 0) {
+          let updatedParentJson = {
             key: parentKey,
             options: '',
             rating: '',
             achievedRating: '',
             comments: ''
           }
-          this.tabCheckListData[index]=(updatedParentJson)
+          this.tabCheckListData[index] = (updatedParentJson)
         }
-
         const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
         if (ifExistingKey != -1) {
-
-          this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
+          this.updatedParentQuestionsData[ifExistingKey].value = this.tabCheckListData
           const updatedJsonObj = {
             data: this.updatedParentQuestionsData,
             checkListQuestionsId: this.checkListId,
@@ -310,15 +286,9 @@ throw new Error('Method not implemented.');
             this.getTabCheckListData(this.sideNavHeading)
           })
         }
-
-
       }
-      console.log('updated checklist',this.tabCheckListData);
-
-
+      console.log('updated checklist', this.tabCheckListData);
     })
-
-
   }
 
   findIndexOfExistingKey(array: any[], searchItem: string): number {
@@ -430,7 +400,7 @@ throw new Error('Method not implemented.');
 
   }
 
-  editQuestionPopup(index: number, tabkey: string, parentTab: string,childIndex?:number) {
+  editQuestionPopup(index: number, tabkey: string, parentTab: string, childIndex?: number) {
     console.log(childIndex);
 
     const headers = new HttpHeaders({
@@ -451,45 +421,45 @@ throw new Error('Method not implemented.');
     })
     dialogRef.afterClosed().subscribe((val: any) => {
       if (val.value.btnValue == 'edit') {
-       if(childIndex==undefined){
-        console.log(val)
-        this.tabCheckListData[index].key = val.value.key
-        console.log('updated checklist data', this.tabCheckListData);
+        if (childIndex == undefined) {
+          console.log(val)
+          this.tabCheckListData[index].key = val.value.key
+          console.log('updated checklist data', this.tabCheckListData);
 
-        const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
-        if (ifExistingKey != -1) {
-          this.updatedParentQuestionsData[ifExistingKey].value = this.tabCheckListData
-          const updatedJsonObj = {
-            data: this.updatedParentQuestionsData,
-            checkListQuestionsId: this.checkListId,
-            technologiesId: this.technologyId
+          const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
+          if (ifExistingKey != -1) {
+            this.updatedParentQuestionsData[ifExistingKey].value = this.tabCheckListData
+            const updatedJsonObj = {
+              data: this.updatedParentQuestionsData,
+              checkListQuestionsId: this.checkListId,
+              technologiesId: this.technologyId
+            }
+            this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
+              console.log(res);
+              this.getCompleteChecklist()
+              this.getTabCheckListData(this.sideNavHeading)
+            })
           }
-          this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
-            console.log(res);
-            this.getCompleteChecklist()
-            this.getTabCheckListData(this.sideNavHeading)
-          })
         }
-       }
-       else{
-        this.tabCheckListData[index].value[childIndex].key=val.value.key
-        console.log('updated tab checklist data',this.tabCheckListData);
-        const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
-        if (ifExistingKey != -1) {
-          this.updatedParentQuestionsData[ifExistingKey].value = this.tabCheckListData
-          const updatedJsonObj = {
-            data: this.updatedParentQuestionsData,
-            checkListQuestionsId: this.checkListId,
-            technologiesId: this.technologyId
+        else {
+          this.tabCheckListData[index].value[childIndex].key = val.value.key
+          console.log('updated tab checklist data', this.tabCheckListData);
+          const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
+          if (ifExistingKey != -1) {
+            this.updatedParentQuestionsData[ifExistingKey].value = this.tabCheckListData
+            const updatedJsonObj = {
+              data: this.updatedParentQuestionsData,
+              checkListQuestionsId: this.checkListId,
+              technologiesId: this.technologyId
+            }
+            this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
+              console.log(res);
+              this.getCompleteChecklist()
+              this.getTabCheckListData(this.sideNavHeading)
+            })
           }
-          this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
-            console.log(res);
-            this.getCompleteChecklist()
-            this.getTabCheckListData(this.sideNavHeading)
-          })
-        }
 
-       }
+        }
       }
       else {
         console.log('cancelled');
@@ -497,7 +467,7 @@ throw new Error('Method not implemented.');
     })
   }
 
-  addSubQuestionPopup(i?:any) {
+  addSubQuestionPopup(i?: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth_token}`
     });
@@ -514,38 +484,38 @@ throw new Error('Method not implemented.');
       this.addSubQuestion = val.value.key
 
       console.log(this.addSubQuestion);
-      if (val.value.btnValue=='ok') {
-        console.log('parent key',this.tabCheckListData[i].key);
-        let parentKey=this.tabCheckListData[i].key
+      if (val.value.btnValue == 'ok') {
+        console.log('parent key', this.tabCheckListData[i].key);
+        let parentKey = this.tabCheckListData[i].key
         //creation of subchild object
-       let subChildJson={
-        key: this.addSubQuestion,
-        options: '',
-        rating: '',
-        achievedRating: '',
-        comments: ''
+        let subChildJson = {
+          key: this.addSubQuestion,
+          options: '',
+          rating: '',
+          achievedRating: '',
+          comments: ''
         }
 
-        if(this.tabCheckListData[i].value){
+        if (this.tabCheckListData[i].value) {
           this.tabCheckListData[i].value.push(subChildJson)
         }
-        else{
+        else {
           this.childQuestionsData.push(subChildJson)
 
-          let subChildCheckList={
-            key:parentKey,
-            value:this.childQuestionsData
+          let subChildCheckList = {
+            key: parentKey,
+            value: this.childQuestionsData
           }
-          this.tabCheckListData[i]=subChildCheckList
+          this.tabCheckListData[i] = subChildCheckList
 
         }
 
-        console.log('parent with child object',this.tabCheckListData);
+        console.log('parent with child object', this.tabCheckListData);
 
         const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
-        if(ifExistingKey!=-1){
-          this.updatedParentQuestionsData[ifExistingKey].value=this.tabCheckListData
-          console.log('final updated checklist data',this.updatedParentQuestionsData);
+        if (ifExistingKey != -1) {
+          this.updatedParentQuestionsData[ifExistingKey].value = this.tabCheckListData
+          console.log('final updated checklist data', this.updatedParentQuestionsData);
           const updatedJsonObj = {
             data: this.updatedParentQuestionsData,
             checkListQuestionsId: this.checkListId,
@@ -554,12 +524,12 @@ throw new Error('Method not implemented.');
           console.log(this.updatedParentQuestionsData);
 
           this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
-           if(res.success==true){
-            console.log(res);
-            this.getCompleteChecklist()
-            this.getTabCheckListData(this.sideNavHeading)
-            this.childQuestionsData=[]
-           }
+            if (res.success == true) {
+              console.log(res);
+              this.getCompleteChecklist()
+              this.getTabCheckListData(this.sideNavHeading)
+              this.childQuestionsData = []
+            }
 
 
           })

@@ -2,7 +2,6 @@
 
   <div class="table-button details-main details-heading grey-bg">
     <div>
-      <!-- Himanshu -- Static currently as create-checklist drpdown is not functional currently -->
       <h1 style="font-size: 1.25rem;">{{technologyName}} Checklist</h1>
       <ul class="pagination">
         <li><a href="">Dashboard</a></li>
@@ -24,7 +23,7 @@
             <label for="checklist-heading" class="form-label">Checklist Heading <span class="red-dot"></span></label>
             <input type="text" class="form-control checklist-heading" id="checklist-heading"
               [(ngModel)]="checklistHeading"  placeholder="Enter checklist heading here" />
-            <button class="button-all btn-outline btn-add mg-0" [disabled]="checklistHeading?false:true"(click)="addSideNavData()">Add</button>
+            <button class="button-all btn-outline btn-add mg-0" [disabled]="checklistHeading ? false : true"(click)="addSideNavData()">Add</button>
           </div>
         </div>
 
@@ -40,32 +39,29 @@
           <div class="right-content1">{{sideNavHeading}} Checklist</div>
 
           <div class="right-content2">
-            <button class="btn-outline btn-delete mg-0" (click)="deletePopup(-1,sideNavHeading,'section')">Delete this
-              section</button>
-            <button class="btn-outline btn-main-question mg-0" (click)="addMainQuestionPopup()">Add Main
-              Question</button>
+            <button class="btn-outline btn-delete mg-0" (click)="deletePopup(-1,sideNavHeading,'section')">Delete this section</button>
+            <button class="btn-outline btn-main-question mg-0" (click)="addMainQuestionPopup()">Add Main Question</button>
           </div>
         </div>
         <div *ngIf="ifCheckListData">
         <mat-spinner class="center spinn" *ngIf="isLoaderActive" ></mat-spinner>
 
           <div class="row-content" [ngStyle]="{'margin-top': marginTop}" *ngFor="let tabData of tabCheckListData; index as i " >
-          <div class="main-question" >
-            <div class="left-question-add" *ngIf="tabCheckListData">
-              <span class="question-content">{{tabData.key}}</span>
-            </div>
-            <div class="logo-btns"*ngIf="tabCheckListData">
-              <button class="btn-outline btn-main-question btn-sub-question mg-0" (click)="addSubQuestionPopup(i)">Add Sub
-                Question</button>
-              <span class="edit-btn"><a (click)="editQuestionPopup(i,tabData.key,tabData)"><img src="../assets/Edit_light.svg"
+            <div class="main-question" >
+              <div class="left-question-add" *ngIf="tabCheckListData">
+                <span class="question-content">{{tabData.key}}</span>
+              </div>
+              <div class="logo-btns"*ngIf="tabCheckListData">
+                <button class="btn-outline btn-main-question btn-sub-question mg-0" (click)="addSubQuestionPopup(i)">Add Sub Question</button>
+                <span class="edit-btn"><a (click)="editQuestionPopup(i,tabData.key,tabData)"><img src="../assets/Edit_light.svg"
                     alt="editIcon" title="edit"></a></span>
-              <span class="delete-btn"><a (click)="deletePopup(i)"><img src="../assets/trash-can.svg" alt="deleteIcon"
+                <span class="delete-btn"><a (click)="deletePopup(i)"><img src="../assets/trash-can.svg" alt="deleteIcon"
                     title="delete"></a></span>
+              </div>
             </div>
-          </div>
-          <!-- sub question data -->
+            <!-- sub question data -->
 
-          <div *ngIf="tabData.value">
+            <div *ngIf="tabData.value">
             <div class="sub-question" *ngFor="let subChild of tabData.value;index as j">
               <div>
                 <span class="sub-question-content">{{subChild.key}}</span>
@@ -77,16 +73,13 @@
                       title="delete"></a></span>
               </div>
             </div>
-          </div>
-         
-       
-        </div></div>
+            </div>
 
-     
+          </div>
+        </div>
 
       </div>
     </div>
-
 
   </div>
 
