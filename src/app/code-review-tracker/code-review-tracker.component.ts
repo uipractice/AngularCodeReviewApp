@@ -4,6 +4,8 @@ import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormControl
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ChecklistDetailsComponent } from '../checklist-detalis/checklist-detalis.component';
+import { TokenType } from '@angular/compiler';
 
 @Component({
   selector: 'app-code-review-tracker',
@@ -147,7 +149,70 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   OnSelectTab(value:any){
-    console.log(value);
+    let rating=0
+    let achievedRating=0
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+    console.log(value.tab.textLabel);
+    if(value.tab.textLabel=='Summary'){
+      this.codeService.getCompleteSavedCheckListData(headers, this.detailsId).subscribe((res:any)=>{
+        console.log(res);
+        
+        console.log(res.data[0].data);
+        let checkList=res.data[0].data
+        for(let i=0;i<checkList.length;i++){
+          console.log(checkList[i].value.length);
+          for(let j=0;j<checkList[i].value.length;j++){
+            if(checkList[i].value[j].value){
+              for(let z=0;z<checkList[i].value[j].value.length;z++){
+                 rating=rating+checkList[i].value[j].value[z].rating
+              achievedRating=achievedRating+checkList[i].value[j].value[z].achievedRating
+              }
+              
+            }else{
+              rating=rating+checkList[i].value[j].rating
+              achievedRating=achievedRating+checkList[i].value[j].achievedRating
+
+            }
+  // (Total marks obtained / Total marks possible) x 100
+
+           
+
+          }
+        
+          
+          // let rating=0;
+          // let achievedRating=0
+          // if(checkList[i].value){
+          //   for(let j=0;j<checkList[i].value.length;j++){
+          //     rating=rating+ +checkList[i].value[j].rating
+          //     achievedRating=achievedRating+ +checkList[i].value[j].achievedRating
+          //   }
+
+          // }
+          // else{
+          //   rating=rating+ +checkList[i].rating
+          //   achievedRating=achievedRating+ +checkList[i].achievedRating
+
+          // }
+          // console.log('rating',rating,'achieved rating',achievedRating);
+          
+        }
+        console.log(rating,achievedRating);
+           let totalAchievedRating = achievedRating * 100;
+           let totalRating = totalAchievedRating / rating;
+           let totalPercentage = totalRating;
+           console.log('summary percentage', totalPercentage);
+           this.summaryPercentage = totalPercentage.toFixed(2);
+           console.log((rating/achievedRating)*100);
+           
+
+
+
+        
+      })
+    }
     
 
   }
@@ -261,55 +326,54 @@ export class CodeReviewTrackerComponent implements OnInit {
     });
     console.log(this.reviewDetailsHeader);
 
-    let rating = 0;
-    let achievedRating = 0;
-    console.log(valid);
+    // let rating = 0;
+    // let achievedRating = 0;
+    // console.log(valid);
 
-    console.log(this.reviewTrackerForm.value);
-    let data = this.reviewTrackerForm.value.value;
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].value) {
-        console.log(data[i].value);
+    // console.log(this.reviewTrackerForm.value);
+    // let data = this.reviewTrackerForm.value.value;
+    // for (let i = 0; i < data.length; i++) {
+    //   if (data[i].value) {
+    //     console.log(data[i].value);
 
-        for (let j = 0; j < data[i].value.length; j++) {
-          rating = rating + +data[i].value[j].rating;
-          achievedRating = achievedRating + +data[i].value[j].achievedRating;
-        }
-      } else {
-        console.log(data[i].key);
-        console.log(data[i].rating);
-        rating = rating + +data[i].rating;
-        achievedRating = achievedRating + +data[i].achievedRating;
-      }
-    }
-    console.log('total rating', rating);
-    console.log('total rating', achievedRating);
-    let summaryObj = {
-      id: this.reviewDetailsHeader,
-      rating: rating,
-      achievedRating: achievedRating,
-    };
+    //     for (let j = 0; j < data[i].value.length; j++) {
+    //       rating = rating + +data[i].value[j].rating;
+    //       achievedRating = achievedRating + +data[i].value[j].achievedRating;
+    //     }
+    //   } else {
+    //     console.log(data[i].key);
+    //     console.log(data[i].rating);
+    //     rating = rating + +data[i].rating;
+    //     achievedRating = achievedRating + +data[i].achievedRating;
+    //   }
+    // }
+    // console.log('total rating', rating);
+    // console.log('total rating', achievedRating);
+    // let summaryObj = {
+    //   id: this.reviewDetailsHeader,
+    //   rating: rating,
+    //   achievedRating: achievedRating,
+    // };
 
-    const existingObj = this.summaryArray.find((obj) => obj.id === summaryObj.id);
+    // const existingObj = this.summaryArray.find((obj) => obj.id === summaryObj.id);
 
-    if (existingObj) {
-      for (let i = 0; i < this.summaryArray.length; i++) {
-        if (this.summaryArray[i]['id'] == existingObj.id) {
-          this.summaryArray[i]['rating'] = summaryObj.rating;
-          this.summaryArray[i]['achievedRating'] = summaryObj.achievedRating;
-        }
-        console.log('existing summary array rating', this.summaryArray[i].rating);
-      }
-    } else {
-      this.summaryArray.push(summaryObj);
-    }
+    // if (existingObj) {
+    //   for (let i = 0; i < this.summaryArray.length; i++) {
+    //     if (this.summaryArray[i]['id'] == existingObj.id) {
+    //       this.summaryArray[i]['rating'] = summaryObj.rating;
+    //       this.summaryArray[i]['achievedRating'] = summaryObj.achievedRating;
+    //     }
+    //     console.log('existing summary array rating', this.summaryArray[i].rating);
+    //   }
+    // } else {
+    //   this.summaryArray.push(summaryObj);
+    // }
 
     console.log('summary array', this.summaryArray);
     let saveJson = {
       data: [this.reviewTrackerForm.value],
       detailsId: this.detailsId,
-      comments: 'hello',
-      percentage: 97,
+      
     };
 
     console.log('savejson', saveJson);
@@ -604,18 +668,18 @@ export class CodeReviewTrackerComponent implements OnInit {
     });
 
     this.showSummary = true;
-    let rating = 0;
-    let achievedRating = 0;
-    for (let i = 0; i < this.summaryArray.length; i++) {
-      rating = rating + this.summaryArray[i].rating;
-      achievedRating = achievedRating + this.summaryArray[i].achievedRating;
-    }
-    // =((F67*100)/E67)/100
-    let totalAchievedRating = achievedRating * 100;
-    let totalRating = totalAchievedRating / rating;
-    let totalPercentage = totalRating;
-    console.log('summary percentage', totalPercentage);
-    this.summaryPercentage = totalPercentage.toFixed(2);
+    // let rating = 0;
+    // let achievedRating = 0;
+    // for (let i = 0; i < this.summaryArray.length; i++) {
+    //   rating = rating + this.summaryArray[i].rating;
+    //   achievedRating = achievedRating + this.summaryArray[i].achievedRating;
+    // }
+   
+    // let totalAchievedRating = achievedRating * 100;
+    // let totalRating = totalAchievedRating / rating;
+    // let totalPercentage = totalRating;
+    // console.log('summary percentage', totalPercentage);
+    // this.summaryPercentage = totalPercentage.toFixed(2);
 
     let finalSubmit = {
       detailsId: this.detailsId,
