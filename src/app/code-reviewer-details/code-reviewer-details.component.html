@@ -70,11 +70,11 @@
                         />
                       </div>
                       <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="reviewersName" class="form-label">Reviewers Name <span class="red-dot"></span></label>
+                        <label for="reviewersName"  class="form-label">Reviewers Name <span class="red-dot"></span></label>
                         <input [readOnly]="true"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
                           type="text"
-                          class="form-control"
+                          class="form-control reviewerNameField"
                           id="reviewersName"
                           formControlName="reviewersName"
                         />
@@ -104,7 +104,7 @@
 
                       <div class="mb-3 col-md-8 col-sm-12">
                         <label for="reviewersName" class="form-label">Code Review Comments</label>
-                      
+
                         <textarea name="InputMessage"  rows="5"
                         [readOnly]="status=='completed'"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"

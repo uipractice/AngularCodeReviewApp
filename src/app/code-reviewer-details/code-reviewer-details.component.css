@@ -1,3 +1,7 @@
 .save-submit-button{
     display:inline-flex
 }
+
+.reviewerNameField{
+  color: #666666;
+}
