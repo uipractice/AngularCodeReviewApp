@@ -28,6 +28,7 @@ throw new Error('Method not implemented.');
   leftNavId: any
   checkListId: any
   tabCheckListData: any
+  isLoaderActive:boolean=false
   updatedParentQuestionsData: any[] = []
   parentQuestionsData: Object[] = []
   childQuestionsData:Object[]=[]
@@ -124,13 +125,17 @@ throw new Error('Method not implemented.');
       'Authorization': `Bearer ${this.auth_token}`
     });
     this.codeService.getReviewTrackerDetails(headers, undefined, this.technologyId, heading).subscribe((res: any) => {
+      this.isLoaderActive=true
       if(res.data.length!=0){
         this.ifCheckListData=true
+        this.isLoaderActive=false
         console.log(res.data[0].data[0].value);
         this.tabCheckListData = res.data[0].data[0].value
       }
       else{
         this.ifCheckListData=false
+        this.isLoaderActive=false
+
       }
     
     })

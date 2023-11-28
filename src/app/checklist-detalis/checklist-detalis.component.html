@@ -38,6 +38,7 @@
       <div class="right-content col-md-9 col-sm-8" >
         <div class="row-heading" *ngIf="sideNavHeading">
           <div class="right-content1">{{sideNavHeading}} Checklist</div>
+
           <div class="right-content2">
             <button class="btn-outline btn-delete mg-0" (click)="deletePopup(-1,sideNavHeading,'section')">Delete this
               section</button>
@@ -46,6 +47,8 @@
           </div>
         </div>
         <div *ngIf="ifCheckListData">
+        <mat-spinner class="center spinn" *ngIf="isLoaderActive" ></mat-spinner>
+
           <div class="row-content" [ngStyle]="{'margin-top': marginTop}" *ngFor="let tabData of tabCheckListData; index as i " >
           <div class="main-question" >
             <div class="left-question-add" *ngIf="tabCheckListData">
@@ -61,6 +64,7 @@
             </div>
           </div>
           <!-- sub question data -->
+
           <div *ngIf="tabData.value">
             <div class="sub-question" *ngFor="let subChild of tabData.value;index as j">
               <div>

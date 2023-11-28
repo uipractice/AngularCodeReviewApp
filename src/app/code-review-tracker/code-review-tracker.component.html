@@ -1,6 +1,6 @@
 <div class="container user-page">
-  <mat-tab-group class="tabs-grey">
-    <mat-tab class="tab-heading" label="Code Review">
+  <mat-tab-group class="tabs-grey" (selectedTabChange)="OnSelectTab($event)">
+    <mat-tab class="tab-heading" label="Code Review" >
       <div class="table-button details-main top-heading top-page" style="border: 0px solid red">
         <div>
           <h1>{{ projectDetails.account }}-{{ projectDetails.project | titlecase }}
@@ -132,7 +132,7 @@
     </mat-tab>
 
     <!-- Sonar Qube--------------------------------------->
-    <mat-tab label="Sonar Qube">
+    <mat-tab label="Sonar Qube" (click)="OnSelectTab('Sonar Qube')">
       <div class="main-body grey-bg">
         <div class="container">
           <div class="table-button details-main top-heading top-page">
@@ -173,7 +173,7 @@
     </mat-tab>
 
     <!-- Summary--------------------------------------->
-    <mat-tab label="Summary">
+    <mat-tab label="Summary" (click)="OnSelectTab('Summary')">
       <div class="table-button details-main top-heading top-page">
         <div>
           <h1>Summary</h1>

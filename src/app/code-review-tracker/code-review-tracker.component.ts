@@ -146,6 +146,12 @@ export class CodeReviewTrackerComponent implements OnInit {
     });
   }
 
+  OnSelectTab(value:any){
+    console.log(value);
+    
+
+  }
+
   getCheckListQuestions() {
     const checkListChildGroupData = this.reviewTrackerForm.get('value') as FormArray;
     for (let child of this.selectelTabCheckList.value) {
@@ -310,15 +316,28 @@ export class CodeReviewTrackerComponent implements OnInit {
 
     if (this.isDataAvailable == true) {
       this.codeService
-        .updateCheckListData(saveJson, headers)
-        .subscribe((res: any) => {
+        .updateCheckListData(saveJson, headers).subscribe((res: any) => {
+          if(res.success==true){
+            this.isLoaderActive=true
           console.log('submitted', res);
+          setTimeout(()=>{
+            this.isLoaderActive=false
+          },3000)
+
+          }
         });
     } else {
       this.codeService
         .saveCheckListData(saveJson, headers)
         .subscribe((res: any) => {
-          console.log('submitted', res);
+          if(res.success==true){
+            this.isLoaderActive=true
+            console.log('submitted', res);
+            setTimeout(()=>{
+              this.isLoaderActive=false
+            },1000)
+  
+            }
         });
     }
   }
