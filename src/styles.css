@@ -645,7 +645,8 @@ ul {
 }
 
 .top-heading {
-  padding:12px 5px 13px 5px;}
+  padding: 12px 5px 13px 5px;
+}
 .right-Name {
   position: relative;
 }
@@ -956,7 +957,7 @@ img.icon-login {
   position: fixed;
   z-index: 92;
   left: 20px;
-  top:62px;
+  top: 62px;
 }
 
 .save-btn {
@@ -1503,7 +1504,7 @@ button[disabled] {
   font-style: normal;
   margin-right: 0px !important;
 }
-.details-body  .btn-sub-question {
+.details-body .btn-sub-question {
   width: 141px;
 }
 .details-body .question-content {
@@ -1515,7 +1516,6 @@ button[disabled] {
   margin-left: 10px;
   display: block;
   text-align: left;
-
 }
 
 .details-body .sub-question-content {
@@ -1561,24 +1561,24 @@ button[disabled] {
   margin-bottom: 58px;
 }
 
-.user-page .user-main-form  div.user-main-content:last-child {
+.user-page .user-main-form div.user-main-content:last-child {
   padding-bottom: 58px;
 }
 
 .details-body .edit-btn {
-  margin:0px 15px 0px 20px;
+  margin: 0px 15px 0px 20px;
   cursor: pointer;
 }
 
 .details-body .delete-btn {
   cursor: pointer;
 }
-.details-body .delete-btn img{
+.details-body .delete-btn img {
   width: 22px;
   height: 22px;
 }
 
-.details-body .edit-btn img{
+.details-body .edit-btn img {
   width: 22px;
   height: 22px;
 }
@@ -1691,7 +1691,7 @@ button[disabled] {
     width: 21% !important;
   }
   .details-body .right-content {
-    width:79% !important;
+    width: 79% !important;
   }
 }
 
@@ -1892,6 +1892,7 @@ button[disabled] {
   font-weight: 700;
   line-height: normal;
 }
+/***************************************************************************/
 
 .forgot-title {
   font-weight: 800;
@@ -1906,7 +1907,7 @@ button[disabled] {
 }
 
 .mdc-linear-progress__bar-inner {
-  border-color:#219ebc!important;
+  border-color: #219ebc !important;
 }
 
 .mdc-linear-progress__bar-inner {
@@ -1914,8 +1915,7 @@ button[disabled] {
 }
 
 .mat-typography h1 {
-font-size: 20px !important;
-
+  font-size: 20px !important;
 }
 
 .left-question-add {
@@ -1925,5 +1925,19 @@ font-size: 20px !important;
 }
 
 .check-list-top {
-padding-bottom: 15px;
+  padding-bottom: 15px;
+}
+
+.btnOnDisable:disabled
+ {
+  border: 0px;
+  background-color: rgb(204, 204, 204) !important;
+  color: #666666 !important;
+}
+
+.spinn {
+  position: absolute;
+  left: 25%;
+  /* top: 25%!important; */
+  top: 20px!important;
 }

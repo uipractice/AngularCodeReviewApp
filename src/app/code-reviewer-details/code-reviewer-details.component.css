@@ -1,7 +1,11 @@
-.save-submit-button{
+.save-submit-button {
     display:inline-flex
 }
 
-.reviewerNameField{
+.reviewerNameField {
   color: #666666;
+}
+
+.reviewerNameLabel {
+  padding-right: 5px;
 }

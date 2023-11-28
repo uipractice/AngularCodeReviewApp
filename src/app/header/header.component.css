@@ -26,7 +26,8 @@ mat-toolbar{
 .menu li {
   margin-bottom:0px;
   padding-top: 4px;
-  padding-right:24px;
+  /* Menu no gap on hover as discussed on 28th nov */
+  /* padding-right:24px; */
 }
 .menu li a {
   padding: 26px 24px 25px 24px;
