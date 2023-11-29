@@ -156,6 +156,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     });
     console.log(value.tab.textLabel);
     if(value.tab.textLabel=='Summary'){
+      this.showSummary=false
       this.codeService.getCompleteSavedCheckListData(headers, this.detailsId).subscribe((res:any)=>{
         console.log(res);
         
