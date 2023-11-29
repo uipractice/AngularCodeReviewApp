@@ -1928,8 +1928,7 @@ button[disabled] {
   padding-bottom: 15px;
 }
 
-.btnOnDisable:disabled
- {
+.btnOnDisable:disabled {
   border: 0px;
   background-color: rgb(204, 204, 204) !important;
   color: #666666 !important;
@@ -1938,6 +1937,13 @@ button[disabled] {
 .spinn {
   position: absolute;
   left: 25%;
-  /* top: 25%!important; */
   top: 20px!important;
+}
+
+.btnCommonWidth {
+  width: 101px!important;
+}
+
+.create-checklist-main {
+  height: 100%;
 }

@@ -35,6 +35,7 @@ import { FooterComponent } from './footer/footer.component';
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';
 import { ChecklistDetailsComponent } from './checklist-detalis/checklist-detalis.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CapitalizeWordsPipe } from './capitalize-words.pipe';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     TechnicalStackComponent,
     ChecklistDetailsComponent,
     ResetPasswordComponent,
-
+    CapitalizeWordsPipe,
   ],
   imports: [
     BrowserModule,

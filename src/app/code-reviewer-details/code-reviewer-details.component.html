@@ -1,137 +1,94 @@
 <div class="main-body grey-bg">
   <div class="container">
+    <div class="table-button details-main top-heading">
+      <div>
+        <h1 style="font-size: 1.25rem">Code Review Project Details</h1>
+        <ul class="pagination">
+          <li><a routerLink="/header/startCodeReviewTracker">Dashboard</a></li>
+          <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"/></li>
+          <li>Create New Project</li>
+        </ul>
+      </div>
+    </div>
+    <div class="details-main">
+      <form class="row details-box Project-details" [formGroup]="codeReviewerForm">
 
-
-        <div class="table-button details-main top-heading">
-          <div><h1 style="font-size: 1.25rem;">Code Review Project Details</h1>
-             <ul class="pagination">
-            <li><a  routerLink="/header/startCodeReviewTracker">Dashboard</a></li>
-            <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-            <li>Create New Project</li>
-          </ul>
+        <div class="mb-3 col-md-4 col-sm-12">
+          <label for="project" class="form-label">Project Name <span class="red-dot"></span></label>
+          <input [readOnly]="status == 'completed'" [ngStyle]="{ 'background-color': status == 'completed' ? '#71606026' : ''}"
+            type="text" class="form-control" id="project" formControlName="project"
+          />
         </div>
 
-          </div>
-          <div class="details-main">
-                        <form class="row details-box Project-details" [formGroup]="codeReviewerForm" >
-                          <div class="mb-3 col-md-4 col-sm-12">
-                            <label for="project" class="form-label">Project Name <span class="red-dot"></span></label>
-                            <input [readOnly]="status=='completed'"
-                            [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                              type="text"
-                              class="form-control"
-                              id="project"
-                              formControlName="project"
-                            />
-                          </div>
-                    <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="account" class="form-label">Account Name <span class="red-dot"></span></label>
-                        <input [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
+        <div class="mb-3 col-md-4 col-sm-12">
+          <label for="account" class="form-label">Account Name <span class="red-dot"></span></label>
+          <input [readOnly]="status == 'completed'" [ngStyle]="{ 'background-color': status == 'completed' ? '#71606026' : ''}"
+            type="text" class="form-control" id="account" formControlName="account"
+          />
+        </div>
 
-                          type="text"
-                          class="form-control"
-                          id="account"
-                          formControlName="account"
-                        />
-                      </div>
+        <div class="mb-3 col-md-4 col-sm-12">
+          <label for="storyId" class="form-label">Technology <span class="red-dot"></span></label>
+          <mat-select (selectionChange)="onSelectTechnology($event.value)" class="form-control" formControlName="technology">
+            <mat-option *ngFor="let technology of technologyList" [value]="technology">
+              {{ technology.name | capitalizeWords}}
+            </mat-option>
+          </mat-select>
+        </div>
 
+        <div class="mb-3 col-md-4 col-sm-12">
+          <label for="developers" class="form-label">Developers <span class="red-dot"></span></label>
+          <input [readOnly]="status == 'completed'" [ngStyle]="{'background-color': status == 'completed' ? '#71606026' : ''}"
+            type="text" class="form-control" id="developers" formControlName="developers"
+          />
+        </div>
 
+        <div class="mb-3 col-md-4 col-sm-12">
+          <label for="projectLead" class="form-label">Project Lead <span class="red-dot"></span></label>
+          <input [readOnly]="status == 'completed'" [ngStyle]="{ 'background-color': status == 'completed' ? '#71606026' : ''}"
+            type="text" class="form-control" id="projectLead" formControlName="projectLead"
+          />
+        </div>
 
-                      <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="storyId" class="form-label">Technology <span class="red-dot"></span></label>
+        <div class="mb-3 col-md-4 col-sm-12">
+          <label for="reviewersName" class="form-label reviewerNameLabel">Reviewers Name</label>
+          <input [readOnly]="true" [ngStyle]="{ 'background-color': status == 'completed' ? '#71606026' : ''}"
+            type="text" class="form-control reviewerNameField" id="reviewersName" formControlName="reviewersName"
+          />
+        </div>
 
-                      <mat-select (selectionChange)="onSelectTechnology($event.value)"  class="form-control"
-                      formControlName="technology"  >
-                        <mat-option *ngFor="let technology of technologyList" [value]="technology" >
-                          {{technology.name}}
-                        </mat-option>
-                      </mat-select>
-                      </div>
+        <div class="mb-3 col-md-4 col-sm-12">
+          <label for="storyId" class="form-label">Story ID (Enter if applicable)</label>
+          <input [readOnly]="status == 'completed'" [ngStyle]="{'background-color': status == 'completed' ? '#71606026' : ''}"
+            type="text" class="form-control" id="storyId" formControlName="storyId"
+          />
+        </div>
 
-                      <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="developers" class="form-label">Developers <span class="red-dot"></span></label>
-                        <input [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control"
-                          id="developers"
-                          formControlName="developers"
-                        />
-                      </div>
-                      <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="projectLead" class="form-label">Project Lead <span class="red-dot"></span></label>
-                        <input [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control"
-                          id="projectLead"
-                          formControlName="projectLead"
-                        />
-                      </div>
-                      <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="reviewersName"  class="form-label reviewerNameLabel">Reviewers Name</label>
-                        <input [readOnly]="true"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control reviewerNameField"
-                          id="reviewersName"
-                          formControlName="reviewersName"
-                        />
-                      </div>
+        <div class="mb-3 col-md-4 col-sm-12">
+          <label for="reviewPackagesandFiles" class="form-label">Review Packages and Files</label>
+          <input [readOnly]="status == 'completed'" [ngStyle]="{'background-color': status == 'completed' ? '#71606026' : ''}"
+            type="text" class="form-control" id="reviewPackagesandFiles" formControlName="reviewPackagesandFiles"
+          />
+        </div>
 
-                      <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="storyId" class="form-label">Story ID (Enter if applicable)</label>
-                        <input [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control"
-                        id="storyId"
-                          formControlName="storyId"
-                        />
-                      </div>
+        <div class="mb-3 col-md-8 col-sm-12">
+          <label for="reviewersName" class="form-label">Code Review Comments</label>
+          <textarea name="InputMessage" rows="5" [readOnly]="status == 'completed'" [ngStyle]="{'background-color': status == 'completed' ? '#71606026' : ''}"
+            type="text" class="form-control" id="codeReviewComments"formControlName="codeReviewComments"
+          ></textarea>
+        </div>
 
-                      <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="reviewPackagesandFiles" class="form-label">Review Packages and Files</label>
-                        <input [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control"
-                          id="reviewPackagesandFiles"
-                          formControlName="reviewPackagesandFiles"
-                        />
-                      </div>
+        <div class="table-button flex-center">
+          <span *ngIf="status == 'completed'"> </span>
+          <button class="button-all btn-outline mg-0" (click)="getBackDetails()">
+            Cancel
+          </button>
+          <button class="button-all btn-blue mg-0 btnOnDisable btnCommonWidth" [disabled]="codeReviewerForm.invalid" (click)="submitReviewDetails()">
+            Save
+          </button>
+        </div>
 
-                      <div class="mb-3 col-md-8 col-sm-12">
-                        <label for="reviewersName" class="form-label">Code Review Comments</label>
-
-                        <textarea name="InputMessage"  rows="5"
-                        [readOnly]="status=='completed'"
-                        [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
-                          type="text"
-                          class="form-control"
-                          id="codeReviewComments"
-                          formControlName="codeReviewComments"
-
-                        ></textarea>
-                      </div>
-                      <div class="table-button flex-center">
-
-
-
-
-
-
-
-                      <span *ngIf="status=='completed'"> </span>
-
-                      <button  class="button-all btn-outline mg-0" (click)="getBackDetails()">Cancel</button>
-                      <button class="button-all btn-blue mg-0 btnOnDisable"  [disabled]="codeReviewerForm.invalid"  (click)="submitReviewDetails()">Save</button>
-
-                    </div>
-                </form>
-
-
-   </div>
-</div>
+      </form>
+    </div>
+  </div>
 </div>

@@ -1,8 +1,5 @@
-
-
-<div class="main-body grey-bg pd-20">
+<div class="main-body grey-bg pd-20 create-checklist-main">
   <div class="container">
-
 
     <div class="table-button details-main top-heading check-list-top">
       <div>
@@ -25,26 +22,19 @@
             <label for="storyId" class="form-label">Technology Name <span class="red-dot"></span></label>
             <mat-select class="form-control" formControlName="technology" (selectionChange)="getTechId($event)">
               <mat-option [value]="tech" *ngFor="let tech of technologies">
-                {{tech.name}}
+                {{tech.name | capitalizeWords}}
               </mat-option>
             </mat-select>
           </div>
         </div>
         <div class="table-button flex-center">
-
-
           <div class="center">
             <button class="button-all btn-outline mg-0" (click)="cancelTechCreation()">Cancel</button>
             <button class="button-all btn-blue mg-0 btnOnDisable" [disabled]="technologyForm.invalid"
               (click)="navigateToAdminPage()">Create New</button>
           </div>
-
-
-
-
         </div>
       </form>
-
 
     </div>
   </div>

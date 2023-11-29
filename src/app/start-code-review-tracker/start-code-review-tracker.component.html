@@ -7,16 +7,16 @@
 
     <div class="project-name" *ngFor="let data of dataSource">
       <div class="project">
-        <h6><span>Project Name</span>{{data.project}}</h6>
+        <h6><span>Project Name</span>{{data.project | capitalizeWords}}</h6>
         <span class="green-color review-status" *ngIf="data.status=='pending'" style="color: red;"><img
-            title="view page" alt="View" src="../assets/pending.svg"> Code Review {{data.status}}</span>
+            title="view page" alt="View" src="../assets/pending.svg"> Code Review {{data.status | capitalizeWords}}</span>
         <span class="green-color review-status" *ngIf="data.status=='submitted'" style="color: blue"><img
-            title="view page" alt="View" src="../assets/Submitted.svg"> Code Review {{data.status}}</span>
+            title="view page" alt="View" src="../assets/Submitted.svg"> Code Review {{data.status | capitalizeWords}}</span>
         <span class="green-color review-status" *ngIf="data.status=='completed'" style="color: green"><img
-            title="view page" alt="View" src="../assets/completed.svg"> Code Review {{data.status}}</span>
+            title="view page" alt="View" src="../assets/completed.svg"> Code Review {{data.status | capitalizeWords}}</span>
 
         <ul class="icons-view">
-          <li (click)="exportPopup(data)"><img *ngIf="data.status=='completed'" title="Email project list" alt="export project"
+          <li (click)="exportPopup(data)"><img *ngIf="data.status=='completed'" title="Email project list" alt="Export Poject"
             src="../assets/export.svg"></li>
           <li (click)="onViewSubmittedDetails(data)"><img title="View Project" alt="View Project"
             src="../assets/File_dock_light.svg"></li>
@@ -27,9 +27,9 @@
       </div>
       <div class="line"></div>
       <ul class="project accounts project-top">
-        <li>Account <strong>{{data.account}}</strong></li>
-        <li>Developers <strong>{{data.developers}}</strong></li>
-        <li>Reviewer <strong>{{data.reviewersName}}</strong></li>
+        <li>Account <strong>{{data.account | capitalizeWords}}</strong></li>
+        <li>Developers <strong>{{data.developers | capitalizeWords}}</strong></li>
+        <li>Reviewer <strong>{{data.reviewersName | capitalizeWords}}</strong></li>
         <li>Date <strong>{{data.createdDate}}</strong></li>
         <li>Comments <strong>{{data.codeReviewComments}}</strong></li>
       </ul>

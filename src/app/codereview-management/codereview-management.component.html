@@ -16,7 +16,7 @@
 
 <div class="project-name" *ngFor="let tech of technologyList">
   <div class="project" >
-   <h6><span>Technology Name</span>{{tech.name}}</h6>
+   <h6><span>Technology Name</span>{{tech.name | capitalizeWords}}</h6>
       <ul class="icons-view">
       <!--<li><img title="view page" alt="View" src="../assets/view.svg"></li> -->
       <li (click)="navigateCCheckListPage(tech.name,tech._id)"><img title="view page" alt="View" src="../assets/File_dock_light.svg"></li>
@@ -34,7 +34,7 @@
 
 
 
-  
+
 
   </div>
 </div>

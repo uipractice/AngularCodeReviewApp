@@ -28,13 +28,13 @@
           </div>
 
           <div *ngIf="!isLoaderActive">
-            <h2 class="heading">{{ selectelTabCheckList?.key }} Checklist</h2>
+            <h2 class="heading">{{ selectelTabCheckList?.key  | capitalizeWords}} Checklist</h2>
             <span class="info-message">
               <img src="../assets/icons-info.svg" alt="icons" title="light" />Please save your details.</span>
             <div formArrayName="value" class="user-main-form">
               <div *ngFor="let list of reviewTrackerForm.get('value')['controls']; let i = index" [formGroupName]="i" class="user-main-content">
                 <div class="heading-grey">
-                  <h4 class="top-20">{{ selectelTabCheckList.value[i]?.key }}</h4>
+                  <h4 class="top-20">{{ selectelTabCheckList.value[i]?.key  | capitalizeWords}}</h4>
                   <div class="box--right">
                     <div class="selection select-dropdown" *ngIf="selectelTabCheckList.value[i]?.options == '' || selectelTabCheckList.value[i]?.options">
                       <mat-label>Applicable <span class="line-top"></span></mat-label>

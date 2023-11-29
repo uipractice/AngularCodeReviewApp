@@ -36,7 +36,7 @@
               <form *ngIf="currentForm === 'form1'" (submit)="onSubmit()" [formGroup]="loginForm">
                 <div class="form-group mb-bottom">
                   <label for="email" class="overlay-text">Email Address</label>
-                  <input id="email" type="email" formControlName="email" name="username" class="form-control px-4">
+                  <input id="email" type="email" formControlName="email" name="username" class="form-control px-4" placeholder="Enter email address here">
                   <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
                 </div>
 
@@ -64,7 +64,7 @@
               <form *ngIf="currentForm === 'form2'" (submit)="onSendLinkToMail()" [formGroup]="activationLinkForm">
                 <div class="form-group mb-bottom">
                   <label for="activationEmail" class="overlay-text">Email Address</label>
-                  <input id="activationEmail" type="email" formControlName="activationEmail" name="username" class="form-control px-4">
+                  <input id="activationEmail" type="email" formControlName="activationEmail" name="username" class="form-control px-4" placeholder="Enter email address here">
                   <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
                 </div>
 
