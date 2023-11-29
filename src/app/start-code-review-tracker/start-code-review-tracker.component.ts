@@ -100,7 +100,11 @@ export class StartCodeReviewTrackerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((val: any) => {
       if (val) {
-        this.emailString = val.value
+        let emailListArr = val.value;
+        let emailListString = emailListArr.join(',');
+        console.log(emailListString);
+
+        this.emailString = emailListString;
         console.log(this.emailString);
         this.emailArray = this.emailString.split(',')
         console.log(this.emailArray)

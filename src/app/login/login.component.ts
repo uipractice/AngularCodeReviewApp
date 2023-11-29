@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
   auth_token = ''
   userRole: any
   public showPassword: boolean = false;
-  loginForm: any = FormGroup
-  activationLinkForm: any = FormGroup;
+  loginForm: FormGroup | any;
+  activationLinkForm: FormGroup | any;
   currentForm: string = 'form1';
   activationEmail: string = '';
 
@@ -38,12 +38,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
       password: new FormControl('', Validators.required)
     })
 
     this.activationLinkForm = new FormGroup({
-      activationEmail: new FormControl('', Validators.required),
+      activationEmail: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
     })
 
     this.renderer.addClass(document.body, 'hide-header');
