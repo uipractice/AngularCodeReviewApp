@@ -51,7 +51,7 @@
                   </mat-icon>
                 </div>
 
-                <button type="submit" class="btn-h full-btn blue not-allowed"
+                <button type="submit" class="btn-h full-btn blue not-allowed btnOnDisable"
                   [ngStyle]= "loginForm.invalid?{'background':'#ccc'}:{'background':'#219EBC'}"
                   [disabled]= "loginForm.invalid">Login
                 </button>
@@ -68,7 +68,7 @@
                   <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
                 </div>
 
-                <button type="submit" class="btn-h full-btn blue not-allowed"
+                <button type="submit" class="btn-h full-btn blue not-allowed btnOnDisable"
                   [ngStyle]= "activationLinkForm.invalid?{'background':'#ccc'}:{'background':'#219EBC'}"
                   [disabled]= "activationLinkForm.invalid">Submit
                 </button>

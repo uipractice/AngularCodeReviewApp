@@ -20,7 +20,7 @@
                   <label for="project" class="form-label">Technology Name <span class="red-dot"></span></label>
                   <input  type="text"  class="form-control"  id="project" formControlName="name"  />
                 </div>
-                <button class="button-all btn-outline mg-0 btn-tech-add" [disabled]="technologiesForm.invalid" (click)="addTechnology()">Add</button>
+                <button class="button-all btn-outline mg-0 btn-tech-add btnOnDisable" [disabled]="technologiesForm.invalid" (click)="addTechnology()">Add</button>
                 </form>
 
             <table mat-table [dataSource]="dataSource">

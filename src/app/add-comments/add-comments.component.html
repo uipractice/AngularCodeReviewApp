@@ -21,7 +21,7 @@
               <label for="enter-email" class="form-label">Email Address <span class="red-dot"></span></label>
               <input type="text" class="form-control" id="enter-email" placeholder="Enter email address here" [(ngModel)]="emailValue"/>
             </div>
-            <button class="send-report" (click)=" onClick(emailValue)" [disabled]="!emailValue">{{ data.popupExportBtn }}</button>
+            <button class="send-report btnOnDisable" (click)=" onClick(emailValue)" [disabled]="!emailValue">{{ data.popupExportBtn }}</button>
           </div>
           <span class="content1">To add multiple email address. Please separate with comma <span class="content2">“,”</span>.</span>
         </div>
@@ -30,8 +30,8 @@
         <form *ngIf="!data.popupExportBool">
           <div class="table-button flex-center delete-project">
             <button class="button-all btn-outline mg-0 delete-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool) || (data.popupDeleteBool)) || (data.popupEditMainQuestionBool)" (click)=" onClick({'key':textareaValue,'btnValue':'cancel'})">{{ data.popupCancelBtn }}</button>
-            <button class="button-all btn-blue mg-0 delete-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))" [disabled]="!textareaValue" (click)=" onClick({'key':textareaValue,'btnValue':'ok'})" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
-            <button class="button-all btn-blue mg-0 delete-box" *ngIf=" data.popupEditMainQuestionBool" [disabled]="!textareaValue" (click)=" onClick({'key':textareaValue,'btnValue':'edit'})" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box btnOnDisable" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))" [disabled]="!textareaValue" (click)=" onClick({'key':textareaValue,'btnValue':'ok'})" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box btnOnDisable" *ngIf=" data.popupEditMainQuestionBool" [disabled]="!textareaValue" (click)=" onClick({'key':textareaValue,'btnValue':'edit'})" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
             <button class="button-all btn-blue mg-0 delete-box" *ngIf="(data.popupDeleteBool)" (click)=" onClick('Yes')" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
           </div>
         </form>

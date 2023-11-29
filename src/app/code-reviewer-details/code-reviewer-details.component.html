@@ -70,7 +70,7 @@
                         />
                       </div>
                       <div class="mb-3 col-md-4 col-sm-12">
-                        <label for="reviewersName"  class="form-label">Reviewers Name <span class="red-dot"></span></label>
+                        <label for="reviewersName"  class="form-label reviewerNameLabel">Reviewers Name</label>
                         <input [readOnly]="true"
                         [ngStyle]="{'background-color':status=='completed'?'#71606026':''}"
                           type="text"
@@ -126,7 +126,7 @@
                       <span *ngIf="status=='completed'"> </span>
 
                       <button  class="button-all btn-outline mg-0" (click)="getBackDetails()">Cancel</button>
-                      <button class="button-all btn-blue mg-0"  [disabled]="codeReviewerForm.invalid"  (click)="submitReviewDetails()">Save</button>
+                      <button class="button-all btn-blue mg-0 btnOnDisable"  [disabled]="codeReviewerForm.invalid"  (click)="submitReviewDetails()">Save</button>
 
                     </div>
                 </form>
