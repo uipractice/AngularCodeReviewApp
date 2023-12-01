@@ -17,13 +17,14 @@
   <div class="details-body">
     <div class="container row">
 
-      <div class="left-content col-md-3 col-sm-4">
+      <!-- <div class="left-content"> -->
+      <div class="left-content col-md-2">
         <div class="checklist-details-box checklist-details">
           <div class="mb-3">
             <label for="checklist-heading" class="form-label">Checklist Heading <span class="red-dot"></span></label>
             <input type="text" class="form-control checklist-heading" id="checklist-heading"
               [(ngModel)]="checklistHeading"  placeholder="Enter checklist heading here" />
-            <button class="button-all btn-outline btn-add mg-0 btnOnDisable" [disabled]="checklistHeading ? false : true"(click)="addSideNavData()">Add</button>
+            <button class="button-all btn-outline btn-add mg-0 btnOnDisable btnAdd" [disabled]="checklistHeading ? false : true"(click)="addSideNavData()">Add</button>
           </div>
         </div>
 
@@ -34,7 +35,8 @@
         </div>
       </div>
 
-      <div class="right-content col-md-9 col-sm-8" >
+      <div class="right-content col-md-10" >
+      <!-- <div class="right-content"> -->
         <div class="row-heading" *ngIf="sideNavHeading">
           <div class="right-content1">{{sideNavHeading | capitalizeWords}} Checklist</div>
 
@@ -54,13 +56,15 @@
               <div class="logo-btns"*ngIf="tabCheckListData">
                 <button class="btn-outline btn-main-question btn-sub-question mg-0" (click)="addSubQuestionPopup(i)">Add Sub Question</button>
                 <span class="edit-btn"><a (click)="editQuestionPopup(i,tabData.key,tabData)"><img src="../assets/Edit_light.svg"
-                    alt="editIcon" title="edit"></a></span>
+                  alt="editIcon" title="edit"></a>
+                </span>
                 <span class="delete-btn"><a (click)="deletePopup(i)"><img src="../assets/trash-can.svg" alt="deleteIcon"
-                    title="delete"></a></span>
+                  title="delete"></a>
+                </span>
               </div>
             </div>
 
-            <!-- sub question data -->
+            <!-- // sub question data -->
             <div *ngIf="tabData.value">
             <div class="sub-question" *ngFor="let subChild of tabData.value;index as j">
               <div>
@@ -68,9 +72,11 @@
               </div>
               <div class="logo-btns">
                 <span class="edit-btn"><a (click)="editQuestionPopup(i,subChild.key,tabData,j)"><img src="../assets/Edit_light.svg" alt="editIcon"
-                      title="edit"></a></span>
+                    title="edit"></a>
+                </span>
                 <span class="delete-btn"><a (click)="deleteSubChildPopup(i,j,tabData.key)"><img src="../assets/trash-can.svg" alt="deleteIcon"
-                      title="delete"></a></span>
+                    title="delete"></a>
+                </span>
               </div>
             </div>
             </div>
