@@ -23,7 +23,7 @@
           <div class="mb-3">
             <label for="checklist-heading" class="form-label">Checklist Heading <span class="red-dot"></span></label>
             <input type="text" class="form-control checklist-heading" id="checklist-heading"
-              [(ngModel)]="checklistHeading"  placeholder="Enter checklist heading here" />
+              [(ngModel)]="checklistHeading"  placeholder="Enter checklist heading" />
             <button class="button-all btn-outline btn-add mg-0 btnOnDisable btnAdd" [disabled]="checklistHeading ? false : true"(click)="addSideNavData()">Add</button>
           </div>
         </div>
