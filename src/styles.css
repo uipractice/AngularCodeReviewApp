@@ -1560,8 +1560,8 @@ button[disabled] {
 }
 
 .details-body .row-content:last-child .main-question:last-child,
-.details-body .row-content:last-child  .sub-question:last-child,
-.details-body .left-content  li:last-child,
+.details-body .row-content:last-child .sub-question:last-child,
+.details-body .left-content li:last-child,
 .home-page .project-name:last-child {
   margin-bottom: 58px;
 }
@@ -2000,8 +2000,8 @@ button[disabled] {
 }
 
 .btnAdd {
-  width: 105%!important;
-  max-width: 100%!important;
+  width: 105% !important;
+  max-width: 100% !important;
 }
 
 .details-body .right-content {
@@ -2011,10 +2011,23 @@ button[disabled] {
 
 @media (min-width: 768px) {
   .col-md-10 {
-    width: 81.333333%!important;
+    /* width: 81.333333%!important; */
+    width: 77.2% !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-2 {
+    flex: 0 0 auto;
+    /* width: 20.666667%; */
+    width: 21.8%!important;
   }
 }
 
 .userManagement .mat-mdc-paginator {
   margin-bottom: 30px;
+}
+
+.checklist-details-parent-container .right-content .row-heading {
+  padding-left: 13px!important;
 }
