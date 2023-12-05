@@ -73,6 +73,8 @@ export class ChecklistDetailsComponent implements OnInit {
       'Authorization': `Bearer ${this.auth_token}`
     });
     this.codeService.getCompleteReviewTrackerDetails(headers, this.technologyId).subscribe((res: any) => {
+      console.log(res);
+      
       console.log(res.data[0].data);
       if (res.data.length) {
         this.updatedParentQuestionsData = res.data[0].data

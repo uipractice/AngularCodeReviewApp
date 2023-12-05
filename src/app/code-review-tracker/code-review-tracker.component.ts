@@ -100,7 +100,7 @@ export class CodeReviewTrackerComponent implements OnInit {
             let statusKey='isCompleted'
             this.selectelTabCheckList.value[i].value.forEach(element => {
               element[key]=false
-              element[statusKey]=false
+              element[statusKey]=true
               
             });
 
