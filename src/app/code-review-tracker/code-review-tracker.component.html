@@ -39,7 +39,7 @@
                     <div class="selection select-dropdown" *ngIf="selectelTabCheckList.value[i]?.options == '' || selectelTabCheckList.value[i]?.options">
                       <mat-label>Applicable <span class="line-top"></span></mat-label>
                       <mat-form-field>
-                        <mat-select  formControlName="options" (selectionChange)="getChildSelectedOption($event, 'child', i)">
+                        <mat-select [disabled]="true"  formControlName="options" (selectionChange)="getChildSelectedOption($event, 'child', i)">
                           <mat-option value="">Select</mat-option>
                           <mat-option [value]="opt" *ngFor="let opt of selectOptions">{{ opt }}</mat-option>
                         </mat-select>
@@ -64,7 +64,7 @@
 
                     <div *ngIf="selectelTabCheckList.value[i]?.comments == '' || selectelTabCheckList.value[i]?.comments">
                       <div class="Comment" (click)="openChildComments(i)">
-                        <img src="../assets/comment_light.svg" />
+                        <img src="../assets/comment_light.svg" alt="" />
                       </div>
                     </div>
                   </div>
@@ -106,7 +106,7 @@
                           </div>
                         </div>
                         <div class="Comment" (click)="openSubChildComments(j, i)">
-                          <img src="../assets/comment_light.svg" />
+                          <img src="../assets/comment_light.svg" alt="" />
                         </div>
                       </div>
                       <div class="questions"></div>
@@ -207,7 +207,6 @@
 
               <div class="table-button flex-center">
                 <button class="button-all btn-blue mg-bt save-btn" (click)="saveComments()">Submit</button>
-                <!-- <button class="button-all btn-blue mg-0 " >Save </button>-->
               </div>
             </form>
           </div>
@@ -234,9 +233,7 @@
                   <span class="">Review Completed</span></label>
               </div>
               <div class="table-button flex-center mg-bt">
-                <!-- <button class="button-all btn-blue mg-0">Submit</button>
-                    <button class="button-all btn-outline mg-0">Send Report</button>
-                -->
+                
                 <button class="button-all btn-outline mg-0 white-btn">Send Report</button>
                 <button class="button-all btn-blue mg-0" (click)="submitReport()">{{ completeCheckList }}</button>
               </div>

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CodeReviewService } from '../code-review.service';
-import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormControlName, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChecklistDetailsComponent } from '../checklist-detalis/checklist-detalis.component';
-import { TokenType } from '@angular/compiler';
 
 @Component({
   selector: 'app-code-review-tracker',
@@ -46,8 +44,8 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth_token = JSON.parse(localStorage.getItem('auth_token') || '{}');
-    this.projectDetails = JSON.parse(localStorage.getItem('projectDetails') || '{}');
+    this.auth_token = JSON.parse(localStorage.getItem('auth_token') ?? '{}');
+    this.projectDetails = JSON.parse(localStorage.getItem('projectDetails') ?? '{}');
     this.activatedRoute.paramMap.subscribe((res: any) => {
       this.status = res.params['status'];
       this.detailsId = res.params['id'];
@@ -80,7 +78,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     });
     //checklist questions with saved data
     this.codeService.getSavedCheckListData(headers, this.detailsId, this.reviewDetailsHeader).subscribe((res: any) => {
-      if (res.success == true && res.data.length != 0) {
+      if (res.success  && res.data.length != 0) {
         this.isDataAvailable = true;
         this.isLoaderActive = false;
         this.selectelTabCheckList = res.data[0].data[0];
@@ -176,28 +174,12 @@ export class CodeReviewTrackerComponent implements OnInit {
               achievedRating=achievedRating+checkList[i].value[j].achievedRating
 
             }
-  // (Total marks obtained / Total marks possible) x 100
 
            
 
           }
         
           
-          // let rating=0;
-          // let achievedRating=0
-          // if(checkList[i].value){
-          //   for(let j=0;j<checkList[i].value.length;j++){
-          //     rating=rating+ +checkList[i].value[j].rating
-          //     achievedRating=achievedRating+ +checkList[i].value[j].achievedRating
-          //   }
-
-          // }
-          // else{
-          //   rating=rating+ +checkList[i].rating
-          //   achievedRating=achievedRating+ +checkList[i].achievedRating
-
-          // }
-          // console.log('rating',rating,'achieved rating',achievedRating);
           
         }
         console.log(rating,achievedRating);
@@ -319,70 +301,20 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   saveCheckListData(valid: any) {
-    console.log('status', valid);
-    console.log(this.reviewTrackerForm);
-
+   
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.auth_token}`,
     });
     console.log(this.reviewDetailsHeader);
-
-    // let rating = 0;
-    // let achievedRating = 0;
-    // console.log(valid);
-
-    // console.log(this.reviewTrackerForm.value);
-    // let data = this.reviewTrackerForm.value.value;
-    // for (let i = 0; i < data.length; i++) {
-    //   if (data[i].value) {
-    //     console.log(data[i].value);
-
-    //     for (let j = 0; j < data[i].value.length; j++) {
-    //       rating = rating + +data[i].value[j].rating;
-    //       achievedRating = achievedRating + +data[i].value[j].achievedRating;
-    //     }
-    //   } else {
-    //     console.log(data[i].key);
-    //     console.log(data[i].rating);
-    //     rating = rating + +data[i].rating;
-    //     achievedRating = achievedRating + +data[i].achievedRating;
-    //   }
-    // }
-    // console.log('total rating', rating);
-    // console.log('total rating', achievedRating);
-    // let summaryObj = {
-    //   id: this.reviewDetailsHeader,
-    //   rating: rating,
-    //   achievedRating: achievedRating,
-    // };
-
-    // const existingObj = this.summaryArray.find((obj) => obj.id === summaryObj.id);
-
-    // if (existingObj) {
-    //   for (let i = 0; i < this.summaryArray.length; i++) {
-    //     if (this.summaryArray[i]['id'] == existingObj.id) {
-    //       this.summaryArray[i]['rating'] = summaryObj.rating;
-    //       this.summaryArray[i]['achievedRating'] = summaryObj.achievedRating;
-    //     }
-    //     console.log('existing summary array rating', this.summaryArray[i].rating);
-    //   }
-    // } else {
-    //   this.summaryArray.push(summaryObj);
-    // }
-
-    console.log('summary array', this.summaryArray);
     let saveJson = {
       data: [this.reviewTrackerForm.value],
       detailsId: this.detailsId,
       
     };
-
-    console.log('savejson', saveJson);
-
-    if (this.isDataAvailable == true) {
+    if (this.isDataAvailable) {
       this.codeService
         .updateCheckListData(saveJson, headers).subscribe((res: any) => {
-          if(res.success==true){
+          if(res.success){
             this.isLoaderActive=true
           console.log('submitted', res);
           setTimeout(()=>{
@@ -395,7 +327,7 @@ export class CodeReviewTrackerComponent implements OnInit {
       this.codeService
         .saveCheckListData(saveJson, headers)
         .subscribe((res: any) => {
-          if(res.success==true){
+          if(res.success){
             this.isLoaderActive=true
             console.log('submitted', res);
             setTimeout(()=>{
@@ -485,8 +417,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     if (rating.value == 'Yes') {
       childRatingControl.setValidators([Validators.required]);
       childAchievedControl.setValidators([Validators.required,
-        //  Validators.min(0),
-        //  Validators.max(5),
+      
         this.validateNumberRange,
         Validators.pattern('^[0-5]$'),
       ]);
@@ -496,8 +427,7 @@ export class CodeReviewTrackerComponent implements OnInit {
       childRatingControl.setValidators([Validators.required]);
       childAchievedControl.setValidators([
         Validators.required,
-        //  Validators.min(0),
-        //  Validators.max(5),
+      
         this.validateNumberRange,
         Validators.pattern('^[0-5]$'),
       ]);
@@ -507,8 +437,7 @@ export class CodeReviewTrackerComponent implements OnInit {
       childRatingControl.setValidators([Validators.required]);
       childAchievedControl.setValidators([
         Validators.required,
-        //  Validators.min(0),
-        //  Validators.max(5),
+       
         this.validateNumberRange,
         Validators.pattern('^[0-5]$'),
       ]);
@@ -549,13 +478,14 @@ export class CodeReviewTrackerComponent implements OnInit {
   }
 
   getChildSelectedOption(rating: any, name: any, index: number) {
+    console.log('child');
+    
     if (this.formData.at(index).get('options')?.value == ('Yes' || 'No' || 'NA') && this.formData.at(index).get('achievedRating')?.value == '') {
       this.isDisableSubmit = true;
     } else {
       this.isDisableSubmit = false;
     }
 
-    // if(rating.value==('Yes'||'No'||'NA')  ){
     if (this.formData.at(index).get('rating')?.valid && this.formData.at(index).get('achievedRating')?.valid) {
       this.ratingValue = false;
       this.achievedRatingValue = false;
@@ -563,7 +493,6 @@ export class CodeReviewTrackerComponent implements OnInit {
       this.ratingValue = true;
       this.achievedRatingValue = true;
     }
-    // }
 
     console.log('rating', rating);
 
@@ -669,18 +598,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     });
 
     this.showSummary = true;
-    // let rating = 0;
-    // let achievedRating = 0;
-    // for (let i = 0; i < this.summaryArray.length; i++) {
-    //   rating = rating + this.summaryArray[i].rating;
-    //   achievedRating = achievedRating + this.summaryArray[i].achievedRating;
-    // }
-   
-    // let totalAchievedRating = achievedRating * 100;
-    // let totalRating = totalAchievedRating / rating;
-    // let totalPercentage = totalRating;
-    // console.log('summary percentage', totalPercentage);
-    // this.summaryPercentage = totalPercentage.toFixed(2);
+  
 
     let finalSubmit = {
       detailsId: this.detailsId,

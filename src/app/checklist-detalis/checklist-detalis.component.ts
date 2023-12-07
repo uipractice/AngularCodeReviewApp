@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddCommentsComponent } from '../add-comments/add-comments.component';
-import { ModalData } from '../add-comments/add-comments.component';
+import { AddCommentsComponent,ModalData } from '../add-comments/add-comments.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpHeaders } from '@angular/common/http';
@@ -60,7 +59,7 @@ export class ChecklistDetailsComponent implements OnInit {
 
     this.auth_token = JSON.parse(localStorage.getItem('auth_token') || '{}')
     this.activatedRouter.paramMap.subscribe((res: any) => {
-      this.technologyId = res.params.id,
+      this.technologyId = res.params.id
         this.technologyName = res.params.techname
     })
     this.getSideNavData()
