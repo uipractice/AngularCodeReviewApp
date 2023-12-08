@@ -143,7 +143,7 @@ ul {
 .vertical-tabs .mat-mdc-tab-body-wrapper {
   position: absolute;
   width: 76%;
-  left: 22.5%;
+  left:340px;
   overflow: visible;
   top: 112px;
 }
@@ -711,8 +711,10 @@ ul {
   border-left: 1px solid #ededed;
   background: #fff;
   box-shadow: 2px 5px 8px 0px rgba(0, 0, 0, 0.12);
-  border-radius: 0px;
-  max-width: 302px;
+  border-radius:0px;
+  max-width:302px;
+  margin-top:-4px;
+  margin-left:-9px!important;;
 }
 
 .user-managment .mdc-data-table__header-cell {
