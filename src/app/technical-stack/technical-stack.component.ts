@@ -26,8 +26,9 @@ export class TechnicalStackComponent {
   constructor(private router:Router,private codeService:CodeReviewService,private fb:FormBuilder,private dialog:MatDialog){}
 
 
-  // displayedColumns: string[] = ['firstname', 'lastname', 'contact', 'email', 'status', 'action'];
+  // displayedColumns: string[] = ['technologyname'];
   displayedColumns: string[] = ['technologyname', 'Delete'];
+
 
   dataSource:any
 

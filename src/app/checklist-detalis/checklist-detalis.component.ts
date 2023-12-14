@@ -74,7 +74,6 @@ export class ChecklistDetailsComponent implements OnInit {
     this.codeService.getCompleteReviewTrackerDetails(headers, this.technologyId).subscribe((res: any) => {
       console.log(res);
       
-      console.log(res.data[0].data);
       if (res.data.length) {
         this.updatedParentQuestionsData = res.data[0].data
         this.checkListId = res.data[0]._id
@@ -93,6 +92,8 @@ export class ChecklistDetailsComponent implements OnInit {
     });
     this.codeService.getSideNav(this.technologyId, headers).subscribe((res: any) => {
       if (res.success == true && res.data) {
+        console.log(this.sideNavData);
+        
         this.sideNavData = res.data[0].leftNav
         this.leftNavId = res.data[0]._id
         console.log('sidenav List', res);
@@ -147,17 +148,23 @@ export class ChecklistDetailsComponent implements OnInit {
       "leftNav": this.checklistHeading,
       "leftNavId": this.leftNavId
     }
-    if (this.sideNavData) {
+    if (this.sideNavData!=undefined) {
       this.codeService.updateSideNav(updatetHeadingJson, headers).subscribe((res: any) => {
         if (res.success == true) {
+          console.log('updated left nav data');
+          
           this.getSideNavData()
           this.checklistHeading = ''
+          console.log(this.sideNavData);
+
         }
       })
     }
     else {
       this.codeService.postSideNav(checklistHeadingJson, headers).subscribe((res: any) => {
         if (res.success == true) {
+          console.log('posted left nav data');
+          
           this.getSideNavData()
           this.checklistHeading = ''
         }
@@ -218,6 +225,8 @@ export class ChecklistDetailsComponent implements OnInit {
           this.codeService.updateSideNav(deleteJson, headers).subscribe((res: any) => {
             if (res.success == true) {
               this.getSideNavData()
+              console.log('sidenav length',this.sideNavData);
+              
               this.onSelectSideNav(sectionName, 0)
 
               const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, sectionName)
@@ -230,6 +239,8 @@ export class ChecklistDetailsComponent implements OnInit {
                   technologiesId: this.technologyId
                 }
                 this.codeService.updateCheckListQuestions(updatedJson, headers).subscribe((res: any) => {
+                  console.log(this.sideNavData);
+                  
                   console.log(res);
                   this.getCompleteChecklist()
                 })
@@ -316,7 +327,7 @@ export class ChecklistDetailsComponent implements OnInit {
       this.addMainQuestion = val.value.key
       console.log(this.addMainQuestion);
       if (val.value.btnValue == 'ok') {
-        if (this.updatedParentQuestionsData.length == 0) {
+        if (this.updatedParentQuestionsData.length == 0 ) {
           const parentCheckListObjext = {
             key: this.addMainQuestion,
             options: '',
@@ -392,6 +403,7 @@ export class ChecklistDetailsComponent implements OnInit {
                 this.parentQuestionsData = []
                 console.log(res);
                 this.getTabCheckListData(this.sideNavHeading)
+                this.getCompleteChecklist()
               }
             })
           }
