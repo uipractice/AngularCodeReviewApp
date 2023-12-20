@@ -92,6 +92,7 @@ export class CodeReviewService {
   }
   getSideNav(techId: any, headers: any) {
     return this.http.get(`${this.baseUrl}/lefNavData?technologiesId=${techId}`, { headers })
+    
   }
   postSideNav(data: any, headers: any) {
     return this.http.post(`${this.baseUrl}/lefNavData`, data, { headers })

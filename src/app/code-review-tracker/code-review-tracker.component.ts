@@ -149,11 +149,12 @@ export class CodeReviewTrackerComponent implements OnInit {
   OnSelectTab(value:any){
     let rating=0
     let achievedRating=0
+    let labelValue=value.tab.textLabel
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.auth_token}`,
     });
     console.log(value.tab.textLabel);
-    if(value.tab.textLabel=='Summary'){
+    if(labelValue=='Summary'){
       this.showSummary=false
       this.codeService.getCompleteSavedCheckListData(headers, this.detailsId).subscribe((res:any)=>{
         console.log(res);
@@ -195,6 +196,9 @@ export class CodeReviewTrackerComponent implements OnInit {
 
         
       })
+    }
+    else if(labelValue=='Code Review'){
+      this.getReviewDetails()
     }
     
 
@@ -320,6 +324,7 @@ export class CodeReviewTrackerComponent implements OnInit {
           setTimeout(()=>{
             this.isLoaderActive=false
           },3000)
+          this.getReviewDetails()
 
           }
         });
@@ -333,6 +338,7 @@ export class CodeReviewTrackerComponent implements OnInit {
             setTimeout(()=>{
               this.isLoaderActive=false
             },1000)
+            this.getReviewDetails()
   
             }
         });
@@ -648,13 +654,7 @@ export class CodeReviewTrackerComponent implements OnInit {
     this.selectelTabCheckList.value[i].value[j].selected=!this.selectelTabCheckList.value[i].value[j].selected
   }
 
-  isNaN(value) {
-    if (value === 'number') {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  
 
   // (Total marks obtained / Total marks possible) x 100
   // (350/500)*100

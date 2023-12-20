@@ -30,7 +30,7 @@ export class ChecklistDetailsComponent implements OnInit {
   checkListId: any
   tabCheckListData: any
   isLoaderActive:boolean=false
-  updatedParentQuestionsData: any[] = []
+  updatedParentQuestionsData: any
   parentQuestionsData: Object[] = []
   childQuestionsData: Object[] = []
   completeCheckList: Object[] = []
@@ -65,6 +65,7 @@ export class ChecklistDetailsComponent implements OnInit {
     this.getSideNavData()
     this.postCheckListQuestionsData.technologiesId = this.technologyId
     this.getCompleteChecklist()
+    
   }
 
   getCompleteChecklist() {
@@ -100,6 +101,8 @@ export class ChecklistDetailsComponent implements OnInit {
         let sideNavFirstElement = res.data[0].leftNav[0]
         this.sideNavHeading = sideNavFirstElement
         this.getTabCheckListData(sideNavFirstElement)
+    console.log('sidenav length',this.sideNavData.length);
+
       }
     })
   }
@@ -148,14 +151,35 @@ export class ChecklistDetailsComponent implements OnInit {
       "leftNav": this.checklistHeading,
       "leftNavId": this.leftNavId
     }
+    const sectionDetails={
+      "key" : this.checklistHeading,
+      "value":[]
+    }
     if (this.sideNavData!=undefined) {
       this.codeService.updateSideNav(updatetHeadingJson, headers).subscribe((res: any) => {
         if (res.success == true) {
           console.log('updated left nav data');
           
-          this.getSideNavData()
-          this.checklistHeading = ''
           console.log(this.sideNavData);
+          this.updatedParentQuestionsData.push(sectionDetails)
+          console.log(this.postCheckListQuestionsData);
+          
+
+          const updatedSectionObj = {
+            data: this.updatedParentQuestionsData,
+            checkListQuestionsId: this.checkListId,
+            technologiesId: this.technologyId
+
+          }
+          this.codeService.updateCheckListQuestions( updatedSectionObj, headers).subscribe((res:any)=>{
+            if(res.success==true){
+              this.checklistHeading = ''
+              this.getCompleteChecklist()
+             this.getSideNavData()
+
+
+            }
+          })
 
         }
       })
@@ -164,14 +188,23 @@ export class ChecklistDetailsComponent implements OnInit {
       this.codeService.postSideNav(checklistHeadingJson, headers).subscribe((res: any) => {
         if (res.success == true) {
           console.log('posted left nav data');
+          this.postCheckListQuestionsData.data.push(sectionDetails)
+          console.log(this.postCheckListQuestionsData);
           
-          this.getSideNavData()
-          this.checklistHeading = ''
+          this.codeService.postCheckListQuestions(this.checkListId,this.checklistHeading, this.postCheckListQuestionsData, headers).subscribe((res:any)=>{
+            if(res.success==true){
+              this.checklistHeading = ''
+              this.getCompleteChecklist()
+              this.getSideNavData()
+
+            }
+          })
+          
+         
         }
       })
     }
   }
-
   deletePopup(index?: number, sectionName?: any, sideNavHeading?: any, childIndex?: number) {
     console.log('childIndex', childIndex);
     console.log(sideNavHeading);
@@ -224,13 +257,16 @@ export class ChecklistDetailsComponent implements OnInit {
           }
           this.codeService.updateSideNav(deleteJson, headers).subscribe((res: any) => {
             if (res.success == true) {
-              this.getSideNavData()
-              console.log('sidenav length',this.sideNavData);
+                this.getSideNavData()
+                console.log('sidenav length',this.sideNavData);
+              
               
               this.onSelectSideNav(sectionName, 0)
+              console.log(this.updatedParentQuestionsData);
+              
 
               const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, sectionName)
-              if (ifExistingKey != -1) {
+              if (ifExistingKey != -1 ) {
                 this.updatedParentQuestionsData.splice(ifExistingKey, 1)
                 console.log('deleted updated array', this, this.updatedParentQuestionsData);
                 let updatedJson = {
@@ -245,8 +281,11 @@ export class ChecklistDetailsComponent implements OnInit {
                   this.getCompleteChecklist()
                 })
               }
+             
             }
           })
+          console.log(this.updatedParentQuestionsData);
+          
         }
       }
       else {
@@ -254,6 +293,8 @@ export class ChecklistDetailsComponent implements OnInit {
       }
     })
   }
+
+ 
 
   deleteSubChildPopup(index: number, childIndex: number, parentKey?: string) {
     console.log(parentKey);
@@ -327,87 +368,30 @@ export class ChecklistDetailsComponent implements OnInit {
       this.addMainQuestion = val.value.key
       console.log(this.addMainQuestion);
       if (val.value.btnValue == 'ok') {
-        if (this.updatedParentQuestionsData.length == 0 ) {
-          const parentCheckListObjext = {
+        const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
+        if (ifExistingKey != -1) {
+          console.log(this.sideNavHeading, 'is there in the list');
+          const updatedParentCheckListObjext = {
             key: this.addMainQuestion,
             options: '',
             rating: '',
             achievedRating: '',
             comments: ''
           }
-          this.parentQuestionsData.push(parentCheckListObjext)
-          const parentWithKey = {
-            key: this.sideNavHeading,
-            value: this.parentQuestionsData
+          this.updatedParentQuestionsData[ifExistingKey].value.push(updatedParentCheckListObjext)
+          console.log('updated parent checklist array', this.updatedParentQuestionsData);
+          const updatedJsonObj = {
+            data: this.updatedParentQuestionsData,
+            checkListQuestionsId: this.checkListId,
+            technologiesId: this.technologyId
           }
-          this.postCheckListQuestionsData.data.push(parentWithKey)
-
-          console.log('created checklist parent object', this.postCheckListQuestionsData);
-
-          this.codeService.postCheckListQuestions(this.technologyId, this.sideNavHeading, this.postCheckListQuestionsData, headers).subscribe((res: any) => {
-            if (res.success == true) {
-              this.parentQuestionsData = []
-              console.log(res);
-              this.getCompleteChecklist()
-              this.getTabCheckListData(this.sideNavHeading)
-            }
+          this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
+            console.log(res);
+            this.getTabCheckListData(this.sideNavHeading)
           })
         }
-        else {
-          this.postCheckListQuestionsData.checkListQuestionsId = this.checkListId
-          const ifExistingKey = this.findIndexOfExistingKey(this.updatedParentQuestionsData, this.sideNavHeading)
-          if (ifExistingKey != -1) {
-            console.log(this.sideNavHeading, 'is there in the list');
-            const updatedParentCheckListObjext = {
-              key: this.addMainQuestion,
-              options: '',
-              rating: '',
-              achievedRating: '',
-              comments: ''
-            }
-            this.updatedParentQuestionsData[ifExistingKey].value.push(updatedParentCheckListObjext)
-            console.log('updated parent checklist array', this.updatedParentQuestionsData);
-            const updatedJsonObj = {
-              data: this.updatedParentQuestionsData,
-              checkListQuestionsId: this.checkListId,
-              technologiesId: this.technologyId
-            }
-            this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
-              console.log(res);
-              this.getTabCheckListData(this.sideNavHeading)
-            })
-          }
-          else {
-            const parentCheckListObjext = {
-              key: this.addMainQuestion,
-              options: '',
-              rating: '',
-              achievedRating: '',
-              comments: ''
-            }
-            this.parentQuestionsData.push(parentCheckListObjext)
-            const parentWithKey = {
-              key: this.sideNavHeading,
-              value: this.parentQuestionsData
-            }
-            this.updatedParentQuestionsData.push(parentWithKey)
-            const updatedJsonObj = {
-              data: this.updatedParentQuestionsData,
-              checkListQuestionsId: this.checkListId,
-              technologiesId: this.technologyId
-            }
-            console.log(updatedJsonObj);
-
-            this.codeService.updateCheckListQuestions(updatedJsonObj, headers).subscribe((res: any) => {
-              if (res.success == true) {
-                this.parentQuestionsData = []
-                console.log(res);
-                this.getTabCheckListData(this.sideNavHeading)
-                this.getCompleteChecklist()
-              }
-            })
-          }
-        }
+       
+     
       }
     })
 
@@ -423,7 +407,7 @@ export class ChecklistDetailsComponent implements OnInit {
     console.log(this.sideNavHeading);
 
     const sampleData: ModalData = {
-      popupHeaderTitle: 'Edit Main question',
+      popupHeaderTitle: 'Edit question',
       popupOkBtn: 'Add',
       popupCancelBtn: 'Cancel',
       popupEditMainQuestionBool: true,
@@ -500,7 +484,6 @@ export class ChecklistDetailsComponent implements OnInit {
       if (val.value.btnValue == 'ok') {
         console.log('parent key', this.tabCheckListData[i].key);
         let parentKey = this.tabCheckListData[i].key
-        //creation of subchild object
         let subChildJson = {
           key: this.addSubQuestion,
           options: '',

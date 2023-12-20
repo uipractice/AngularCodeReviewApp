@@ -29,7 +29,6 @@ import { CodereviewManagementComponent } from './codereview-management/coderevie
 import { AddCommentsComponent } from './add-comments/add-comments.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-//import {MatDialog} from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FooterComponent } from './footer/footer.component';
 import { TechnicalStackComponent } from './technical-stack/technical-stack.component';

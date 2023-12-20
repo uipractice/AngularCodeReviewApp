@@ -214,10 +214,10 @@
           <div class="details-main" *ngIf="showSummary == true">
             <form class="details-box">
               <div class="main-sonar border-b-none">
-                <div class="row">
+                <div class="row"  >
                   <h2 class="code-percentage">Code Review</h2>
-                  <h1>{{ summaryPercentage }}%</h1>
-                  <mat-progress-bar mode="determinate" value="{{ summaryPercentage }}"></mat-progress-bar>
+                  <h1>{{summaryPercentage>0?summaryPercentage:0 }}%</h1>
+                  <mat-progress-bar mode="determinate" value="{{ summaryPercentage>0?summaryPercentage:0 }}"></mat-progress-bar>
 
                   <div class="mb-3 col-md-12 col-sm-12 overall-comments">
                     <label for="account" class="form-label">Overall Comments:</label>
@@ -225,6 +225,7 @@
                     </textarea>
                   </div>
                 </div>
+               
               </div>
 
               <div>
