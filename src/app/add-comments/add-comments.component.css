@@ -17,9 +17,6 @@ padding:7px 21px;
 /* --------------------------------------------------------------------- */
 /* MODAL STYLES
 -------------------------------*/
-cr-modal {
-  display: none;
-
   .cr-modal {
       position: fixed;
       inset: 0;
@@ -35,8 +32,6 @@ cr-modal {
       padding: 20px;
       background: #fff;
   }
-}
-
 .cr-modal-open .delete-popup .cr-modal-body {
   width: 450px;
 }
