@@ -50,10 +50,10 @@ export class CreateChecklistComponent implements OnInit {
     })
   }
   cancelTechCreation(){
-    this.router.navigate(['/header/codereview-managment'])
+    this.router.navigate(['/header/admin/codereview-managment'])
   }
 
   navigateToAdminPage() {
-    this.router.navigate(['/header/checklist-details',this.technologyName, this.technologiesId])
+    this.router.navigate(['/header/admin/checklist-details',this.technologyName, this.technologiesId])
   }
 }

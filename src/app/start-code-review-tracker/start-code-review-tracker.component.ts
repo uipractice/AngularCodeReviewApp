@@ -81,11 +81,11 @@ export class StartCodeReviewTrackerComponent implements OnInit {
   onViewSubmittedDetails(rowData: any) {
     console.log(rowData);
     localStorage.setItem('projectDetails', JSON.stringify(rowData))
-    this.router.navigate(['header/codeReviewTracker', rowData._id, rowData.status])
+    this.router.navigate(['header/user/codeReviewTracker', rowData._id, rowData.status])
   }
 
   gettingStarted() {
-    this.router.navigate(['header/codeReviewerDetails'])
+    this.router.navigate(['header/user/codeReviewerDetails'])
   }
 
   exportPopup(row: any) {
@@ -93,7 +93,7 @@ export class StartCodeReviewTrackerComponent implements OnInit {
       popupHeaderTitle: 'Send Code Review Report',
       popupExportBtn: 'Send Report',
       popupExportBool: true
-    }
+    } 
     const dialogRef = this.dialog.open(AddCommentsComponent, {
       data: sampleData
     })

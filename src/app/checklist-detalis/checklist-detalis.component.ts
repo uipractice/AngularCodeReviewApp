@@ -108,7 +108,7 @@ export class ChecklistDetailsComponent implements OnInit {
   }
 
   saveCheckListData() {
-    this.router.navigate(['/header/codereview-managment'])
+    this.router.navigate(['/header/admin/codereview-managment'])
   }
 
   onSelectSideNav(heading: any, index: number) {

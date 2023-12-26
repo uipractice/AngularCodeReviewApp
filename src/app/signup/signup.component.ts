@@ -70,7 +70,7 @@ export class SignupComponent implements OnInit {
 
     this.codeService.createUser(userData, headers).subscribe((res: any) => {
       console.log(res);
-      this.router.navigate(['/header/startCodeReviewTracker'])
+      this.router.navigate(['/header/admin/user-management'])
 
     })
 
@@ -82,7 +82,7 @@ export class SignupComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/header/user-management'])
+    this.router.navigate(['/header/admin/user-management'])
   }
 }
 

@@ -32,13 +32,13 @@ export class CodereviewManagementComponent  implements OnInit{
   }
   navigateCCheckListPage(name:string,id:any){
     console.log('name',name,'id',id);
-    this.router.navigate(['/header/checklist-details',name,id])
+    this.router.navigate(['/header/admin/checklist-details',name,id])
     
 
   }
 
   CreateChecklist(){
-    this.router.navigate(['/header/create-checklist'])
+    this.router.navigate(['/header/admin/create-checklist'])
   }
 
 }

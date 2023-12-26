@@ -3,22 +3,16 @@
     <div class="table-button top-heading">
     <h1>Code Review Management</h1>
     <div class="search">
-      <!-- <div class="form-group has-search">
-        <span class="fa fa-search form-control-feedback"></span>
-        <input type="text" class="form-control" placeholder="Search">
-        <img class="icon-serch" src="../assets/Search.svg" alt="Search icon" title="Search">
-      </div> -->
+     
     <button (click)="CreateChecklist()"  class="button-all btn-blue mg-0">Create New Checklist</button>
     </div>
   </div>
 
-    <!-- (click)="create-checklist" -->
 
 <div class="project-name" *ngFor="let tech of technologyList">
   <div class="project" >
    <h6><span>Technology Name</span>{{tech.name | capitalizeWords}}</h6>
       <ul class="icons-view">
-      <!--<li><img title="view page" alt="View" src="../assets/view.svg"></li> -->
       <li (click)="navigateCCheckListPage(tech.name,tech._id)"><img title="view page" alt="View" src="../assets/File_dock_light.svg"></li>
       <li><img title="Delete Framework" alt="View" src="../assets/trash-can-l.svg"></li>
     </ul>
