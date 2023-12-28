@@ -11,6 +11,12 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -27,7 +33,14 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatToolbarModule,
         MatButtonModule,
         MatInputModule,
-    MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatMenuModule,
+        MatPaginatorModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatDialogModule,
+        MatProgressBarModule,
+
 
 
     ]

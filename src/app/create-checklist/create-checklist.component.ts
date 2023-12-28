@@ -18,6 +18,8 @@ export class CreateChecklistComponent implements OnInit {
   auth_token:any
   technologies:any
   technologyForm:any=FormGroup
+  technologiesId:any
+  technologyName:any
   constructor(private codeService:CodeReviewService,private fb:FormBuilder,private router:Router){}
 
   ngOnInit(){
@@ -26,6 +28,14 @@ export class CreateChecklistComponent implements OnInit {
     this.technologyForm=this.fb.group({
       technology:new FormControl('',Validators.required)
     })
+  }
+
+  getTechId(techId:any){
+    this.technologiesId=techId.value._id
+    console.log('tech ID ',this.technologiesId);
+    this.technologyName=techId.value.name
+    console.log('tech Name ',this.technologyName);
+
   }
 
   getTechnology(){
@@ -40,10 +50,10 @@ export class CreateChecklistComponent implements OnInit {
     })
   }
   cancelTechCreation(){
-    this.router.navigate(['/header/user-management'])
+    this.router.navigate(['/header/admin/codereview-managment'])
   }
 
   navigateToAdminPage() {
-    this.router.navigate(['/header/checklist-details'])
+    this.router.navigate(['/header/admin/checklist-details',this.technologyName, this.technologiesId])
   }
 }

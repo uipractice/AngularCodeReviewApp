@@ -1,84 +1,68 @@
-<div class="main-body grey-bg user-managment">
+<div class="main-body grey-bg user-managment technical-stack">
   <div class="container">
 
+    <div class="table-button top-heading">
+      <h1 style="font-size: 1.25rem;">Technical Stack</h1>
+     
+    </div>
 
-        <div class="table-button top-heading">
-          <h1 style="font-size: 1.25rem;">Technical Stack</h1>
-          <!-- <div>
-          <button class="button-all btn-blue mg-0" (click)="createUser()">Create New User</button>
-        </div> -->
+    <mat-spinner class="center spinn" *ngIf="isLoaderActive"></mat-spinner>
+    <div class="mat-elevation-z8" *ngIf="!isLoaderActive">
+      <div class="main-tech">
+        <h2>Technologies</h2>
+        <form class="row Project-details details-box" [formGroup]="technologiesForm">
+          <div class="mb-3 col-md-10 col-sm-12 right-Name">
+            <label for="project" class="form-label">Technology Name <span class="red-dot"></span></label>
+            <input  type="text"  class="form-control"  id="project" formControlName="name"  />
           </div>
-        <mat-spinner *ngIf="isLoaderActive"></mat-spinner>
+          <button class="button-all btn-outline mg-0 btn-tech-add btnOnDisable" [disabled]="technologiesForm.invalid" (click)="addTechnology()">Add</button>
+        </form>
 
+        <table  mat-table [dataSource]="dataSource">
 
-          <div class="mat-elevation-z8" *ngIf="!isLoaderActive">
-            <div class="main-tech">
-              <h2>Technologies</h2>
+          <!-- Position Column -->
+          <ng-container matColumnDef="technologyname">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Technology Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name | capitalizeWords}} </td>
+          </ng-container>
 
-              <form class="row Project-details details-box" [formGroup]="technologiesForm">
-                <div class="mb-3 col-md-10 col-sm-12 right-Name">
-                  <label for="project" class="form-label">Technology Name <span class="red-dot"></span></label>
-                  <input  type="text"  class="form-control"  id="project" formControlName="name"  />
-                </div>
-                <button class="button-all btn-outline mg-0 btn-tech-add" [disabled]="technologiesForm.invalid" (click)="addTechnology()">Add</button>
-                </form>
+          <!-- Name Column -->
+          <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Actions</th>
+            <td mat-cell *matCellDef="let element"  (click)="onDeleteTechnology(element)"><img src="../assets/trash-can.svg" alt="Trash icon" title="Delete Technology"> </td>
+          </ng-container>
 
-            <table mat-table [dataSource]="dataSource">
+          <!-- Weight Column -->
 
-              <!-- Position Column -->
-              <ng-container matColumnDef="technologyname">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Technology Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                <!-- <td mat-cell *matCellDef="let element"> {{element.firstName}} </td> -->
-              </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="email">
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
 
-              <!-- Name Column -->
-              <ng-container matColumnDef="Delete">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Actions</th>
-              <td mat-cell *matCellDef="let element"><img src="../assets/trash-can.svg" alt="Trash icon" title="Delete Technology"> </td>
-              </ng-container>
+          <ng-container matColumnDef="contact">
+            <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
+          </ng-container>
 
-              <!-- Weight Column -->
+          <ng-container matColumnDef="status">
+            <td mat-cell *matCellDef="let element"><mat-slide-toggle>Inactive</mat-slide-toggle>
+            </td>
+          </ng-container>
 
+          <ng-container matColumnDef="action">
+            <td mat-cell *matCellDef="let element" class="btn-de">
+             
+              <mat-slide-toggle>Basic User</mat-slide-toggle>
+            </td>
+          </ng-container>
 
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="email">
-              <!-- <th mat-header-cell *matHeaderCellDef> Email Address </th>-->
-                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-              </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-              <ng-container matColumnDef="contact">
-                <!-- <th mat-header-cell *matHeaderCellDef> Password </th> -->
-                <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
-              </ng-container>
+        </table>
 
-               <ng-container matColumnDef="status">
-                <!-- <th mat-header-cell *matHeaderCellDef>Status </th> -->
-                <td mat-cell *matCellDef="let element"><mat-slide-toggle>Inactive</mat-slide-toggle>
-                </td>
-              </ng-container>
+      
+      </div>
+    </div>
 
-              <ng-container matColumnDef="action">
-                <!-- <th mat-header-cell *matHeaderCellDef>Role</th> -->
-                <td mat-cell *matCellDef="let element" class="btn-de">
-                  <!-- <button><img width="20px" alt="edit icon" title="edit icon" src="../assets/edit.svg"> </button>
-                  <button><img width="20px" alt="delete icon" title="delete icon" src="../assets/trash-can.svg"> </button> -->
-                  <mat-slide-toggle>Basic User</mat-slide-toggle>
-
-                </td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-
-         <!--   <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                           showFirstLastButtons
-                           aria-label="Select page of periodic elements">
-            </mat-paginator>-->
-
-          </div>
-        </div>
-
-</div>
+  </div>
 </div>

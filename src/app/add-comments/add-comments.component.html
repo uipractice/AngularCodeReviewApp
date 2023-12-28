@@ -1,25 +1,44 @@
-<div class="dialog-card main-cards ">
-  <mat-dialog-content class="mat-typography">
+<div class="cr-modal">
+  <div class="cr-modal-body">
 
-        <span class="close" mat-button mat-dialog-close><img alt="close btn"src="../assets/close-popup.svg" /></span>
+    <div [ngClass] = "data.popupDeleteBool? 'dialog-card main-cards delete-popup': 'add-question-popup'">
+      <mat-dialog-content class="mat-typography">
+        <div [ngClass] = "data.popupExportBool? 'export-header': 'checklist-header'">
+          <span><strong [ngClass] = "data.popupExportBool? 'export-header-title': 'comment-question'">{{ data.popupHeaderTitle }}</strong></span>
+          <span *ngIf="!data.popupExportBool" class="close-btn" mat-button mat-dialog-close><img alt="close btn" src="../assets/close-popup.svg" /></span>
+          <span *ngIf="data.popupExportBool" class="close-btn" mat-button mat-dialog-close><img alt="close btn" src="../assets/close-btn-white.svg" /></span>
+        </div>
+        <hr *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool) || ((data.popupEditMainQuestionBool)))">
 
+        <div class="main-question-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool) || (data.popupEditMainQuestionBool))">
+          <label for="enter-question" class="form-label">Question Text </label>
+          <textarea type="text" class="form-control" id="enter-question" placeholder="Enter question here" [(ngModel)]="textareaValue"></textarea>
+        </div>
 
-        <strong class="comment-question">Do you really want to delete?</strong>
-        <!--<hr class="line-grey"> -->
-
-        <form>
-
-          <div class="table-button flex-center delete-project">
-            <button  class="button-all btn-outline mg-0 delete-box" (click)=" onClick('No')">Cancel</button>
-            <button class="button-all btn-blue mg-0 delete-box"  (click)=" onClick('Yes')" style="margin-left: 20px;">Delete</button>
-
+        <form [formGroup]="exportForm" (ngSubmit)="onExport()">
+          <div class="export-popup" *ngIf="data.popupExportBool">
+            <div class="export-popup-content" >
+              <div class="export-email-box">
+                <label for="enter-email" class="form-label">Email Address <span class="red-dot"></span></label>
+                <input type="email" class="form-control" id="enter-email" placeholder="Enter email address here" formControlName="emailList"/>
+              </div>
+              <button class="send-report btnOnDisable" type="submit" [disabled]="(exportForm.invalid)">{{ data.popupExportBtn }}</button>
+            </div>
+            <span class="content1">To add multiple email address. Please separate with comma <span class="content2">“,”</span>.</span>
           </div>
-
-          </form>
-
-
-  </mat-dialog-content>
+        </form>
 
 
+        <form *ngIf="!data.popupExportBool">
+          <div class="table-button flex-center delete-project">
+            <button class="button-all btn-outline mg-0 delete-box" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool) || (data.popupDeleteBool)) || (data.popupEditMainQuestionBool)" (click)=" onClick({'key':textareaValue,'btnValue':'cancel'})">{{ data.popupCancelBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box btnOnDisable" *ngIf="((data.popupAddMainQuestionBool) || (data.popupAddSubQuestionBool))" [disabled]="!textareaValue" (click)=" onClick({'key':textareaValue,'btnValue':'ok'})" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box btnOnDisable" *ngIf=" data.popupEditMainQuestionBool" [disabled]="!textareaValue" (click)=" onClick({'key':textareaValue,'btnValue':'edit'})" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+            <button class="button-all btn-blue mg-0 delete-box" *ngIf="(data.popupDeleteBool)" (click)=" onClick('Yes')" style="margin-left: 20px;">{{ data.popupOkBtn }}</button>
+          </div>
+        </form>
+      </mat-dialog-content>
+    </div>
   </div>
+</div>
 

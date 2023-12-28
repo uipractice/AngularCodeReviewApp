@@ -23,40 +23,37 @@
               </div>
               <div class="mb-3 col-md-4 col-sm-12">
                 <label for="developers" class="form-label">Last Name <span class="red-dot"></span></label>
-                  <input formControlName="lastName" type="text"  required="" class="form-control px-4 text-primary">
+                  <input formControlName="lastName" type="text"  required="" class="form-control px-4 ">
               </div>
               <div class="mb-3 col-md-4 col-sm-12">
                 <label for="developers" class="form-label">Email Address <span class="red-dot"></span></label>
-                <input formControlName="email" type="email"  required="" class="form-control px-4 text-primary">
+                <input formControlName="email" type="email"  required="" class="form-control px-4 ">
             </div>
 
           <div class="mb-3 col-md-4 col-sm-12">
             <label for="developers" class="form-label">Password <span class="red-dot"></span></label>
-            <input formControlName="password" type="password"  required="" class="form-control px-4 text-primary">
+            <input formControlName="password" type="password"  required="" class="form-control px-4 ">
         </div>
 
           <div class="mb-3 col-md-4 col-sm-12">
             <label for="developers" class="form-label">Confirm Password <span class="red-dot"></span></label>
-            <input formControlName="password" type="password" required="" class="form-control px-4 text-primary">
+            <input formControlName="password" type="password" required="" class="form-control px-4 ">
         </div>
-        <!-- <div class="mb-3 col-md-4 col-sm-12">
-          <label for=""></label>
-          <mat-slide-toggle (change)="isAdmin($event)">{{role}}</mat-slide-toggle>
-      </div> -->
+      
       <div class="mb-3 col-md-4 col-sm-12">
         <label for="storyId" class="form-label">Role <span class="red-dot"></span></label>
 
       <mat-select (selectionChange)="onSelectRole($event.value)"  class="form-control"
       formControlName="role"  >
-        <mat-option value="user" >user </mat-option>
-        <mat-option value="admin" >admin </mat-option>
+        <mat-option value="user" >User </mat-option>
+        <mat-option value="admin" >Admin </mat-option>
 
       </mat-select>
       </div>
 
       <div class="center">
-      <button class="button-all btn-outline mg-0">Cancel</button>
-      <button class="button-all btn-blue mg-0" [disabled]="signupForm.invalid">Create User</button>
+      <button class="button-all btn-outline mg-0" (click)="onCancel()">Cancel</button>
+      <button class="button-all btn-blue mg-0 btnOnDisable" [disabled]="signupForm.invalid">Create New</button>
     </div>
 
           </form>

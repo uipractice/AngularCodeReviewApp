@@ -1,4 +1,4 @@
-<div class="main-body grey-bg user-managment">
+<div class="main-body grey-bg user-managment userManagement">
   <div class="container">
 
 
@@ -8,7 +8,7 @@
           <button class="button-all btn-blue mg-0" (click)="createUser()">Create New User</button>
         </div>
           </div>
-        <mat-spinner *ngIf="isLoaderActive"></mat-spinner>
+        <mat-spinner class="center spinn" *ngIf="isLoaderActive"></mat-spinner>
 
           <div class="mat-elevation-z8" *ngIf="!isLoaderActive">
             <table mat-table [dataSource]="dataSource">
@@ -16,13 +16,13 @@
               <!-- Position Column -->
               <ng-container matColumnDef="firstname">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> First Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.firstName | capitalizeWords}} </td>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="lastname">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Last Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.lastName | capitalizeWords}} </td>
               </ng-container>
 
               <!-- Weight Column -->
@@ -34,14 +34,10 @@
                 <td mat-cell *matCellDef="let element"> {{element.email}} </td>
               </ng-container>
 
-              <ng-container matColumnDef="contact">
-                <th mat-header-cell *matHeaderCellDef> Password </th>
-                <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
-              </ng-container>
 
                <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef>Status </th>
-                <td mat-cell *matCellDef="let element"><mat-slide-toggle [checked]=" getStatus(element)" (change)="updateActiveStatus(element,$event)">{{status}}</mat-slide-toggle>
+                <td mat-cell *matCellDef="let element"><mat-slide-toggle [checked]=" getStatus(element)" (change)="updateActiveStatus(element,$event)">{{status | capitalizeWords}}</mat-slide-toggle>
                 </td>
               </ng-container>
 
@@ -50,7 +46,7 @@
                 <td mat-cell *matCellDef="let element" class="btn-de">
                   <!-- <button><img width="20px" alt="edit icon" title="edit icon" src="../assets/edit.svg"> </button>
                   <button><img width="20px" alt="delete icon" title="delete icon" src="../assets/trash-can.svg"> </button> -->
-                  <mat-slide-toggle [checked]="getToggle(element)" (change)="updateRole(element,$event)" > {{element.role}}</mat-slide-toggle>
+                  <mat-slide-toggle [checked]="getToggle(element)" (change)="updateRole(element,$event)" > {{element.role | capitalizeWords}}</mat-slide-toggle>
 
                 </td>
               </ng-container>

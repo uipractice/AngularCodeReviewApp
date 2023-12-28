@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { CodeReviewService } from '../code-review.service';
 import { HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AddCommentsComponent } from '../add-comments/add-comments.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -21,11 +23,12 @@ export class TechnicalStackComponent {
   technologiesForm:any=FormGroup
   isLoaderActive:boolean=false
 
-  constructor(private router:Router,private codeService:CodeReviewService,private fb:FormBuilder){}
+  constructor(private router:Router,private codeService:CodeReviewService,private fb:FormBuilder,private dialog:MatDialog){}
 
 
-  // displayedColumns: string[] = ['firstname', 'lastname', 'contact', 'email', 'status', 'action'];
+  // displayedColumns: string[] = ['technologyname'];
   displayedColumns: string[] = ['technologyname', 'Delete'];
+
 
   dataSource:any
 
@@ -76,6 +79,35 @@ export class TechnicalStackComponent {
 
     })
 
+
+  }
+
+  onDeleteTechnology(element){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    console.log('delete tech',element._id);
+    const dialogRef= this.dialog.open(AddCommentsComponent,{
+      data: {
+        popupHeaderTitle: 'Do you really want to delete?',
+        popupOkBtn: 'Delete',
+        popupCancelBtn: 'Cancel',
+        popupDeleteBool: true
+      }})
+    dialogRef.afterClosed().subscribe((res:any)=>{
+      if(res.value=='Yes'){
+        this.codeService.deleteTechnologies(headers,element._id).subscribe((res:any)=>{
+          console.log(res);
+          this.getTechnologyList()
+        })
+      }
+      else if(res.value=='No'){
+        console.log('Cancelled deletion');
+        
+      }
+      
+    })
+    
 
   }
 

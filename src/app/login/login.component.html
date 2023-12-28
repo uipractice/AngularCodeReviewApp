@@ -4,67 +4,95 @@
       <div class="col-md-6 d-none d-md-flex bg-image">
         <div class="left-login">
           <a class="logo login-logo"><img title="Logo" alt="log" height="35" src="../assets/Evoke_logo.png"></a>
-        <div class="heading-text"> <h1>Empowering Code Excellence. Seamless Reviews. Stronger Code, Brighter Future.</h1></div>
+        <div class="heading-text"> <h1>Empowering Code Excellence. <br/>
+           Seamless Reviews.
+           <br/>Stronger Code, Brighter Future.</h1></div>
 
         <div class="login-footer">
           <!-- <p>Designed & Developed by Evoke Technologies Pvt Ltd © 2023.</p> -->
           <ul>
-            <li>All Rights Reserved</li>
-            <li>|</li>
-            <li>Beta v.1.0</li>
+            <li>Evoke Technologies Pvt Ltd © 2023 All Rights Reserved</li>
+            <!--<li>|</li>
+            <li>Beta v.1.0</li> -->
           </ul>
           <span class="feedback">Provide feedback</span>
-         </div>
+        </div>
       </div>
+    </div>
+
+    <!-- The content half -->
+    <div class="col-md-6 bg-white">
+      <a href="index.html#default" class="logo m-logo"><img title="Logo" alt="log" height="35"
+          src="../assets/Evoke_logo.png"></a>
+      <div class="login d-flex align-items-center py-5">
+
+        <!-- Demo content-->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 col-xl-7 mx-auto">
+              <strong *ngIf="currentForm === 'form1'" class="sign-title">Sign in to your Account</strong>
+              <strong *ngIf="currentForm === 'form2'" class="sign-title">Forgot Password</strong>
+
+              <form *ngIf="currentForm === 'form1'" (submit)="onSubmit()" [formGroup]="loginForm">
+                <div class="form-group mb-bottom">
+                  <label for="email" class="overlay-text">Email Address</label>
+                  <input id="email" type="email" formControlName="email" name="username" class="form-control px-4" placeholder="Enter email address here">
+                  <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
+                </div>
+
+                <div class="form-group mb-bottom">
+                  <label class="overlay-text">Password</label>
+                  <input id="inputPassword" formControlName="password" [type]="showPassword ? 'text' : 'password'"
+                    placeholder="Password" name="password" class="form-control px-4 text-primary">
+                  <img class="icon-login" src="../assets/Lock_light.svg" alt="Lock icon" title="Lock">
+                  <!-- <img class="icon-view" src="../assets/View_light.svg" alt="view" title="view">-->
+                  <mat-icon class="icon-view" matSuffix (click)="togglePasswordVisibility()">
+                    {{showPassword?'visibility_off':'visibility'}}
+                  </mat-icon>
+                </div>
+
+                <button type="submit" class="btn-h full-btn blue not-allowed btnOnDisable"
+                  [ngStyle]= "loginForm.invalid?{'background':'#ccc'}:{'background':'#219EBC'}"
+                  [disabled]= "loginForm.invalid">Login
+                </button>
+
+                <div class="remeber">
+                </div>
+              </form>
 
 
-      </div>
+              <form *ngIf="currentForm === 'form2'" (submit)="onSendLinkToMail()" [formGroup]="activationLinkForm">
+                <div class="form-group mb-bottom">
+                  <label for="activationEmail" class="overlay-text">Email Address</label>
+                  <input id="activationEmail" type="email" formControlName="activationEmail" name="username" class="form-control px-4" placeholder="Enter email address here">
+                  <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
+                </div>
 
-      <!-- The content half -->
-      <div class="col-md-6 bg-white">
-        <a href="index.html#default" class="logo m-logo"><img title="Logo" alt="log" height="35" src="../assets/Evoke_logo.png"></a>
-          <div class="login d-flex align-items-center py-5">
+                <button type="submit" class="btn-h full-btn blue not-allowed btnOnDisable"
+                  [ngStyle]= "activationLinkForm.invalid?{'background':'#ccc'}:{'background':'#219EBC'}"
+                  [disabled]= "activationLinkForm.invalid">Submit
+                </button>
+              </form>
 
+              <div *ngIf="currentForm === 'form3'">
+                <strong class="forgot-title">Forgot Password</strong>
+                <div class="form-group mb-bottom">
+                  <span>An email has been sent your email id. Please click the link to reset your password.</span>
+                </div>
+                <button type="submit" class="btn-backToLogin full-btn blue not-allowed" (click)="routeToLogin()">Back To Login
+                </button>
+              </div>
 
+              <div class="forgot-pwd">
+                <a *ngIf="currentForm === 'form1'" class="forgot-pwd-link" (click)="showForm('form2')">Forgot Password?</a>
+              </div>
 
-              <!-- Demo content-->
-              <div class="container">
-                  <div class="row">
-                      <div class="col-lg-10 col-xl-7 mx-auto">
-                          <strong class="sign-title">Sign in to your Account</strong>
-
-                          <form (submit)="onSubmit()" [formGroup]="loginForm">
-                              <div class="form-group mb-bottom">
-                                <label class="overlay-text">Email Address</label>
-                                  <input id="inputEmail" type="email" formControlName="email"  name="username" class="form-control px-4">
-                                  <img class="icon-login" src="../assets/Message_light.svg" alt="Message icon" title="Message">
-                                </div>
-                              <div class="form-group mb-bottom">
-
-                                <label class="overlay-text">Password</label>
-                                  <input id="inputPassword" formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password"  name="password" class="form-control px-4 text-primary">
-                                  <img class="icon-login" src="../assets/Lock_light.svg" alt="Lock icon" title="Lock">
-                                  <!-- <img class="icon-view" src="../assets/View_light.svg" alt="view" title="view">-->
-
-                                  <mat-icon class="icon-view" matSuffix (click)="togglePasswordVisibility()">
-                                    {{showPassword?'visibility_off':'visibility'}}
-                                </mat-icon>
-                                </div>
-
-                              <button type="submit"  class="full-btn blue not-allowed" [ngStyle]="loginForm.invalid?{'background':'#92c4d0'}:{'background':'#219EBC'}" [disabled]="loginForm.invalid">Login</button>
-<div class="remeber">
-
-
-
-                            </div>
-                          </form>
-
-                      </div>
-                  </div>
-              </div><!-- End -->
-
+            </div>
           </div>
-      </div><!-- End -->
+        </div>
+
+      </div>
+    </div>
 
   </div>
 </div>

@@ -1,44 +1,9 @@
-<!-- <div class="main-body grey-bg">
-  <div class="container">
-        <div class="table-button details-main top-heading ">
-          <h1 style="font-size: 1.25rem;">Create New Checklist</h1>
-          <ul class="pagination">
-            <li><a href="">Home</a></li>
-            <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-            <li><a href="">Code Review Management</a></li>
-            <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
-            <li>Create New Checklist</li>
-          </ul>
-          </div>
-          <div class="details-main">
-          <form class="row details-box">
-
-
-          <div class="mb-3 col-md-4 col-sm-12">
-            <section class="example-section">
-              <mat-checkbox class="example-margin" [(ngModel)]="Sonarqube">Sonar Qube</mat-checkbox>
-            </section>
-        </div>
-
-      <div class="center">
-      <button class="button-all btn-outline mg-0">Cancel</button>
-      <button class="button-all btn-blue mg-0">Create User</button>
-    </div>
-
-          </form>
-      </div>
-
-  </div>
-</div>
--->
-
-<div class="main-body grey-bg">
+<div class="main-body grey-bg pd-20 create-checklist-main">
   <div class="container">
 
-
-    <div class="table-button details-main top-heading">
+    <div class="table-button details-main top-heading check-list-top">
       <div>
-        <h1 style="font-size: 1.25rem;">Create New Checklist</h1>
+        <h1>Create New Checklist</h1>
         <ul class="pagination">
           <li><a href="">Dashboard</a></li>
           <li><img src="../assets/icon-arrow-right.svg" alt="arrow icon" title="arrow"></li>
@@ -55,46 +20,21 @@
         <div class=" d-flex justify-content-center" [formGroup]="technologyForm">
           <div class="mb-3 col-md-4 col-sm-12">
             <label for="storyId" class="form-label">Technology Name <span class="red-dot"></span></label>
-            <mat-select class="form-control" formControlName="technology">
-              <mat-option [value]="tech.name" *ngFor="let tech of technologies">
-                {{tech.name}}
+            <mat-select class="form-control" formControlName="technology" (selectionChange)="getTechId($event)">
+              <mat-option [value]="tech" *ngFor="let tech of technologies">
+                {{tech.name | capitalizeWords}}
               </mat-option>
             </mat-select>
           </div>
         </div>
-
-        <!-- <div class="col-md-12 d-flex justify-content-center">
-                      <div class="mb-3 col-md-4 col-sm-12 ">
-                        <label for="storyId" class="form-label">Technical Stack <span class="red-dot"></span></label>
-                      <mat-select class="form-control"
-                      formControlName="Hello world"  >
-                        <mat-option>
-                          Hello world
-                        </mat-option>
-                      </mat-select>
-                      </div>
-                    </div> -->
-
-
-
-
-
-
         <div class="table-button flex-center">
-
-
           <div class="center">
             <button class="button-all btn-outline mg-0" (click)="cancelTechCreation()">Cancel</button>
-            <button class="button-all btn-blue mg-0" [disabled]="technologyForm.invalid"
+            <button class="button-all btn-blue mg-0 btnOnDisable" [disabled]="technologyForm.invalid"
               (click)="navigateToAdminPage()">Create New</button>
           </div>
-
-
-
-
         </div>
       </form>
-
 
     </div>
   </div>
