@@ -51,7 +51,7 @@ export class CodeReviewerDetailsComponent implements OnInit {
 
 
 getBackDetails(){
-  this.router.navigate(['header/startCodeReviewTracker'])
+  this.router.navigate(['header/user/startCodeReviewTracker'])
 }
 onNavigateDashboard(){
   this.router.navigate(['header/startCodeReviewTracker'])
@@ -103,7 +103,7 @@ submitReviewDetails(){
     });
     this.codeService.postReviewDetails(data,headers).subscribe((res:any)=>{
         console.log(res);
-      this.router.navigate(['header/startCodeReviewTracker'])
+      this.router.navigate(['header/user/startCodeReviewTracker'])
 
     })
  

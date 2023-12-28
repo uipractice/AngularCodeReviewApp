@@ -404,7 +404,7 @@ export class CodeReviewTrackerComponent implements OnInit {
         });
     }
 
-    this.router.navigate(['header/startCodeReviewTracker']);
+    this.router.navigate(['header/user/startCodeReviewTracker']);
   }
 
   get formData(): FormArray {

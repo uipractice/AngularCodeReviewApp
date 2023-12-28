@@ -12,8 +12,8 @@ const routes: Routes = [
   { path: 'resetPassword/:authToken', component: ResetPasswordComponent },
   {
     path: 'header', component: HeaderComponent, children: [
-      { path: '', redirectTo: 'startCodeReviewTracker', pathMatch: 'full' },
-      { path: 'startCodeReviewTracker', component: StartCodeReviewTrackerComponent },
+      // { path: '', redirectTo: 'startCodeReviewTracker', pathMatch: 'full' },
+      // { path: 'startCodeReviewTracker', component: StartCodeReviewTrackerComponent },
       {path:'user',loadChildren:()=>import('./user/user-routing.module').then(m=>m.UserRoutingModule)},
       {path:'admin',loadChildren:()=>import('./admin/admin-routing.module').then(m=>m.AdminRoutingModule)},
 

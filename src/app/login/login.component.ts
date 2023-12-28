@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
         this.getUserDetails()
 
         // this.router.navigate(['/startCodeReviewTracker'])
-        this.router.navigate(['/header'])
+        this.router.navigate(['/header/user'])
       }
     })
   }

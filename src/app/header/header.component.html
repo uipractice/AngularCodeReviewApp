@@ -2,7 +2,7 @@
 <a routerLink="/startCodeReviewTracker" class="logo"><img title="Logo" alt="log" src="../assets/Evoke_logo.png"></a>
 
 <ul class="menu" *ngIf="userRole=='admin'">
-<li><a  (click)="onClick(1)" [ngClass]="{ active: tab === 'tab1' }"  class="list" routerLink="/header/startCodeReviewTracker"  href="">Dashboard</a></li>
+<li><a  (click)="onClick(1)" [ngClass]="{ active: tab === 'tab1' }"  class="list" routerLink="/header/user/startCodeReviewTracker"  href="">Dashboard</a></li>
 <li><a  (click)="onClick(2)" [ngClass]="{ active: tab === 'tab2' }"   class="list" routerLink="/header/admin/user-management" href="">User management</a></li>
 <li><a  (click)="onClick(3)" [ngClass]="{ active: tab === 'tab3' }"   class="list" mat-button [matMenuTriggerFor]="menu" routerLink="/header/admin/codereview-managment" href="">Code Review Management <mat-icon>keyboard_arrow_down</mat-icon></a></li>
 
